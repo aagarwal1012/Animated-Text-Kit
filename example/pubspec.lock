@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.31.2-alpha.2"
+  animated_text_kit:
+    dependency: "direct dev"
+    description:
+      path: ".."
+      relative: true
+    source: path
+    version: "0.0.1"
   args:
     dependency: transitive
     description:

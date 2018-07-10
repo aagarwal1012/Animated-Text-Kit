@@ -1,3 +1,6 @@
 library animated_text_kit;
 
-class AnimatedTextKit {}
+export 'src/typer.dart';
+
+class AnimatedTextKit {
+}

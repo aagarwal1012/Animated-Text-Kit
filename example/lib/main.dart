@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 void main() => runApp(new MyApp());
 
@@ -44,7 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: new Center(),
+      body: new Center(
+        child: Typer(
+          text: ["Ayush Agarwal", "Superman jwfnscn", "Batman nndwknjdskjn"],
+          duration: Duration(milliseconds: 4000),
+          textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+        ),
+      ),
     );
   }
 }

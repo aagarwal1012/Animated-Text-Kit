@@ -10,6 +10,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  animated_text_kit:
+    path: ../
 
 flutter:
 
