@@ -1,6 +1,4 @@
 library animated_text_kit;
 
 export 'src/typer.dart';
-
-class AnimatedTextKit {
-}
+export 'src/rotating_text.dart';
