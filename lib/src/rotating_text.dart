@@ -165,54 +165,69 @@ class _RotatingTextState extends State<RotatingText>
     for (int i = 0; i < widget.text.length; i++) {
       if (i == 0) {
         textWidgetList.add(
-            Align(
-              alignment: _slideOut[i].value,
-              child: Opacity(
-                opacity: _fadeOut[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle,
-                ),
-              ),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child){
+                return Align(
+                  alignment: _slideOut[i].value,
+                  child: Opacity(
+                    opacity: _fadeOut[i].value,
+                    child: Text(
+                      widget.text[i],
+                      style: widget.textStyle,
+                    ),
+                  ),
+                );
+              },
             )
         );
       }
       else if (i < widget.text.length - 1) {
         textWidgetList.add(
-            AlignTransition(
-              alignment: !(_slideIn[i].value.y == 0.0)
-                  ? _slideIn[i - 1]
-                  : _slideOut[i],
-              child: Opacity(
-                opacity: !(_fadeIn[i].value == 1.0)
-                    ? _fadeIn[i - 1].value
-                    : _fadeOut[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle,
-                ),
-              ),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child){
+                return AlignTransition(
+                  alignment: !(_slideIn[i].value.y == 0.0)
+                      ? _slideIn[i - 1]
+                      : _slideOut[i],
+                  child: Opacity(
+                    opacity: !(_fadeIn[i].value == 1.0)
+                        ? _fadeIn[i - 1].value
+                        : _fadeOut[i].value,
+                    child: Text(
+                      widget.text[i],
+                      style: widget.textStyle,
+                    ),
+                  ),
+                );
+              },
             )
         );
       }
       else {
         textWidgetList.add(
-            Align(
-              alignment: _slideIn[i - 1].value,
-              child: Opacity(
-                opacity: _fadeIn[i - 1].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle,
-                ),
-              ),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child){
+                return Align(
+                  alignment: _slideIn[i - 1].value,
+                  child: Opacity(
+                    opacity: _fadeIn[i - 1].value,
+                    child: Text(
+                      widget.text[i],
+                      style: widget.textStyle,
+                    ),
+                  ),
+                );
+              },
             )
         );
       }
     }
 
     return SizedBox(
-      height: 40.0,
+      height: 80.0,
       child: Stack(
         children: textWidgetList,
       ),
