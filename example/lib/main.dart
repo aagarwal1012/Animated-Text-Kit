@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body: new Center(
-        child: Typer(
+        child: RotatingText(
           text: ["Ayush Agarwal", "Superman", "Batman"],
           duration: Duration(milliseconds: 10000),
           textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
