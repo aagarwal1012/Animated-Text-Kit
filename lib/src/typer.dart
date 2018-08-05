@@ -56,7 +56,6 @@ class _TyperState extends State<Typer> with SingleTickerProviderStateMixin {
                       curve: Curves.linear)
               )
           )
-            ..addListener(() => setState(() => {}))
       );
 
       _fadeOut.add(
@@ -68,7 +67,6 @@ class _TyperState extends State<Typer> with SingleTickerProviderStateMixin {
                       (percentTimeCount + percentTime), curve: Curves.easeIn)
               )
           )
-            ..addListener(() => setState(() => {}))
       );
 
       percentTimeCount += percentTime;
