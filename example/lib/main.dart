@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new Center(
         child: RotatingText(
-          text: ["Ayush Agarwal", "Superman", "Batman"],
+          text: ["Ant Man", "Superman", "Batman"],
           duration: Duration(milliseconds: 5000),
           textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
         ),
