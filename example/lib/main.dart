@@ -47,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new Center(
         child: Typer(
-          text: ["Ayush Agarwal", "Superman", "Batman"],
-          duration: Duration(milliseconds: 10000),
+          text: ["Antman", "Superman", "Batman"],
+          duration: Duration(milliseconds: 5000),
           textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
         ),
       ),
