@@ -92,8 +92,11 @@ class _TypewriterState extends State<Typewriter>
                 opacity: _fadeOut[i].value,
                 child: Builder(
                   builder: (BuildContext context) {
-                    String visibleString = widget.text[i].substring(0)+ "_";
-                    if(_typewriterText[i].value > widget.text[i].length){
+                    String visibleString = widget.text[i];
+                    if(_typewriterText[i].value == 0){
+                      visibleString = "";
+                    }
+                    else if(_typewriterText[i].value > widget.text[i].length){
                       if((_typewriterText[i].value - widget.text[i].length) % 2 == 0){
                         visibleString = widget.text[i].substring(0, widget.text[i].length) + " _";
                       }
