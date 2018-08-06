@@ -8,7 +8,7 @@ class Typer extends StatefulWidget {
 
   const Typer({
     Key key,
-    this.text,
+    @required this.text,
     this.textStyle,
     this.duration}) : super(key: key);
 
