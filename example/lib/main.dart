@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new Center(
         child: SizedBox(
           width: 200.0,
-          child: RotateAnimatedTextKit(
+          child: FadeAnimatedTextKit(
             text: ["Ant Man", "Superman", "Batman"],
             duration: Duration(milliseconds: 5000),
             textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
