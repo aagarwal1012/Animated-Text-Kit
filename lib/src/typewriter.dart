@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Typewriter extends StatefulWidget {
+class TypewriterAnimatedTextKit extends StatefulWidget {
 
   final List<String> text;
   final TextStyle textStyle;
   Duration duration;
 
-  Typewriter({
+  TypewriterAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
@@ -27,7 +27,7 @@ class Typewriter extends StatefulWidget {
   _TypewriterState createState() => new _TypewriterState();
 }
 
-class _TypewriterState extends State<Typewriter>
+class _TypewriterState extends State<TypewriterAnimatedTextKit>
     with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
