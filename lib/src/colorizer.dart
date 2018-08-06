@@ -32,11 +32,18 @@ class _RotatingTextState extends State<ColorizerAnimatedTextKit>
   void initState() {
     super.initState();
 
+    colorsTemp = widget.colors;
+
     _controller = new AnimationController(
       duration: widget.duration,
       vsync: this,
     )
-      ..repeat();
+    ..addStatusListener((status){
+      if(status == AnimationStatus.completed){
+        colorsTemp = colorsTemp.reversed.toList();
+      }
+    });
+      _controller..repeat();
 
     _colorShifter = Tween(begin: 0.0, end: widget.colors.length * 200.0)
         .animate(
@@ -44,7 +51,6 @@ class _RotatingTextState extends State<ColorizerAnimatedTextKit>
 
     );
 
-    colorsTemp = widget.colors;
   }
 
 
@@ -67,11 +73,7 @@ class _RotatingTextState extends State<ColorizerAnimatedTextKit>
           Shader linearGradient = LinearGradient(
               colors: colorsTemp
           ).createShader(Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0));
-
-          if(_colorShifter.value == 500.0*widget.colors.length){
-            colorsTemp.reversed;
-          }
-
+          //TODO : synchronize colors
           return Text(
             widget.text,
                 style: widget.textStyle != null ?

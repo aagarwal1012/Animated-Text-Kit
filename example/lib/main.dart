@@ -47,6 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               width: 200.0,
@@ -62,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 text: "Text Gradient",
                 textStyle: TextStyle(
                     fontSize: 24.0, fontWeight: FontWeight.bold),
-                duration: Duration(milliseconds: 5000),
+                duration: Duration(milliseconds: 2000),
                 colors: [
                   Colors.purple,
                   Colors.blue,
