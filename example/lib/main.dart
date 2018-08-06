@@ -41,18 +41,40 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+
+    final Shader linearGradient = LinearGradient(
+      colors: <Color>[
+        Colors.purple,
+        Colors.blue,
+        Colors.red,
+      ],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 2000.0, 0.0));
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
       body: new Center(
-        child: SizedBox(
-          width: 200.0,
-          child: FadeAnimatedTextKit(
-            text: ["Ant Man", "Superman", "Batman"],
-            duration: Duration(milliseconds: 5000),
-            textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: 200.0,
+              child: FadeAnimatedTextKit(
+                text: ["Ant Man", "Superman", "Batman"],
+                duration: Duration(milliseconds: 5000),
+                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+              ),
+            ),
+          new Text(
+              'Gradient Text sckcjb',
+            style: TextStyle(
+              fontSize: 40.0,
+              fontWeight: FontWeight.bold,
+              foreground: Paint()..shader = linearGradient,
+            ),
           ),
+
+          ],
         ),
       ),
     );
