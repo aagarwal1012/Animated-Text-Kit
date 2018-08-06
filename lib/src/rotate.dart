@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RotatingText extends StatefulWidget {
+class RotateAnimatedTextKit extends StatefulWidget {
 
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
 
-  const RotatingText({
+  const RotateAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
@@ -17,7 +17,7 @@ class RotatingText extends StatefulWidget {
   _RotatingTextState createState() => new _RotatingTextState();
 }
 
-class _RotatingTextState extends State<RotatingText>
+class _RotatingTextState extends State<RotateAnimatedTextKit>
     with SingleTickerProviderStateMixin {
 
   AnimationController _controller;

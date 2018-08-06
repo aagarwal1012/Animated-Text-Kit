@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Typer extends StatefulWidget {
+class TyperAnimatedTextKit extends StatefulWidget {
 
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
 
-  const Typer({
+  const TyperAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
@@ -17,7 +17,7 @@ class Typer extends StatefulWidget {
   _TyperState createState() => new _TyperState();
 }
 
-class _TyperState extends State<Typer> with SingleTickerProviderStateMixin {
+class _TyperState extends State<TyperAnimatedTextKit> with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
 
