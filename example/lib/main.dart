@@ -41,15 +41,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-
-    final Shader linearGradient = LinearGradient(
-      colors: <Color>[
-        Colors.purple,
-        Colors.blue,
-        Colors.red,
-      ],
-    ).createShader(Rect.fromLTWH(0.0, 0.0, 2000.0, 0.0));
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -65,14 +56,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
               ),
             ),
-          new Text(
-              'Gradient Text sckcjb',
-            style: TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.bold,
-              foreground: Paint()..shader = linearGradient,
-            ),
-          ),
+            SizedBox(
+              width: 200.0,
+              child: ColorizerAnimatedTextKit(
+                text: "Text Gradient",
+                textStyle: TextStyle(
+                    fontSize: 24.0, fontWeight: FontWeight.bold),
+                duration: Duration(milliseconds: 5000),
+                colors: [
+                  Colors.purple,
+                  Colors.blue,
+                  Colors.red,
+                ],
+              ),
+            )
 
           ],
         ),

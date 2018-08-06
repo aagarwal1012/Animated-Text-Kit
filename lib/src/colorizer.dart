@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ColorizerAnimatedTextKit extends StatefulWidget {
 
-  final List<String> text;
+  final String text;
+  final List<Color> colors;
   final TextStyle textStyle;
   final Duration duration;
 
@@ -10,6 +11,7 @@ class ColorizerAnimatedTextKit extends StatefulWidget {
     Key key,
     @required this.text,
     this.textStyle,
+    this.colors,
     this.duration}) : super(key: key);
 
 
@@ -22,10 +24,9 @@ class _RotatingTextState extends State<ColorizerAnimatedTextKit>
 
   AnimationController _controller;
 
-  List<Animation<double>> _fadeIn = [];
-  List<Animation<double>> _fadeOut = [];
+  Animation<double> _colorShifter;
 
-  List<Widget> textWidgetList = [];
+  List<Color> colorsTemp;
 
   @override
   void initState() {
@@ -37,37 +38,13 @@ class _RotatingTextState extends State<ColorizerAnimatedTextKit>
     )
       ..repeat();
 
-    int lengthList = widget.text.length;
+    _colorShifter = Tween(begin: 0.0, end: widget.colors.length * 200.0)
+        .animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeIn)
 
-    double percentTime = 1.0 / lengthList;
-    double fadeTime = 1.0 / (lengthList * 3);
+    );
 
-    for (int i = 0; i < widget.text.length; i++) {
-      _fadeIn.add(
-          Tween<double>(begin: 0.0, end: 1.0)
-              .animate(
-              CurvedAnimation(parent: _controller,
-                  curve: Interval(
-                      (i * percentTime),
-                      (i * percentTime)+ fadeTime,
-                      curve: Curves.easeOut
-                  )
-              )
-          )
-      );
-      _fadeOut.add(
-          Tween<double>(begin: 1.0, end: 0.0)
-              .animate(
-              CurvedAnimation(parent: _controller,
-                  curve: Interval(
-                      ((i + 1) * percentTime) - fadeTime,
-                      ((i + 1) * percentTime),
-                      curve: Curves.easeIn
-                  )
-              )
-          )
-      );
-    }
+    colorsTemp = widget.colors;
   }
 
 
@@ -80,28 +57,28 @@ class _RotatingTextState extends State<ColorizerAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget child) {
-              return Opacity(
-                opacity: !(_fadeIn[i].value == 1.0)
-                    ? _fadeIn[i].value
-                    : _fadeOut[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle,
-                ),
-              );
-            },
-          )
-      );
     }
 
     return SizedBox(
       height: 80.0,
-      child: Stack(
-        children: textWidgetList,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget child) {
+          Shader linearGradient = LinearGradient(
+              colors: colorsTemp
+          ).createShader(Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0));
+
+          if(_colorShifter.value == 500.0*widget.colors.length){
+            colorsTemp.reversed;
+          }
+
+          return Text(
+            widget.text,
+                style: widget.textStyle != null ?
+                widget.textStyle.merge(TextStyle(foreground: Paint()..shader = linearGradient)) :
+                widget.textStyle,
+          );
+        },
       ),
     );
   }
