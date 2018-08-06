@@ -46,10 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body: new Center(
-        child: Typewriter(
-          text: ["Ant Man", "Superman", "Batman"],
-          duration: Duration(milliseconds: 15000),
-          textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+        child: SizedBox(
+          width: 200.0,
+          child: Typewriter(
+            text: ["Ant Man", "Superman", "Batman"],
+            textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+          ),
         ),
       ),
     );

@@ -4,13 +4,23 @@ class Typewriter extends StatefulWidget {
 
   final List<String> text;
   final TextStyle textStyle;
-  final Duration duration;
+  Duration duration;
 
-  const Typewriter({
+  Typewriter({
     Key key,
-    this.text,
+    @required this.text,
     this.textStyle,
-    this.duration}) : super(key: key);
+    this.duration}) : super(key: key) {
+    if(duration == null){
+      int totalCharacters = 0;
+
+      for (int i = 0; i < text.length; i++) {
+        totalCharacters += (text[i].length + 8);
+      }
+
+      duration = Duration(milliseconds: (totalCharacters * 5000 / 15).toInt());
+    }
+  }
 
 
   @override
@@ -93,19 +103,24 @@ class _TypewriterState extends State<Typewriter>
                 child: Builder(
                   builder: (BuildContext context) {
                     String visibleString = widget.text[i];
-                    if(_typewriterText[i].value == 0){
+                    if (_typewriterText[i].value == 0) {
                       visibleString = "";
                     }
-                    else if(_typewriterText[i].value > widget.text[i].length){
-                      if((_typewriterText[i].value - widget.text[i].length) % 2 == 0){
-                        visibleString = widget.text[i].substring(0, widget.text[i].length) + " _";
+                    else if (_typewriterText[i].value > widget.text[i].length) {
+                      if ((_typewriterText[i].value - widget.text[i].length) %
+                          2 == 0) {
+                        visibleString =
+                            widget.text[i].substring(0, widget.text[i].length) +
+                                " _";
                       }
-                      else{
-                        visibleString = widget.text[i].substring(0, widget.text[i].length);
+                      else {
+                        visibleString =
+                            widget.text[i].substring(0, widget.text[i].length);
                       }
                     }
-                    else{
-                      visibleString = widget.text[i].substring(0, _typewriterText[i].value)+ "_";
+                    else {
+                      visibleString = widget.text[i].substring(
+                          0, _typewriterText[i].value) + "_";
                     }
                     return Text(
                       visibleString,
