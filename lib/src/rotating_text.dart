@@ -8,7 +8,7 @@ class RotatingText extends StatefulWidget {
 
   const RotatingText({
     Key key,
-    this.text,
+    @required this.text,
     this.textStyle,
     this.duration}) : super(key: key);
 
