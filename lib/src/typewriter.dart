@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TypewriterAnimatedTextKit extends StatefulWidget {
 
   final List<String> text;
@@ -18,7 +19,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
         totalCharacters += (text[i].length + 8);
       }
 
-      duration = Duration(milliseconds: (totalCharacters * 5000 / 15).toInt());
+      duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
     }
   }
 
