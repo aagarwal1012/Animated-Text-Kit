@@ -46,13 +46,58 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body: new Center(
-        child: SizedBox(
-          width: 200.0,
-          child: FadeAnimatedTextKit(
-            text: ["Ant Man", "Superman", "Batman"],
-            duration: Duration(milliseconds: 5000),
-            textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 200.0,
+              child: FadeAnimatedTextKit(
+                text: ["Ant Man", "Superman", "Batman"],
+                duration: Duration(milliseconds: 5000),
+                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+              ),
+            ),
+            SizedBox(
+              width: 200.0,
+              child: RotateAnimatedTextKit(
+                text: ["Ant Man", "Superman", "Batman"],
+                duration: Duration(milliseconds: 5000),
+                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+              ),
+            ),
+            SizedBox(
+              width: 200.0,
+              child: TyperAnimatedTextKit(
+                text: ["Ant Man", "Superman", "Batman"],
+                duration: Duration(milliseconds: 10000),
+                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+              ),
+            ),
+            SizedBox(
+              width: 200.0,
+              child: TypewriterAnimatedTextKit(
+                text: ["Ant Man", "Superman", "Batman"],
+                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
+              ),
+            ),
+            /// colors.length >= 2
+            SizedBox(
+              width: 200.0,
+              child: ColorizeAnimatedTextKit(
+                text: ["Ant Man", "Superman", "Batman"],
+                textStyle: TextStyle(
+                    fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black),
+                colors: [
+                  Colors.purple,
+                  Colors.blue,
+                  Colors.yellow,
+                  Colors.red,
+                ],
+              ),
+            )
+
+          ],
         ),
       ),
     );
