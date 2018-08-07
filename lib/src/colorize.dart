@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ColorizerAnimatedTextKit extends StatefulWidget {
+class ColorizeAnimatedTextKit extends StatefulWidget {
 
   final String text;
   final List<Color> colors;
   final TextStyle textStyle;
   final Duration duration;
 
-  const ColorizerAnimatedTextKit({
+  const ColorizeAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
@@ -19,7 +19,7 @@ class ColorizerAnimatedTextKit extends StatefulWidget {
   _RotatingTextState createState() => new _RotatingTextState();
 }
 
-class _RotatingTextState extends State<ColorizerAnimatedTextKit>
+class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
