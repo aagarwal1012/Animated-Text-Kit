@@ -28,27 +28,25 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
   List<Color> colorsTemp;
 
+  double _tuning;
+
   @override
   void initState() {
     super.initState();
 
     colorsTemp = widget.colors;
 
+    _tuning = (300.0 * widget.colors.length) * (widget.textStyle.fontSize / 24.0) * 0.75;
+
     _controller = new AnimationController(
       duration: widget.duration,
       vsync: this,
     )
-    ..addStatusListener((status){
-      if(status == AnimationStatus.completed){
-        colorsTemp = colorsTemp.reversed.toList();
-      }
-    });
-      _controller..repeat();
+      ..repeat();
 
-    _colorShifter = Tween(begin: 0.0, end: widget.colors.length * 200.0)
+    _colorShifter = Tween(begin: 0.0, end: widget.colors.length * _tuning)
         .animate(
         CurvedAnimation(parent: _controller, curve: Curves.easeIn)
-
     );
 
   }
@@ -62,6 +60,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
+
     for (int i = 0; i < widget.text.length; i++) {
     }
 

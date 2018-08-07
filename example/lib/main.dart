@@ -87,10 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 text: "Text Gradient",
                 textStyle: TextStyle(
                     fontSize: 24.0, fontWeight: FontWeight.bold),
-                duration: Duration(milliseconds: 2000),
+                duration: Duration(milliseconds: 4000),
                 colors: [
                   Colors.purple,
                   Colors.blue,
+                  Colors.yellow,
                   Colors.red,
                 ],
               ),
