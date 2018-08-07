@@ -98,11 +98,8 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
       );
     }
 
-    return SizedBox(
-      height: 80.0,
-      child: Stack(
-        children: textWidgetList,
-      ),
+    return Stack(
+      children: textWidgetList,
     );
   }
 }
