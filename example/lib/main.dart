@@ -81,13 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
               ),
             ),
+            /// colors.length >= 2
             SizedBox(
               width: 200.0,
               child: ColorizeAnimatedTextKit(
                 text: ["Ant Man", "Superman", "Batman"],
                 textStyle: TextStyle(
-                    fontSize: 24.0, fontWeight: FontWeight.bold),
-                duration: Duration(milliseconds: 10000),
+                    fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black),
                 colors: [
                   Colors.purple,
                   Colors.blue,
