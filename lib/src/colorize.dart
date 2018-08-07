@@ -22,6 +22,8 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
 class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
 
+  Duration _duration;
+
   AnimationController _controller;
 
   List<Widget> _textWidgetList = [];
@@ -37,11 +39,6 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _controller = new AnimationController(
-      duration: widget.duration,
-      vsync: this,
-    )
-      ..repeat();
 
     int lengthList = widget.text.length;
 
@@ -50,6 +47,16 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     for (int i = 0; i < lengthList; i++) {
       totalCharacters += widget.text[i].length;
     }
+
+    int durationInMilliSeconds = (1500 * totalCharacters / 3).toInt();
+    _duration = Duration(milliseconds: durationInMilliSeconds);
+
+    _controller = new AnimationController(
+      duration: _duration,
+      vsync: this,
+    )
+      ..repeat();
+
 
     double percentTimeCount = 0.0;
 
