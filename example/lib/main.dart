@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             SizedBox(
               width: 200.0,
-              child: FadeAnimatedTextKit(
+              child: RotateAnimatedTextKit(
                 text: ["Ant Man", "Superman", "Batman"],
                 duration: Duration(milliseconds: 5000),
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(
               width: 200.0,
-              child: RotateAnimatedTextKit(
+              child: FadeAnimatedTextKit(
                 text: ["Ant Man", "Superman", "Batman"],
                 duration: Duration(milliseconds: 5000),
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),

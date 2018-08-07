@@ -49,7 +49,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       if (i == 0) {
         _slideIn.add(
             AlignmentTween(
-              begin: Alignment(0.0, -1.0), end: new Alignment(0.0, 0.0),
+              begin: Alignment(-1.0, -1.0), end: new Alignment(-1.0, 0.0),
             ).animate(
                 CurvedAnimation(
                     parent: _controller,
@@ -76,7 +76,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       else {
         _slideIn.add(
             AlignmentTween(
-              begin: Alignment(0.0, -1.0), end: new Alignment(0.0, 0.0),
+              begin: Alignment(-1.0, -1.0), end: new Alignment(-1.0, 0.0),
             ).animate(
                 CurvedAnimation(
                     parent: _controller,
@@ -102,7 +102,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       }
       _slideOut.add(
           AlignmentTween(
-            begin: Alignment(0.0, 0.0), end: new Alignment(0.0, 1.0),
+            begin: Alignment(-1.0, 0.0), end: new Alignment(-1.0, 1.0),
           ).animate(
               CurvedAnimation(
                   parent: _controller,
