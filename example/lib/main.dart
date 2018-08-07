@@ -84,10 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               width: 200.0,
               child: ColorizeAnimatedTextKit(
-                text: "Text Gradient",
+                text: ["Ant Man", "Superman", "Batman"],
                 textStyle: TextStyle(
                     fontSize: 24.0, fontWeight: FontWeight.bold),
-                duration: Duration(milliseconds: 4000),
+                duration: Duration(milliseconds: 10000),
                 colors: [
                   Colors.purple,
                   Colors.blue,
