@@ -68,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 200.0,
               child: TyperAnimatedTextKit(
                 text: ["Ant Man", "Superman", "Batman"],
-                duration: Duration(milliseconds: 10000),
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
               ),
             ),
