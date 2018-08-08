@@ -47,7 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
       textStyle: TextStyle(fontSize: 30.0),
     ),
     TyperAnimatedTextKit(
-      text: ["Dart", "Flutter", "What can you do with them ?"],
+      text: [
+        "It is not enough to do your best",
+        " you must know what to do",
+        "and then do your best",
+        "- W.Edwards Deming",
+      ],
       textStyle: TextStyle(fontSize: 30.0),
     ),
     TypewriterAnimatedTextKit(
