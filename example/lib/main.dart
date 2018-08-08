@@ -102,6 +102,16 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  List<Color> _colors = [
+    Colors.orange[800],
+    Colors.brown[600],
+    Colors.lightGreen[800],
+    Colors.teal[700],
+    Colors.blue[700],
+    Colors.blueGrey[50],
+
+  ];
+
   int _index = 0;
 
   @override
@@ -113,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Positioned.fill(
             child: Center(
               child: Container(
-                decoration: BoxDecoration(color: Colors.orange[900]),
+                decoration: BoxDecoration(color: _colors[_index]),
                 child: Center(child: _textAnimationKit[_index]),
                 height: 300.0,
                 width: 300.0,
