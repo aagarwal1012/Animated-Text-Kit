@@ -5,11 +5,13 @@ class RotateAnimatedTextKit extends StatefulWidget {
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
+  final double transitionHeight;
 
   const RotateAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
+    this.transitionHeight,
     this.duration}) : super(key: key);
 
 
@@ -22,6 +24,10 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   AnimationController _controller;
 
+  double _transitionHeight;
+
+  Duration _duration;
+
   List<Animation<double>> _fadeIn = [];
   List<Animation<double>> _fadeOut = [];
   List<Animation<Alignment>> _slideIn = [];
@@ -33,13 +39,27 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   void initState() {
     super.initState();
 
+    if(widget.duration == null){
+      _duration = Duration(milliseconds: 2000 * widget.text.length);
+    }
+    else{
+      _duration = widget.duration;
+    }
+
     _controller = new AnimationController(
-      duration: widget.duration,
+      duration: _duration,
       vsync: this,
     )
       ..repeat();
 
     int lengthList = widget.text.length;
+
+    if(widget.transitionHeight == null){
+      _transitionHeight = widget.textStyle.fontSize * 10 / 3;
+    }
+    else{
+      _transitionHeight = widget.transitionHeight;
+    }
 
     double percentTime = 1.0 / lengthList;
     double fadeTime = 1.0 / (lengthList * 7);
@@ -162,7 +182,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     }
 
     return SizedBox(
-      height: 80.0,
+      height: _transitionHeight,
       child: Stack(
         children: textWidgetList,
       ),
