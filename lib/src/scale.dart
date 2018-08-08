@@ -5,11 +5,13 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
+  final double scalingFactor;
 
   const ScaleAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
+    this.scalingFactor = 0.5,
     this.duration}) : super(key: key);
 
 
@@ -80,7 +82,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
           )
       );
       _scaleIn.add(
-          Tween<double>(begin: 0.0, end: 1.0)
+          Tween<double>(begin: widget.scalingFactor, end: 1.0)
               .animate(
               CurvedAnimation(parent: _controller,
                   curve: Interval(
@@ -92,7 +94,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
           )
       );
       _scaleOut.add(
-          Tween<double>(begin: 1.0, end: 0.5)
+          Tween<double>(begin: 1.0, end: widget.scalingFactor)
               .animate(
               CurvedAnimation(parent: _controller,
                   curve: Interval(
