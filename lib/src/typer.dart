@@ -26,21 +26,33 @@ class _TyperState extends State<TyperAnimatedTextKit> with SingleTickerProviderS
 
   List<Widget> textWidgetList = [];
 
+  Duration _duration;
+
   @override
   void initState() {
     super.initState();
-
-    _controller = new AnimationController(
-      duration: widget.duration,
-      vsync: this,
-    )
-      ..repeat();
 
     int totalCharacters = 0;
 
     for (int i = 0; i < widget.text.length; i++) {
       totalCharacters += widget.text[i].length;
     }
+
+    if(widget.duration == null){
+
+      _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 12);
+    }
+    else{
+      _duration = widget.duration;
+    }
+
+    _controller = new AnimationController(
+      duration: _duration,
+      vsync: this,
+    )
+      ..repeat();
+
+
 
     double percentTimeCount = 0.0;
     for (int i = 0; i < widget.text.length; i++) {
