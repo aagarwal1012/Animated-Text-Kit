@@ -16,3 +16,16 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  fonts:
+    - family: Canterbury
+      fonts:
+        - asset: assets/Canterbury.ttf
+
+    - family: HelloStockholm
+      fonts:
+        - asset: assets/HelloStockholm.otf
+
+    - family: Horizon
+      fonts:
+        - asset: assets/Horizon.otf
