@@ -48,9 +48,13 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
       totalCharacters += widget.text[i].length;
     }
 
-    int durationInMilliSeconds = 1500 * totalCharacters ~/ 3;
-    _duration = Duration(milliseconds: durationInMilliSeconds);
-
+    if(widget.duration == null){
+      _duration = Duration(milliseconds: 1500 * totalCharacters ~/ 3);
+    }
+    else{
+      _duration = widget.duration;
+    }
+    
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
