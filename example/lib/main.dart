@@ -46,18 +46,29 @@ class _MyHomePageState extends State<MyHomePage> {
       text: ["Dart", "Flutter", "What can you do with them ?"],
       textStyle: TextStyle(fontSize: 30.0),
     ),
-    TyperAnimatedTextKit(
-      text: [
-        "It is not enough to do your best",
-        " you must know what to do",
-        "and then do your best",
-        "- W.Edwards Deming",
-      ],
-      textStyle: TextStyle(fontSize: 30.0),
+    SizedBox(
+      width: 250.0,
+      child: TyperAnimatedTextKit(
+        text: [
+          "It is not enough to do your best",
+          " you must know what to do",
+          "and then do your best",
+          "- W.Edwards Deming",
+        ],
+        textStyle: TextStyle(fontSize: 30.0, fontFamily: "Bobbers"),
+      ),
     ),
-    TypewriterAnimatedTextKit(
-      text: ["Dart", "Flutter", "What can you do with them ?"],
-      textStyle: TextStyle(fontSize: 30.0),
+    SizedBox(
+      width: 250.0,
+      child: TypewriterAnimatedTextKit(
+        text: [
+          "Discipline is the best tool",
+          "Design first, then code",
+          "Do not patch bugs out, rewrite them out",
+          "Do not test bugs out, DESIGN them out",
+        ],
+        textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
+      ),
     ),
     ScaleAnimatedTextKit(
       text: ["Dart", "Flutter", "What can you do with them ?"],
@@ -89,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: Container(
                 decoration: BoxDecoration(color: Colors.orange[900]),
-                child: Center(child: _textAnimationKit[_index]),
+                child: Center(child: _textAnimationKit[3]),
                 height: 300.0,
                 width: 300.0,
               ),

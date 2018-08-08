@@ -29,3 +29,11 @@ flutter:
     - family: Horizon
       fonts:
         - asset: assets/Horizon.otf
+
+    - family: Bobbers
+      fonts:
+        - asset: assets/Bobbers.ttf
+
+    - family: Agne
+      fonts:
+        - asset: assets/Agne.otf
