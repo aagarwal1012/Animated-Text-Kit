@@ -76,7 +76,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                     curve: Interval(
                         0.0,
                         slideTime,
-                        curve: Curves.easeIn)
+                        curve: Curves.linear)
                 )
             )
         );
@@ -103,7 +103,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                     curve: Interval(
                         (i * percentTime) - slideTime,
                         (i) * percentTime,
-                        curve: Curves.easeIn)
+                        curve: Curves.linear)
                 )
             )
         );
@@ -129,7 +129,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                   curve: Interval(
                       ((i + 1) * percentTime) - slideTime,
                       (i + 1) * percentTime,
-                      curve: Curves.easeIn)
+                      curve: Curves.linear)
               )
           )
       );
