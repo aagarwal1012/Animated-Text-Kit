@@ -34,11 +34,14 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
     super.initState();
 
     if(widget.duration == null){
-
+      _duration = Duration(milliseconds: 2000 * widget.text.length);
+    }
+    else{
+      _duration = widget.duration;
     }
 
     _controller = new AnimationController(
-      duration: widget.duration,
+      duration: _duration,
       vsync: this,
     )
       ..repeat();
@@ -46,7 +49,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
     int lengthList = widget.text.length;
 
     double percentTime = 1.0 / lengthList;
-    double fadeTime = 1.0 / (lengthList * 3);
+    double fadeTime = 1.0 / (lengthList * 4);
 
     for (int i = 0; i < widget.text.length; i++) {
         _fadeIn.add(

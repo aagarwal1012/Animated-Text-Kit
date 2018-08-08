@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 200.0,
               child: RotateAnimatedTextKit(
                 text: ["Ant Man", "Superman", "Batman"],
-                duration: Duration(milliseconds: 5000),
+                duration: Duration(milliseconds: 6000),
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
               ),
             ),
@@ -62,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 200.0,
               child: FadeAnimatedTextKit(
                 text: ["Ant Man", "Superman", "Batman"],
-                duration: Duration(milliseconds: 5000),
                 textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
               ),
             ),
