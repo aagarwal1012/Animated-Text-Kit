@@ -38,13 +38,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _textAnimationKit = [
-    RotateAnimatedTextKit(
-      text: ["Dart", "Flutter", "What can you do with them ?"],
-      textStyle: TextStyle(fontSize: 30.0),
+    SizedBox(
+      width: 260.0,
+      child: Row(
+        children: <Widget>[
+          Text("Be", style: TextStyle(fontSize: 43.0),),
+          SizedBox(width: 20.0),
+          RotateAnimatedTextKit(
+            text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
+            textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
+          ),
+        ],
+      ),
     ),
     FadeAnimatedTextKit(
-      text: ["Dart", "Flutter", "What can you do with them ?"],
-      textStyle: TextStyle(fontSize: 30.0),
+      text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
+      textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
     ),
     SizedBox(
       width: 250.0,
@@ -64,21 +73,26 @@ class _MyHomePageState extends State<MyHomePage> {
         text: [
           "Discipline is the best tool",
           "Design first, then code",
-          "Do not patch bugs out, rewrite them out",
-          "Do not test bugs out, DESIGN them out",
+          "Do not patch bugs out, rewrite them",
+          "Do not test bugs out, design them out",
         ],
         textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
       ),
     ),
     ScaleAnimatedTextKit(
-      text: ["Dart", "Flutter", "What can you do with them ?"],
-      textStyle: TextStyle(fontSize: 30.0),
+      text: ["Think", "Build", "Ship"],
+      textStyle: TextStyle(fontSize: 70.0, fontFamily: "Canterbury"),
     ),
+
     /// colors.length >= 2
     ColorizeAnimatedTextKit(
-      text: ["Dart", "Flutter", "What can you do with them ?"],
+      text: [
+        "Larry Page",
+        "Bill Gates",
+        "Steve Jobs",
+      ],
       textStyle: TextStyle(
-          fontSize: 30.0),
+          fontSize: 50.0, fontFamily: "Horizon"),
       colors: [
         Colors.purple,
         Colors.blue,
@@ -100,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: Container(
                 decoration: BoxDecoration(color: Colors.orange[900]),
-                child: Center(child: _textAnimationKit[3]),
+                child: Center(child: _textAnimationKit[_index]),
                 height: 300.0,
                 width: 300.0,
               ),

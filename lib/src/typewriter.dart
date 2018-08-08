@@ -116,7 +116,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
                           2 == 0) {
                         visibleString =
                             widget.text[i].substring(0, widget.text[i].length) +
-                                " _";
+                                "_";
                       }
                       else {
                         visibleString =
