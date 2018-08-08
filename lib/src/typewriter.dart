@@ -42,6 +42,9 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
       _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
     }
+    else{
+      _duration = widget.duration;
+    }
 
     _controller = new AnimationController(
       duration: _duration,

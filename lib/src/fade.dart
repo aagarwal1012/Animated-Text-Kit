@@ -20,6 +20,8 @@ class FadeAnimatedTextKit extends StatefulWidget {
 class _RotatingTextState extends State<FadeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
 
+  Duration _duration;
+
   AnimationController _controller;
 
   List<Animation<double>> _fadeIn = [];
@@ -30,6 +32,10 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
   @override
   void initState() {
     super.initState();
+
+    if(widget.duration == null){
+
+    }
 
     _controller = new AnimationController(
       duration: widget.duration,
