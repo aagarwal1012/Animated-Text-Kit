@@ -59,7 +59,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
                     curve: Interval(
                         (i * percentTime),
                         (i * percentTime)+ fadeTime,
-                        curve: Curves.easeOut
+                        curve: Curves.linear
                     )
                 )
             )
@@ -71,7 +71,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
                   curve: Interval(
                       ((i + 1) * percentTime) - fadeTime,
                       ((i + 1) * percentTime),
-                      curve: Curves.easeIn
+                      curve: Curves.linear
                   )
               )
           )
