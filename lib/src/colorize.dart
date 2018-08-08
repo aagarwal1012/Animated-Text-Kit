@@ -54,7 +54,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     else{
       _duration = widget.duration;
     }
-    
+
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
