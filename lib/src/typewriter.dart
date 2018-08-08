@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class TypewriterAnimatedTextKit extends StatefulWidget {
 
   final List<String> text;
   final TextStyle textStyle;
-  Duration duration;
+  final Duration duration;
 
   TypewriterAnimatedTextKit({
     Key key,
     @required this.text,
     this.textStyle,
-    this.duration}) : super(key: key) {
-    if(duration == null){
-      int totalCharacters = 0;
-
-      for (int i = 0; i < text.length; i++) {
-        totalCharacters += (text[i].length + 8);
-      }
-
-      duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
-    }
-  }
+    this.duration}) : super(key: key) ;
 
 
   @override
@@ -30,6 +19,8 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
 
 class _TypewriterState extends State<TypewriterAnimatedTextKit>
     with SingleTickerProviderStateMixin {
+
+  Duration _duration;
 
   AnimationController _controller;
 
@@ -42,8 +33,18 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   void initState() {
     super.initState();
 
+    if(widget.duration == null){
+      int totalCharacters = 0;
+
+      for (int i = 0; i < widget.text.length; i++) {
+        totalCharacters += (widget.text[i].length + 8);
+      }
+
+      _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
+    }
+
     _controller = new AnimationController(
-      duration: widget.duration,
+      duration: _duration,
       vsync: this,
     )
       ..repeat();
