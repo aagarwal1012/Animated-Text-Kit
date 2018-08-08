@@ -17,10 +17,7 @@ class MyAppState extends State<MyApp> {
     return new MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: new ThemeData(
-        // This is the theme of your application.
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.dark(),
       home: new MyHomePage(title: 'Animated Text Kit'),
     );
   }
@@ -39,70 +36,80 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  List<Widget> _textAnimationKit = [
+    RotateAnimatedTextKit(
+      text: ["Dart", "Flutter", "What can you do with them ?"],
+      textStyle: TextStyle(fontSize: 30.0),
+    ),
+    FadeAnimatedTextKit(
+      text: ["Dart", "Flutter", "What can you do with them ?"],
+      textStyle: TextStyle(fontSize: 30.0),
+    ),
+    TyperAnimatedTextKit(
+      text: ["Dart", "Flutter", "What can you do with them ?"],
+      textStyle: TextStyle(fontSize: 30.0),
+    ),
+    TypewriterAnimatedTextKit(
+      text: ["Dart", "Flutter", "What can you do with them ?"],
+      textStyle: TextStyle(fontSize: 30.0),
+    ),
+    ScaleAnimatedTextKit(
+      text: ["Dart", "Flutter", "What can you do with them ?"],
+      textStyle: TextStyle(fontSize: 30.0),
+    ),
+    /// colors.length >= 2
+    ColorizeAnimatedTextKit(
+      text: ["Dart", "Flutter", "What can you do with them ?"],
+      textStyle: TextStyle(
+          fontSize: 30.0),
+      colors: [
+        Colors.purple,
+        Colors.blue,
+        Colors.yellow,
+        Colors.red,
+      ],
+    ),
+  ];
+
+  int _index = 0;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 200.0,
-              child: RotateAnimatedTextKit(
-                text: ["Ant Man", "Superman", "Batman"],
-                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
-              ),
-            ),
-            SizedBox(
-              width: 200.0,
-              child: FadeAnimatedTextKit(
-                text: ["Ant Man", "Superman", "Batman"],
-                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
-              ),
-            ),
-            SizedBox(
-              width: 200.0,
-              child: TyperAnimatedTextKit(
-                text: ["Ant Man", "Superman", "Batman"],
-                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
-              ),
-            ),
-            SizedBox(
-              width: 200.0,
-              child: TypewriterAnimatedTextKit(
-                text: ["Ant Man", "Superman", "Batman"],
-                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
-              ),
-            ),
-            SizedBox(
-              width: 200.0,
-              child: ScaleAnimatedTextKit(
-                text: ["Ant Man", "Superman", "Batman"],
-                textStyle: TextStyle(fontSize: 24.0, color: Colors.black),
-              ),
-            ),
-            /// colors.length >= 2
-            SizedBox(
-              width: 200.0,
-              child: ColorizeAnimatedTextKit(
-                text: ["Ant Man", "Superman", "Batman"],
-                textStyle: TextStyle(
-                    fontSize: 24.0, color: Colors.black),
-                colors: [
-                  Colors.purple,
-                  Colors.blue,
-                  Colors.yellow,
-                  Colors.red,
-                ],
-              ),
-            )
+      body: Stack(
+        children: <Widget>[
 
-          ],
-        ),
+          Positioned.fill(
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(color: Colors.orange[900]),
+                child: Center(child: _textAnimationKit[_index]),
+                height: 300.0,
+                width: 300.0,
+              ),
+            ),
+          ),
+
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: IconButton(
+                icon: Container(
+                  child: Icon(
+                    Icons.play_circle_filled,
+                    color: Colors.white,
+                    size: 70.0,
+                  ),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _index = (_index + 1) % _textAnimationKit.length;
+                  });
+                }
+            ),
+          ),
+
+        ],
       ),
     );
   }
