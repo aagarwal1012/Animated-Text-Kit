@@ -18,7 +18,7 @@ env:
   - FLUTTER_VERSION=dev
 matrix:
   allow_failures:
-    - env: FLUTTER_VERSION=dev
+    - env: FLUTTER_VERSION=beta
 before_script:
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
   - ./flutter/bin/flutter doctor

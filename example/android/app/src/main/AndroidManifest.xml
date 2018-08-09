@@ -13,7 +13,7 @@
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name="Animated Text Kit"
+        android:name="io.flutter.app.FlutterApplication"
         android:label="example"
         android:icon="@mipmap/ic_launcher">
         <activity
