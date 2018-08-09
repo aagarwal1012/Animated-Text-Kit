@@ -48,18 +48,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _textAnimationKit = [
-    SizedBox(
-      width: 260.0,
-      child: Row(
-        children: <Widget>[
-          Text("Be", style: TextStyle(fontSize: 43.0),),
-          SizedBox(width: 20.0),
-          RotateAnimatedTextKit(
-            text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
-            textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
-          ),
-        ],
-      ),
+    ListView(
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 20.0, height: 100.0,),
+            Text("Be", style: TextStyle(fontSize: 43.0),),
+            SizedBox(width: 20.0, height: 100.0,),
+            RotateAnimatedTextKit(
+              text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
+              textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
+            ),
+          ],
+        ),
+      ],
     ),
     FadeAnimatedTextKit(
       text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
