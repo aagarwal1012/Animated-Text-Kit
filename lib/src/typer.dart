@@ -40,7 +40,7 @@ class _TyperState extends State<TyperAnimatedTextKit> with SingleTickerProviderS
 
     if(widget.duration == null){
 
-      _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 12);
+      _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
     }
     else{
       _duration = widget.duration;
