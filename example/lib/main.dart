@@ -120,42 +120,24 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: <Widget>[
 
-          Positioned.fill(
-            child: Center(
-              child: Container(
-//                decoration: BoxDecoration(color: _colors[_index]),
-              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/background.png")),),
-//                child: Center(child: _textAnimationKit[_index]),
-              child: Center(
-                child: SizedBox(
-                  width: 150.0,
-                  child: RotateAnimatedTextKit(
-                    text: ["ANALYSE", "DESIGN", "CODE", "DEBUG"],
-                    textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
-                  ),
-                ),
-              ),
-                height: 300.0,
-                width: 300.0,
-              ),
+          Center(
+            child: Container(
+              decoration: BoxDecoration(color: _colors[_index]),
+              child: Center(child: _textAnimationKit[_index]),
+              height: 300.0,
+              width: 300.0,
             ),
           ),
 
           Align(
             alignment: Alignment.bottomCenter,
-            child: IconButton(
-                icon: Container(
-                  child: Icon(
-                    Icons.play_circle_filled,
-//                    color: Colors.white,
-//                    size: 70.0,
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    _index = (_index + 1) % _textAnimationKit.length;
-                  });
-                }
+            child: InkWell(
+              child: Icon(Icons.play_circle_filled, size: 70.0,),
+              onTap: () {
+                setState(() {
+                  _index = (_index + 1) % _textAnimationKit.length;
+                });
+              },
             ),
           ),
 
