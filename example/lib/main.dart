@@ -3,6 +3,15 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 void main() => runApp(new MyApp());
 
+const List<String> labels = [
+  "Rotate",
+  "Fade",
+  "Typer",
+  "Typewriter",
+  "Scale",
+  "Colorize",
+];
+
 class MyApp extends StatefulWidget {
   /// This widget is the root of your application.
   @override
@@ -15,7 +24,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Animated Text Kit',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: new MyHomePage(title: 'Animated Text Kit'),
@@ -24,6 +33,7 @@ class MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
+
   final String title;
 
   MyHomePage({
@@ -59,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
       width: 250.0,
       child: TyperAnimatedTextKit(
         text: [
-          "It is not enough to do your best",
-          " you must know what to do",
+          "It is not enough to do your best,",
+          "you must know what to do,",
           "and then do your best",
           "- W.Edwards Deming",
         ],
@@ -117,30 +127,34 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Stack(
+      body: Column(
         children: <Widget>[
+          SizedBox(height: 40.0, width: double.maxFinite,),
 
-          Center(
-            child: Container(
-              decoration: BoxDecoration(color: _colors[_index]),
-              child: Center(child: _textAnimationKit[_index]),
-              height: 300.0,
-              width: 300.0,
-            ),
+          Text(labels[_index],
+            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),),
+
+          Expanded(child: Container(),),
+
+          Container(
+            decoration: BoxDecoration(color: _colors[_index]),
+            child: Center(child: _textAnimationKit[_index]),
+            height: 300.0,
+            width: 300.0,
           ),
 
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: InkWell(
-              child: Icon(Icons.play_circle_filled, size: 70.0,),
-              onTap: () {
-                setState(() {
-                  _index = (_index + 1) % _textAnimationKit.length;
-                });
-              },
-            ),
+          Expanded(child: Container(),),
+
+          InkWell(
+            child: Icon(Icons.play_circle_filled, size: 70.0,),
+            onTap: () {
+              setState(() {
+                _index = (_index + 1) % _textAnimationKit.length;
+              });
+            },
           ),
 
+          SizedBox(height: 20.0, width: double.maxFinite,),
         ],
       ),
     );
