@@ -8,15 +8,15 @@
     <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
       alt="Platform" />
   </a>
-	<a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">
+  	<a href="https://pub.dartlang.org/packages/animated_text_kit">
     <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
       alt="Pub Package" />
   </a>
-  <a href="https://pub.dartlang.org/packages/animated_text_kit">
+  	<a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">
     <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"
       alt="Build Status" />
   </a>
-	<a href="https://opensource.org/licenses/MIT">
+  	<a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-red.svg?style=flat-square"
       alt="License: MIT" />
   </a>
