@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TypewriterAnimatedTextKit extends StatefulWidget {
-
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
 
-  TypewriterAnimatedTextKit({
-    Key key,
-    @required this.text,
-    this.textStyle,
-    this.duration}) : super(key: key) ;
-
+  TypewriterAnimatedTextKit(
+      {Key key, @required this.text, this.textStyle, this.duration})
+      : super(key: key);
 
   @override
   _TypewriterState createState() => new _TypewriterState();
@@ -19,7 +15,6 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
 
 class _TypewriterState extends State<TypewriterAnimatedTextKit>
     with SingleTickerProviderStateMixin {
-
   Duration _duration;
 
   AnimationController _controller;
@@ -33,7 +28,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   void initState() {
     super.initState();
 
-    if(widget.duration == null){
+    if (widget.duration == null) {
       int totalCharacters = 0;
 
       for (int i = 0; i < widget.text.length; i++) {
@@ -41,16 +36,14 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       }
 
       _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
-    }
-    else{
+    } else {
       _duration = widget.duration;
     }
 
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )
-      ..repeat();
+    )..repeat();
 
     int totalCharacters = 0;
 
@@ -62,33 +55,22 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     for (int i = 0; i < widget.text.length; i++) {
       double percentTime = (widget.text[i].length + 8) / totalCharacters;
 
-      _typewriterText.add(
-          StepTween(
-              begin: 0, end: widget.text[i].length + 8).animate(
-              new CurvedAnimation(
-                  parent: _controller,
-                  curve: Interval(percentTimeCount,
-                      (percentTimeCount + (percentTime * 8 / 10)),
-                      curve: Curves.linear)
-              )
-          )
-      );
+      _typewriterText.add(StepTween(begin: 0, end: widget.text[i].length + 8)
+          .animate(new CurvedAnimation(
+              parent: _controller,
+              curve: Interval(
+                  percentTimeCount, (percentTimeCount + (percentTime * 8 / 10)),
+                  curve: Curves.linear))));
 
-      _fadeOut.add(
-          Tween(
-              begin: 1.0, end: 0.0).animate(
-              new CurvedAnimation(
-                  parent: _controller,
-                  curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
-                      (percentTimeCount + percentTime), curve: Curves.easeIn)
-              )
-          )
-      );
+      _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
+          parent: _controller,
+          curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
+              (percentTimeCount + percentTime),
+              curve: Curves.easeIn))));
 
       percentTimeCount += percentTime;
     }
   }
-
 
   @override
   void dispose() {
@@ -99,44 +81,40 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget child) {
-              return Opacity(
-                opacity: _fadeOut[i].value,
-                child: Builder(
-                  builder: (BuildContext context) {
-                    String visibleString = widget.text[i];
-                    if (_typewriterText[i].value == 0) {
-                      visibleString = "";
-                    }
-                    else if (_typewriterText[i].value > widget.text[i].length) {
-                      if ((_typewriterText[i].value - widget.text[i].length) %
-                          2 == 0) {
-                        visibleString =
-                            widget.text[i].substring(0, widget.text[i].length) +
-                                "_";
-                      }
-                      else {
-                        visibleString =
-                            widget.text[i].substring(0, widget.text[i].length);
-                      }
-                    }
-                    else {
-                      visibleString = widget.text[i].substring(
-                          0, _typewriterText[i].value) + "_";
-                    }
-                    return Text(
-                      visibleString,
-                      style: widget.textStyle,
-                    );
-                  },
-                ),
-              );
-            },
-          )
-      );
+      textWidgetList.add(AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget child) {
+          return Opacity(
+            opacity: _fadeOut[i].value,
+            child: Builder(
+              builder: (BuildContext context) {
+                String visibleString = widget.text[i];
+                if (_typewriterText[i].value == 0) {
+                  visibleString = "";
+                } else if (_typewriterText[i].value > widget.text[i].length) {
+                  if ((_typewriterText[i].value - widget.text[i].length) % 2 ==
+                      0) {
+                    visibleString =
+                        widget.text[i].substring(0, widget.text[i].length) +
+                            "_";
+                  } else {
+                    visibleString =
+                        widget.text[i].substring(0, widget.text[i].length);
+                  }
+                } else {
+                  visibleString =
+                      widget.text[i].substring(0, _typewriterText[i].value) +
+                          "_";
+                }
+                return Text(
+                  visibleString,
+                  style: widget.textStyle,
+                );
+              },
+            ),
+          );
+        },
+      ));
     }
 
     return Stack(

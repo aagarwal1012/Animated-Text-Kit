@@ -33,7 +33,6 @@ class MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-
   final String title;
 
   MyHomePage({
@@ -46,7 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   List<Widget> _textAnimationKit = [
     ListView(
       scrollDirection: Axis.horizontal,
@@ -54,9 +52,18 @@ class _MyHomePageState extends State<MyHomePage> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(width: 20.0, height: 100.0,),
-            Text("Be", style: TextStyle(fontSize: 43.0),),
-            SizedBox(width: 20.0, height: 100.0,),
+            SizedBox(
+              width: 20.0,
+              height: 100.0,
+            ),
+            Text(
+              "Be",
+              style: TextStyle(fontSize: 43.0),
+            ),
+            SizedBox(
+              width: 20.0,
+              height: 100.0,
+            ),
             RotateAnimatedTextKit(
               text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
               textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
@@ -105,8 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
         "Bill Gates",
         "Steve Jobs",
       ],
-      textStyle: TextStyle(
-          fontSize: 50.0, fontFamily: "Horizon"),
+      textStyle: TextStyle(fontSize: 50.0, fontFamily: "Horizon"),
       colors: [
         Colors.purple,
         Colors.blue,
@@ -123,7 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.teal[700],
     Colors.blue[700],
     Colors.blueGrey[50],
-
   ];
 
   int _index = 0;
@@ -133,32 +138,41 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(height: 40.0, width: double.maxFinite,),
-
-          Text(labels[_index],
-            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),),
-
-          Expanded(child: Container(),),
-
+          SizedBox(
+            height: 40.0,
+            width: double.maxFinite,
+          ),
+          Text(
+            labels[_index],
+            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: Container(),
+          ),
           Container(
             decoration: BoxDecoration(color: _colors[_index]),
             child: Center(child: _textAnimationKit[_index]),
             height: 300.0,
             width: 300.0,
           ),
-
-          Expanded(child: Container(),),
-
+          Expanded(
+            child: Container(),
+          ),
           InkWell(
-            child: Icon(Icons.play_circle_filled, size: 70.0,),
+            child: Icon(
+              Icons.play_circle_filled,
+              size: 70.0,
+            ),
             onTap: () {
               setState(() {
                 _index = (_index + 1) % _textAnimationKit.length;
               });
             },
           ),
-
-          SizedBox(height: 20.0, width: double.maxFinite,),
+          SizedBox(
+            height: 20.0,
+            width: double.maxFinite,
+          ),
         ],
       ),
     );
