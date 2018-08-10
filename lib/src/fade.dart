@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FadeAnimatedTextKit extends StatefulWidget {
-
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
 
-  const FadeAnimatedTextKit({
-    Key key,
-    @required this.text,
-    this.textStyle,
-    this.duration}) : super(key: key);
-
+  const FadeAnimatedTextKit(
+      {Key key, @required this.text, this.textStyle, this.duration})
+      : super(key: key);
 
   @override
   _RotatingTextState createState() => new _RotatingTextState();
@@ -19,7 +15,6 @@ class FadeAnimatedTextKit extends StatefulWidget {
 
 class _RotatingTextState extends State<FadeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
-
   Duration _duration;
 
   AnimationController _controller;
@@ -33,18 +28,16 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
   void initState() {
     super.initState();
 
-    if(widget.duration == null){
+    if (widget.duration == null) {
       _duration = Duration(milliseconds: 2000 * widget.text.length);
-    }
-    else{
+    } else {
       _duration = widget.duration;
     }
 
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )
-      ..repeat();
+    )..repeat();
 
     int lengthList = widget.text.length;
 
@@ -52,33 +45,17 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
     double fadeTime = 1.0 / (lengthList * 4);
 
     for (int i = 0; i < widget.text.length; i++) {
-        _fadeIn.add(
-            Tween<double>(begin: 0.0, end: 1.0)
-                .animate(
-                CurvedAnimation(parent: _controller,
-                    curve: Interval(
-                        (i * percentTime),
-                        (i * percentTime)+ fadeTime,
-                        curve: Curves.linear
-                    )
-                )
-            )
-        );
-      _fadeOut.add(
-          Tween<double>(begin: 1.0, end: 0.0)
-              .animate(
-              CurvedAnimation(parent: _controller,
-                  curve: Interval(
-                      ((i + 1) * percentTime) - fadeTime,
-                      ((i + 1) * percentTime),
-                      curve: Curves.linear
-                  )
-              )
-          )
-      );
+      _fadeIn.add(Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+          parent: _controller,
+          curve: Interval((i * percentTime), (i * percentTime) + fadeTime,
+              curve: Curves.linear))));
+      _fadeOut.add(Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+          parent: _controller,
+          curve: Interval(
+              ((i + 1) * percentTime) - fadeTime, ((i + 1) * percentTime),
+              curve: Curves.linear))));
     }
   }
-
 
   @override
   void dispose() {
@@ -89,22 +66,20 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget child) {
-              return Opacity(
-                opacity: !(_fadeIn[i].value == 1.0)
-                    ? _fadeIn[i].value
-                    : _fadeOut[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle,
-                ),
-              );
-            },
-          )
-      );
+      textWidgetList.add(AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget child) {
+          return Opacity(
+            opacity: !(_fadeIn[i].value == 1.0)
+                ? _fadeIn[i].value
+                : _fadeOut[i].value,
+            child: Text(
+              widget.text[i],
+              style: widget.textStyle,
+            ),
+          );
+        },
+      ));
     }
 
     return Stack(

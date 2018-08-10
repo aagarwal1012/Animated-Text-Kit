@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ColorizeAnimatedTextKit extends StatefulWidget {
-
   final List<String> text;
   final List<Color> colors;
   final TextStyle textStyle;
   final Duration duration;
 
-  const ColorizeAnimatedTextKit({
-    Key key,
-    @required this.text,
-    this.textStyle,
-    @required this.colors,
-    this.duration}) : super(key: key);
-
+  const ColorizeAnimatedTextKit(
+      {Key key,
+      @required this.text,
+      this.textStyle,
+      @required this.colors,
+      this.duration})
+      : super(key: key);
 
   @override
   _RotatingTextState createState() => new _RotatingTextState();
@@ -21,7 +20,6 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
 
 class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
-
   Duration _duration;
 
   AnimationController _controller;
@@ -39,7 +37,6 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   void initState() {
     super.initState();
 
-
     int lengthList = widget.text.length;
 
     int totalCharacters = 0;
@@ -48,71 +45,52 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
       totalCharacters += widget.text[i].length;
     }
 
-    if(widget.duration == null){
+    if (widget.duration == null) {
       _duration = Duration(milliseconds: 1500 * totalCharacters ~/ 3);
-    }
-    else{
+    } else {
       _duration = widget.duration;
     }
 
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )
-      ..repeat();
-
+    )..repeat();
 
     double percentTimeCount = 0.0;
 
     for (int i = 0; i < lengthList; i++) {
       double percentTime = widget.text[i].length / totalCharacters;
 
-      _tuning.add(
-          (300.0 * widget.colors.length) * (widget.textStyle.fontSize / 24.0) *
-              0.75 * (widget.text[i].length / 15.0));
+      _tuning.add((300.0 * widget.colors.length) *
+          (widget.textStyle.fontSize / 24.0) *
+          0.75 *
+          (widget.text[i].length / 15.0));
 
-      _fadeIn.add(
-          Tween<double>(begin: 0.0, end: 1.0)
-              .animate(
-              CurvedAnimation(parent: _controller,
-                  curve: Interval(
-                    percentTimeCount,
-                    percentTimeCount + (percentTime / 10),
-                    curve: Curves.easeOut,
-                  )
-              )
-          )
-      );
+      _fadeIn.add(Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+          parent: _controller,
+          curve: Interval(
+            percentTimeCount,
+            percentTimeCount + (percentTime / 10),
+            curve: Curves.easeOut,
+          ))));
 
-      _fadeOut.add(
-          Tween(
-              begin: 1.0, end: 0.0).animate(
-              new CurvedAnimation(
-                  parent: _controller,
-                  curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
-                      (percentTimeCount + percentTime), curve: Curves.easeIn)
-              )
-          )
-      );
+      _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
+          parent: _controller,
+          curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
+              (percentTimeCount + percentTime),
+              curve: Curves.easeIn))));
 
       _colorShifter.add(
-          Tween(begin: 0.0, end: widget.colors.length * _tuning[i])
-              .animate(
+          Tween(begin: 0.0, end: widget.colors.length * _tuning[i]).animate(
               CurvedAnimation(
                   parent: _controller,
                   curve: Interval(
-                      percentTimeCount,
-                      percentTimeCount + percentTime,
-                      curve: Curves.easeIn
-                  )
-              )
-          )
-      );
+                      percentTimeCount, percentTimeCount + percentTime,
+                      curve: Curves.easeIn))));
 
       percentTimeCount += percentTime;
     }
   }
-
 
   @override
   void dispose() {
@@ -123,29 +101,26 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      _textWidgetList.add(
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget child) {
-              Shader linearGradient = LinearGradient(
-                  colors: widget.colors
-              ).createShader(
+      _textWidgetList.add(AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget child) {
+          Shader linearGradient = LinearGradient(colors: widget.colors)
+              .createShader(
                   Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
-              return Opacity(
-                opacity: !(_fadeIn[i].value == 1.0)
-                    ? _fadeIn[i].value
-                    : _fadeOut[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle != null ?
-                  widget.textStyle.merge(TextStyle(foreground: Paint()
-                    ..shader = linearGradient)) :
-                  widget.textStyle,
-                ),
-              );
-            },
-          )
-      );
+          return Opacity(
+            opacity: !(_fadeIn[i].value == 1.0)
+                ? _fadeIn[i].value
+                : _fadeOut[i].value,
+            child: Text(
+              widget.text[i],
+              style: widget.textStyle != null
+                  ? widget.textStyle.merge(
+                      TextStyle(foreground: Paint()..shader = linearGradient))
+                  : widget.textStyle,
+            ),
+          );
+        },
+      ));
     }
 
     return SizedBox(
