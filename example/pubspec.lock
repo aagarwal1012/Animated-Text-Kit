@@ -389,4 +389,4 @@ packages:
     version: "2.1.14"
 sdks:
   dart: ">=2.0.0-dev.62.0 <=2.0.0-dev.63.0.flutter-4c9689c1d2"
-  flutter: ">=0.5.7 <2.0.0"
+  flutter: ">=0.5.0 <2.0.0"
