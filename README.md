@@ -1,12 +1,39 @@
 <div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>
 
-# Animated Text Kit
-[![platform](https://img.shields.io/badge/Platform-Flutter-blue.svg)](https://flutter.io)
-[![Build Status](https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master)](https://travis-ci.com/aagarwal1012/Animated-Text-Kit)
-[![pub package](https://img.shields.io/pub/v/animated_text_kit.svg)](https://pub.dartlang.org/packages/animated_text_kit)
-[![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT)
+# <div align="center">Animated Text Kit</div>
+<div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>
 
-Animation Text Kit is a `flutter` package which contains a collection of cool and beautiful text animations for your flutter apps by using some customized animations.
+<div align="center">
+	<a href="https://flutter.io">
+    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
+      alt="Platform" />
+  </a>
+	<a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">
+    <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
+      alt="Pub Package" />
+  </a>
+  <a href="https://pub.dartlang.org/packages/animated_text_kit">
+    <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"
+      alt="Build Status" />
+  </a>
+	<a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-red.svg?style=flat-square"
+      alt="License: MIT" />
+  </a>
+</div><br>
+
+# Table of contents
+
+  * [Installing](#installing)
+  * [Usage](#usage)
+    * [Rotate](#rotate)
+  	* [Fade](#fade)
+  	* [Typer](#typer)
+  	* [Typewriter](#typewriter)
+  	* [Scale](#scale)
+  	* [Colorize](#colorize)
+  * [Bugs or Requests](#bugs-or-requests)
+  * [License](#license)
 
 # Installing
 
