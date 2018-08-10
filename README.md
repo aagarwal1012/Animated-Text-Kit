@@ -8,138 +8,197 @@
 
 Animation Text Kit is a `flutter` package which contains a collection of cool and beautiful text animations for your flutter apps by using some customized animations.
 
+# Installing
+
+### 1. Depend on it
+Add this to your package's `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  animated_text_kit: ^1.0.2
+```
+
+### 2. Install it
+
+You can install packages from the command line:
+
+with `pub`:
+
+```css
+$ pub get
+```
+
+with `Flutter`:
+
+```css
+$ flutter packages get
+```
+
+### 3. Import it
+
+Now in your `Dart` code, you can use: 
+
+```dart
+import 'package:animated_text_kit/animated_text_kit.dart';
+```
+
+
 # Usage
-Just add the following dependency in your app's `build.gradle`
-```
-dependencies {
-      compile 'com.sdsmdg.harjot:rotatingtext:1.0.2'
-}
-```
 
-## Example Usage 1 (Simple)
-#### XML
-
-```
-<com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper
-        android:id="@+id/custom_switcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+You can override the `duration` of each animation by setting duration in each AnimatedTextKit class. For example:
+```dart
+FadeAnimatedTextKit(
+  duration: Duration(milliseconds: 5000),
+  text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
+  textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+);
 ```
 
-#### Java
+## Rotate
 
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/rotate.gif?raw=true" align = "right" height = "300px">
+
+```dart
+Row(
+  mainAxisSize: MainAxisSize.min,
+  children: <Widget>[
+    SizedBox(
+      width: 20.0,
+      height: 100.0,
+    ),
+    Text(
+      "Be",
+      style: TextStyle(fontSize: 43.0),
+    ),
+    SizedBox(
+      width: 20.0,
+      height: 100.0,
+    ),
+    RotateAnimatedTextKit(
+      text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
+      textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
+    ),
+  ],
+);
 ```
-RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) findViewById(R.id.custom_switcher);
-rotatingTextWrapper.setSize(35);
+**Note:** You can override transition height by setting the value of parameter `transitionHeight` for RotateAnimatedTextKit class.
 
-Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, "Word", "Word01", "Word02");
-rotatable.setSize(35);
-rotatable.setAnimationDuration(500);
+## Fade
 
-rotatingTextWrapper.setContent("This is ?", rotatable);
-```
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/fade.gif?raw=true" align = "right" height = "300px">
 
-#### Result
-<img src="/screens/gif_example_1.gif"/>
-
-## Example Usage 2 (Typeface + Interpolator)
-#### XML
-
-```
-<com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper
-        android:id="@+id/custom_switcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-```
-
-#### Java
-
-```
-Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
-Typeface typeface2 = Typeface.createFromAsset(getAssets(), "fonts/Reckoner_Bold.ttf");
-
-RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) findViewById(R.id.custom_switcher);
-rotatingTextWrapper.setSize(35);
-rotatingTextWrapper.setTypeface(typeface2);
-
-Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, "Word", "Word01", "Word02");
-rotatable.setSize(35);
-rotatable.setAnimationDuration(500);
-rotatable.setTypeface(typeface);
-rotatable.setInterpolator(new BounceInterpolator());
-
-rotatingTextWrapper.setContent("This is ?", rotatable);
-```
-
-#### Result
-<img src=""/>
-
-## Example Usage 3 (Multiple Rotatables)
-#### XML
-
-```
-<com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper
-        android:id="@+id/custom_switcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+```dart
+SizedBox(
+  width: 250.0,
+  child: FadeAnimatedTextKit(
+    text: [
+      "do IT!",
+      "do it RIGHT!!",
+      "do it RIGHT NOW!!!"
+    ],
+    textStyle: TextStyle(
+        fontSize: 32.0, 
+        fontWeight: FontWeight.bold
+    ),
+  ),
+);
 ```
 
-#### Java
+## Typer
 
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typer.gif?raw=true" align = "right" height = "300px">
+
+```dart
+SizedBox(
+  width: 250.0,
+  child: TyperAnimatedTextKit(
+    text: [
+      "It is not enough to do your best,",
+      "you must know what to do,",
+      "and then do your best",
+      "- W.Edwards Deming",
+    ],
+    textStyle: TextStyle(
+        fontSize: 30.0,
+        fontFamily: "Bobbers"
+    ),
+  ),
+);
 ```
-Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
-Typeface typeface2 = Typeface.createFromAsset(getAssets(), "fonts/Reckoner_Bold.ttf");
+## Typewriter
 
-RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) findViewById(R.id.custom_switcher);
-rotatingTextWrapper.setSize(35);
-rotatingTextWrapper.setTypeface(typeface2);
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typewriter.gif?raw=true" align = "right" height = "300px">
 
-Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, "Word", "Word01", "Word02");
-rotatable.setSize(35);
-rotatable.setTypeface(typeface);
-rotatable.setInterpolator(new AccelerateInterpolator());
-rotatable.setAnimationDuration(500);
-
-Rotatable rotatable2 = new Rotatable(Color.parseColor("#123456"), 1000, "Word03", "Word04", "Word05");
-rotatable2.setSize(25);
-rotatable2.setTypeface(typeface);
-rotatable2.setInterpolator(new DecelerateInterpolator());
-rotatable2.setAnimationDuration(500);
-
-rotatingTextWrapper.setContent("This is ? and ?", rotatable, rotatable2);
+```dart
+SizedBox(
+  width: 250.0,
+  child: TypewriterAnimatedTextKit(
+    text: [
+      "Discipline is the best tool",
+      "Design first, then code",
+      "Do not patch bugs out, rewrite them",
+      "Do not test bugs out, design them out",
+    ],
+    textStyle: TextStyle(
+        fontSize: 30.0,
+        fontFamily: "Agne"
+    ),
+  ),
+);
 ```
 
-#### Result
-<img src="/screens/gif_example_3.gif"/>
+## Scale
 
-# Documentation
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/scale.gif?raw=true" align = "right" height = "300px">
 
-Rotating text is made of two parts : `RotatingTextWrapper` and `Rotatable`. <br>
-Each rotatable encapsulates the collection of words that are two be periodically switched and also defines various properties related to these words, like, size, color, animation interpolator etc.<br>
-Each Rotatable must be a part of a `RotatingTextWrapper`. This defines the actual layout of the text and the positions of the rotating text.
+```dart
+SizedBox(
+  width: 250.0,
+  child: ScaleAnimatedTextKit(
+    text: [
+      "Think",
+      "Build",
+      "Ship"
+      ],
+    textStyle: TextStyle(
+        fontSize: 70.0,
+        fontFamily: "Canterbury"
+    ),
+  ),
+);
+```
 
-For eg : `rotatingTextWrapper.setContent("This is ?", rotatble);`. Here the `?` denotes the postion of the `rotatable`.
+## Colorize
 
-## RotatingTextWrapper
-|Property         |Function                |Description                             |
-|-----------------|------------------------|----------------------------------------|
-|Content               | setContent(...)                    | Set the actual content. Composed of a String and array of Rotatables. |
-|Typeface              | setTypeface(...)                   | Set the typeface of the non-rotating text                     |
-|Size                  | setSize(...)                       | Set the size of the non-rotating text                         |
-|Pause                 | pause(x)                           | Method to pause the 'x'th rotatable                           |
-|Resume                | resume(x)                          | Method to resume the 'x'th rotatable                          |
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/colorize.gif?raw=true" align = "right" height = "300px">
 
-## Rotatable
-|Property         |Function                |Description                             |
-|-----------------|------------------------|----------------------------------------|
-|Color                 | setColor(...)                      | Set the color of the rotating text associated with this rotatable     |
-|Size                  | setSize(...)                       | Set the size of the rotating text associated with this rotatable      |
-|Typeface              | setTypeface(...)                   | Set the typeface of the rotating text associated with this rotatable  |
-|Interpolator          | setInterpolator(...)               | Set the animation interpolator used while switching text              |
-|Update Duration       | setUpdateDuration(...)             | Set the interval between switching the words                          |
-|Animation Duration    | setAnimationDuration(...)          | Set the duration of the switching animation                           |
-|Center Align          | setCenter(...)                     |Align the rotating text to center of the textview if set to **true**   |
+```dart
+SizedBox(
+  width: 250.0,
+  child: ColorizeAnimatedTextKit(
+    text: [
+      "Larry Page",
+      "Bill Gates",
+      "Steve Jobs",
+    ],
+    textStyle: TextStyle(
+        fontSize: 50.0, 
+        fontFamily: "Horizon"
+    ),
+    colors: [
+      Colors.purple,
+      Colors.blue,
+      Colors.yellow,
+      Colors.red,
+    ],
+  ),
+);
+```
+**Note:** `colors` list should contains atleast two values, also `ColorizeAnimationTextKit` can be used for flutter `>=0.5.7` which is available in `dev` channel. 
+
+# Bugs or Requests
+
 
 
 # License
-RotatingText is licensed under `MIT license`. View [license](LICENSE.md).
+AnimatedTextKit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
