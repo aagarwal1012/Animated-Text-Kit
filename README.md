@@ -62,18 +62,12 @@ FadeAnimatedTextKit(
 Row(
   mainAxisSize: MainAxisSize.min,
   children: <Widget>[
-    SizedBox(
-      width: 20.0,
-      height: 100.0,
-    ),
+    SizedBox(width: 20.0, height: 100.0),
     Text(
       "Be",
       style: TextStyle(fontSize: 43.0),
     ),
-    SizedBox(
-      width: 20.0,
-      height: 100.0,
-    ),
+    SizedBox(width: 20.0, height: 100.0),
     RotateAnimatedTextKit(
       text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
       textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
@@ -194,11 +188,13 @@ SizedBox(
   ),
 );
 ```
-**Note:** `colors` list should contains atleast two values, also `ColorizeAnimationTextKit` can be used for flutter `>=0.5.7` which is available in `dev` channel. 
+**Note:** `colors` list should contains at least two values, also `ColorizeAnimationTextKit` can be used for flutter `>=0.5.7` which is available in `dev` channel. 
 
 # Bugs or Requests
 
+If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome. 
 
+See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
 # License
-AnimatedTextKit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
+Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
