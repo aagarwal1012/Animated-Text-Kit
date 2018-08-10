@@ -1,8 +1,8 @@
 name: animated_text_kit
-description: A new flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: A flutter package project which contains a collection of cool and beautiful text animations.
+version: 1.0.1
+author: Ayush Agarwal <aagarwal9782@gmail.com>
+homepage: https://github.com/aagarwal1012/Animated-Text-Kit/
 
 dependencies:
   flutter:
@@ -13,3 +13,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=0.5.7 <2.0.0"

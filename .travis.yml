@@ -23,5 +23,4 @@ before_script:
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
   - ./flutter/bin/flutter doctor
 script:
-  - cd example/
-  - ./../flutter/bin/flutter test
+  - ./flutter/bin/flutter test
