@@ -1,5 +1,5 @@
 name: example
-description: A new Flutter project.
+description: An example app to show the use of Animation Text Kit.
 
 dependencies:
   flutter:
