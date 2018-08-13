@@ -24,3 +24,7 @@ before_script:
   - ./flutter/bin/flutter doctor
 script:
   - ./flutter/bin/flutter test
+  - ./flutter/bin/flutter analyze .
+  - ./flutter\bin\cache\dart-sdk\bin\dartfmt --dry-run lib\
+  - ./flutter\bin\cache\dart-sdk\bin\dartfmt --dry-run test\
+  - ./flutter\bin\cache\dart-sdk\bin\dartfmt --dry-run example\lib\
