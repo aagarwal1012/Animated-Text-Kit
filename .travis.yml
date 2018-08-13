@@ -20,11 +20,13 @@ matrix:
   allow_failures:
     - env: FLUTTER_VERSION=beta
 before_script:
+  - cd ../
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
   - ./flutter/bin/flutter doctor
+  - cd Animated-Text-Kit/
 script:
-  - ./flutter/bin/flutter test
-  - ./flutter/bin/flutter analyze .
-  - ./flutter\bin\cache\dart-sdk\bin\dartfmt --dry-run lib\
-  - ./flutter\bin\cache\dart-sdk\bin\dartfmt --dry-run test\
-  - ./flutter\bin\cache\dart-sdk\bin\dartfmt --dry-run example\lib\
+  - ./../flutter/bin/flutter test
+  - ./../flutter/bin/flutter analyze .
+  - ./../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run lib/
+  - ./../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run test/
+  - ./../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run example/lib/
