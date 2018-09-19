@@ -4,9 +4,14 @@ class FadeAnimatedTextKit extends StatefulWidget {
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
+  final VoidCallback onTap;
 
   const FadeAnimatedTextKit(
-      {Key key, @required this.text, this.textStyle, this.duration})
+      {Key key,
+      @required this.text,
+      this.textStyle,
+      this.duration,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -82,8 +87,11 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
       ));
     }
 
-    return Stack(
-      children: textWidgetList,
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Stack(
+        children: textWidgetList,
+      ),
     );
   }
 }
