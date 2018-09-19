@@ -13,7 +13,7 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
       this.textStyle,
       @required this.colors,
       this.duration,
-      this.onTap = null})
+      this.onTap})
       : super(key: key);
 
   @override
