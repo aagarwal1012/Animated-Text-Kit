@@ -128,7 +128,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
     return SizedBox(
       height: 80.0,
-      child: InkWell(
+      child: GestureDetector(
         onTap: widget.onTap,
         child: Stack(
           children: _textWidgetList,

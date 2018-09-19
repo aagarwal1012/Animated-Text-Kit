@@ -84,7 +84,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
       ));
     }
 
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
         children: textWidgetList,

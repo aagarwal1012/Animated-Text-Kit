@@ -132,7 +132,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       ));
     }
 
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onTap,
       child: SizedBox(
         height: _transitionHeight,
