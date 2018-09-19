@@ -5,13 +5,15 @@ class RotateAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final double transitionHeight;
+  final VoidCallback onTap;
 
   const RotateAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
       this.transitionHeight,
-      this.duration})
+      this.duration,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -130,10 +132,13 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       ));
     }
 
-    return SizedBox(
-      height: _transitionHeight,
-      child: Stack(
-        children: textWidgetList,
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: SizedBox(
+        height: _transitionHeight,
+        child: Stack(
+          children: textWidgetList,
+        ),
       ),
     );
   }

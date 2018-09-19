@@ -5,13 +5,15 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final double scalingFactor;
+  final VoidCallback onTap;
 
   const ScaleAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
       this.scalingFactor = 0.5,
-      this.duration})
+      this.duration,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -109,8 +111,11 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
       ));
     }
 
-    return Stack(
-      children: textWidgetList,
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Stack(
+        children: textWidgetList,
+      ),
     );
   }
 }

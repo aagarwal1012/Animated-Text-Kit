@@ -5,13 +5,15 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
   final List<Color> colors;
   final TextStyle textStyle;
   final Duration duration;
+  final VoidCallback onTap;
 
   const ColorizeAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
       @required this.colors,
-      this.duration})
+      this.duration,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -125,8 +127,11 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
     return SizedBox(
       height: 80.0,
-      child: Stack(
-        children: _textWidgetList,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Stack(
+          children: _textWidgetList,
+        ),
       ),
     );
   }
