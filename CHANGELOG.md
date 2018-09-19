@@ -1,3 +1,8 @@
+## 1.1.0
+**Feature Enhancement**
+* Added onTap callback for all AnimatedText widget.
+* Updated Readme.
+
 ## 1.0.3
 * General update.
 

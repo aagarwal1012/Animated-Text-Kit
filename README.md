@@ -42,7 +42,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^1.0.3
+  animated_text_kit: ^1.1.0
 ```
 
 ### 2. Install it
@@ -96,6 +96,9 @@ Row(
     ),
     SizedBox(width: 20.0, height: 100.0),
     RotateAnimatedTextKit(
+      onTap: () {
+        print("Tap Event");
+      },
       text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
       textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
     ),
@@ -112,6 +115,9 @@ Row(
 SizedBox(
   width: 250.0,
   child: FadeAnimatedTextKit(
+    onTap: () {
+        print("Tap Event");
+      },
     text: [
       "do IT!",
       "do it RIGHT!!",
@@ -133,6 +139,9 @@ SizedBox(
 SizedBox(
   width: 250.0,
   child: TyperAnimatedTextKit(
+    onTap: () {
+        print("Tap Event");
+      },
     text: [
       "It is not enough to do your best,",
       "you must know what to do,",
@@ -154,6 +163,9 @@ SizedBox(
 SizedBox(
   width: 250.0,
   child: TypewriterAnimatedTextKit(
+    onTap: () {
+        print("Tap Event");
+      },
     text: [
       "Discipline is the best tool",
       "Design first, then code",
@@ -176,6 +188,9 @@ SizedBox(
 SizedBox(
   width: 250.0,
   child: ScaleAnimatedTextKit(
+    onTap: () {
+        print("Tap Event");
+      },
     text: [
       "Think",
       "Build",
@@ -197,6 +212,9 @@ SizedBox(
 SizedBox(
   width: 250.0,
   child: ColorizeAnimatedTextKit(
+    onTap: () {
+        print("Tap Event");
+      },
     text: [
       "Larry Page",
       "Bill Gates",
