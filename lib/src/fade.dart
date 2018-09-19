@@ -7,7 +7,11 @@ class FadeAnimatedTextKit extends StatefulWidget {
   final VoidCallback onTap;
 
   const FadeAnimatedTextKit(
-      {Key key, @required this.text, this.textStyle, this.duration, this.onTap = null})
+      {Key key,
+      @required this.text,
+      this.textStyle,
+      this.duration,
+      this.onTap = null})
       : super(key: key);
 
   @override
@@ -38,8 +42,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )
-      ..repeat();
+    )..repeat();
 
     int lengthList = widget.text.length;
 
