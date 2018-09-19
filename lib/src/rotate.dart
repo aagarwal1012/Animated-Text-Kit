@@ -13,7 +13,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
       this.textStyle,
       this.transitionHeight,
       this.duration,
-      this.onTap = null})
+      this.onTap})
       : super(key: key);
 
   @override

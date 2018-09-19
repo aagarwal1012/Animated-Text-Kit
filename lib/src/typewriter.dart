@@ -11,7 +11,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       @required this.text,
       this.textStyle,
       this.duration,
-      this.onTap = null})
+      this.onTap})
       : super(key: key);
 
   @override

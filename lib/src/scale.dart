@@ -13,7 +13,7 @@ class ScaleAnimatedTextKit extends StatefulWidget {
       this.textStyle,
       this.scalingFactor = 0.5,
       this.duration,
-      this.onTap = null})
+      this.onTap})
       : super(key: key);
 
   @override
