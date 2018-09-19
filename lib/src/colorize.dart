@@ -7,12 +7,13 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
   final Duration duration;
   final VoidCallback onTap;
 
-  const ColorizeAnimatedTextKit({Key key,
-    @required this.text,
-    this.textStyle,
-    @required this.colors,
-    this.duration,
-    this.onTap = null})
+  const ColorizeAnimatedTextKit(
+      {Key key,
+      @required this.text,
+      this.textStyle,
+      @required this.colors,
+      this.duration,
+      this.onTap = null})
       : super(key: key);
 
   @override
@@ -55,8 +56,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )
-      ..repeat();
+    )..repeat();
 
     double percentTimeCount = 0.0;
 
@@ -108,7 +108,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
         builder: (BuildContext context, Widget child) {
           Shader linearGradient = LinearGradient(colors: widget.colors)
               .createShader(
-              Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
+                  Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
           return Opacity(
             opacity: !(_fadeIn[i].value == 1.0)
                 ? _fadeIn[i].value
@@ -117,8 +117,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
               widget.text[i],
               style: widget.textStyle != null
                   ? widget.textStyle.merge(
-                  TextStyle(foreground: Paint()
-                    ..shader = linearGradient))
+                      TextStyle(foreground: Paint()..shader = linearGradient))
                   : widget.textStyle,
             ),
           );
