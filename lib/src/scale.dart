@@ -111,7 +111,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
       ));
     }
 
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
         children: textWidgetList,

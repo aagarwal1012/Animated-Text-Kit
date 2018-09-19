@@ -44,7 +44,8 @@ class _TyperState extends State<TyperAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    )
+      ..repeat();
 
     double percentTimeCount = 0.0;
     for (int i = 0; i < widget.text.length; i++) {
@@ -90,7 +91,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
       ));
     }
 
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
         children: textWidgetList,

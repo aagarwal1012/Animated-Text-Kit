@@ -65,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100.0,
             ),
             RotateAnimatedTextKit(
-              onTap: (){print("Tap Event");},
+              onTap: () {
+                print("Tap Event");
+              },
               text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
               textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
             ),
@@ -74,14 +76,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     ),
     FadeAnimatedTextKit(
-      onTap: (){print("Tap Event");},
+      onTap: () {
+        print("Tap Event");
+      },
       text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
       textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
     ),
     SizedBox(
       width: 250.0,
       child: TyperAnimatedTextKit(
-        onTap: (){print("Tap Event");},
+        onTap: () {
+          print("Tap Event");
+        },
         text: [
           "It is not enough to do your best,",
           "you must know what to do,",
@@ -94,7 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
     SizedBox(
       width: 250.0,
       child: TypewriterAnimatedTextKit(
-        onTap: (){print("Tap Event");},
+        onTap: () {
+          print("Tap Event");
+        },
         text: [
           "Discipline is the best tool",
           "Design first, then code",
@@ -105,14 +113,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ),
     ScaleAnimatedTextKit(
-      onTap: (){print("Tap Event");},
+      onTap: () {
+        print("Tap Event");
+      },
       text: ["Think", "Build", "Ship"],
       textStyle: TextStyle(fontSize: 70.0, fontFamily: "Canterbury"),
     ),
 
     /// colors.length >= 2
     ColorizeAnimatedTextKit(
-      onTap: (){print("Tap Event");},
+      onTap: () {
+        print("Tap Event");
+      },
       text: [
         "Larry Page",
         "Bill Gates",

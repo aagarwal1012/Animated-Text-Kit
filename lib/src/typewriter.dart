@@ -44,7 +44,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    )
+      ..repeat();
 
     int totalCharacters = 0;
 
@@ -58,10 +59,10 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
       _typewriterText.add(StepTween(begin: 0, end: widget.text[i].length + 8)
           .animate(new CurvedAnimation(
-              parent: _controller,
-              curve: Interval(
-                  percentTimeCount, (percentTimeCount + (percentTime * 8 / 10)),
-                  curve: Curves.linear))));
+          parent: _controller,
+          curve: Interval(
+              percentTimeCount, (percentTimeCount + (percentTime * 8 / 10)),
+              curve: Curves.linear))));
 
       _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
           parent: _controller,
@@ -118,7 +119,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       ));
     }
 
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
         children: textWidgetList,
