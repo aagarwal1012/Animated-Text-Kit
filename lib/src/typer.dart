@@ -4,9 +4,10 @@ class TyperAnimatedTextKit extends StatefulWidget {
   final List<String> text;
   final TextStyle textStyle;
   final Duration duration;
+  final VoidCallback onTap;
 
   const TyperAnimatedTextKit(
-      {Key key, @required this.text, this.textStyle, this.duration})
+      {Key key, @required this.text, this.textStyle, this.duration, this.onTap = null})
       : super(key: key);
 
   @override
@@ -89,8 +90,11 @@ class _TyperState extends State<TyperAnimatedTextKit>
       ));
     }
 
-    return Stack(
-      children: textWidgetList,
+    return InkWell(
+      onTap: widget.onTap,
+      child: Stack(
+        children: textWidgetList,
+      ),
     );
   }
 }

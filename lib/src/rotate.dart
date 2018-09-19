@@ -5,13 +5,14 @@ class RotateAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final double transitionHeight;
+  final VoidCallback onTap;
 
-  const RotateAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.transitionHeight,
-      this.duration})
+  const RotateAnimatedTextKit({Key key,
+    @required this.text,
+    this.textStyle,
+    this.transitionHeight,
+    this.duration,
+    this.onTap = null})
       : super(key: key);
 
   @override
@@ -46,7 +47,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    )
+      ..repeat();
 
     int lengthList = widget.text.length;
 
@@ -115,7 +117,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
         builder: (BuildContext context, Widget child) {
           return AlignTransition(
             alignment:
-                !(_slideIn[i].value.y == 0.0) ? _slideIn[i] : _slideOut[i],
+            !(_slideIn[i].value.y == 0.0) ? _slideIn[i] : _slideOut[i],
             child: Opacity(
               opacity: !(_fadeIn[i].value == 1.0)
                   ? _fadeIn[i].value
@@ -130,10 +132,13 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       ));
     }
 
-    return SizedBox(
-      height: _transitionHeight,
-      child: Stack(
-        children: textWidgetList,
+    return InkWell(
+      onTap: widget.onTap,
+      child: SizedBox(
+        height: _transitionHeight,
+        child: Stack(
+          children: textWidgetList,
+        ),
       ),
     );
   }

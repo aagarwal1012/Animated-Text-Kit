@@ -5,13 +5,14 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final double scalingFactor;
+  final VoidCallback onTap;
 
-  const ScaleAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.scalingFactor = 0.5,
-      this.duration})
+  const ScaleAnimatedTextKit({Key key,
+    @required this.text,
+    this.textStyle,
+    this.scalingFactor = 0.5,
+    this.duration,
+    this.onTap = null})
       : super(key: key);
 
   @override
@@ -44,7 +45,8 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    )
+      ..repeat();
 
     int lengthList = widget.text.length;
 
@@ -64,20 +66,20 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
               curve: Curves.easeIn))));
       _scaleIn.add(Tween<double>(begin: widget.scalingFactor, end: 1.0)
           .animate(CurvedAnimation(
-              parent: _controller,
-              curve: Interval(
-                (i * percentTime),
-                (i * percentTime) + scaleTime,
-                curve: Curves.easeOut,
-              ))));
+          parent: _controller,
+          curve: Interval(
+            (i * percentTime),
+            (i * percentTime) + scaleTime,
+            curve: Curves.easeOut,
+          ))));
       _scaleOut.add(Tween<double>(begin: 1.0, end: widget.scalingFactor)
           .animate(CurvedAnimation(
-              parent: _controller,
-              curve: Interval(
-                ((i + 1) * percentTime) - scaleTime,
-                ((i + 1) * percentTime),
-                curve: Curves.easeIn,
-              ))));
+          parent: _controller,
+          curve: Interval(
+            ((i + 1) * percentTime) - scaleTime,
+            ((i + 1) * percentTime),
+            curve: Curves.easeIn,
+          ))));
     }
   }
 
@@ -109,8 +111,11 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
       ));
     }
 
-    return Stack(
-      children: textWidgetList,
+    return InkWell(
+      onTap: widget.onTap,
+      child: Stack(
+        children: textWidgetList,
+      ),
     );
   }
 }
