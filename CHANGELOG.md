@@ -1,3 +1,6 @@
+## 1.1.1
+* Fixed flutter formatting issues.
+
 ## 1.1.0
 **Feature Enhancement**
 * Added onTap callback for all AnimatedText widget.
