@@ -6,6 +6,7 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   final Duration duration;
   final double scalingFactor;
   final VoidCallback onTap;
+  final bool isRepeatingAnimation;
 
   const ScaleAnimatedTextKit(
       {Key key,
@@ -13,7 +14,8 @@ class ScaleAnimatedTextKit extends StatefulWidget {
       this.textStyle,
       this.scalingFactor = 0.5,
       this.duration,
-      this.onTap})
+      this.onTap,
+      this.isRepeatingAnimation = true})
       : super(key: key);
 
   @override
@@ -46,7 +48,13 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    );
+
+    if (widget.isRepeatingAnimation) {
+      _controller..repeat();
+    } else {
+      _controller.forward();
+    }
 
     int lengthList = widget.text.length;
 

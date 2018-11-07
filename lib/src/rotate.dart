@@ -6,6 +6,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
   final Duration duration;
   final double transitionHeight;
   final VoidCallback onTap;
+  final bool isRepeatingAnimation;
 
   const RotateAnimatedTextKit(
       {Key key,
@@ -13,7 +14,8 @@ class RotateAnimatedTextKit extends StatefulWidget {
       this.textStyle,
       this.transitionHeight,
       this.duration,
-      this.onTap})
+      this.onTap,
+      this.isRepeatingAnimation = true})
       : super(key: key);
 
   @override
@@ -48,7 +50,13 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    );
+
+    if (widget.isRepeatingAnimation) {
+      _controller..repeat();
+    } else {
+      _controller.forward();
+    }
 
     int lengthList = widget.text.length;
 
