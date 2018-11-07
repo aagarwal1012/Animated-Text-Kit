@@ -5,9 +5,15 @@ class TyperAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final VoidCallback onTap;
+  final bool isRepeatingAnimation;
 
   const TyperAnimatedTextKit(
-      {Key key, @required this.text, this.textStyle, this.duration, this.onTap})
+      {Key key,
+      @required this.text,
+      this.textStyle,
+      this.duration,
+      this.onTap,
+      this.isRepeatingAnimation = true})
       : super(key: key);
 
   @override
@@ -44,7 +50,13 @@ class _TyperState extends State<TyperAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    );
+
+    if (widget.isRepeatingAnimation) {
+      _controller..repeat();
+    } else {
+      _controller.forward();
+    }
 
     double percentTimeCount = 0.0;
     for (int i = 0; i < widget.text.length; i++) {
