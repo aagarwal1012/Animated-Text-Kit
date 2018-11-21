@@ -5,9 +5,15 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final VoidCallback onTap;
+  final bool isRepeatingAnimation;
 
   TypewriterAnimatedTextKit(
-      {Key key, @required this.text, this.textStyle, this.duration, this.onTap})
+      {Key key,
+      @required this.text,
+      this.textStyle,
+      this.duration,
+      this.onTap,
+      this.isRepeatingAnimation = true})
       : super(key: key);
 
   @override
@@ -44,7 +50,13 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     _controller = new AnimationController(
       duration: _duration,
       vsync: this,
-    )..repeat();
+    );
+
+    if (widget.isRepeatingAnimation) {
+      _controller..repeat();
+    } else {
+      _controller.forward();
+    }
 
     int totalCharacters = 0;
 
@@ -82,40 +94,119 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          return Opacity(
-            opacity: _fadeOut[i].value,
-            child: Builder(
-              builder: (BuildContext context) {
-                String visibleString = widget.text[i];
-                if (_typewriterText[i].value == 0) {
-                  visibleString = "";
-                } else if (_typewriterText[i].value > widget.text[i].length) {
-                  if ((_typewriterText[i].value - widget.text[i].length) % 2 ==
-                      0) {
-                    visibleString =
-                        widget.text[i].substring(0, widget.text[i].length) +
-                            "_";
+      if (i != widget.text.length - 1) {
+        textWidgetList.add(AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            return Opacity(
+              opacity: _fadeOut[i].value,
+              child: Builder(
+                builder: (BuildContext context) {
+                  String visibleString = widget.text[i];
+                  if (_typewriterText[i].value == 0) {
+                    visibleString = "";
+                  } else if (_typewriterText[i].value > widget.text[i].length) {
+                    if ((_typewriterText[i].value - widget.text[i].length) %
+                            2 ==
+                        0) {
+                      visibleString =
+                          widget.text[i].substring(0, widget.text[i].length) +
+                              "_";
+                    } else {
+                      visibleString =
+                          widget.text[i].substring(0, widget.text[i].length);
+                    }
                   } else {
                     visibleString =
-                        widget.text[i].substring(0, widget.text[i].length);
+                        widget.text[i].substring(0, _typewriterText[i].value) +
+                            "_";
                   }
-                } else {
-                  visibleString =
-                      widget.text[i].substring(0, _typewriterText[i].value) +
+                  return Text(
+                    visibleString,
+                    style: widget.textStyle,
+                  );
+                },
+              ),
+            );
+          },
+        ));
+      } else {
+        if (widget.isRepeatingAnimation) {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return Opacity(
+                opacity: _fadeOut[i].value,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    String visibleString = widget.text[i];
+                    if (_typewriterText[i].value == 0) {
+                      visibleString = "";
+                    } else if (_typewriterText[i].value >
+                        widget.text[i].length) {
+                      if ((_typewriterText[i].value - widget.text[i].length) %
+                              2 ==
+                          0) {
+                        visibleString =
+                            widget.text[i].substring(0, widget.text[i].length) +
+                                "_";
+                      } else {
+                        visibleString =
+                            widget.text[i].substring(0, widget.text[i].length);
+                      }
+                    } else {
+                      visibleString = widget.text[i]
+                              .substring(0, _typewriterText[i].value) +
                           "_";
-                }
-                return Text(
-                  visibleString,
-                  style: widget.textStyle,
-                );
-              },
-            ),
-          );
-        },
-      ));
+                    }
+                    return Text(
+                      visibleString,
+                      style: widget.textStyle,
+                    );
+                  },
+                ),
+              );
+            },
+          ));
+        } else {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return Opacity(
+                opacity: 1,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    String visibleString = widget.text[i];
+                    if (_typewriterText[i].value == 0) {
+                      visibleString = "";
+                    } else if (_typewriterText[i].value >
+                        widget.text[i].length) {
+                      if ((_typewriterText[i].value - widget.text[i].length) %
+                              2 ==
+                          0) {
+                        visibleString =
+                            widget.text[i].substring(0, widget.text[i].length) +
+                                "_";
+                      } else {
+                        visibleString =
+                            widget.text[i].substring(0, widget.text[i].length);
+                      }
+                    } else {
+                      visibleString = widget.text[i]
+                              .substring(0, _typewriterText[i].value) +
+                          "_";
+                    }
+                    return Text(
+                      visibleString,
+                      style: widget.textStyle,
+                    );
+                  },
+                ),
+              );
+            },
+          ));
+        }
+      }
     }
 
     return GestureDetector(
