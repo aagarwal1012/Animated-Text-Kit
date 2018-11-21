@@ -88,18 +88,48 @@ class _TyperState extends State<TyperAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          return Opacity(
-            opacity: _fadeOut[i].value,
-            child: Text(
-              widget.text[i].substring(0, _typingText[i].value),
-              style: widget.textStyle,
-            ),
-          );
-        },
-      ));
+      if (i != widget.text.length - 1) {
+        textWidgetList.add(AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            return Opacity(
+              opacity: _fadeOut[i].value,
+              child: Text(
+                widget.text[i].substring(0, _typingText[i].value),
+                style: widget.textStyle,
+              ),
+            );
+          },
+        ));
+      } else {
+        if (widget.isRepeatingAnimation) {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return Opacity(
+                opacity: _fadeOut[i].value,
+                child: Text(
+                  widget.text[i].substring(0, _typingText[i].value),
+                  style: widget.textStyle,
+                ),
+              );
+            },
+          ));
+        } else {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return Opacity(
+                opacity: 1,
+                child: Text(
+                  widget.text[i].substring(0, _typingText[i].value),
+                  style: widget.textStyle,
+                ),
+              );
+            },
+          ));
+        }
+      }
     }
 
     return GestureDetector(

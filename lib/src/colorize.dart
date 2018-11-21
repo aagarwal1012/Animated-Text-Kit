@@ -60,12 +60,11 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
       vsync: this,
     );
 
-    if(widget.isRepeatingAnimation) {
+    if (widget.isRepeatingAnimation) {
       _controller..repeat();
     } else {
       _controller.forward();
     }
-
 
     double percentTimeCount = 0.0;
 
@@ -112,26 +111,70 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      _textWidgetList.add(AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          Shader linearGradient = LinearGradient(colors: widget.colors)
-              .createShader(
-                  Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
-          return Opacity(
-            opacity: !(_fadeIn[i].value == 1.0)
-                ? _fadeIn[i].value
-                : _fadeOut[i].value,
-            child: Text(
-              widget.text[i],
-              style: widget.textStyle != null
-                  ? widget.textStyle.merge(
-                      TextStyle(foreground: Paint()..shader = linearGradient))
-                  : widget.textStyle,
-            ),
-          );
-        },
-      ));
+      if (i != widget.text.length - 1) {
+        _textWidgetList.add(AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            Shader linearGradient = LinearGradient(colors: widget.colors)
+                .createShader(
+                    Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
+            return Opacity(
+              opacity: !(_fadeIn[i].value == 1.0)
+                  ? _fadeIn[i].value
+                  : _fadeOut[i].value,
+              child: Text(
+                widget.text[i],
+                style: widget.textStyle != null
+                    ? widget.textStyle.merge(
+                        TextStyle(foreground: Paint()..shader = linearGradient))
+                    : widget.textStyle,
+              ),
+            );
+          },
+        ));
+      } else {
+        if (widget.isRepeatingAnimation) {
+          _textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              Shader linearGradient = LinearGradient(colors: widget.colors)
+                  .createShader(
+                      Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
+              return Opacity(
+                opacity: !(_fadeIn[i].value == 1.0)
+                    ? _fadeIn[i].value
+                    : _fadeOut[i].value,
+                child: Text(
+                  widget.text[i],
+                  style: widget.textStyle != null
+                      ? widget.textStyle.merge(TextStyle(
+                          foreground: Paint()..shader = linearGradient))
+                      : widget.textStyle,
+                ),
+              );
+            },
+          ));
+        } else {
+          _textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              Shader linearGradient = LinearGradient(colors: widget.colors)
+                  .createShader(
+                      Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
+              return Opacity(
+                opacity: _fadeIn[i].value,
+                child: Text(
+                  widget.text[i],
+                  style: widget.textStyle != null
+                      ? widget.textStyle.merge(TextStyle(
+                          foreground: Paint()..shader = linearGradient))
+                      : widget.textStyle,
+                ),
+              );
+            },
+          ));
+        }
+      }
     }
 
     return SizedBox(
