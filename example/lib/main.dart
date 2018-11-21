@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 print("Tap Event");
               },
+              isRepeatingAnimation: false,
               text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
               textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
             ),

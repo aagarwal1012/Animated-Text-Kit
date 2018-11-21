@@ -1,3 +1,8 @@
+## 1.2.0
+**Feature Enhancement**
+* Added attribute to check whether the animation should repeat or not.
+* Updated Readme.
+
 ## 1.1.1
 * Fixed flutter formatting issues.
 
