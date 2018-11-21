@@ -100,23 +100,61 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          return ScaleTransition(
-            scale: !(_scaleIn[i].value == 1.0) ? _scaleIn[i] : _scaleOut[i],
-            child: Opacity(
-              opacity: !(_fadeIn[i].value == 1.0)
-                  ? _fadeIn[i].value
-                  : _fadeOut[i].value,
-              child: Text(
-                widget.text[i],
-                style: widget.textStyle,
+      if (i != widget.text.length - 1) {
+        textWidgetList.add(AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            return ScaleTransition(
+              scale: !(_scaleIn[i].value == 1.0) ? _scaleIn[i] : _scaleOut[i],
+              child: Opacity(
+                opacity: !(_fadeIn[i].value == 1.0)
+                    ? _fadeIn[i].value
+                    : _fadeOut[i].value,
+                child: Text(
+                  widget.text[i],
+                  style: widget.textStyle,
+                ),
               ),
-            ),
-          );
-        },
-      ));
+            );
+          },
+        ));
+      } else {
+        if (widget.isRepeatingAnimation) {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return ScaleTransition(
+                scale: !(_scaleIn[i].value == 1.0) ? _scaleIn[i] : _scaleOut[i],
+                child: Opacity(
+                  opacity: !(_fadeIn[i].value == 1.0)
+                      ? _fadeIn[i].value
+                      : _fadeOut[i].value,
+                  child: Text(
+                    widget.text[i],
+                    style: widget.textStyle,
+                  ),
+                ),
+              );
+            },
+          ));
+        } else {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return ScaleTransition(
+                scale: _scaleIn[i],
+                child: Opacity(
+                  opacity: _fadeIn[i].value,
+                  child: Text(
+                    widget.text[i],
+                    style: widget.textStyle,
+                  ),
+                ),
+              );
+            },
+          ));
+        }
+      }
     }
 
     return GestureDetector(

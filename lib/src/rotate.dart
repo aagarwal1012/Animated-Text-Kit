@@ -95,6 +95,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                 (i * percentTime) - slideTime + fadeTime,
                 curve: Curves.easeOut))));
       }
+
       _slideOut.add(AlignmentTween(
         begin: Alignment(-1.0, 0.0),
         end: new Alignment(-1.0, 1.0),
@@ -120,24 +121,63 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
-      textWidgetList.add(AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          return AlignTransition(
-            alignment:
-                !(_slideIn[i].value.y == 0.0) ? _slideIn[i] : _slideOut[i],
-            child: Opacity(
-              opacity: !(_fadeIn[i].value == 1.0)
-                  ? _fadeIn[i].value
-                  : _fadeOut[i].value,
-              child: Text(
-                widget.text[i],
-                style: widget.textStyle,
+      if (i != widget.text.length - 1) {
+        textWidgetList.add(AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            return AlignTransition(
+              alignment:
+                  !(_slideIn[i].value.y == 0.0) ? _slideIn[i] : _slideOut[i],
+              child: Opacity(
+                opacity: !(_fadeIn[i].value == 1.0)
+                    ? _fadeIn[i].value
+                    : _fadeOut[i].value,
+                child: Text(
+                  widget.text[i],
+                  style: widget.textStyle,
+                ),
               ),
-            ),
-          );
-        },
-      ));
+            );
+          },
+        ));
+      } else {
+        if (widget.isRepeatingAnimation) {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return AlignTransition(
+                alignment:
+                    !(_slideIn[i].value.y == 0.0) ? _slideIn[i] : _slideOut[i],
+                child: Opacity(
+                  opacity: !(_fadeIn[i].value == 1.0)
+                      ? _fadeIn[i].value
+                      : _fadeOut[i].value,
+                  child: Text(
+                    widget.text[i],
+                    style: widget.textStyle,
+                  ),
+                ),
+              );
+            },
+          ));
+        } else {
+          textWidgetList.add(AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget child) {
+              return AlignTransition(
+                alignment: _slideIn[i],
+                child: Opacity(
+                  opacity: _fadeIn[i].value,
+                  child: Text(
+                    widget.text[i],
+                    style: widget.textStyle,
+                  ),
+                ),
+              );
+            },
+          ));
+        }
+      }
     }
 
     return GestureDetector(
