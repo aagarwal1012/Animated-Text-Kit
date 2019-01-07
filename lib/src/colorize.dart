@@ -1,39 +1,37 @@
+import 'package:animated_text_kit/src/generic_animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-class ColorizeAnimatedTextKit extends StatefulWidget {
-  final List<String> text;
+class ColorizeAnimatedTextKit extends GenericAnimatedTextKit {
   final List<Color> colors;
-  final TextStyle textStyle;
-  final Duration duration;
-  final VoidCallback onTap;
-  final AlignmentGeometry alignment;
-  final TextAlign textAlign;
-  final bool isRepeatingAnimation;
 
   const ColorizeAnimatedTextKit(
       {Key key,
-      @required this.text,
-      this.textStyle,
+      @required List<String> text,
       @required this.colors,
-      this.duration,
-      this.onTap,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.isRepeatingAnimation = true})
-      : super(key: key);
+      TextStyle textStyle,
+      Duration duration,
+      VoidCallback onTap,
+      AlignmentGeometry alignment = AlignmentDirectional.topStart,
+      TextAlign textAlign = TextAlign.start,
+      bool isRepeatingAnimation = true})
+      : assert(colors != null),
+        super(
+            key: key,
+            text: text,
+            textStyle: textStyle,
+            duration: duration,
+            onTap: onTap,
+            alignment: alignment,
+            textAlign: textAlign,
+            isRepeatingAnimation: isRepeatingAnimation);
 
   @override
   _RotatingTextState createState() => new _RotatingTextState();
 }
 
-class _RotatingTextState extends State<ColorizeAnimatedTextKit>
+class _RotatingTextState
+    extends GenericAnimatedTextKitState<ColorizeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
-  Duration _duration;
-
-  AnimationController _controller;
-
-  List<Widget> _textWidgetList = [];
-
   List<Animation<double>> _colorShifter = [];
 
   List<Animation<double>> _fadeIn = [];
@@ -42,9 +40,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   List<double> _tuning = [];
 
   @override
-  void initState() {
-    super.initState();
-
+  void setup() {
     int lengthList = widget.text.length;
 
     int totalCharacters = 0;
@@ -54,20 +50,20 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
     }
 
     if (widget.duration == null) {
-      _duration = Duration(milliseconds: 1500 * totalCharacters ~/ 3);
+      duration = Duration(milliseconds: 1500 * totalCharacters ~/ 3);
     } else {
-      _duration = widget.duration;
+      duration = widget.duration;
     }
 
-    _controller = new AnimationController(
-      duration: _duration,
+    controller = new AnimationController(
+      duration: duration,
       vsync: this,
     );
 
     if (widget.isRepeatingAnimation) {
-      _controller..repeat();
+      controller..repeat();
     } else {
-      _controller.forward();
+      controller.forward();
     }
 
     double percentTimeCount = 0.0;
@@ -81,7 +77,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
           (widget.text[i].length / 15.0));
 
       _fadeIn.add(Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-          parent: _controller,
+          parent: controller,
           curve: Interval(
             percentTimeCount,
             percentTimeCount + (percentTime / 10),
@@ -89,7 +85,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
           ))));
 
       _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
-          parent: _controller,
+          parent: controller,
           curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
               (percentTimeCount + percentTime),
               curve: Curves.easeIn))));
@@ -97,7 +93,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
       _colorShifter.add(
           Tween(begin: 0.0, end: widget.colors.length * _tuning[i]).animate(
               CurvedAnimation(
-                  parent: _controller,
+                  parent: controller,
                   curve: Interval(
                       percentTimeCount, percentTimeCount + percentTime,
                       curve: Curves.easeIn))));
@@ -107,17 +103,11 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildLayout(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
       if (i != widget.text.length - 1) {
-        _textWidgetList.add(AnimatedBuilder(
-          animation: _controller,
+        textWidgetList.add(AnimatedBuilder(
+          animation: controller,
           builder: (BuildContext context, Widget child) {
             Shader linearGradient = LinearGradient(colors: widget.colors)
                 .createShader(
@@ -139,8 +129,8 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
         ));
       } else {
         if (widget.isRepeatingAnimation) {
-          _textWidgetList.add(AnimatedBuilder(
-            animation: _controller,
+          textWidgetList.add(AnimatedBuilder(
+            animation: controller,
             builder: (BuildContext context, Widget child) {
               Shader linearGradient = LinearGradient(colors: widget.colors)
                   .createShader(
@@ -161,8 +151,8 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
             },
           ));
         } else {
-          _textWidgetList.add(AnimatedBuilder(
-            animation: _controller,
+          textWidgetList.add(AnimatedBuilder(
+            animation: controller,
             builder: (BuildContext context, Widget child) {
               Shader linearGradient = LinearGradient(colors: widget.colors)
                   .createShader(
@@ -190,7 +180,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
         onTap: widget.onTap,
         child: Stack(
           alignment: widget.alignment,
-          children: _textWidgetList,
+          children: textWidgetList,
         ),
       ),
     );
