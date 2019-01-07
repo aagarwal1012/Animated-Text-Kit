@@ -1,65 +1,60 @@
+import 'package:animated_text_kit/src/generic_animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-class RotateAnimatedTextKit extends StatefulWidget {
-  final List<String> text;
-  final TextStyle textStyle;
-  final Duration duration;
+class RotateAnimatedTextKit extends GenericAnimatedTextKit {
   final double transitionHeight;
-  final VoidCallback onTap;
-  final AlignmentGeometry alignment;
-  final TextAlign textAlign;
-  final bool isRepeatingAnimation;
 
   const RotateAnimatedTextKit(
       {Key key,
-      @required this.text,
-      this.textStyle,
+      @required List<String> text,
       this.transitionHeight,
-      this.duration,
-      this.onTap,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.isRepeatingAnimation = true})
-      : super(key: key);
+      TextStyle textStyle,
+      Duration duration,
+      VoidCallback onTap,
+      AlignmentGeometry alignment = AlignmentDirectional.topStart,
+      TextAlign textAlign = TextAlign.start,
+      bool isRepeatingAnimation = true})
+      : super(
+            key: key,
+            text: text,
+            textStyle: textStyle,
+            duration: duration,
+            onTap: onTap,
+            alignment: alignment,
+            textAlign: textAlign,
+            isRepeatingAnimation: isRepeatingAnimation);
 
   @override
   _RotatingTextState createState() => new _RotatingTextState();
 }
 
-class _RotatingTextState extends State<RotateAnimatedTextKit>
+class _RotatingTextState
+    extends GenericAnimatedTextKitState<RotateAnimatedTextKit>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-
   double _transitionHeight;
-
-  Duration _duration;
 
   List<Animation<double>> _fadeIn = [];
   List<Animation<double>> _fadeOut = [];
   List<Animation<Alignment>> _slideIn = [];
   List<Animation<Alignment>> _slideOut = [];
 
-  List<Widget> textWidgetList = [];
-
   @override
-  void initState() {
-    super.initState();
-
+  void setup() {
     if (widget.duration == null) {
-      _duration = Duration(milliseconds: 2000 * widget.text.length);
+      duration = Duration(milliseconds: 2000 * widget.text.length);
     } else {
-      _duration = widget.duration;
+      duration = widget.duration;
     }
 
-    _controller = new AnimationController(
-      duration: _duration,
+    controller = new AnimationController(
+      duration: duration,
       vsync: this,
     );
 
     if (widget.isRepeatingAnimation) {
-      _controller..repeat();
+      controller..repeat();
     } else {
-      _controller.forward();
+      controller.forward();
     }
 
     int lengthList = widget.text.length;
@@ -80,21 +75,21 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
           begin: Alignment(-1.0, -1.0),
           end: new Alignment(-1.0, 0.0),
         ).animate(CurvedAnimation(
-            parent: _controller,
+            parent: controller,
             curve: Interval(0.0, slideTime, curve: Curves.linear))));
         _fadeIn.add(Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: _controller,
+            parent: controller,
             curve: Interval(0.0, fadeTime, curve: Curves.easeOut))));
       } else {
         _slideIn.add(AlignmentTween(
           begin: Alignment(-1.0, -1.0),
           end: new Alignment(-1.0, 0.0),
         ).animate(CurvedAnimation(
-            parent: _controller,
+            parent: controller,
             curve: Interval((i * percentTime) - slideTime, (i) * percentTime,
                 curve: Curves.linear))));
         _fadeIn.add(Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: _controller,
+            parent: controller,
             curve: Interval((i * percentTime) - slideTime,
                 (i * percentTime) - slideTime + fadeTime,
                 curve: Curves.easeOut))));
@@ -104,12 +99,12 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
         begin: Alignment(-1.0, 0.0),
         end: new Alignment(-1.0, 1.0),
       ).animate(CurvedAnimation(
-          parent: _controller,
+          parent: controller,
           curve: Interval(
               ((i + 1) * percentTime) - slideTime, (i + 1) * percentTime,
               curve: Curves.linear))));
       _fadeOut.add(Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-          parent: _controller,
+          parent: controller,
           curve: Interval(((i + 1) * percentTime) - slideTime,
               ((i + 1) * percentTime) - slideTime + fadeTime,
               curve: Curves.easeIn))));
@@ -117,17 +112,11 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildLayout(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
       if (i != widget.text.length - 1) {
         textWidgetList.add(AnimatedBuilder(
-          animation: _controller,
+          animation: controller,
           builder: (BuildContext context, Widget child) {
             return AlignTransition(
               alignment:
@@ -148,7 +137,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       } else {
         if (widget.isRepeatingAnimation) {
           textWidgetList.add(AnimatedBuilder(
-            animation: _controller,
+            animation: controller,
             builder: (BuildContext context, Widget child) {
               return AlignTransition(
                 alignment:
@@ -168,7 +157,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
           ));
         } else {
           textWidgetList.add(AnimatedBuilder(
-            animation: _controller,
+            animation: controller,
             builder: (BuildContext context, Widget child) {
               return AlignTransition(
                 alignment: _slideIn[i],
