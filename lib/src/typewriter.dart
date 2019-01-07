@@ -1,38 +1,44 @@
-import 'package:animated_text_kit/src/generic_animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-class TypewriterAnimatedTextKit extends GenericAnimatedTextKit {
-  const TypewriterAnimatedTextKit(
+class TypewriterAnimatedTextKit extends StatefulWidget {
+  final List<String> text;
+  final TextStyle textStyle;
+  final Duration duration;
+  final VoidCallback onTap;
+  final AlignmentGeometry alignment;
+  final TextAlign textAlign;
+  final bool isRepeatingAnimation;
+
+  TypewriterAnimatedTextKit(
       {Key key,
-      @required List<String> text,
-      TextStyle textStyle,
-      Duration duration,
-      VoidCallback onTap,
-      AlignmentGeometry alignment = AlignmentDirectional.topStart,
-      TextAlign textAlign = TextAlign.start,
-      bool isRepeatingAnimation = true})
-      : super(
-            key: key,
-            text: text,
-            textStyle: textStyle,
-            duration: duration,
-            onTap: onTap,
-            alignment: alignment,
-            textAlign: textAlign,
-            isRepeatingAnimation: isRepeatingAnimation);
+      @required this.text,
+      this.textStyle,
+      this.duration,
+      this.onTap,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
+      this.isRepeatingAnimation = true})
+      : super(key: key);
 
   @override
   _TypewriterState createState() => new _TypewriterState();
 }
 
-class _TypewriterState
-    extends GenericAnimatedTextKitState<TypewriterAnimatedTextKit>
+class _TypewriterState extends State<TypewriterAnimatedTextKit>
     with SingleTickerProviderStateMixin {
+  Duration _duration;
+
+  AnimationController _controller;
+
   List<Animation<int>> _typewriterText = [];
   List<Animation<double>> _fadeOut = [];
 
+  List<Widget> textWidgetList = [];
+
   @override
-  void setup() {
+  void initState() {
+    super.initState();
+
     if (widget.duration == null) {
       int totalCharacters = 0;
 
@@ -40,20 +46,20 @@ class _TypewriterState
         totalCharacters += (widget.text[i].length + 8);
       }
 
-      duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
+      _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
     } else {
-      duration = widget.duration;
+      _duration = widget.duration;
     }
 
-    controller = new AnimationController(
-      duration: duration,
+    _controller = new AnimationController(
+      duration: _duration,
       vsync: this,
     );
 
     if (widget.isRepeatingAnimation) {
-      controller..repeat();
+      _controller..repeat();
     } else {
-      controller.forward();
+      _controller.forward();
     }
 
     int totalCharacters = 0;
@@ -68,13 +74,13 @@ class _TypewriterState
 
       _typewriterText.add(StepTween(begin: 0, end: widget.text[i].length + 8)
           .animate(new CurvedAnimation(
-              parent: controller,
+              parent: _controller,
               curve: Interval(
                   percentTimeCount, (percentTimeCount + (percentTime * 8 / 10)),
                   curve: Curves.linear))));
 
       _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
-          parent: controller,
+          parent: _controller,
           curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
               (percentTimeCount + percentTime),
               curve: Curves.easeIn))));
@@ -84,11 +90,17 @@ class _TypewriterState
   }
 
   @override
-  Widget buildLayout(BuildContext context) {
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
       if (i != widget.text.length - 1) {
         textWidgetList.add(AnimatedBuilder(
-          animation: controller,
+          animation: _controller,
           builder: (BuildContext context, Widget child) {
             return Opacity(
               opacity: _fadeOut[i].value,
@@ -126,7 +138,7 @@ class _TypewriterState
       } else {
         if (widget.isRepeatingAnimation) {
           textWidgetList.add(AnimatedBuilder(
-            animation: controller,
+            animation: _controller,
             builder: (BuildContext context, Widget child) {
               return Opacity(
                 opacity: _fadeOut[i].value,
@@ -164,7 +176,7 @@ class _TypewriterState
           ));
         } else {
           textWidgetList.add(AnimatedBuilder(
-            animation: controller,
+            animation: _controller,
             builder: (BuildContext context, Widget child) {
               return Opacity(
                 opacity: 1,

@@ -1,37 +1,44 @@
-import 'package:animated_text_kit/src/generic_animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-class TyperAnimatedTextKit extends GenericAnimatedTextKit {
+class TyperAnimatedTextKit extends StatefulWidget {
+  final List<String> text;
+  final TextStyle textStyle;
+  final Duration duration;
+  final VoidCallback onTap;
+  final AlignmentGeometry alignment;
+  final TextAlign textAlign;
+  final bool isRepeatingAnimation;
+
   const TyperAnimatedTextKit(
       {Key key,
-      @required List<String> text,
-      TextStyle textStyle,
-      Duration duration,
-      VoidCallback onTap,
-      AlignmentGeometry alignment = AlignmentDirectional.topStart,
-      TextAlign textAlign = TextAlign.start,
-      bool isRepeatingAnimation = true})
-      : super(
-            key: key,
-            text: text,
-            textStyle: textStyle,
-            duration: duration,
-            onTap: onTap,
-            alignment: alignment,
-            textAlign: textAlign,
-            isRepeatingAnimation: isRepeatingAnimation);
+      @required this.text,
+      this.textStyle,
+      this.duration,
+      this.onTap,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
+      this.isRepeatingAnimation = true})
+      : super(key: key);
 
   @override
   _TyperState createState() => new _TyperState();
 }
 
-class _TyperState extends GenericAnimatedTextKitState<TyperAnimatedTextKit>
+class _TyperState extends State<TyperAnimatedTextKit>
     with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
   List<Animation<int>> _typingText = [];
   List<Animation<double>> _fadeOut = [];
 
+  List<Widget> textWidgetList = [];
+
+  Duration _duration;
+
   @override
-  void setup() {
+  void initState() {
+    super.initState();
+
     int totalCharacters = 0;
 
     for (int i = 0; i < widget.text.length; i++) {
@@ -39,20 +46,20 @@ class _TyperState extends GenericAnimatedTextKitState<TyperAnimatedTextKit>
     }
 
     if (widget.duration == null) {
-      duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
+      _duration = Duration(milliseconds: totalCharacters * 5000 ~/ 15);
     } else {
-      duration = widget.duration;
+      _duration = widget.duration;
     }
 
-    controller = new AnimationController(
-      duration: duration,
+    _controller = new AnimationController(
+      duration: _duration,
       vsync: this,
     );
 
     if (widget.isRepeatingAnimation) {
-      controller..repeat();
+      _controller..repeat();
     } else {
-      controller.forward();
+      _controller.forward();
     }
 
     double percentTimeCount = 0.0;
@@ -61,13 +68,13 @@ class _TyperState extends GenericAnimatedTextKitState<TyperAnimatedTextKit>
 
       _typingText.add(StepTween(begin: 0, end: widget.text[i].length).animate(
           new CurvedAnimation(
-              parent: controller,
+              parent: _controller,
               curve: Interval(
                   percentTimeCount, (percentTimeCount + (percentTime * 8 / 10)),
                   curve: Curves.linear))));
 
       _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
-          parent: controller,
+          parent: _controller,
           curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
               (percentTimeCount + percentTime),
               curve: Curves.easeIn))));
@@ -77,11 +84,17 @@ class _TyperState extends GenericAnimatedTextKitState<TyperAnimatedTextKit>
   }
 
   @override
-  Widget buildLayout(BuildContext context) {
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     for (int i = 0; i < widget.text.length; i++) {
       if (i != widget.text.length - 1) {
         textWidgetList.add(AnimatedBuilder(
-          animation: controller,
+          animation: _controller,
           builder: (BuildContext context, Widget child) {
             return Opacity(
               opacity: _fadeOut[i].value,
@@ -96,7 +109,7 @@ class _TyperState extends GenericAnimatedTextKitState<TyperAnimatedTextKit>
       } else {
         if (widget.isRepeatingAnimation) {
           textWidgetList.add(AnimatedBuilder(
-            animation: controller,
+            animation: _controller,
             builder: (BuildContext context, Widget child) {
               return Opacity(
                 opacity: _fadeOut[i].value,
@@ -110,7 +123,7 @@ class _TyperState extends GenericAnimatedTextKitState<TyperAnimatedTextKit>
           ));
         } else {
           textWidgetList.add(AnimatedBuilder(
-            animation: controller,
+            animation: _controller,
             builder: (BuildContext context, Widget child) {
               return Opacity(
                 opacity: 1,
