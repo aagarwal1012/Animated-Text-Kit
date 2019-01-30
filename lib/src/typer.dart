@@ -120,7 +120,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
             animation: _controller,
             builder: (BuildContext context, Widget child) {
               return Opacity(
-                opacity: 1,
+                opacity: 1.0,
                 child: Text(
                   widget.text[i].substring(0, _typingText[i].value),
                   style: widget.textStyle,
