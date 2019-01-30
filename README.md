@@ -102,6 +102,8 @@ Row(
       },
       text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
       textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
+      textAlign: TextAlign.start,
+      alignment: AlignmentDirectional.topStart // or Alignment.topLeft
     ),
   ],
 );
@@ -128,6 +130,8 @@ SizedBox(
         fontSize: 32.0, 
         fontWeight: FontWeight.bold
     ),
+    textAlign: TextAlign.start,
+    alignment: AlignmentDirectional.topStart // or Alignment.topLeft
   ),
 );
 ```
@@ -153,6 +157,8 @@ SizedBox(
         fontSize: 30.0,
         fontFamily: "Bobbers"
     ),
+    textAlign: TextAlign.start,
+    alignment: AlignmentDirectional.topStart // or Alignment.topLeft
   ),
 );
 ```
@@ -177,6 +183,8 @@ SizedBox(
         fontSize: 30.0,
         fontFamily: "Agne"
     ),
+    textAlign: TextAlign.start,
+    alignment: AlignmentDirectional.topStart // or Alignment.topLeft
   ),
 );
 ```
@@ -201,6 +209,8 @@ SizedBox(
         fontSize: 70.0,
         fontFamily: "Canterbury"
     ),
+    textAlign: TextAlign.start,
+    alignment: AlignmentDirectional.topStart // or Alignment.topLeft
   ),
 );
 ```
@@ -231,6 +241,8 @@ SizedBox(
       Colors.yellow,
       Colors.red,
     ],
+    textAlign: TextAlign.start,
+    alignment: AlignmentDirectional.topStart // or Alignment.topLeft
   ),
 );
 ```

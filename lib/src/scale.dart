@@ -6,6 +6,8 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   final Duration duration;
   final double scalingFactor;
   final VoidCallback onTap;
+  final AlignmentGeometry alignment;
+  final TextAlign textAlign;
   final bool isRepeatingAnimation;
 
   const ScaleAnimatedTextKit(
@@ -15,6 +17,8 @@ class ScaleAnimatedTextKit extends StatefulWidget {
       this.scalingFactor = 0.5,
       this.duration,
       this.onTap,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
       this.isRepeatingAnimation = true})
       : super(key: key);
 
@@ -113,6 +117,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
                 child: Text(
                   widget.text[i],
                   style: widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               ),
             );
@@ -132,6 +137,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
                   child: Text(
                     widget.text[i],
                     style: widget.textStyle,
+                    textAlign: widget.textAlign,
                   ),
                 ),
               );
@@ -148,6 +154,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
                   child: Text(
                     widget.text[i],
                     style: widget.textStyle,
+                    textAlign: widget.textAlign,
                   ),
                 ),
               );
@@ -160,6 +167,7 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
     return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
+        alignment: widget.alignment,
         children: textWidgetList,
       ),
     );
