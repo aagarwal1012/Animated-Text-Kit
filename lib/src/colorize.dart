@@ -6,6 +6,8 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final VoidCallback onTap;
+  final AlignmentGeometry alignment;
+  final TextAlign textAlign;
   final bool isRepeatingAnimation;
 
   const ColorizeAnimatedTextKit(
@@ -15,6 +17,8 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
       @required this.colors,
       this.duration,
       this.onTap,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
       this.isRepeatingAnimation = true})
       : super(key: key);
 
@@ -128,6 +132,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
                     ? widget.textStyle.merge(
                         TextStyle(foreground: Paint()..shader = linearGradient))
                     : widget.textStyle,
+                textAlign: widget.textAlign,
               ),
             );
           },
@@ -150,6 +155,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
                       ? widget.textStyle.merge(TextStyle(
                           foreground: Paint()..shader = linearGradient))
                       : widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               );
             },
@@ -169,6 +175,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
                       ? widget.textStyle.merge(TextStyle(
                           foreground: Paint()..shader = linearGradient))
                       : widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               );
             },
@@ -182,6 +189,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
       child: GestureDetector(
         onTap: widget.onTap,
         child: Stack(
+          alignment: widget.alignment,
           children: _textWidgetList,
         ),
       ),
