@@ -5,6 +5,8 @@ class FadeAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
   final Duration duration;
   final VoidCallback onTap;
+  final AlignmentGeometry alignment;
+  final TextAlign textAlign;
   final bool isRepeatingAnimation;
 
   const FadeAnimatedTextKit(
@@ -13,6 +15,8 @@ class FadeAnimatedTextKit extends StatefulWidget {
       this.textStyle,
       this.duration,
       this.onTap,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
       this.isRepeatingAnimation = true})
       : super(key: key);
 
@@ -90,6 +94,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
               child: Text(
                 widget.text[i],
                 style: widget.textStyle,
+                textAlign: widget.textAlign,
               ),
             );
           },
@@ -106,6 +111,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
                 child: Text(
                   widget.text[i],
                   style: widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               );
             },
@@ -119,6 +125,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
                 child: Text(
                   widget.text[i],
                   style: widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               );
             },
@@ -130,6 +137,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
     return GestureDetector(
       onTap: widget.onTap,
       child: Stack(
+        alignment: widget.alignment,
         children: textWidgetList,
       ),
     );

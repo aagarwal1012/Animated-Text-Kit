@@ -6,6 +6,8 @@ class RotateAnimatedTextKit extends StatefulWidget {
   final Duration duration;
   final double transitionHeight;
   final VoidCallback onTap;
+  final AlignmentGeometry alignment;
+  final TextAlign textAlign;
   final bool isRepeatingAnimation;
 
   const RotateAnimatedTextKit(
@@ -15,6 +17,8 @@ class RotateAnimatedTextKit extends StatefulWidget {
       this.transitionHeight,
       this.duration,
       this.onTap,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
       this.isRepeatingAnimation = true})
       : super(key: key);
 
@@ -135,6 +139,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                 child: Text(
                   widget.text[i],
                   style: widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               ),
             );
@@ -155,6 +160,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                   child: Text(
                     widget.text[i],
                     style: widget.textStyle,
+                    textAlign: widget.textAlign,
                   ),
                 ),
               );
@@ -171,6 +177,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                   child: Text(
                     widget.text[i],
                     style: widget.textStyle,
+                    textAlign: widget.textAlign,
                   ),
                 ),
               );
@@ -185,6 +192,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       child: SizedBox(
         height: _transitionHeight,
         child: Stack(
+          alignment: widget.alignment,
           children: textWidgetList,
         ),
       ),
