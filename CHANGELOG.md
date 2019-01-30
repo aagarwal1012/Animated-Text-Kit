@@ -1,3 +1,8 @@
+## 1.3.0
+**Feature Enhancement**
+* Added attribute to align text.
+* Updated Readme.
+
 ## 1.2.0
 **Feature Enhancement**
 * Added attribute to check whether the animation should repeat or not.
