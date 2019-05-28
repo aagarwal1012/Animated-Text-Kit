@@ -1,3 +1,7 @@
+## 1.3.1
+* Updated example app readme.
+* Added documentation for the various parameters of all the animated widgets.
+
 ## 1.3.0
 **Feature Enhancement**
 * Added attribute to align text.
