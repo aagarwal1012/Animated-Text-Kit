@@ -1,14 +1,37 @@
 import 'package:flutter/material.dart';
 
 class ColorizeAnimatedTextKit extends StatefulWidget {
+  /// List of [String] that would be displayed subsequently in the animation.
   final List<String> text;
-  final List<Color> colors;
+
+  /// Gives [TextStyle] to the text strings.
   final TextStyle textStyle;
+
+  /// Override the [Duration] of the animation by setting the duration parameter.
   final Duration duration;
+
+  /// Adds the onTap [VoidCallback] to the animated widget.
   final VoidCallback onTap;
+
+  /// Adds [AlignmentGeometry] property to the text in the widget.
+  ///
+  /// By default it is set to [AlignmentDirectional.topStart]
   final AlignmentGeometry alignment;
+
+  /// Adds [TextAlign] property to the text in the widget.
+  ///
+  /// By default it is set to [TextAlign.start]
   final TextAlign textAlign;
+
+  /// Set if the animation should not repeat by changing the value of it to false.
+  ///
+  /// By default it is set to true.
   final bool isRepeatingAnimation;
+
+  /// Set the colors for the gradient animation of the text.
+  ///
+  /// The [List] should contain at least two values of [Color] in it.
+  final List<Color> colors;
 
   const ColorizeAnimatedTextKit(
       {Key key,
