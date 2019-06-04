@@ -56,19 +56,16 @@ Animated-Text-Kit uses `dartfmt`  for performing style checks on the codebase, w
 * Limit the first line to 72 characters or less
 * Reference issues and pull requests liberally
 * When only changing documentation, include `[ci skip]` in the commit description
-* Consider starting the commit message with an applicable emoji:
-    * :art: `:art:` when improving the format/structure of the code
-    * :racehorse: `:racehorse:` when improving performance
-    * :non-potable_water: `:non-potable_water:` when plugging memory leaks
-    * :memo: `:memo:` when writing docs
-    * :bug: `:bug:` when fixing a bug
-    * :fire: `:fire:` when removing code or files
-    * :green_heart: `:green_heart:` when fixing the CI build
-    * :white_check_mark: `:white_check_mark:` when adding tests
-    * :lock: `:lock:` when dealing with security
-    * :arrow_up: `:arrow_up:` when upgrading dependencies
-    * :arrow_down: `:arrow_down:` when downgrading dependencies
-    * :shirt: `:shirt:` when removing linter warnings
+* Please start your commits with the following prefixes for better understanding among collaborators, based on the type of commit:
+```
+   feat: (addition of a new feature)
+   rfac: (refactoring the code: optimization/ different logic of existing code - output doesn't change, just the way of execution changes)
+   docs: (documenting the code, be it readme, or extra comments)
+   bfix: (bug fixing)
+   chor: (chore - beautifying code, indents, spaces, camelcasing, changing variable names to have an appropriate meaning)
+   ptch: (patches - small changes in code, mainly UI, for example color of a button, incrasing size of tet, etc etc)
+   conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
+```
 
 ## MDG Chat Room
 
@@ -76,10 +73,3 @@ If you want to ask any questions in real-time, or get a feel for what's going on
 then please drop into our [MDG public chat room](https://mdg.sdslabs.co/chat).
 If no one is online then you can still leave a message that will hopefully get a reply
 when we return.
-
-## Security
-
-Please do not publish security vulnerabilities publicly until we've had a chance
-to address them. All security related issues/patches should be sent directly to
-[sdsmobilelabs@gmail.com](mailto:sdsmobilelabs@gmail.com) where we will attempt to address them quickly. If you're
-unsure whether something is a security issue or not, then please be cautious and contact us at [sdsmobilelabs@gmail.com](mailto:sdsmobilelabs@gmail.com) first.
