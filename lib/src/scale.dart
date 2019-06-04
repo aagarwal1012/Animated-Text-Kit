@@ -8,6 +8,10 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   final TextStyle textStyle;
 
   /// Override the [Duration] of the animation by setting the duration parameter.
+  ///
+  /// This will set the total duration for the animated widget.
+  /// For example, if text = ["a", "b", "c"] and if you want that each animation
+  /// should take 3 seconds then you have to set [duration] to 9 seconds.
   final Duration duration;
 
   /// Adds the onTap [VoidCallback] to the animated widget.
