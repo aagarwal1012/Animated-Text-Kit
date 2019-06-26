@@ -1,13 +1,9 @@
-os:
-  - linux
-sudo: false
+language: dart
+dist: xenial
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - libstdc++6
-      - fonts-droid
+      - lib32stdc++6
 git:
   depth: 3
 cache:
@@ -20,14 +16,15 @@ env:
 matrix:
   allow_failures:
     - env: FLUTTER_VERSION=dev
-before_script:
+    - env: FLUTTER_VERSION=beta
+install:
   - cd ../
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
   - ./flutter/bin/flutter doctor
-  - cd Animated-Text-Kit/
 script:
-  - ./../flutter/bin/flutter test
-  - ./../flutter/bin/flutter analyze .
-  - ./../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run lib/
-  - ./../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run test/
-  - ./../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run example/lib/
+  - cd Animated-Text-Kit/
+  - ../flutter/bin/flutter test
+  - ../flutter/bin/flutter analyze .
+  - ../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run lib/
+  - ../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run test/
+  - ../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run example/lib/
