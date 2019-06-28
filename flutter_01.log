@@ -1,0 +1,69 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter packages get
+
+## exception
+
+ProcessException: ProcessException: No such file or directory
+  Command: /home/gordon/development/flutter/bin/cache/dart-sdk/bin/pub --verbosity=warning get --no-precompile
+
+```
+#0      runCommandAndStreamOutput (package:flutter_tools/src/base/process.dart:142:27)
+<asynchronous suspension>
+#1      pub (package:flutter_tools/src/dart/pub.dart:158:18)
+<asynchronous suspension>
+#2      pubGet (package:flutter_tools/src/dart/pub.dart:106:13)
+<asynchronous suspension>
+#3      PackagesGetCommand._runPubGet (package:flutter_tools/src/commands/packages.dart:72:11)
+<asynchronous suspension>
+#4      PackagesGetCommand.runCommand (package:flutter_tools/src/commands/packages.dart:102:13)
+<asynchronous suspension>
+#5      FlutterCommand.verifyThenRunCommand (package:flutter_tools/src/runner/flutter_command.dart:559:18)
+#6      _asyncThenWrapperHelper.<anonymous closure> (dart:async-patch/async_patch.dart:77:64)
+#7      _rootRunUnary (dart:async/zone.dart:1132:38)
+#8      _CustomZone.runUnary (dart:async/zone.dart:1029:19)
+#9      _FutureListener.handleValue (dart:async/future_impl.dart:126:18)
+#10     Future._propagateToListeners.handleValueCallback (dart:async/future_impl.dart:639:45)
+#11     Future._propagateToListeners (dart:async/future_impl.dart:668:32)
+#12     Future._complete (dart:async/future_impl.dart:473:7)
+#13     _SyncCompleter.complete (dart:async/future_impl.dart:51:12)
+#14     _AsyncAwaitCompleter.complete.<anonymous closure> (dart:async-patch/async_patch.dart:33:20)
+#15     _rootRun (dart:async/zone.dart:1124:13)
+#16     _CustomZone.run (dart:async/zone.dart:1021:19)
+#17     _CustomZone.bindCallback.<anonymous closure> (dart:async/zone.dart:947:23)
+#18     _microtaskLoop (dart:async/schedule_microtask.dart:41:21)
+#19     _startMicrotaskLoop (dart:async/schedule_microtask.dart:50:5)
+#20     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:115:13)
+#21     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:172:5)
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, v1.5.4-hotfix.2, on Linux, locale en_US.UTF-8)
+    [32m•[39m Flutter version 1.5.4-hotfix.2 at /home/gordon/development/flutter
+    [32m•[39m Framework revision 7a4c33425d (9 weeks ago), 2019-04-29 11:05:24 -0700
+    [32m•[39m Engine revision 52c7a1e849
+    [32m•[39m Dart version 2.3.0 (build 2.3.0-dev.0.5 a1668566e5)
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 28.0.3)
+    [32m•[39m Android SDK at /home/gordon/Android/Sdk
+    [32m•[39m Android NDK location not configured (optional; useful for native profiling support)
+    [32m•[39m Platform android-28, build-tools 28.0.3
+    [32m•[39m Java binary at: /snap/android-studio/76/android-studio/jre/bin/java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b16-5323222)
+    [32m•[39m All Android licenses accepted.
+
+[33m[!][39m Android Studio (version 3.4)
+    [32m•[39m Android Studio at /snap/android-studio/76/android-studio
+    [31m✗[39m Flutter plugin not installed; this adds Flutter specific functionality.
+    [32m•[39m Dart plugin version 183.6270
+    [32m•[39m Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b16-5323222)
+
+[33m[!][39m Connected device
+    [33m![39m No devices available
+
+[33m![39m Doctor found issues in 2 categories.
+```

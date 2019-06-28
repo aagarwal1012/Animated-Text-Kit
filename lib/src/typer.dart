@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_web/material.dart';
 
 class TyperAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.

@@ -6,15 +6,25 @@ homepage: https://github.com/aagarwal1012/Animated-Text-Kit/
 maintainer: Ayush Agarwal (@aagarwal1012)
 
 dependencies:
-  flutter:
-    sdk: flutter
+  flutter_web: any
+  flutter_web_ui: any
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  build_runner: ^1.4.0
+  build_web_compilers: ^2.0.0
 
 flutter:
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
   flutter: ">=0.3.0 <2.0.0"
+
+dependency_overrides:
+  flutter_web:
+    git:
+      url: https://github.com/flutter/flutter_web
+      path: packages/flutter_web
+  flutter_web_ui:
+    git:
+      url: https://github.com/flutter/flutter_web
+      path: packages/flutter_web_ui
