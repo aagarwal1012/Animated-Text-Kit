@@ -1,9 +1,7 @@
-language: dart
-dist: xenial
-addons:
-  apt:
-    packages:
-      - lib32stdc++6
+language: bash
+os:
+  - osx
+sudo: false
 git:
   depth: 3
 cache:
@@ -17,14 +15,19 @@ matrix:
   allow_failures:
     - env: FLUTTER_VERSION=dev
     - env: FLUTTER_VERSION=beta
-install:
-  - cd ../
+before_script:
+  - cd ..
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
-  - ./flutter/bin/flutter doctor
+  - export PATH=$PATH:$PWD/flutter/bin
+  - export PATH=$PATH:$PWD/flutter/bin/cache/dart-sdk/bin
+  - flutter doctor
+  - cd -
 script:
-  - cd Animated-Text-Kit/
-  - ../flutter/bin/flutter test
-  - ../flutter/bin/flutter analyze .
-  - ../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run lib/
-  - ../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run test/
-  - ../flutter/bin/cache/dart-sdk/bin/dartfmt --dry-run example/lib/
+  # abort on error
+  - set -e
+  - flutter packages get
+  - flutter format --set-exit-if-changed lib example
+  - flutter analyze lib example
+  - flutter test --no-pub --coverage
+  # export coverage
+  - bash <(curl -s https://codecov.io/bash)
