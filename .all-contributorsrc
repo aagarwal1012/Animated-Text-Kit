@@ -23,6 +23,15 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "r1walz",
+      "name": "Rohit Ashiwal",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/31043830?v=4",
+      "profile": "http://rashiwal.me/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
