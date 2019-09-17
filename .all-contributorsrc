@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "salihgueler",
+      "name": "Muhammed Salih Guler",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/24432752?v=4",
+      "profile": "http://salih.dev",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Animated-Text-Kit",
+  "projectOwner": "aagarwal1012",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
