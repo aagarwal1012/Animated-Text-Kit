@@ -1,5 +1,4 @@
 <div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 # <div align="center">Animated Text Kit</div>
 <div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>
@@ -42,6 +41,8 @@
   	* [Scale](#scale)
   	* [Colorize](#colorize)
   * [Bugs or Requests](#bugs-or-requests)
+  * [Donate](#donate)
+  * [Contributors](#contributors)
   * [License](#license)
 
 # Installing
@@ -268,10 +269,7 @@ See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/mas
 >
 > - [PayPal](https://www.paypal.me/aagarwal1012/)
 
-# License
-Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
-
-## Contributors ✨
+# Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -285,4 +283,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
+
+# License
+Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
