@@ -57,23 +57,29 @@ class TyperAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool displayFullTextOnTap;
 
+  /// If on pause, should a tap remove the remaining pause time ?
+  ///
+  /// By default it is set to false.
+  final bool stopPauseOnTap;
+
   const TyperAnimatedTextKit(
-      {
-        Key key,
-        @required this.text,
-        this.textStyle,
-        this.onTap,
-        this.onNext,
-        this.onNextBeforePause,
-        this.onFinished,
-        this.alignment = AlignmentDirectional.topStart,
-        this.textAlign = TextAlign.start,
-        this.isRepeatingAnimation = true,
-        this.speed,
-        this.pause,
-        this.displayFullTextOnTap = false
-      })
-      : super(key: key);
+    {
+      Key key,
+      @required this.text,
+      this.textStyle,
+      this.onTap,
+      this.onNext,
+      this.onNextBeforePause,
+      this.onFinished,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
+      this.isRepeatingAnimation = true,
+      this.speed,
+      this.pause,
+      this.displayFullTextOnTap = false,
+      this.stopPauseOnTap = false,
+    })
+    : super(key: key);
 
   @override
   _TyperState createState() => new _TyperState();
@@ -138,26 +144,26 @@ class _TyperState extends State<TyperAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || ! _controller.isAnimating ?
-        Text(
-          _texts[_index]['text'],
-          style: widget.textStyle,
-          textAlign: widget.textAlign,
-        ) :
-        AnimatedBuilder(
-          animation: _controller,
-          builder: (BuildContext context, Widget child) {
-            int offset = _texts[_index]['text'].length < _typingText.value ?
-            _texts[_index]['text'].length : _typingText.value;
+      onTap: _onTap,
+      child: _isCurrentlyPausing || ! _controller.isAnimating ?
+      Text(
+        _texts[_index]['text'],
+        style: widget.textStyle,
+        textAlign: widget.textAlign,
+      ) :
+      AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget child) {
+          int offset = _texts[_index]['text'].length < _typingText.value ?
+          _texts[_index]['text'].length : _typingText.value;
 
-            return Text(
-              _texts[_index]['text'].substring(0, offset),
-              style: widget.textStyle,
-              textAlign: widget.textAlign,
-            );
-          },
-        )
+          return Text(
+            _texts[_index]['text'].substring(0, offset),
+            style: widget.textStyle,
+            textAlign: widget.textAlign,
+          );
+        },
+      )
     );
   }
 
@@ -195,8 +201,8 @@ class _TyperState extends State<TyperAnimatedTextKit>
         begin: 0,
         end: _texts[_index]['text'].length
       )
-        .animate(_controller)
-        ..addStatusListener(_animationEndCallback);
+      .animate(_controller)
+      ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
@@ -225,8 +231,10 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
     if(widget.displayFullTextOnTap) {
       if(_isCurrentlyPausing) {
-        _timer?.cancel();
-        _nextAnimation();
+        if(widget.stopPauseOnTap) {
+          _timer?.cancel();
+          _nextAnimation();
+        }
       } else {
         pause = _texts[_index]['pause'].inMilliseconds;
         left = _texts[_index]['speed'].inMilliseconds
