@@ -62,24 +62,22 @@ class TyperAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
-  const TyperAnimatedTextKit(
-    {
-      Key key,
-      @required this.text,
-      this.textStyle,
-      this.onTap,
-      this.onNext,
-      this.onNextBeforePause,
-      this.onFinished,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.isRepeatingAnimation = true,
-      this.speed,
-      this.pause,
-      this.displayFullTextOnTap = false,
-      this.stopPauseOnTap = false,
-    })
-    : super(key: key);
+  const TyperAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.textStyle,
+    this.onTap,
+    this.onNext,
+    this.onNextBeforePause,
+    this.onFinished,
+    this.alignment = AlignmentDirectional.topStart,
+    this.textAlign = TextAlign.start,
+    this.isRepeatingAnimation = true,
+    this.speed,
+    this.pause,
+    this.displayFullTextOnTap = false,
+    this.stopPauseOnTap = false,
+  }) : super(key: key);
 
   @override
   _TyperState createState() => new _TyperState();
@@ -111,23 +109,21 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
     _index = -1;
 
-    for(int i = 0; i < widget.text.length; i++) {
+    for (int i = 0; i < widget.text.length; i++) {
       try {
-        if(! widget.text[i].containsKey('text')) throw new Error();
+        if (!widget.text[i].containsKey('text')) throw new Error();
 
         _texts.add({
           'text': widget.text[i]['text'],
-          'speed': widget.text[i].containsKey('speed') ?
-            widget.text[i]['speed'] : _speed,
-          'pause': widget.text[i].containsKey('pause') ?
-            widget.text[i]['pause'] : _pause,
+          'speed': widget.text[i].containsKey('speed')
+              ? widget.text[i]['speed']
+              : _speed,
+          'pause': widget.text[i].containsKey('pause')
+              ? widget.text[i]['pause']
+              : _pause,
         });
       } catch (e) {
-        _texts.add({
-          'text': widget.text[i],
-          'speed': _speed,
-          'pause': _pause
-        });
+        _texts.add({'text': widget.text[i], 'speed': _speed, 'pause': _pause});
       }
     }
 
@@ -137,58 +133,61 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
   @override
   void dispose() {
-    if(_controller != null) _controller..stop()..dispose();
+    if (_controller != null)
+      _controller
+        ..stop()
+        ..dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _onTap,
-      child: _isCurrentlyPausing || ! _controller.isAnimating ?
-      Text(
-        _texts[_index]['text'],
-        style: widget.textStyle,
-        textAlign: widget.textAlign,
-      ) :
-      AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          int offset = _texts[_index]['text'].length < _typingText.value ?
-          _texts[_index]['text'].length : _typingText.value;
+        onTap: _onTap,
+        child: _isCurrentlyPausing || !_controller.isAnimating
+            ? Text(
+                _texts[_index]['text'],
+                style: widget.textStyle,
+                textAlign: widget.textAlign,
+              )
+            : AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, Widget child) {
+                  int offset = _texts[_index]['text'].length < _typingText.value
+                      ? _texts[_index]['text'].length
+                      : _typingText.value;
 
-          return Text(
-            _texts[_index]['text'].substring(0, offset),
-            style: widget.textStyle,
-            textAlign: widget.textAlign,
-          );
-        },
-      )
-    );
+                  return Text(
+                    _texts[_index]['text'].substring(0, offset),
+                    style: widget.textStyle,
+                    textAlign: widget.textAlign,
+                  );
+                },
+              ));
   }
 
   void _nextAnimation() {
-    bool isLast = _index == widget.text.length -1;
+    bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
     // Handling onNext callback
-    if(_index > -1) {
+    if (_index > -1) {
       if (widget.onNext != null) widget.onNext(_index, isLast);
     }
 
-    if(isLast) {
-      if(widget.isRepeatingAnimation) {
+    if (isLast) {
+      if (widget.isRepeatingAnimation) {
         _index = 0;
       } else {
-        if(widget.onFinished != null) widget.onFinished();
+        if (widget.onFinished != null) widget.onFinished();
         return;
       }
     } else {
       _index++;
     }
 
-    if(_controller != null) _controller.dispose();
+    if (_controller != null) _controller.dispose();
 
     setState(() {});
 
@@ -197,18 +196,15 @@ class _TyperState extends State<TyperAnimatedTextKit>
       vsync: this,
     );
 
-    _typingText = StepTween(
-        begin: 0,
-        end: _texts[_index]['text'].length
-      )
-      .animate(_controller)
-      ..addStatusListener(_animationEndCallback);
+    _typingText = StepTween(begin: 0, end: _texts[_index]['text'].length)
+        .animate(_controller)
+          ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
 
   void _setPause() {
-    bool isLast = _index == widget.text.length -1;
+    bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     setState(() {});
@@ -219,9 +215,9 @@ class _TyperState extends State<TyperAnimatedTextKit>
   }
 
   void _animationEndCallback(state) {
-    if(state == AnimationStatus.completed) {
+    if (state == AnimationStatus.completed) {
       _setPause();
-      _timer = Timer(_texts[_index]['pause'],_nextAnimation);
+      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
 
@@ -229,29 +225,27 @@ class _TyperState extends State<TyperAnimatedTextKit>
     int pause;
     int left;
 
-    if(widget.displayFullTextOnTap) {
-      if(_isCurrentlyPausing) {
-        if(widget.stopPauseOnTap) {
+    if (widget.displayFullTextOnTap) {
+      if (_isCurrentlyPausing) {
+        if (widget.stopPauseOnTap) {
           _timer?.cancel();
           _nextAnimation();
         }
       } else {
         pause = _texts[_index]['pause'].inMilliseconds;
-        left = _texts[_index]['speed'].inMilliseconds
-            * (_texts[_index]['text'].length - _typingText.value);
+        left = _texts[_index]['speed'].inMilliseconds *
+            (_texts[_index]['text'].length - _typingText.value);
 
         _controller.stop();
 
         _setPause();
 
-        _timer = Timer(
-          Duration(milliseconds: max(pause, left)),
-          _nextAnimation
-        );
+        _timer =
+            Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
       }
     }
 
-    if(widget.onTap != null) {
+    if (widget.onTap != null) {
       widget.onTap();
     }
   }
