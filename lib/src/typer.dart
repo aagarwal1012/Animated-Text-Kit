@@ -245,8 +245,8 @@ class _TyperState extends State<TyperAnimatedTextKit>
         _setPause();
 
         _timer = Timer(
-            Duration(milliseconds: max(pause, left)),
-            _nextAnimation
+          Duration(milliseconds: max(pause, left)),
+          _nextAnimation
         );
       }
     }
