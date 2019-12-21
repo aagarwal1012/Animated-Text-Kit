@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 void main() {
-
   test('default value for totalRepeatCount', () {
     TypewriterAnimatedTextKit typewriter = TypewriterAnimatedTextKit(
       onTap: () {
@@ -21,5 +20,4 @@ void main() {
     expect(typewriter.totalRepeatCount, 3);
     expect(typewriter.isRepeatingAnimation, true);
   });
-
 }
