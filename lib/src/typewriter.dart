@@ -83,7 +83,8 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.alignment = AlignmentDirectional.topStart,
       this.textAlign = TextAlign.start,
       this.isRepeatingAnimation = true})
-      : super(key: key);
+      : assert(!(text == null), 'You should specify the list of text'),
+        super(key: key);
 
   @override
   _TypewriterState createState() => new _TypewriterState();
