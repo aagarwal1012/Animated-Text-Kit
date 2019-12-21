@@ -6,15 +6,6 @@ import 'helpers.dart';
 
 void main() {
   group('TypewriterAnimatedTextKit', () {
-    testWidgets('requires a list of strings', (WidgetTester tester) async {
-      expect(() => TypewriterAnimatedTextKit(), throwsAssertionError);
-      expect(
-          () => TypewriterAnimatedTextKit(
-                text: null,
-              ),
-          throwsAssertionError);
-    });
-
     testWidgets('animation works', (WidgetTester tester) async {
       await tester.pumpWidget(createMaterialApp(TypewriterAnimatedTextKit(
         text: [
