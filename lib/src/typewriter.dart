@@ -69,20 +69,20 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
 
   TypewriterAnimatedTextKit(
       {Key key,
-        @required this.text,
-        this.textStyle,
-        this.speed,
-        this.pause,
-        this.displayFullTextOnTap,
-        this.stopPauseOnTap,
-        this.onTap,
-        this.onNext,
-        this.onNextBeforePause,
-        this.onFinished,
-        this.totalRepeatCount = 3,
-        this.alignment = AlignmentDirectional.topStart,
-        this.textAlign = TextAlign.start,
-        this.isRepeatingAnimation = true})
+      @required this.text,
+      this.textStyle,
+      this.speed,
+      this.pause,
+      this.displayFullTextOnTap,
+      this.stopPauseOnTap,
+      this.onTap,
+      this.onNext,
+      this.onNextBeforePause,
+      this.onFinished,
+      this.totalRepeatCount = 3,
+      this.alignment = AlignmentDirectional.topStart,
+      this.textAlign = TextAlign.start,
+      this.isRepeatingAnimation = true})
       : super(key: key);
 
   @override
@@ -157,42 +157,42 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
         onTap: _onTap,
         child: _isCurrentlyPausing || !_controller.isAnimating
             ? Text(
-          _texts[_index]['text'],
-          style: widget.textStyle,
-          textAlign: widget.textAlign,
-        )
+                _texts[_index]['text'],
+                style: widget.textStyle,
+                textAlign: widget.textAlign,
+              )
             : AnimatedBuilder(
-          animation: _controller,
-          builder: (BuildContext context, Widget child) {
-            String visibleString = _texts[_index]['text'];
-            if (_typewriterText.value == 0) {
-              visibleString = "";
-            } else if (_typewriterText.value >
-                _texts[_index]['text'].length) {
-              if ((_typewriterText.value -
-                  _texts[_index]['text'].length) %
-                  2 ==
-                  0) {
-                visibleString = _texts[_index]['text']
-                    .substring(0, _texts[_index]['text'].length) +
-                    '_';
-              } else {
-                visibleString = _texts[_index]['text']
-                    .substring(0, _texts[_index]['text'].length);
-              }
-            } else {
-              visibleString = _texts[_index]['text']
-                  .substring(0, _typewriterText.value) +
-                  '_';
-            }
+                animation: _controller,
+                builder: (BuildContext context, Widget child) {
+                  String visibleString = _texts[_index]['text'];
+                  if (_typewriterText.value == 0) {
+                    visibleString = "";
+                  } else if (_typewriterText.value >
+                      _texts[_index]['text'].length) {
+                    if ((_typewriterText.value -
+                                _texts[_index]['text'].length) %
+                            2 ==
+                        0) {
+                      visibleString = _texts[_index]['text']
+                              .substring(0, _texts[_index]['text'].length) +
+                          '_';
+                    } else {
+                      visibleString = _texts[_index]['text']
+                          .substring(0, _texts[_index]['text'].length);
+                    }
+                  } else {
+                    visibleString = _texts[_index]['text']
+                            .substring(0, _typewriterText.value) +
+                        '_';
+                  }
 
-            return Text(
-              visibleString,
-              style: widget.textStyle,
-              textAlign: widget.textAlign,
-            );
-          },
-        ));
+                  return Text(
+                    visibleString,
+                    style: widget.textStyle,
+                    textAlign: widget.textAlign,
+                  );
+                },
+              ));
   }
 
   void _nextAnimation() {
@@ -228,9 +228,9 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     );
 
     _typewriterText =
-    StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
-        .animate(_controller)
-      ..addStatusListener(_animationEndCallback);
+        StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
+            .animate(_controller)
+              ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
