@@ -41,6 +41,7 @@
    * [Typewriter](#typewriter)  
    * [Scale](#scale)  
    * [Colorize](#colorize)  
+   * [TextLiquidFill](#textliquidfill)
  * [Bugs or Requests](#bugs-or-requests)  
  * [Donate](#donate)  
  * [Contributors](#contributors)  
@@ -271,6 +272,26 @@ SizedBox(
 );
 ```
 **Note:** `colors` list should contains at least two values. 
+
+## TextLiquidFill  
+  
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/textLiquidFill.gif?raw=true" align = "right" height = "300px">  
+  
+```dart  
+SizedBox(
+  width: 250.0,
+  child: TextLiquidFill(
+    text: 'LIQUIDY'
+    waveColor: Colors.blueAccent,
+    boxBackgroundColor: Colors.redAccent,
+    textStyle: TextStyle(
+		fontSize: 80,
+		fontWeight: FontWeight.bold
+	),
+	boxHeight: 250,
+  ),
+);
+```
   
 # Bugs or Requests  
   
