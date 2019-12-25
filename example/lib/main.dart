@@ -10,6 +10,7 @@ const List<String> labels = [
   "Typewriter",
   "Scale",
   "Colorize",
+  "TextLiquidFill"
 ];
 
 class MyApp extends StatefulWidget {
@@ -139,6 +140,19 @@ class _MyHomePageState extends State<MyHomePage> {
         Colors.red,
       ],
     ),
+
+    Center(
+      child: TextLiquidFill(
+        text: 'LIQUIDY',
+        waveColor: Colors.blueAccent,
+        boxBackgroundColor: Colors.redAccent,
+        textStyle: TextStyle(
+            fontSize: 80,
+            fontWeight: FontWeight.bold
+        ),
+        boxHeight: 300,
+      ),
+    )
   ];
 
   List<Color> _colors = [
@@ -148,6 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.teal[700],
     Colors.blue[700],
     Colors.blueGrey[50],
+    Colors.white
   ];
 
   int _index = 0;
