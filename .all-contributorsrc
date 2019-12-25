@@ -32,11 +32,22 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "AdamSGit",
+      "name": "AdamSGit",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6126439?v=4",
+      "profile": "https://github.com/AdamSGit",
+      "contributions": [
+        "ideas",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "Animated-Text-Kit",
   "projectOwner": "aagarwal1012",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
