@@ -1,9 +1,7 @@
 
 <div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>  
-  
 # <div align="center">Animated Text Kit</div>  
 <div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>  
-  
 <div align="center">  
    <a href="https://flutter.io">  
     <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"  
@@ -30,9 +28,9 @@
       alt="Donate" />  
   </a>  
 </div><br>  
-  
+
 # Table of contents  
-  
+
  * [Installing](#installing)  
  * [Usage](#usage)  
     * [Rotate](#rotate)  
@@ -46,7 +44,7 @@
  * [Donate](#donate)  
  * [Contributors](#contributors)  
  * [License](#license)  
-  
+
 
 # Installing
 
@@ -55,7 +53,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^1.3.1
+  animated_text_kit: ^2.0.0
 ```
 
 ### 2. Install it
@@ -82,9 +80,9 @@ Now in your `Dart` code, you can use:
 import 'package:animated_text_kit/animated_text_kit.dart';
 ```
 
-  
+
 # Usage  
-  
+
   You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount`. The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes.
 ```dart
 TypewriterAnimatedTextKit(
@@ -274,9 +272,9 @@ SizedBox(
 **Note:** `colors` list should contains at least two values. 
 
 ## TextLiquidFill  
-  
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/textLiquidFill.gif?raw=true" align = "right" height = "300px">  
-  
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/text_liquid_fill.gif?raw=true" align = "right" height = "300px">  
+
 ```dart  
 SizedBox(
   width: 250.0,
@@ -292,22 +290,22 @@ SizedBox(
   ),
 );
 ```
-  
+
 # Bugs or Requests  
-  
+
 If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.   
-  
+
 See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
-  
+
 # Donate  
 > If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:  
 >  
 > - [PayPal](https://www.paypal.me/aagarwal1012/)  
-  
+
 # Contributors  
-  
+
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):  
-  
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->  
 <!-- prettier-ignore -->  
 <table>  
@@ -317,10 +315,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4" width="100px;" alt="Rohit Ashiwal"/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>  
   </tr>  
 </table>  
-  
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->  
-  
+
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
-  
+
 # License  
 Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).

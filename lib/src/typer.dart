@@ -11,12 +11,12 @@ class TyperAnimatedTextKit extends StatefulWidget {
 
   /// The [Duration] of the delay between the apparition of each characters
   ///
-  /// By default it is set to 30 milliseconds.
+  /// By default it is set to 40 milliseconds.
   final Duration speed;
 
   /// Define the [Duration] of the pause between texts
   ///
-  /// By default it is set to 500 milliseconds.
+  /// By default it is set to 1000 milliseconds.
   final Duration pause;
 
   /// Adds the onTap [VoidCallback] to the animated widget.

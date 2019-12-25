@@ -1,3 +1,21 @@
+## 2.0.0
+- **TextLiquidFill animated text added to the package🎉🎉**
+
+- **Breaking Changes**:
+  Different arguments are included in the classes and `duration` has been broken into `speed` and `pause` in some classes as per their needs.
+  - `duration` - Change the duration from the animation time of the complete list to single element animation time.
+  - `speed` - Time between the display of characters.
+  - `pause` - Delay between the animation of texts.
+  - `totalRepeatCount` - Sets the number of times animation should repeat
+  - `displayFullTextOnTap` - If true, tapping the screen will stop current animated text, and display it fully.
+  - `stopPauseOnTap` - If true, tapping during a pause will stop it and start the next text animation.
+
+- **Better control over Animated Texts:**  
+  Callbacks added:
+  - `onNext(int index, bool isLast)` - This callback will be called before the next text animation, after the previous ones pause.
+  - `onNextBeforePause(int index, bool isLast)` - This callback will be called before the next text animation, before the previous one's pause.
+  - `onFinished` - This callback is called at the end when the parameter `isRepeatingAnimation` is set to false.
+
 ## 1.3.1
 * Updated example app readme.
 * Added documentation for the various parameters of all the animated widgets.
