@@ -1,49 +1,51 @@
-<div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>
 
-# <div align="center">Animated Text Kit</div>
-<div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>
-
-<div align="center">
-	<a href="https://flutter.io">
-    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
-      alt="Platform" />
-  </a>
-  	<a href="https://pub.dartlang.org/packages/animated_text_kit">
-    <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
-      alt="Pub Package" />
-  </a>
-  	<a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">
-    <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"
-      alt="Build Status" />
-  </a>
-  <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">
-    <img src="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit/branch/master/graph/badge.svg"
-      alt="Codecov Coverage" />
-  </a>
-  	<a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-red.svg"
-      alt="License: MIT" />
-  </a>
-  	<a href="https://www.paypal.me/aagarwal1012">
-    <img src="https://img.shields.io/badge/Donate-PayPal-green.svg"
-      alt="Donate" />
-  </a>
-</div><br>
-
-# Table of contents
-
-  * [Installing](#installing)
-  * [Usage](#usage)
-    * [Rotate](#rotate)
-  	* [Fade](#fade)
-  	* [Typer](#typer)
-  	* [Typewriter](#typewriter)
-  	* [Scale](#scale)
-  	* [Colorize](#colorize)
-  * [Bugs or Requests](#bugs-or-requests)
-  * [Donate](#donate)
-  * [Contributors](#contributors)
-  * [License](#license)
+<div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>  
+  
+# <div align="center">Animated Text Kit</div>  
+<div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>  
+  
+<div align="center">  
+   <a href="https://flutter.io">  
+    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"  
+      alt="Platform" />  
+  </a>  
+   <a href="https://pub.dartlang.org/packages/animated_text_kit">  
+    <img src="https://img.shields.io/pub/v/animated_text_kit.svg"  
+      alt="Pub Package" />  
+  </a>  
+   <a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">  
+    <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"  
+      alt="Build Status" />  
+  </a>  
+  <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">  
+    <img src="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit/branch/master/graph/badge.svg"  
+      alt="Codecov Coverage" />  
+  </a>  
+   <a href="https://opensource.org/licenses/MIT">  
+    <img src="https://img.shields.io/badge/License-MIT-red.svg"  
+      alt="License: MIT" />  
+  </a>  
+   <a href="https://www.paypal.me/aagarwal1012">  
+    <img src="https://img.shields.io/badge/Donate-PayPal-green.svg"  
+      alt="Donate" />  
+  </a>  
+</div><br>  
+  
+# Table of contents  
+  
+ * [Installing](#installing)  
+ * [Usage](#usage)  
+    * [Rotate](#rotate)  
+   * [Fade](#fade)  
+   * [Typer](#typer)  
+   * [Typewriter](#typewriter)  
+   * [Scale](#scale)  
+   * [Colorize](#colorize)  
+ * [Bugs or Requests](#bugs-or-requests)  
+ * [Donate](#donate)  
+ * [Contributors](#contributors)  
+ * [License](#license)  
+  
 
 # Installing
 
@@ -79,18 +81,30 @@ Now in your `Dart` code, you can use:
 import 'package:animated_text_kit/animated_text_kit.dart';
 ```
 
-
-# Usage
-
-You can override the `duration` of each animation by setting its duration in each AnimatedTextKit class, also you can set if the animation should not repeat by changing the value of `isRepeatingAnimation` to false. For example:
+  
+# Usage  
+  
+  You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount`. The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes.
 ```dart
-FadeAnimatedTextKit(
-  duration: Duration(milliseconds: 5000),
-  isRepeatingAnimation: false,
+TypewriterAnimatedTextKit(
+  duration: Duration(milliseconds: 2000),
+  totalRepeatCount: 4,
+  pause: Duration(milliseconds:  1000),
   text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
   textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+  pause: Duration(milliseconds: 1000),
+  displayFullTextOnTap: true,
+  stopPauseOnTap: true
 );
 ```
+
+Also, different callbacks are added to each AnimatedTextKit class along with the onTap callback:
+
+ - onNext(int index, bool isLast) - This callback will be called before the next text animation, after the previous one's pause.
+ - onNextBeforePause(int index, bool isLast) - This callback will be called before the next text animation, before the previous one's pause.
+ - onFinished - This callback is called at the end, if the parameter isRepeatingAnimation is set to false.
+
+  
 
 ## Rotate
 
@@ -257,35 +271,35 @@ SizedBox(
 );
 ```
 **Note:** `colors` list should contains at least two values. 
-
-# Bugs or Requests
-
-If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome. 
-
-See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
-
-# Donate
-> If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:
->
-> - [PayPal](https://www.paypal.me/aagarwal1012/)
-
-# Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table>
-  <tr>
-    <td align="center"><a href="http://salih.dev"><img src="https://avatars2.githubusercontent.com/u/24432752?v=4" width="100px;" alt="Muhammed Salih Guler"/><br /><sub><b>Muhammed Salih Guler</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Asalihgueler" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/anderscheow"><img src="https://avatars0.githubusercontent.com/u/11788504?v=4" width="100px;" alt="Anders Cheow"/><br /><sub><b>Anders Cheow</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Aanderscheow" title="Bug reports">🐛</a> <a href="#ideas-anderscheow" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4" width="100px;" alt="Rohit Ashiwal"/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>
-  </tr>
-</table>
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
-
-# License
+  
+# Bugs or Requests  
+  
+If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.   
+  
+See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
+  
+# Donate  
+> If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:  
+>  
+> - [PayPal](https://www.paypal.me/aagarwal1012/)  
+  
+# Contributors  
+  
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):  
+  
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->  
+<!-- prettier-ignore -->  
+<table>  
+  <tr>  
+    <td align="center"><a href="http://salih.dev"><img src="https://avatars2.githubusercontent.com/u/24432752?v=4" width="100px;" alt="Muhammed Salih Guler"/><br /><sub><b>Muhammed Salih Guler</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Asalihgueler" title="Bug reports">🐛</a></td>  
+    <td align="center"><a href="https://github.com/anderscheow"><img src="https://avatars0.githubusercontent.com/u/11788504?v=4" width="100px;" alt="Anders Cheow"/><br /><sub><b>Anders Cheow</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Aanderscheow" title="Bug reports">🐛</a> <a href="#ideas-anderscheow" title="Ideas, Planning, & Feedback">🤔</a></td>  
+    <td align="center"><a href="http://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4" width="100px;" alt="Rohit Ashiwal"/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>  
+  </tr>  
+</table>  
+  
+<!-- ALL-CONTRIBUTORS-LIST:END -->  
+  
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
+  
+# License  
 Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).

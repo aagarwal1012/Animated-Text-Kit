@@ -1,21 +1,40 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class ColorizeAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
-  final List<String> text;
+  final List text;
 
   /// Gives [TextStyle] to the text strings.
   final TextStyle textStyle;
 
-  /// Override the [Duration] of the animation by setting the duration parameter.
+  /// The [Duration] of the delay between the apparition of each characters
   ///
-  /// This will set the total duration for the animated widget.
-  /// For example, if text = ["a", "b", "c"] and if you want that each animation
-  /// should take 3 seconds then you have to set [duration] to 9 seconds.
-  final Duration duration;
+  /// By default it is set to 30 milliseconds.
+  final Duration speed;
+
+  /// Define the [Duration] of the pause between texts
+  ///
+  /// By default it is set to 500 milliseconds.
+  final Duration pause;
 
   /// Adds the onTap [VoidCallback] to the animated widget.
   final VoidCallback onTap;
+
+  /// Adds the onFinished [VoidCallback] to the animated widget.
+  ///
+  /// This method will run only if [isRepeatingAnimation] is set to false.
+  final VoidCallback onFinished;
+
+  /// Adds the onNext [VoidCallback] to the animated widget.
+  ///
+  /// Will be called right before the next text, after the pause parameter
+  final Function onNext;
+
+  /// Adds the onNextBeforePause [VoidCallback] to the animated widget.
+  ///
+  /// Will be called at the end of n-1 animation, before the pause parameter
+  final Function onNextBeforePause;
 
   /// Adds [AlignmentGeometry] property to the text in the widget.
   ///
@@ -32,6 +51,11 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
   /// By default it is set to true.
   final bool isRepeatingAnimation;
 
+  /// Sets the number of times animation should repeat
+  ///
+  /// By default it is set to 3
+  final double totalRepeatCount;
+
   /// Set the colors for the gradient animation of the text.
   ///
   /// The [List] should contain at least two values of [Color] in it.
@@ -42,10 +66,15 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
       @required this.text,
       this.textStyle,
       @required this.colors,
-      this.duration,
+      this.speed,
+      this.pause,
       this.onTap,
+      this.onNext,
+      this.onNextBeforePause,
+      this.onFinished,
       this.alignment = AlignmentDirectional.topStart,
       this.textAlign = TextAlign.start,
+      this.totalRepeatCount = 3,
       this.isRepeatingAnimation = true})
       : super(key: key);
 
@@ -54,83 +83,53 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
 }
 
 class _RotatingTextState extends State<ColorizeAnimatedTextKit>
-    with SingleTickerProviderStateMixin {
-  Duration _duration;
-
+    with TickerProviderStateMixin {
   AnimationController _controller;
 
-  List<Widget> _textWidgetList = [];
+  Animation _colorShifter, _fadeIn, _fadeOut;
+  double _tuning;
 
-  List<Animation<double>> _colorShifter = [];
+  Duration _speed;
+  Duration _pause;
 
-  List<Animation<double>> _fadeIn = [];
-  List<Animation<double>> _fadeOut = [];
+  List<Map> _texts = [];
 
-  List<double> _tuning = [];
+  int _index;
+
+  bool _isCurrentlyPausing = false;
+
+  int _currentRepeatCount;
 
   @override
   void initState() {
     super.initState();
 
-    int lengthList = widget.text.length;
+    _speed = widget.speed ?? Duration(milliseconds: 200);
+    _pause = widget.pause ?? Duration(milliseconds: 1000);
 
-    int totalCharacters = 0;
+    _index = -1;
 
-    for (int i = 0; i < lengthList; i++) {
-      totalCharacters += widget.text[i].length;
+    _currentRepeatCount = 0;
+
+    for (int i = 0; i < widget.text.length; i++) {
+      try {
+        if (!widget.text[i].containsKey('text')) throw new Error();
+
+        _texts.add({
+          'text': widget.text[i]['text'],
+          'speed': widget.text[i].containsKey('speed')
+              ? widget.text[i]['speed']
+              : _speed,
+          'pause': widget.text[i].containsKey('pause')
+              ? widget.text[i]['pause']
+              : _pause,
+        });
+      } catch (e) {
+        _texts.add({'text': widget.text[i], 'speed': _speed, 'pause': _pause});
+      }
     }
 
-    if (widget.duration == null) {
-      _duration = Duration(milliseconds: 1500 * totalCharacters ~/ 3);
-    } else {
-      _duration = widget.duration;
-    }
-
-    _controller = new AnimationController(
-      duration: _duration,
-      vsync: this,
-    );
-
-    if (widget.isRepeatingAnimation) {
-      _controller..repeat();
-    } else {
-      _controller.forward();
-    }
-
-    double percentTimeCount = 0.0;
-
-    for (int i = 0; i < lengthList; i++) {
-      double percentTime = widget.text[i].length / totalCharacters;
-
-      _tuning.add((300.0 * widget.colors.length) *
-          (widget.textStyle.fontSize / 24.0) *
-          0.75 *
-          (widget.text[i].length / 15.0));
-
-      _fadeIn.add(Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-          parent: _controller,
-          curve: Interval(
-            percentTimeCount,
-            percentTimeCount + (percentTime / 10),
-            curve: Curves.easeOut,
-          ))));
-
-      _fadeOut.add(Tween(begin: 1.0, end: 0.0).animate(new CurvedAnimation(
-          parent: _controller,
-          curve: Interval((percentTimeCount + (percentTime * 9 / 10)),
-              (percentTimeCount + percentTime),
-              curve: Curves.easeIn))));
-
-      _colorShifter.add(
-          Tween(begin: 0.0, end: widget.colors.length * _tuning[i]).animate(
-              CurvedAnimation(
-                  parent: _controller,
-                  curve: Interval(
-                      percentTimeCount, percentTimeCount + percentTime,
-                      curve: Curves.easeIn))));
-
-      percentTimeCount += percentTime;
-    }
+    _nextAnimation();
   }
 
   @override
@@ -141,85 +140,94 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < widget.text.length; i++) {
-      if (i != widget.text.length - 1) {
-        _textWidgetList.add(AnimatedBuilder(
-          animation: _controller,
-          builder: (BuildContext context, Widget child) {
-            Shader linearGradient = LinearGradient(colors: widget.colors)
-                .createShader(
-                    Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
-            return Opacity(
-              opacity: !(_fadeIn[i].value == 1.0)
-                  ? _fadeIn[i].value
-                  : _fadeOut[i].value,
-              child: Text(
-                widget.text[i],
-                style: widget.textStyle != null
-                    ? widget.textStyle.merge(
-                        TextStyle(foreground: Paint()..shader = linearGradient))
-                    : widget.textStyle,
+    return GestureDetector(
+        onTap: widget.onTap,
+        child: _isCurrentlyPausing || !_controller.isAnimating
+            ? Text(
+                _texts[_index]['text'],
+                style: widget.textStyle,
                 textAlign: widget.textAlign,
-              ),
-            );
-          },
-        ));
-      } else {
-        if (widget.isRepeatingAnimation) {
-          _textWidgetList.add(AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget child) {
-              Shader linearGradient = LinearGradient(colors: widget.colors)
-                  .createShader(
-                      Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
-              return Opacity(
-                opacity: !(_fadeIn[i].value == 1.0)
-                    ? _fadeIn[i].value
-                    : _fadeOut[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle != null
-                      ? widget.textStyle.merge(TextStyle(
-                          foreground: Paint()..shader = linearGradient))
-                      : widget.textStyle,
-                  textAlign: widget.textAlign,
-                ),
-              );
-            },
-          ));
-        } else {
-          _textWidgetList.add(AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget child) {
-              Shader linearGradient = LinearGradient(colors: widget.colors)
-                  .createShader(
-                      Rect.fromLTWH(0.0, 0.0, _colorShifter[i].value, 0.0));
-              return Opacity(
-                opacity: _fadeIn[i].value,
-                child: Text(
-                  widget.text[i],
-                  style: widget.textStyle != null
-                      ? widget.textStyle.merge(TextStyle(
-                          foreground: Paint()..shader = linearGradient))
-                      : widget.textStyle,
-                  textAlign: widget.textAlign,
-                ),
-              );
-            },
-          ));
-        }
-      }
+              )
+            : AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, Widget child) {
+                  Shader linearGradient = LinearGradient(colors: widget.colors)
+                      .createShader(
+                          Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0));
+                  return Opacity(
+                    opacity: !(_fadeIn.value == 1.0)
+                        ? _fadeIn.value
+                        : _fadeOut.value,
+                    child: Text(
+                      _texts[_index]['text'],
+                      style: widget.textStyle != null
+                          ? widget.textStyle.merge(TextStyle(
+                              foreground: Paint()..shader = linearGradient))
+                          : widget.textStyle,
+                      textAlign: widget.textAlign,
+                    ),
+                  );
+                },
+              ));
+  }
+
+  void _nextAnimation() {
+    bool isLast = _index == widget.text.length - 1;
+
+    _isCurrentlyPausing = false;
+
+    // Handling onNext callback
+    if (_index > -1) {
+      if (widget.onNext != null) widget.onNext(_index, isLast);
     }
 
-    return SizedBox(
-      height: 80.0,
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Stack(
-          alignment: widget.alignment,
-          children: _textWidgetList,
-        ),
-      ),
+    if (isLast) {
+      if (widget.isRepeatingAnimation &&
+          (_currentRepeatCount != (widget.totalRepeatCount - 1))) {
+        _index = 0;
+        _currentRepeatCount++;
+      } else {
+        if (widget.onFinished != null) widget.onFinished();
+        return;
+      }
+    } else {
+      _index++;
+    }
+
+    if (_controller != null) _controller.dispose();
+
+    setState(() {});
+
+    _controller = new AnimationController(
+      duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
+      vsync: this,
     );
+
+    _tuning = (300.0 * widget.colors.length) *
+        (widget.textStyle.fontSize / 24.0) *
+        0.75 *
+        (_texts[_index]['text'].length / 15.0);
+
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: _controller, curve: Interval(0.0, 0.1, curve: Curves.easeOut)));
+
+    _fadeOut = Tween<double>(begin: 1.0, end: 1.0).animate(CurvedAnimation(
+        parent: _controller, curve: Interval(0.9, 1.0, curve: Curves.easeIn)));
+
+    _colorShifter =
+        Tween<double>(begin: 0.0, end: widget.colors.length * _tuning).animate(
+            CurvedAnimation(
+                parent: _controller,
+                curve: Interval(0.0, 1.0, curve: Curves.easeIn)))
+          ..addStatusListener(_animationEndCallback);
+
+    _controller.forward();
+  }
+
+  void _animationEndCallback(state) {
+    if (state == AnimationStatus.completed) {
+      _isCurrentlyPausing = true;
+      Timer(_texts[_index]['pause'], _nextAnimation);
+    }
   }
 }
