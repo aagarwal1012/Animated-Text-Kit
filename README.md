@@ -1,6 +1,7 @@
-
 <div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>  
-# <div align="center">Animated Text Kit</div>  
+
+# <div align="center">Animated Text Kit</div>
+
 <div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>  
 <div align="center">  
    <a href="https://flutter.io">  
@@ -279,14 +280,14 @@ SizedBox(
 SizedBox(
   width: 250.0,
   child: TextLiquidFill(
-    text: 'LIQUIDY'
-    waveColor: Colors.blueAccent,
-    boxBackgroundColor: Colors.redAccent,
-    textStyle: TextStyle(
-		fontSize: 80,
-		fontWeight: FontWeight.bold
-	),
-	boxHeight: 250,
+        text: 'LIQUIDY',
+        waveColor: Colors.blueAccent,
+        boxBackgroundColor: Colors.redAccent,
+        textStyle: TextStyle(
+          fontSize: 80.0,
+          fontWeight: FontWeight.bold,
+        ),
+        boxHeight: 300.0,
   ),
 );
 ```
