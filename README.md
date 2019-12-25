@@ -307,16 +307,20 @@ See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/mas
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):  
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->  
-<!-- prettier-ignore -->  
-<table>  
-  <tr>  
-    <td align="center"><a href="http://salih.dev"><img src="https://avatars2.githubusercontent.com/u/24432752?v=4" width="100px;" alt="Muhammed Salih Guler"/><br /><sub><b>Muhammed Salih Guler</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Asalihgueler" title="Bug reports">🐛</a></td>  
-    <td align="center"><a href="https://github.com/anderscheow"><img src="https://avatars0.githubusercontent.com/u/11788504?v=4" width="100px;" alt="Anders Cheow"/><br /><sub><b>Anders Cheow</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Aanderscheow" title="Bug reports">🐛</a> <a href="#ideas-anderscheow" title="Ideas, Planning, & Feedback">🤔</a></td>  
-    <td align="center"><a href="http://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4" width="100px;" alt="Rohit Ashiwal"/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>  
-  </tr>  
-</table>  
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://salih.dev"><img src="https://avatars2.githubusercontent.com/u/24432752?v=4" width="100px;" alt=""/><br /><sub><b>Muhammed Salih Guler</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Asalihgueler" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/anderscheow"><img src="https://avatars0.githubusercontent.com/u/11788504?v=4" width="100px;" alt=""/><br /><sub><b>Anders Cheow</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Aanderscheow" title="Bug reports">🐛</a> <a href="#ideas-anderscheow" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4" width="100px;" alt=""/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/AdamSGit"><img src="https://avatars3.githubusercontent.com/u/6126439?v=4" width="100px;" alt=""/><br /><sub><b>AdamSGit</b></sub></a><br /><a href="#ideas-AdamSGit" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-AdamSGit" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
 
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->  
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
