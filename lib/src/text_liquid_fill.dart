@@ -100,6 +100,21 @@ class _TextLiquidFillState extends State<TextLiquidFill>
   }
 
   @override
+  void dispose() {
+    if (_waveController != null)
+      _waveController
+        ..stop()
+        ..dispose();
+
+    if (_loadController != null)
+      _loadController
+        ..stop()
+        ..dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[

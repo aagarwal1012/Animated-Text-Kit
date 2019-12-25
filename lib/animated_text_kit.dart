@@ -6,4 +6,4 @@ export 'src/typewriter.dart';
 export 'src/fade.dart';
 export 'src/colorize.dart';
 export 'src/scale.dart';
-export 'src/textLiquidFill.dart';
+export 'src/text_liquid_fill.dart';
