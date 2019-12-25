@@ -36,5 +36,10 @@ void main() {
 
     await tester.tap(find.byIcon(Icons.play_circle_filled));
     await tester.pump();
+
+    expect(find.text(labels[6]), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.play_circle_filled));
+    await tester.pump();
   });
 }
