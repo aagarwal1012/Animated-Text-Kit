@@ -98,8 +98,6 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
   bool _isCurrentlyPausing = false;
 
-  Timer _timer;
-
   int _currentRepeatCount;
 
   @override
@@ -229,7 +227,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _isCurrentlyPausing = true;
-      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+      Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
 }
