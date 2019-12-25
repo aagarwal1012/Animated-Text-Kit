@@ -146,10 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
         text: 'LIQUIDY',
         waveColor: Colors.blueAccent,
         boxBackgroundColor: Colors.redAccent,
-        textStyle: TextStyle(
-            fontSize: 80,
-            fontWeight: FontWeight.bold
-        ),
+        textStyle: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
         boxHeight: 300,
       ),
     )
