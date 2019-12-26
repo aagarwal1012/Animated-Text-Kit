@@ -291,6 +291,7 @@ SizedBox(
   ),
 );
 ```
+To get more information about how the animated text made from scratch by @HemilPanchiwala, visit the Medium [blog](https://link.medium.com/AfxVRdkWJ2).  
 
 # Bugs or Requests  
 
