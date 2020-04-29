@@ -1,3 +1,6 @@
+## 2.0.1
+* Minor updates.
+
 ## 2.0.0
 - **TextLiquidFill animated text added to the package🎉🎉**
 
