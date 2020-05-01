@@ -270,7 +270,7 @@ SizedBox(
   ),
 );
 ```
-**Note:** `colors` list should contains at least two values. 
+**Note:** `colors` list should contain at least two values. 
 
 ## TextLiquidFill  
 
