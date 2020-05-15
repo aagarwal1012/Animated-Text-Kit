@@ -80,7 +80,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
       this.totalRepeatCount = 3,
       this.duration,
       this.onTap,
-      this.alignment = AlignmentDirectional.topStart,
+      this.alignment = const Alignment(0.0, 0.0),
       this.textAlign = TextAlign.start,
       this.displayFullTextOnTap = false,
       this.isRepeatingAnimation = true})
@@ -170,20 +170,20 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                   )
                 : AnimatedBuilder(
                     animation: _controller,
+                    child: Text(
+                      _texts[_index]['text'],
+                      style: widget.textStyle,
+                      textAlign: widget.textAlign,
+                    ),
                     builder: (BuildContext context, Widget child) {
                       return AlignTransition(
                         alignment:
                             !(_slideIn.value.y == 0.0) ? _slideIn : _slideOut,
                         child: Opacity(
-                          opacity: !(_fadeIn.value == 1.0)
-                              ? _fadeIn.value
-                              : _fadeOut.value,
-                          child: Text(
-                            _texts[_index]['text'],
-                            style: widget.textStyle,
-                            textAlign: widget.textAlign,
-                          ),
-                        ),
+                            opacity: !(_fadeIn.value == 1.0)
+                                ? _fadeIn.value
+                                : _fadeOut.value,
+                            child: child),
                       );
                     },
                   )));
@@ -229,7 +229,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
     if (_index == 0) {
       _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0), end: Alignment(-1.0, 0.0))
+              begin: Alignment(-1.0, -1.0).add(widget.alignment),
+              end: Alignment(-1.0, 0.0).add(widget.alignment))
           .animate(CurvedAnimation(
               parent: _controller,
               curve: Interval(0.0, 0.4, curve: Curves.linear)));
@@ -239,7 +240,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
           curve: Interval(0.0, 0.4, curve: Curves.easeOut)));
     } else {
       _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0), end: Alignment(-1.0, 0.0))
+              begin: Alignment(-1.0, -1.0).add(widget.alignment),
+              end: Alignment(-1.0, 0.0).add(widget.alignment))
           .animate(CurvedAnimation(
               parent: _controller,
               curve: Interval(0.0, 0.4, curve: Curves.linear)));
@@ -250,8 +252,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     }
 
     _slideOut = AlignmentTween(
-      begin: Alignment(-1.0, 0.0),
-      end: new Alignment(-1.0, 1.0),
+      begin: Alignment(-1.0, 0.0).add(widget.alignment),
+      end: new Alignment(-1.0, 1.0).add(widget.alignment),
     ).animate(CurvedAnimation(
         parent: _controller, curve: Interval(0.7, 1.0, curve: Curves.linear)));
 

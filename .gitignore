@@ -17,6 +17,7 @@ Pods/
 **/Flutter/App.framework/
 **/Flutter/Flutter.framework/
 **/Flutter/Generated.xcconfig
+**/Flutter/flutter_export_environment.sh
 **/Flutter/flutter_assets/
 ServiceDefinitions.json
 xcuserdata/
