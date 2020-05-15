@@ -52,6 +52,12 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
+  /// Sets if the animation should repeat forever. [isRepeatingAnimation] also
+  /// needs to be set to true if you want to repeat forever.
+  ///
+  /// By default it is set to false, if set to true, [totalRepeatCount] is ignored.
+  final bool repeatForever;
+
   /// Set if the animation should not repeat by changing the value of it to false.
   ///
   /// By default it is set to true.
@@ -82,6 +88,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.totalRepeatCount = 3,
       this.alignment = AlignmentDirectional.topStart,
       this.textAlign = TextAlign.start,
+      this.repeatForever = false,
       this.isRepeatingAnimation = true})
       : assert(!(text == null), 'You should specify the list of text'),
         super(key: key);
@@ -208,9 +215,12 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
     if (isLast) {
       if (widget.isRepeatingAnimation &&
-          (_currentRepeatCount != (widget.totalRepeatCount - 1))) {
+          (widget.repeatForever ||
+              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
         _index = 0;
-        _currentRepeatCount++;
+        if (!widget.repeatForever) {
+          _currentRepeatCount++;
+        }
       } else {
         if (widget.onFinished != null) widget.onFinished();
         return;
