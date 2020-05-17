@@ -166,48 +166,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _index = 0;
 
+  Future<String> _loadFuture() async {
+    await Future.delayed(new Duration(seconds: 10));
+    return 'Future returns';
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 40.0,
-            width: double.maxFinite,
-          ),
-          Text(
-            labels[_index],
-            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-          ),
-          Expanded(
-            child: Container(),
-          ),
-          Container(
-            decoration: BoxDecoration(color: _colors[_index]),
-            child: Center(child: _textAnimationKit[_index]),
-            height: 300.0,
-            width: 300.0,
-          ),
-          Expanded(
-            child: Container(),
-          ),
-          InkWell(
-            child: Icon(
-              Icons.play_circle_filled,
-              size: 70.0,
+        body: FutureBuilder(
+      future: _loadFuture(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: TypewriterAnimatedTextKit(
+              onTap: () {
+                print("Tap Event");
+              },
+              text: [
+                'Loading...',
+                'Loading...',
+                'Loading...',
+              ],
+              textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
             ),
-            onTap: () {
-              setState(() {
-                _index = (_index + 1) % _textAnimationKit.length;
-              });
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-            width: double.maxFinite,
-          ),
-        ],
-      ),
-    );
+          );
+        }
+        return Center(
+          child: Text(snapshot.data.toString()),
+        );
+      },
+    ));
   }
 }

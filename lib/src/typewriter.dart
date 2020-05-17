@@ -144,11 +144,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
   @override
   void dispose() {
-    if (_controller != null) {
-      _controller
-        ..stop()
-        ..dispose();
-    }
+    _controller?.stop();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -219,9 +216,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       _index++;
     }
 
-    if (_controller != null) _controller.dispose();
-
-    setState(() {});
+    if (mounted) setState(() {});
 
     _controller = new AnimationController(
       duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
@@ -240,7 +235,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
-    setState(() {});
+    if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
     if (widget.onNextBeforePause != null)

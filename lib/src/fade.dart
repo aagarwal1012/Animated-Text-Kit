@@ -142,15 +142,13 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
         _texts.add({'text': widget.text[i], 'pause': _pause});
       }
     }
-
     _nextAnimation();
   }
 
   @override
   void dispose() {
-    _controller
-      ..stop()
-      ..dispose();
+    _controller?.stop();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -204,9 +202,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
       _index++;
     }
 
-    if (_controller != null) _controller.dispose();
-
-    setState(() {});
+    if (mounted) setState(() {});
 
     _controller = new AnimationController(
       duration: _duration,
@@ -220,14 +216,14 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
         parent: _controller, curve: Interval(0.8, 1.0, curve: Curves.linear)))
       ..addStatusListener(_animationEndCallback);
 
-    _controller..forward();
+    _controller.forward();
   }
 
   void _setPause() {
     bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
-    setState(() {});
+    if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
     if (widget.onNextBeforePause != null)
@@ -255,7 +251,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
         pause = _texts[_index]['pause'].inMilliseconds;
         left = widget.duration.inMilliseconds;
 
-        _controller.stop();
+        _controller?.stop();
 
         _setPause();
 
