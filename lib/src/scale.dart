@@ -162,10 +162,8 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
 
   @override
   void dispose() {
-    if (_controller != null)
-      _controller
-        ..stop()
-        ..dispose();
+    _controller?.stop();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -224,8 +222,6 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
     } else {
       _index++;
     }
-
-    if (_controller != null) _controller.dispose();
 
     setState(() {});
 

@@ -157,9 +157,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   @override
   void dispose() {
-    _controller
-      ..stop()
-      ..dispose();
+    _controller?.stop();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -222,9 +221,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       _index++;
     }
 
-    if (_controller != null) _controller.dispose();
-
-    setState(() {});
+    if (mounted) setState(() {});
 
     if (widget.transitionHeight == null) {
       _transitionHeight = widget.textStyle.fontSize * 10 / 3;
@@ -278,7 +275,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
-    setState(() {});
+    if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
     if (widget.onNextBeforePause != null)
@@ -301,7 +298,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       } else {
         pause = _texts[_index]['pause'].inMilliseconds;
 
-        _controller.stop();
+        _controller?.stop();
 
         _setPause();
 

@@ -141,7 +141,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -204,9 +204,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
       _index++;
     }
 
-    if (_controller != null) _controller.dispose();
-
-    setState(() {});
+    if (mounted) setState(() {});
 
     _controller = new AnimationController(
       duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
@@ -231,7 +229,7 @@ class _RotatingTextState extends State<ColorizeAnimatedTextKit>
                 curve: Interval(0.0, 1.0, curve: Curves.easeIn)))
           ..addStatusListener(_animationEndCallback);
 
-    _controller.forward();
+    _controller?.forward();
   }
 
   void _animationEndCallback(state) {

@@ -101,16 +101,10 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 
   @override
   void dispose() {
-    if (_waveController != null)
-      _waveController
-        ..stop()
-        ..dispose();
-
-    if (_loadController != null)
-      _loadController
-        ..stop()
-        ..dispose();
-
+    _waveController?.stop();
+    _waveController?.dispose();
+    _loadController?.stop();
+    _loadController?.dispose();
     super.dispose();
   }
 
