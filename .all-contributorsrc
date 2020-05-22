@@ -54,6 +54,15 @@
         "doc",
         "example"
       ]
+    },
+    {
+      "login": "yiminghan",
+      "name": "YiMing Han",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10720534?v=4",
+      "profile": "http://yiminghan.com",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,

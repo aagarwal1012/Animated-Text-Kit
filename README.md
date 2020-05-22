@@ -319,6 +319,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4" width="100px;" alt=""/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/AdamSGit"><img src="https://avatars3.githubusercontent.com/u/6126439?v=4" width="100px;" alt=""/><br /><sub><b>AdamSGit</b></sub></a><br /><a href="#ideas-AdamSGit" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-AdamSGit" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/hemilpanchiwala"><img src="https://avatars0.githubusercontent.com/u/42446679?v=4" width="100px;" alt=""/><br /><sub><b>Hemil Panchiwala</b></sub></a><br /><a href="#maintenance-hemilpanchiwala" title="Maintenance">🚧</a> <a href="#ideas-hemilpanchiwala" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=hemilpanchiwala" title="Documentation">📖</a> <a href="#example-hemilpanchiwala" title="Examples">💡</a></td>
+    <td align="center"><a href="http://yiminghan.com"><img src="https://avatars1.githubusercontent.com/u/10720534?v=4" width="100px;" alt=""/><br /><sub><b>YiMing Han</b></sub></a><br /><a href="#ideas-yiminghan" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
