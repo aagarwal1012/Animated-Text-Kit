@@ -8,7 +8,7 @@
 .dart_tool/
 pubspec.lock
 example/pubspec.lock
-
+flutter_export_environment.sh
 
 Podfile
 Podfile.lock

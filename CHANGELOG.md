@@ -1,5 +1,17 @@
 ## 2.1.0
-Add `repeatForever` option.
+**Issues Fixed**
+
+- Issue [#58](https://github.com/aagarwal1012/Animated-Text-Kit/issues/58)
+
+- Issue [#44](https://github.com/aagarwal1012/Animated-Text-Kit/issues/44)
+
+**Feature Enhancement**
+
+- Add `repeatForever` option.
+
+  ```dart
+  repeatForever: true, //this will ignore [totalRepeatCount]
+  ```
 
 ## 2.0.1
 * Minor updates.
