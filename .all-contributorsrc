@@ -63,6 +63,17 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "AadumKhor",
+      "name": "Aayush Malhotra",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/37381075?v=4",
+      "profile": "https://github.com/AadumKhor",
+      "contributions": [
+        "maintenance",
+        "ideas",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
