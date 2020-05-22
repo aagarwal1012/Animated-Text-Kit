@@ -58,12 +58,6 @@ class RotateAnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
-  /// Sets if the animation should repeat forever. [isRepeatingAnimation] also
-  /// needs to be set to true if you want to repeat forever.
-  ///
-  /// By default it is set to false, if set to true, [totalRepeatCount] is ignored.
-  final bool repeatForever;
-
   /// Set if the animation should not repeat by changing the value of it to false.
   ///
   /// By default it is set to true.
@@ -73,6 +67,11 @@ class RotateAnimatedTextKit extends StatefulWidget {
   ///
   /// By default it is set to false.
   final bool displayFullTextOnTap;
+
+  final Curve curveSlideIn;
+  final Curve curveFadeIn;
+  final Curve curveSlideOut;
+  final Curve curveFadeOut;
 
   const RotateAnimatedTextKit(
       {Key key,
@@ -86,11 +85,15 @@ class RotateAnimatedTextKit extends StatefulWidget {
       this.totalRepeatCount = 3,
       this.duration,
       this.onTap,
-      this.alignment = const Alignment(0.0, 0.0),
+      this.alignment = AlignmentDirectional.topStart,
       this.textAlign = TextAlign.start,
       this.displayFullTextOnTap = false,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = true})
+      this.isRepeatingAnimation = true,
+      this.curveSlideIn = Curves.linear,
+      this.curveFadeIn = Curves.easeOut,
+      this.curveSlideOut = Curves.linear,
+      this.curveFadeOut = Curves.easeIn,
+      })
       : super(key: key);
 
   @override
@@ -157,8 +160,9 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   @override
   void dispose() {
-    _controller?.stop();
-    _controller?.dispose();
+    _controller
+      ..stop()
+      ..dispose();
     super.dispose();
   }
 
@@ -176,20 +180,20 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                   )
                 : AnimatedBuilder(
                     animation: _controller,
-                    child: Text(
-                      _texts[_index]['text'],
-                      style: widget.textStyle,
-                      textAlign: widget.textAlign,
-                    ),
                     builder: (BuildContext context, Widget child) {
                       return AlignTransition(
                         alignment:
                             !(_slideIn.value.y == 0.0) ? _slideIn : _slideOut,
                         child: Opacity(
-                            opacity: !(_fadeIn.value == 1.0)
-                                ? _fadeIn.value
-                                : _fadeOut.value,
-                            child: child),
+                          opacity: !(_fadeIn.value == 1.0)
+                              ? _fadeIn.value
+                              : _fadeOut.value,
+                          child: Text(
+                            _texts[_index]['text'],
+                            style: widget.textStyle,
+                            textAlign: widget.textAlign,
+                          ),
+                        ),
                       );
                     },
                   )));
@@ -207,12 +211,9 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
     if (isLast) {
       if (widget.isRepeatingAnimation &&
-          (widget.repeatForever ||
-              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
+          (_currentRepeatCount != (widget.totalRepeatCount - 1))) {
         _index = 0;
-        if (!widget.repeatForever) {
-          _currentRepeatCount++;
-        }
+        _currentRepeatCount++;
       } else {
         if (widget.onFinished != null) widget.onFinished();
         return;
@@ -221,7 +222,9 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       _index++;
     }
 
-    if (mounted) setState(() {});
+    if (_controller != null) _controller.dispose();
+
+    setState(() {});
 
     if (widget.transitionHeight == null) {
       _transitionHeight = widget.textStyle.fontSize * 10 / 3;
@@ -236,36 +239,34 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
     if (_index == 0) {
       _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0).add(widget.alignment),
-              end: Alignment(-1.0, 0.0).add(widget.alignment))
+              begin: Alignment(-1.0, -1.0), end: Alignment(-1.0, 0.0))
           .animate(CurvedAnimation(
               parent: _controller,
-              curve: Interval(0.0, 0.4, curve: Curves.linear)));
+              curve: Interval(0.0, 0.4, curve: widget.curveSlideIn)));
 
       _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
           parent: _controller,
-          curve: Interval(0.0, 0.4, curve: Curves.easeOut)));
+          curve: Interval(0.0, 0.4, curve: widget.curveFadeIn)));
     } else {
       _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0).add(widget.alignment),
-              end: Alignment(-1.0, 0.0).add(widget.alignment))
+              begin: Alignment(-1.0, -1.0), end: Alignment(-1.0, 0.0))
           .animate(CurvedAnimation(
               parent: _controller,
-              curve: Interval(0.0, 0.4, curve: Curves.linear)));
+              curve: Interval(0.0, 0.4, curve: widget.curveSlideIn)));
 
       _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
           parent: _controller,
-          curve: Interval(0.0, 0.4, curve: Curves.easeOut)));
+          curve: Interval(0.0, 0.4, curve: widget.curveFadeIn)));
     }
 
     _slideOut = AlignmentTween(
-      begin: Alignment(-1.0, 0.0).add(widget.alignment),
-      end: new Alignment(-1.0, 1.0).add(widget.alignment),
+      begin: Alignment(-1.0, 0.0),
+      end: new Alignment(-1.0, 1.0),
     ).animate(CurvedAnimation(
-        parent: _controller, curve: Interval(0.7, 1.0, curve: Curves.linear)));
+        parent: _controller, curve: Interval(0.7, 1.0, curve: widget.curveSlideOut)));
 
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        parent: _controller, curve: Interval(0.7, 1.0, curve: Curves.easeIn)))
+        parent: _controller, curve: Interval(0.7, 1.0, curve: widget.curveFadeOut)))
       ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
@@ -275,7 +276,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
-    if (mounted) setState(() {});
+    setState(() {});
 
     // Handle onNextBeforePause callback
     if (widget.onNextBeforePause != null)
@@ -298,7 +299,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       } else {
         pause = _texts[_index]['pause'].inMilliseconds;
 
-        _controller?.stop();
+        _controller.stop();
 
         _setPause();
 
