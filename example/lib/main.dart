@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 const List<String> labels = [
   "Rotate",
@@ -17,18 +17,18 @@ class MyApp extends StatefulWidget {
   /// This widget is the root of your application.
   @override
   MyAppState createState() {
-    return new MyAppState();
+    return MyAppState();
   }
 }
 
 class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Animated Text Kit',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: new MyHomePage(title: 'Animated Text Kit'),
+      home: MyHomePage(title: 'Animated Text Kit'),
     );
   }
 }
@@ -42,7 +42,7 @@ class MyHomePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       body: Column(
         children: <Widget>[
           SizedBox(

@@ -53,7 +53,7 @@ class TextLiquidFill extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TextLiquidFillState createState() => new _TextLiquidFillState();
+  _TextLiquidFillState createState() => _TextLiquidFillState();
 }
 
 class _TextLiquidFillState extends State<TextLiquidFill>
@@ -79,9 +79,9 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 
     _boxWidth = widget.boxWidth ?? 400;
 
-    _waveDuration = widget.waveDuration ?? Duration(milliseconds: 2000);
+    _waveDuration = widget.waveDuration ?? const Duration(milliseconds: 2000);
 
-    _loadDuration = widget.loadDuration ?? Duration(milliseconds: 6000);
+    _loadDuration = widget.loadDuration ?? const Duration(milliseconds: 6000);
 
     _waveController = AnimationController(vsync: this, duration: _waveDuration);
 

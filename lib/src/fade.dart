@@ -4,7 +4,7 @@ import 'dart:math';
 
 class FadeAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
-  final List text;
+  final List<String> text;
 
   /// Gives [TextStyle] to the text strings.
   final TextStyle textStyle;
@@ -32,12 +32,12 @@ class FadeAnimatedTextKit extends StatefulWidget {
   /// Adds the onNext [VoidCallback] to the animated widget.
   ///
   /// Will be called right before the next text, after the pause parameter
-  final Function onNext;
+  final void Function(int, bool) onNext;
 
   /// Adds the onNextBeforePause [VoidCallback] to the animated widget.
   ///
   /// Will be called at the end of n-1 animation, before the pause parameter
-  final Function onNextBeforePause;
+  final void Function(int, bool) onNextBeforePause;
 
   /// Adds [AlignmentGeometry] property to the text in the widget.
   ///
@@ -95,10 +95,10 @@ class FadeAnimatedTextKit extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RotatingTextState createState() => new _RotatingTextState();
+  _FadeTextState createState() => _FadeTextState();
 }
 
-class _RotatingTextState extends State<FadeAnimatedTextKit>
+class _FadeTextState extends State<FadeAnimatedTextKit>
     with TickerProviderStateMixin {
   Animation _fadeIn, _fadeOut;
 
@@ -107,7 +107,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
 
   Duration _pause;
 
-  List<Map> _texts = [];
+  List<Map<String, dynamic>> _texts = [];
 
   int _index;
 
@@ -123,39 +123,25 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _pause = widget.pause ?? Duration(milliseconds: 500);
+    _pause = widget.pause ?? const Duration(milliseconds: 500);
 
     _index = -1;
 
     _currentRepeatCount = 0;
 
-    if (widget.duration == null) {
-      _duration = Duration(milliseconds: 2000);
-    } else {
-      _duration = widget.duration;
-    }
+    _duration = widget.duration ?? const Duration(milliseconds: 2000);
 
-    for (int i = 0; i < widget.text.length; i++) {
-      try {
-        if (!widget.text[i].containsKey('text')) throw Error();
+    widget.text.forEach((text) {
+      _texts.add({'text': text, 'pause': _pause});
+    });
 
-        _texts.add({
-          'text': widget.text[i]['text'],
-          'pause': widget.text[i].containsKey('pause')
-              ? widget.text[i]['pause']
-              : _pause
-        });
-      } catch (e) {
-        _texts.add({'text': widget.text[i], 'pause': _pause});
-      }
-    }
     _nextAnimation();
   }
 
   @override
   void dispose() {
     _controller?.stop();
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -173,9 +159,8 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
                 animation: _controller,
                 builder: (BuildContext context, Widget child) {
                   return Opacity(
-                    opacity: !(_fadeIn.value == 1.0)
-                        ? _fadeIn.value
-                        : _fadeOut.value,
+                    opacity:
+                        _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
                     child: Text(
                       _texts[_index]['text'],
                       style: widget.textStyle,
@@ -187,13 +172,13 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    bool isLast = _index == widget.text.length - 1;
+    final bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
     // Handling onNext callback
     if (_index > -1) {
-      if (widget.onNext != null) widget.onNext(_index, isLast);
+      widget.onNext?.call(_index, isLast);
     }
 
     if (isLast) {
@@ -205,7 +190,7 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
           _currentRepeatCount++;
         }
       } else {
-        if (widget.onFinished != null) widget.onFinished();
+        widget.onFinished?.call();
         return;
       }
     } else {
@@ -214,30 +199,31 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
 
     if (mounted) setState(() {});
 
-    _controller = new AnimationController(
+    _controller = AnimationController(
       duration: _duration,
       vsync: this,
     );
 
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _controller, curve: Interval(0.0, 0.5, curve: Curves.linear)));
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.linear)));
 
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        parent: _controller, curve: Interval(0.8, 1.0, curve: Curves.linear)))
+        parent: _controller,
+        curve: const Interval(0.8, 1.0, curve: Curves.linear)))
       ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
 
   void _setPause() {
-    bool isLast = _index == widget.text.length - 1;
+    final bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
-    if (widget.onNextBeforePause != null)
-      widget.onNextBeforePause(_index, isLast);
+    widget.onNextBeforePause?.call(_index, isLast);
   }
 
   void _animationEndCallback(state) {
@@ -248,9 +234,6 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
   }
 
   void _onTap() {
-    int pause;
-    int left;
-
     if (widget.displayFullTextOnTap) {
       if (_isCurrentlyPausing) {
         if (widget.stopPauseOnTap) {
@@ -258,8 +241,8 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        pause = _texts[_index]['pause'].inMilliseconds;
-        left = widget.duration.inMilliseconds;
+        final int pause = _texts[_index]['pause'].inMilliseconds;
+        final int left = widget.duration.inMilliseconds;
 
         _controller?.stop();
 
@@ -270,8 +253,6 @@ class _RotatingTextState extends State<FadeAnimatedTextKit>
       }
     }
 
-    if (widget.onTap != null) {
-      widget.onTap();
-    }
+    widget.onTap?.call();
   }
 }
