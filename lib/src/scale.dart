@@ -143,7 +143,9 @@ class _RotatingTextState extends State<ScaleAnimatedTextKit>
 
     for (int i = 0; i < widget.text.length; i++) {
       try {
-        if (!widget.text[i].containsKey('text')) throw Error();
+        if (widget.text[i] is Map<String, dynamic>) {
+          if (!widget.text[i].containsKey('text')) throw new Error();
+        }
 
         _texts.add({
           'text': widget.text[i]['text'],
