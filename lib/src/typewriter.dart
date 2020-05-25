@@ -90,7 +90,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.textAlign = TextAlign.start,
       this.repeatForever = false,
       this.isRepeatingAnimation = true})
-      : assert(!(text == null), 'You should specify the list of text'),
+      : assert(text != null, 'You must specify the list of text'),
         super(key: key);
 
   @override

@@ -154,32 +154,30 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
+    final textWidget = Text(
+      _texts[_index]['text'],
+      style: widget.textStyle,
+      textAlign: widget.textAlign,
+    );
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? Text(
-                _texts[_index]['text'],
-                style: widget.textStyle,
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  return ScaleTransition(
-                    scale: !(_scaleIn.value == 1.0) ? _scaleIn : _scaleOut,
-                    child: Opacity(
-                      opacity: !(_fadeIn.value == 1.0)
-                          ? _fadeIn.value
-                          : _fadeOut.value,
-                      child: Text(
-                        _texts[_index]['text'],
-                        style: widget.textStyle,
-                        textAlign: widget.textAlign,
-                      ),
-                    ),
-                  );
-                },
-              ));
+      onTap: _onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? textWidget
+          : AnimatedBuilder(
+              animation: _controller,
+              child: textWidget,
+              builder: (BuildContext context, Widget child) {
+                return ScaleTransition(
+                  scale: _scaleIn.value != 1.0 ? _scaleIn : _scaleOut,
+                  child: Opacity(
+                    opacity:
+                        _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+                    child: child,
+                  ),
+                );
+              },
+            ),
+    );
   }
 
   void _nextAnimation() {

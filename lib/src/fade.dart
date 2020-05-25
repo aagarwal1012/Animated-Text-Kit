@@ -158,6 +158,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
           ? textWidget
           : AnimatedBuilder(
               animation: _controller,
+              child: textWidget,
               builder: (BuildContext context, Widget child) {
                 return Opacity(
                   opacity:
@@ -165,7 +166,6 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
                   child: child,
                 );
               },
-              child: textWidget,
             ),
     );
   }

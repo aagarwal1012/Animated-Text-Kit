@@ -128,34 +128,34 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: widget.onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? Text(
-                _texts[_index]['text'],
-                style: widget.textStyle,
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  Shader linearGradient = LinearGradient(colors: widget.colors)
-                      .createShader(
-                          Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0));
-                  return Opacity(
-                    opacity: !(_fadeIn.value == 1.0)
-                        ? _fadeIn.value
-                        : _fadeOut.value,
-                    child: Text(
-                      _texts[_index]['text'],
-                      style: widget.textStyle != null
-                          ? widget.textStyle.merge(TextStyle(
-                              foreground: Paint()..shader = linearGradient))
-                          : widget.textStyle,
-                      textAlign: widget.textAlign,
-                    ),
-                  );
-                },
-              ));
+      onTap: widget.onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? Text(
+              _texts[_index]['text'],
+              style: widget.textStyle,
+              textAlign: widget.textAlign,
+            )
+          : AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child) {
+                Shader linearGradient = LinearGradient(colors: widget.colors)
+                    .createShader(
+                        Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0));
+                return Opacity(
+                  opacity:
+                      _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+                  child: Text(
+                    _texts[_index]['text'],
+                    style: widget.textStyle != null
+                        ? widget.textStyle.merge(TextStyle(
+                            foreground: Paint()..shader = linearGradient))
+                        : widget.textStyle,
+                    textAlign: widget.textAlign,
+                  ),
+                );
+              },
+            ),
+    );
   }
 
   void _nextAnimation() {

@@ -149,35 +149,33 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
+    final textWidget = Text(
+      _texts[_index]['text'],
+      style: widget.textStyle,
+      textAlign: widget.textAlign,
+    );
     return GestureDetector(
-        onTap: _onTap,
-        child: SizedBox(
-            height: _transitionHeight,
-            child: _isCurrentlyPausing || !_controller.isAnimating
-                ? Text(
-                    _texts[_index]['text'],
-                    style: widget.textStyle,
-                    textAlign: widget.textAlign,
-                  )
-                : AnimatedBuilder(
-                    animation: _controller,
-                    child: Text(
-                      _texts[_index]['text'],
-                      style: widget.textStyle,
-                      textAlign: widget.textAlign,
-                    ),
-                    builder: (BuildContext context, Widget child) {
-                      return AlignTransition(
-                        alignment:
-                            !(_slideIn.value.y == 0.0) ? _slideIn : _slideOut,
-                        child: Opacity(
-                            opacity: !(_fadeIn.value == 1.0)
-                                ? _fadeIn.value
-                                : _fadeOut.value,
-                            child: child),
-                      );
-                    },
-                  )));
+      onTap: _onTap,
+      child: SizedBox(
+        height: _transitionHeight,
+        child: _isCurrentlyPausing || !_controller.isAnimating
+            ? textWidget
+            : AnimatedBuilder(
+                animation: _controller,
+                child: textWidget,
+                builder: (BuildContext context, Widget child) {
+                  return AlignTransition(
+                    alignment: _slideIn.value.y != 0.0 ? _slideIn : _slideOut,
+                    child: Opacity(
+                        opacity: _fadeIn.value != 1.0
+                            ? _fadeIn.value
+                            : _fadeOut.value,
+                        child: child),
+                  );
+                },
+              ),
+      ),
+    );
   }
 
   void _nextAnimation() {
@@ -225,11 +223,11 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
               end: Alignment(-1.0, 0.0).add(widget.alignment))
           .animate(CurvedAnimation(
               parent: _controller,
-              curve: Interval(0.0, 0.4, curve: Curves.linear)));
+              curve: const Interval(0.0, 0.4, curve: Curves.linear)));
 
       _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
           parent: _controller,
-          curve: Interval(0.0, 0.4, curve: Curves.easeOut)));
+          curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
     } else {
       _slideIn = AlignmentTween(
               begin: Alignment(-1.0, -1.0).add(widget.alignment),
