@@ -147,28 +147,27 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
+    final textWidget = Text(
+      _texts[_index]['text'],
+      style: widget.textStyle,
+      textAlign: widget.textAlign,
+    );
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? Text(
-                _texts[_index]['text'],
-                style: widget.textStyle,
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  return Opacity(
-                    opacity:
-                        _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
-                    child: Text(
-                      _texts[_index]['text'],
-                      style: widget.textStyle,
-                      textAlign: widget.textAlign,
-                    ),
-                  );
-                },
-              ));
+      onTap: _onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? textWidget
+          : AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child) {
+                return Opacity(
+                  opacity:
+                      _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+                  child: child,
+                );
+              },
+              child: textWidget,
+            ),
+    );
   }
 
   void _nextAnimation() {
