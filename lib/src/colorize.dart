@@ -80,10 +80,10 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RotatingTextState createState() => _RotatingTextState();
+  _ColorizeTextState createState() => _ColorizeTextState();
 }
 
-class _RotatingTextState extends State<ColorizeAnimatedTextKit>
+class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
 

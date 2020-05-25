@@ -101,10 +101,10 @@ class ScaleAnimatedTextKit extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RotatingTextState createState() => _RotatingTextState();
+  _ScaleTextState createState() => _ScaleTextState();
 }
 
-class _RotatingTextState extends State<ScaleAnimatedTextKit>
+class _ScaleTextState extends State<ScaleAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
