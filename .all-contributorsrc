@@ -74,6 +74,16 @@
         "ideas",
         "bug"
       ]
+    },
+    {
+      "login": "awhitford",
+      "name": "Anthony Whitford",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/123887?v=4",
+      "profile": "https://anthonywhitford.com/",
+      "contributions": [
+        "ideas",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
