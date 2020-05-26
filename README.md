@@ -322,6 +322,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://yiminghan.com"><img src="https://avatars1.githubusercontent.com/u/10720534?v=4" width="100px;" alt=""/><br /><sub><b>YiMing Han</b></sub></a><br /><a href="#ideas-yiminghan" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/AadumKhor"><img src="https://avatars2.githubusercontent.com/u/37381075?v=4" width="100px;" alt=""/><br /><sub><b>Aayush Malhotra</b></sub></a><br /><a href="#maintenance-AadumKhor" title="Maintenance">🚧</a> <a href="#ideas-AadumKhor" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3AAadumKhor" title="Bug reports">🐛</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://anthonywhitford.com/"><img src="https://avatars2.githubusercontent.com/u/123887?v=4" width="100px;" alt=""/><br /><sub><b>Anthony Whitford</b></sub></a><br /><a href="#ideas-awhitford" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-awhitford" title="Maintenance">🚧</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
