@@ -5,7 +5,7 @@ import '../example/lib/main.dart';
 void main() {
   testWidgets('Check button smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(new MyApp());
+    await tester.pumpWidget(MyApp());
 
     expect(find.text(labels[0]), findsOneWidget);
 

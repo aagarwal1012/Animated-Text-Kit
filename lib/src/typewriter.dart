@@ -4,7 +4,7 @@ import 'dart:math';
 
 class TypewriterAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
-  final List text;
+  final List<String> text;
 
   /// Gives [TextStyle] to the text strings.
   final TextStyle textStyle;
@@ -30,12 +30,12 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// Adds the onNext [VoidCallback] to the animated widget.
   ///
   /// Will be called right before the next text, after the pause parameter
-  final Function onNext;
+  final void Function(int, bool) onNext;
 
   /// Adds the onNextBeforePause [VoidCallback] to the animated widget.
   ///
   /// Will be called at the end of n-1 animation, before the pause parameter
-  final Function onNextBeforePause;
+  final void Function(int, bool) onNextBeforePause;
 
   /// Adds [AlignmentGeometry] property to the text in the widget.
   ///
@@ -90,11 +90,11 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.textAlign = TextAlign.start,
       this.repeatForever = false,
       this.isRepeatingAnimation = true})
-      : assert(!(text == null), 'You should specify the list of text'),
+      : assert(text != null, 'You must specify the list of text'),
         super(key: key);
 
   @override
-  _TypewriterState createState() => new _TypewriterState();
+  _TypewriterState createState() => _TypewriterState();
 }
 
 class _TypewriterState extends State<TypewriterAnimatedTextKit>
@@ -107,7 +107,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   Duration _speed;
   Duration _pause;
 
-  List<Map> _texts = [];
+  List<Map<String, dynamic>> _texts = [];
 
   int _index;
 
@@ -121,32 +121,16 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _speed = widget.speed ?? Duration(milliseconds: 30);
-    _pause = widget.pause ?? Duration(milliseconds: 1000);
+    _speed = widget.speed ?? const Duration(milliseconds: 30);
+    _pause = widget.pause ?? const Duration(milliseconds: 1000);
 
     _index = -1;
 
     _currentRepeatCount = 0;
 
-    for (int i = 0; i < widget.text.length; i++) {
-      try {
-        if (widget.text[i] is Map<String, dynamic>) {
-          if (!widget.text[i].containsKey('text')) throw new Error();
-        }
-
-        _texts.add({
-          'text': widget.text[i]['text'],
-          'speed': widget.text[i].containsKey('speed')
-              ? widget.text[i]['speed']
-              : _speed,
-          'pause': widget.text[i].containsKey('pause')
-              ? widget.text[i]['pause']
-              : _pause
-        });
-      } catch (e) {
-        _texts.add({'text': widget.text[i], 'speed': _speed, 'pause': _pause});
-      }
-    }
+    widget.text.forEach((text) {
+      _texts.add({'text': text, 'speed': _speed, 'pause': _pause});
+    });
 
     _nextAnimation();
   }
@@ -203,13 +187,13 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    bool isLast = _index == widget.text.length - 1;
+    final bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
     // Handling onNext callback
     if (_index > -1) {
-      if (widget.onNext != null) widget.onNext(_index, isLast);
+      widget.onNext?.call(_index, isLast);
     }
 
     if (isLast) {
@@ -221,7 +205,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
           _currentRepeatCount++;
         }
       } else {
-        if (widget.onFinished != null) widget.onFinished();
+        widget.onFinished?.call();
         return;
       }
     } else {
@@ -230,7 +214,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
     if (mounted) setState(() {});
 
-    _controller = new AnimationController(
+    _controller = AnimationController(
       duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
       vsync: this,
     );
@@ -244,7 +228,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   }
 
   void _setPause() {
-    bool isLast = _index == widget.text.length - 1;
+    final bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
@@ -262,9 +246,6 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   }
 
   void _onTap() {
-    int pause;
-    int left;
-
     if (widget.displayFullTextOnTap) {
       if (_isCurrentlyPausing) {
         if (widget.stopPauseOnTap) {
@@ -272,8 +253,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        pause = _texts[_index]['pause'].inMilliseconds;
-        left = _texts[_index]['speed'].inMilliseconds *
+        final int pause = _texts[_index]['pause'].inMilliseconds;
+        final int left = _texts[_index]['speed'].inMilliseconds *
             (_texts[_index]['text'].length - _typewriterText.value);
 
         _controller.stop();
@@ -285,8 +266,6 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       }
     }
 
-    if (widget.onTap != null) {
-      widget.onTap();
-    }
+    widget.onTap?.call();
   }
 }
