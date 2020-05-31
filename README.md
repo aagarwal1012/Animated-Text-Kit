@@ -98,6 +98,9 @@ TypewriterAnimatedTextKit(
   stopPauseOnTap: true
 );
 ```
+You can enable or disable the cursor by setting the 'isCursorEnabled' parameter. It defaults to true.
+
+You can choose which character to use for the cursor by setting the 'cursor' parameter. It defaults to _ (underscore).
 
 Also, different callbacks are added to each AnimatedTextKit class along with the onTap callback:
 

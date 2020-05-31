@@ -101,7 +101,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.repeatForever = false,
       this.isRepeatingAnimation = true,
       this.isCursorVisible = true,
-      this.cursor='_'})
+      this.cursor = '_'})
       : assert(text != null, 'You must specify the list of text'),
         super(key: key);
 
@@ -177,7 +177,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
                             2 ==
                         0) {
                       visibleString = _texts[_index]['text']
-                              .substring(0, _texts[_index]['text'].length);
+                          .substring(0, _texts[_index]['text'].length);
                       if (widget.isCursorVisible)
                         visibleString += widget.cursor;
                     } else {
@@ -186,9 +186,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
                     }
                   } else {
                     visibleString = _texts[_index]['text']
-                            .substring(0, _typewriterText.value);
-                    if (widget.isCursorVisible)
-                      visibleString += widget.cursor;
+                        .substring(0, _typewriterText.value);
+                    if (widget.isCursorVisible) visibleString += widget.cursor;
                   }
 
                   return Text(
@@ -283,4 +282,3 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     widget.onTap?.call();
   }
 }
-
