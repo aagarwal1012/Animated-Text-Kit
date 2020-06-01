@@ -147,39 +147,50 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     return GestureDetector(
         onTap: _onTap,
         child: _isCurrentlyPausing || !_controller.isAnimating
-            ? Text(
-                _texts[_index]['text'],
-                style: widget.textStyle,
+            ? RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: _texts[_index]['text'],
+                  ),
+                  TextSpan(
+                      text: '_',
+                      style:
+                          widget.textStyle.copyWith(color: Colors.transparent))
+                ], style: widget.textStyle),
                 textAlign: widget.textAlign,
               )
             : AnimatedBuilder(
                 animation: _controller,
                 builder: (BuildContext context, Widget child) {
                   String visibleString = _texts[_index]['text'];
+                  Color suffixColor = Colors.transparent;
                   if (_typewriterText.value == 0) {
                     visibleString = "";
                   } else if (_typewriterText.value >
                       _texts[_index]['text'].length) {
+                    visibleString = _texts[_index]['text']
+                        .substring(0, _texts[_index]['text'].length);
                     if ((_typewriterText.value -
                                 _texts[_index]['text'].length) %
                             2 ==
                         0) {
-                      visibleString = _texts[_index]['text']
-                              .substring(0, _texts[_index]['text'].length) +
-                          '_';
+                      suffixColor = widget.textStyle.color;
                     } else {
-                      visibleString = _texts[_index]['text']
-                          .substring(0, _texts[_index]['text'].length);
+                      suffixColor = Colors.transparent;
                     }
                   } else {
                     visibleString = _texts[_index]['text']
-                            .substring(0, _typewriterText.value) +
-                        '_';
+                        .substring(0, _typewriterText.value);
+                    suffixColor = widget.textStyle.color;
                   }
 
-                  return Text(
-                    visibleString,
-                    style: widget.textStyle,
+                  return RichText(
+                    text: TextSpan(children: [
+                      TextSpan(text: visibleString),
+                      TextSpan(
+                          text: '_',
+                          style: widget.textStyle.copyWith(color: suffixColor))
+                    ], style: widget.textStyle),
                     textAlign: widget.textAlign,
                   );
                 },
