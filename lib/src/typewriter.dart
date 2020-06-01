@@ -97,7 +97,8 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   _TypewriterState createState() => _TypewriterState();
 }
 
-class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProviderStateMixin {
+class _TypewriterState extends State<TypewriterAnimatedTextKit>
+    with TickerProviderStateMixin {
   AnimationController _controller;
 
   Animation _typewriterText;
@@ -151,8 +152,12 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProvi
                   TextSpan(
                     text: _texts[_index]['text'],
                   ),
-                  TextSpan(text: '_', style: widget.textStyle.copyWith(color: Colors.transparent))
+                  TextSpan(
+                      text: '_',
+                      style:
+                          widget.textStyle.copyWith(color: Colors.transparent))
                 ], style: widget.textStyle),
+                textAlign: widget.textAlign,
               )
             : AnimatedBuilder(
                 animation: _controller,
@@ -161,23 +166,32 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProvi
                   Color suffixColor = Colors.transparent;
                   if (_typewriterText.value == 0) {
                     visibleString = "";
-                  } else if (_typewriterText.value > _texts[_index]['text'].length) {
-                    visibleString = _texts[_index]['text'].substring(0, _texts[_index]['text'].length);
-                    if ((_typewriterText.value - _texts[_index]['text'].length) % 2 == 0) {
+                  } else if (_typewriterText.value >
+                      _texts[_index]['text'].length) {
+                    visibleString = _texts[_index]['text']
+                        .substring(0, _texts[_index]['text'].length);
+                    if ((_typewriterText.value -
+                                _texts[_index]['text'].length) %
+                            2 ==
+                        0) {
                       suffixColor = widget.textStyle.color;
                     } else {
                       suffixColor = Colors.transparent;
                     }
                   } else {
-                    visibleString = _texts[_index]['text'].substring(0, _typewriterText.value);
+                    visibleString = _texts[_index]['text']
+                        .substring(0, _typewriterText.value);
                     suffixColor = widget.textStyle.color;
                   }
 
                   return RichText(
                     text: TextSpan(children: [
                       TextSpan(text: visibleString),
-                      TextSpan(text: '_', style: widget.textStyle.copyWith(color: suffixColor))
+                      TextSpan(
+                          text: '_',
+                          style: widget.textStyle.copyWith(color: suffixColor))
                     ], style: widget.textStyle),
+                    textAlign: widget.textAlign,
                   );
                 },
               ));
@@ -195,7 +209,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProvi
 
     if (isLast) {
       if (widget.isRepeatingAnimation &&
-          (widget.repeatForever || _currentRepeatCount != (widget.totalRepeatCount - 1))) {
+          (widget.repeatForever ||
+              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
         _index = 0;
         if (!widget.repeatForever) {
           _currentRepeatCount++;
@@ -215,8 +230,10 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProvi
       vsync: this,
     );
 
-    _typewriterText = StepTween(begin: 0, end: _texts[_index]['text'].length + 8).animate(_controller)
-      ..addStatusListener(_animationEndCallback);
+    _typewriterText =
+        StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
+            .animate(_controller)
+              ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
@@ -228,7 +245,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProvi
     if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
-    if (widget.onNextBeforePause != null) widget.onNextBeforePause(_index, isLast);
+    if (widget.onNextBeforePause != null)
+      widget.onNextBeforePause(_index, isLast);
   }
 
   void _animationEndCallback(state) {
@@ -247,14 +265,15 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit> with TickerProvi
         }
       } else {
         final int pause = _texts[_index]['pause'].inMilliseconds;
-        final int left =
-            _texts[_index]['speed'].inMilliseconds * (_texts[_index]['text'].length - _typewriterText.value);
+        final int left = _texts[_index]['speed'].inMilliseconds *
+            (_texts[_index]['text'].length - _typewriterText.value);
 
         _controller.stop();
 
         _setPause();
 
-        _timer = Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
+        _timer =
+            Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
       }
     }
 
