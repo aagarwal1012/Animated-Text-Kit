@@ -84,6 +84,15 @@
         "ideas",
         "maintenance"
       ]
+    },
+    {
+      "login": "aliyoge",
+      "name": "Jordy Wong",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12035097?v=4",
+      "profile": "http://zzaning.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
