@@ -114,6 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
           "Do not test bugs out, design them out",
         ],
         textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
+        // curve: Curves.slowMiddle,
+        // curve: Curves.bounceIn,
+        speed: Duration(milliseconds: 150),
       ),
     ),
     ScaleAnimatedTextKit(

@@ -19,6 +19,11 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// By default it is set to 1000 milliseconds.
   final Duration pause;
 
+  /// The Writing Speed which which the typewriter writes can be set to follow any curves
+  /// Taken from the Flutter [Curves] Class.
+  /// By Default it follows a linear speed.
+  final Curve curve;
+  
   /// Adds the onTap [VoidCallback] to the animated widget.
   final VoidCallback onTap;
 
@@ -73,11 +78,13 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
+
   TypewriterAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
       this.speed,
+      this.curve = Curves.linear,
       this.pause,
       this.displayFullTextOnTap = false,
       this.stopPauseOnTap = false,
@@ -92,6 +99,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.isRepeatingAnimation = true})
       : assert(text != null, 'You must specify the list of text'),
         super(key: key);
+      
 
   @override
   _TypewriterState createState() => _TypewriterState();
@@ -102,6 +110,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   AnimationController _controller;
 
   Animation _typewriterText;
+  Animation _animator;
   List<Widget> textWidgetList = [];
 
   Duration _speed;
@@ -180,7 +189,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
                     }
                   } else {
                     visibleString = _texts[_index]['text']
-                        .substring(0, _typewriterText.value);
+                        .substring(0, _typewriterText.value.abs());
                     suffixColor = widget.textStyle.color;
                   }
 
@@ -229,10 +238,12 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
       vsync: this,
     );
+    _animator = CurvedAnimation(parent: _controller, curve: widget.curve);
+    
 
     _typewriterText =
         StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
-            .animate(_controller)
+            .animate(_animator)
               ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
