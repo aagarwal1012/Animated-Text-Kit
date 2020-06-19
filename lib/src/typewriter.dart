@@ -23,7 +23,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// Taken from the Flutter [Curves] Class.
   /// By Default it follows a linear speed.
   final Curve curve;
-  
+
   /// Adds the onTap [VoidCallback] to the animated widget.
   final VoidCallback onTap;
 
@@ -78,7 +78,6 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
-
   TypewriterAnimatedTextKit(
       {Key key,
       @required this.text,
@@ -99,7 +98,6 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
       this.isRepeatingAnimation = true})
       : assert(text != null, 'You must specify the list of text'),
         super(key: key);
-      
 
   @override
   _TypewriterState createState() => _TypewriterState();
@@ -239,7 +237,6 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       vsync: this,
     );
     _animator = CurvedAnimation(parent: _controller, curve: widget.curve);
-    
 
     _typewriterText =
         StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
