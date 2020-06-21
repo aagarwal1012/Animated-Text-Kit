@@ -75,11 +75,17 @@ class FadeAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
+  /// The rate at which the text fades in can be controlled by any curve
+  /// Taken from the Flutter [Curves] Class.
+  /// By Default it's set to linear .
+  final Curve curve;
+
   const FadeAnimatedTextKit(
       {Key key,
       @required this.text,
       this.duration,
       this.textStyle,
+      this.curve = Curves.linear,
       this.pause,
       this.displayFullTextOnTap = false,
       this.stopPauseOnTap = false,
@@ -105,6 +111,8 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
   AnimationController _controller;
   List<Widget> textWidgetList = [];
 
+  Curve _curve;
+
   Duration _pause;
 
   List<Map<String, dynamic>> _texts = [];
@@ -124,6 +132,8 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
     super.initState();
 
     _pause = widget.pause ?? const Duration(milliseconds: 500);
+
+    _curve = widget.curve;
 
     _index = -1;
 
@@ -162,7 +172,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
               builder: (BuildContext context, Widget child) {
                 return Opacity(
                   opacity:
-                      _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+                      _fadeIn.value < 1.0 ? _fadeIn.value.abs() : _fadeOut.value,
                   child: child,
                 );
               },
@@ -205,7 +215,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
 
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.linear)));
+        curve: Interval(0.0, 0.5, curve: _curve)));
 
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: _controller,
