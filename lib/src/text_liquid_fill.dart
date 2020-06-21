@@ -120,10 +120,11 @@ class _TextLiquidFillState extends State<TextLiquidFill>
             builder: (BuildContext context, Widget child) {
               return CustomPaint(
                 painter: WavePainter(
-                    waveAnimation: _waveController,
-                    percentValue: _loadValue.value,
-                    boxHeight: _boxHeight,
-                    waveColor: _waveColor),
+                  waveAnimation: _waveController,
+                  percentValue: _loadValue.value,
+                  boxHeight: _boxHeight,
+                  waveColor: _waveColor,
+                ),
               );
             },
           ),

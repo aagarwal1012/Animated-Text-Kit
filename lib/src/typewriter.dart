@@ -113,6 +113,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
   Duration _speed;
   Duration _pause;
+  Curve _curve;
 
   List<Map<String, dynamic>> _texts = [];
 
@@ -130,7 +131,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
     _speed = widget.speed ?? const Duration(milliseconds: 30);
     _pause = widget.pause ?? const Duration(milliseconds: 1000);
-
+    _curve = widget.curve;
     _index = -1;
 
     _currentRepeatCount = 0;
@@ -152,56 +153,55 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                    text: _texts[_index]['text'],
-                  ),
-                  TextSpan(
-                      text: '_',
-                      style:
-                          widget.textStyle.copyWith(color: Colors.transparent))
-                ], style: widget.textStyle),
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  String visibleString = _texts[_index]['text'];
-                  Color suffixColor = Colors.transparent;
-                  if (_typewriterText.value == 0) {
-                    visibleString = "";
-                  } else if (_typewriterText.value >
-                      _texts[_index]['text'].length) {
-                    visibleString = _texts[_index]['text']
-                        .substring(0, _texts[_index]['text'].length);
-                    if ((_typewriterText.value -
-                                _texts[_index]['text'].length) %
-                            2 ==
-                        0) {
-                      suffixColor = widget.textStyle.color;
-                    } else {
-                      suffixColor = Colors.transparent;
-                    }
-                  } else {
-                    visibleString = _texts[_index]['text']
-                        .substring(0, _typewriterText.value.abs());
+      onTap: _onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                  text: _texts[_index]['text'],
+                ),
+                TextSpan(
+                    text: '_',
+                    style: widget.textStyle.copyWith(color: Colors.transparent))
+              ], style: widget.textStyle),
+              textAlign: widget.textAlign,
+            )
+          : AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child) {
+                String visibleString = _texts[_index]['text'];
+                Color suffixColor = Colors.transparent;
+                if (_typewriterText.value == 0) {
+                  visibleString = "";
+                } else if (_typewriterText.value >
+                    _texts[_index]['text'].length) {
+                  visibleString = _texts[_index]['text']
+                      .substring(0, _texts[_index]['text'].length);
+                  if ((_typewriterText.value - _texts[_index]['text'].length) %
+                          2 ==
+                      0) {
                     suffixColor = widget.textStyle.color;
+                  } else {
+                    suffixColor = Colors.transparent;
                   }
+                } else {
+                  visibleString = _texts[_index]['text']
+                      .substring(0, _typewriterText.value.abs());
+                  suffixColor = widget.textStyle.color;
+                }
 
-                  return RichText(
-                    text: TextSpan(children: [
-                      TextSpan(text: visibleString),
-                      TextSpan(
-                          text: '_',
-                          style: widget.textStyle.copyWith(color: suffixColor))
-                    ], style: widget.textStyle),
-                    textAlign: widget.textAlign,
-                  );
-                },
-              ));
+                return RichText(
+                  text: TextSpan(children: [
+                    TextSpan(text: visibleString),
+                    TextSpan(
+                        text: '_',
+                        style: widget.textStyle.copyWith(color: suffixColor))
+                  ], style: widget.textStyle),
+                  textAlign: widget.textAlign,
+                );
+              },
+            ),
+    );
   }
 
   void _nextAnimation() {
@@ -236,7 +236,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
       vsync: this,
     );
-    _animator = CurvedAnimation(parent: _controller, curve: widget.curve);
+    _animator = CurvedAnimation(parent: _controller, curve: _curve);
 
     _typewriterText =
         StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
