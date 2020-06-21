@@ -84,7 +84,10 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 # Usage  
 
-  You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount` (or repeat forever with `repeatForever`). The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes. `curve` parameter is used in typewriter class to have a variable writing speed.
+  You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount` (or repeat forever with `repeatForever`). The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes. `curve` parameter is used in some classes to have variable speed.
+
+  Note that: The parameter `speed` is used to calculate the duration of the animation and should not be confused with the `curve` parameter.
+
 ```dart
 TypewriterAnimatedTextKit(
   duration: Duration(milliseconds: 2000),

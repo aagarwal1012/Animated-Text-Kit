@@ -74,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
               // alignment: Alignment(1.0, 0.5),
               textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
+              curve: Curves.elasticInOut,
             ),
           ],
         ),
@@ -85,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
       textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+      curve: Curves.easeInOutBack,
     ),
     SizedBox(
       width: 250.0,
@@ -99,6 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
           "- W.Edwards Deming",
         ],
         textStyle: TextStyle(fontSize: 30.0, fontFamily: "Bobbers"),
+        curve: Curves.slowMiddle,
+        speed: Duration(milliseconds: 100),
       ),
     ),
     SizedBox(
@@ -125,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       text: ["Think", "Build", "Ship"],
       textStyle: TextStyle(fontSize: 70.0, fontFamily: "Canterbury"),
+      curve: Curves.elasticInOut,
     ),
 
     /// colors.length >= 2
