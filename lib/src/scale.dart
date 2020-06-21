@@ -80,12 +80,18 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
+  /// The rate at which the comes into view can be controlled by any curve
+  /// Taken from the Flutter [Curves] Class.
+  /// By Default it's set to linear .
+  final Curve curve;
+
   const ScaleAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
       this.scalingFactor = 0.5,
       this.pause,
+      this.curve = Curves.linear,
       this.duration,
       this.onTap,
       this.onNext,
@@ -111,6 +117,8 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
   Animation _fadeIn, _fadeOut, _scaleIn, _scaleOut;
   List<Widget> textWidgetList = [];
 
+  Curve _curve;
+
   Duration _pause;
 
   List<Map<String, dynamic>> _texts = [];
@@ -130,6 +138,8 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
     super.initState();
 
     _pause = widget.pause ?? const Duration(milliseconds: 500);
+
+    _curve = widget.curve;
 
     _index = -1;
 
@@ -168,7 +178,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
               child: textWidget,
               builder: (BuildContext context, Widget child) {
                 return ScaleTransition(
-                  scale: _scaleIn.value != 1.0 ? _scaleIn : _scaleOut,
+                  scale: _scaleIn.value < 1.0 ? _scaleIn : _scaleOut,
                   child: Opacity(
                     opacity:
                         _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
@@ -224,10 +234,10 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
     _scaleIn = Tween<double>(begin: widget.scalingFactor, end: 1.0)
         .animate(CurvedAnimation(
             parent: _controller,
-            curve: const Interval(
+            curve: Interval(
               0.0,
               0.5,
-              curve: Curves.easeOut,
+              curve: _curve,
             )));
     _scaleOut = Tween<double>(begin: 1.0, end: widget.scalingFactor)
         .animate(CurvedAnimation(

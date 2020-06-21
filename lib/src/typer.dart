@@ -62,6 +62,11 @@ class TyperAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
+  /// writing speed can follow any curve Taken from the Flutter [Curves] Class.
+  ///
+  /// By Default it follows a linear speed.
+  final Curve curve;
+
   const TyperAnimatedTextKit({
     Key key,
     @required this.text,
@@ -75,6 +80,7 @@ class TyperAnimatedTextKit extends StatefulWidget {
     this.isRepeatingAnimation = true,
     this.speed,
     this.pause,
+    this.curve = Curves.linear,
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
   }) : super(key: key);
@@ -87,10 +93,14 @@ class _TyperState extends State<TyperAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
   Animation _typingText;
+  Animation _animator;
+
   List<Widget> textWidgetList = [];
 
   Duration _speed;
   Duration _pause;
+
+  Curve _curve;
 
   List<Map<String, dynamic>> _texts = [];
 
@@ -106,6 +116,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
     _speed = widget.speed ?? const Duration(milliseconds: 40);
     _pause = widget.pause ?? const Duration(milliseconds: 1000);
+    _curve = widget.curve;
 
     _index = -1;
 
@@ -127,28 +138,29 @@ class _TyperState extends State<TyperAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? Text(
-                _texts[_index]['text'],
-                style: widget.textStyle,
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  final int offset =
-                      _texts[_index]['text'].length < _typingText.value
-                          ? _texts[_index]['text'].length
-                          : _typingText.value;
+      onTap: _onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? Text(
+              _texts[_index]['text'],
+              style: widget.textStyle,
+              textAlign: widget.textAlign,
+            )
+          : AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child) {
+                final int offset =
+                    _texts[_index]['text'].length < _typingText.value
+                        ? _texts[_index]['text'].length
+                        : _typingText.value.abs();
 
-                  return Text(
-                    _texts[_index]['text'].substring(0, offset),
-                    style: widget.textStyle,
-                    textAlign: widget.textAlign,
-                  );
-                },
-              ));
+                return Text(
+                  _texts[_index]['text'].substring(0, offset),
+                  style: widget.textStyle,
+                  textAlign: widget.textAlign,
+                );
+              },
+            ),
+    );
   }
 
   void _nextAnimation() {
@@ -178,9 +190,10 @@ class _TyperState extends State<TyperAnimatedTextKit>
       duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
       vsync: this,
     );
+    _animator = CurvedAnimation(parent: _controller, curve: _curve);
 
     _typingText = StepTween(begin: 0, end: _texts[_index]['text'].length)
-        .animate(_controller)
+        .animate(_animator)
           ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
@@ -213,7 +226,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
       } else {
         final int pause = _texts[_index]['pause'].inMilliseconds;
         final int left = _texts[_index]['speed'].inMilliseconds *
-            (_texts[_index]['text'].length - _typingText.value);
+            (_texts[_index]['text'].length - _typingText.value.abs());
 
         _controller.stop();
 

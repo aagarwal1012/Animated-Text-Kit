@@ -74,12 +74,18 @@ class RotateAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool displayFullTextOnTap;
 
+  /// Speed at which text appears can follow any curves
+  /// Taken from the Flutter [Curves] Class.
+  /// By Default follows a linear speed.
+  final Curve curve;
+
   const RotateAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
       this.transitionHeight,
       this.pause,
+      this.curve = Curves.linear,
       this.onNext,
       this.onNextBeforePause,
       this.onFinished,
@@ -109,6 +115,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   Duration _pause;
 
+  Curve _curve;
+
   List<Map<String, dynamic>> _texts = [];
 
   int _index;
@@ -126,6 +134,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     super.initState();
 
     _pause = widget.pause ?? const Duration(milliseconds: 500);
+
+    _curve = widget.curve;
 
     _index = -1;
 
@@ -217,29 +227,15 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       vsync: this,
     );
 
-    if (_index == 0) {
-      _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0).add(widget.alignment),
-              end: Alignment(-1.0, 0.0).add(widget.alignment))
-          .animate(CurvedAnimation(
-              parent: _controller,
-              curve: const Interval(0.0, 0.4, curve: Curves.linear)));
+    _slideIn = AlignmentTween(
+            begin: Alignment(-1.0, -1.0).add(widget.alignment),
+            end: Alignment(-1.0, 0.0).add(widget.alignment))
+        .animate(CurvedAnimation(
+            parent: _controller, curve: Interval(0.0, 0.4, curve: _curve)));
 
-      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
           parent: _controller,
           curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
-    } else {
-      _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0).add(widget.alignment),
-              end: Alignment(-1.0, 0.0).add(widget.alignment))
-          .animate(CurvedAnimation(
-              parent: _controller,
-              curve: const Interval(0.0, 0.4, curve: Curves.linear)));
-
-      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
-    }
 
     _slideOut = AlignmentTween(
       begin: Alignment(-1.0, 0.0).add(widget.alignment),
