@@ -171,8 +171,9 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
               child: textWidget,
               builder: (BuildContext context, Widget child) {
                 return Opacity(
-                  opacity:
-                      _fadeIn.value < 1.0 ? _fadeIn.value.abs() : _fadeOut.value,
+                  opacity: _fadeIn.value < 1.0
+                      ? _fadeIn.value.abs()
+                      : _fadeOut.value,
                   child: child,
                 );
               },
@@ -214,8 +215,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
     );
 
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.0, 0.5, curve: _curve)));
+        parent: _controller, curve: Interval(0.0, 0.5, curve: _curve)));
 
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: _controller,

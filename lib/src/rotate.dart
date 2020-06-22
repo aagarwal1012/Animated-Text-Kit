@@ -234,8 +234,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
             parent: _controller, curve: Interval(0.0, 0.4, curve: _curve)));
 
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
+        parent: _controller,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
 
     _slideOut = AlignmentTween(
       begin: Alignment(-1.0, 0.0).add(widget.alignment),
