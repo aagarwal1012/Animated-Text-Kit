@@ -206,7 +206,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
       _index++;
     }
 
-    setState(() {});
+    if(mounted) setState(() {});
 
     _controller = AnimationController(
       duration: _duration,
@@ -246,7 +246,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
     final bool isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
-    setState(() {});
+    if(mounted) setState(() {});
 
     // Handle onNextBeforePause callback
     widget.onNextBeforePause?.call(_index, isLast);
