@@ -7,7 +7,7 @@ class TextLiquidFill extends StatefulWidget {
   /// Gives [TextStyle] to the text string.
   final TextStyle textStyle;
 
-  /// Gives [TextStyle] to the text string.
+  /// Gives [TextAlign] to the text string.
   final TextAlign textAlign;
 
   /// Specifies the duration the text should fill with liquid.
