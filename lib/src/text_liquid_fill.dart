@@ -7,6 +7,9 @@ class TextLiquidFill extends StatefulWidget {
   /// Gives [TextStyle] to the text string.
   final TextStyle textStyle;
 
+  /// Gives [TextStyle] to the text string.
+  final TextAlign textAlign;
+
   /// Specifies the duration the text should fill with liquid.
   ///
   /// By default it is set to 6 seconds.
@@ -44,6 +47,7 @@ class TextLiquidFill extends StatefulWidget {
       {Key key,
       @required this.text,
       this.textStyle,
+      this.textAlign,
       this.loadDuration,
       this.waveDuration,
       this.boxHeight,
@@ -68,6 +72,8 @@ class _TextLiquidFillState extends State<TextLiquidFill>
   Color _boxBackgroundColor, _waveColor;
 
   TextStyle _textStyle;
+
+  TextAlign _textAlign;
 
   @override
   void initState() {
@@ -94,6 +100,8 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 
     _textStyle = widget.textStyle ??
         TextStyle(fontSize: 140, fontWeight: FontWeight.bold);
+
+    _textAlign = widget.textAlign ?? TextAlign.left;
 
     _waveController.repeat();
     _loadController.forward();
@@ -143,6 +151,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
                   widget.text,
                   key: _textKey,
                   style: _textStyle,
+                  textAlign: _textAlign,
                 ),
               ),
             ),
