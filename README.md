@@ -41,6 +41,7 @@
    * [Scale](#scale)  
    * [Colorize](#colorize)  
    * [TextLiquidFill](#textliquidfill)
+   * [Wavy](#wavy)
  * [Bugs or Requests](#bugs-or-requests)  
  * [Donate](#donate)  
  * [Contributors](#contributors)  
@@ -292,6 +293,23 @@ SizedBox(
   ),
 );
 ```
+
+## Wavy  
+
+<!-- <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">   -->
+
+<img src="https://github.com/SirusCodes/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">
+
+```dart  
+WavyAnimatedTextKit(
+  textStyle: TextStyle(fontSize: 20),
+  text: [
+    "Hello World",
+    "Look at the waves",
+  ],
+),
+```
+
 To get more information about how the animated text made from scratch by @HemilPanchiwala, visit the Medium [blog](https://link.medium.com/AfxVRdkWJ2).  
 
 # Bugs or Requests  

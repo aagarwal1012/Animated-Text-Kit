@@ -10,7 +10,8 @@ const List<String> labels = [
   "Typewriter",
   "Scale",
   "Colorize",
-  "TextLiquidFill"
+  "TextLiquidFill",
+  "Wavy Text"
 ];
 
 class MyApp extends StatefulWidget {
@@ -151,7 +152,16 @@ class _MyHomePageState extends State<MyHomePage> {
         textStyle: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
         boxHeight: 300,
       ),
-    )
+    ),
+
+    WavyAnimatedTextKit(
+      textStyle: TextStyle(fontSize: 20),
+      text: [
+        "Hello World",
+        "Look at the waves",
+        "They look so Amazing",
+      ],
+    ),
   ];
 
   List<Color> _colors = [
@@ -161,7 +171,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.teal[700],
     Colors.blue[700],
     Colors.blueGrey[50],
-    Colors.white
+    Colors.white,
+    Colors.black87,
   ];
 
   int _index = 0;
@@ -198,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             onTap: () {
               setState(() {
-                _index = (_index + 1) % _textAnimationKit.length;
+                _index = ++_index % _textAnimationKit.length;
               });
             },
           ),
