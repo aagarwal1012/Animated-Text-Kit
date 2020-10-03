@@ -93,6 +93,18 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "SirusCodes",
+      "name": "Darshan Rander",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/50910066?v=4",
+      "profile": "https://github.com/SirusCodes",
+      "contributions": [
+        "ideas",
+        "code",
+        "design",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
