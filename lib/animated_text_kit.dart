@@ -7,3 +7,4 @@ export 'src/fade.dart';
 export 'src/colorize.dart';
 export 'src/scale.dart';
 export 'src/text_liquid_fill.dart';
+export 'src/wavy.dart';
