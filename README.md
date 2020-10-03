@@ -127,8 +127,7 @@ Row(
       },
       text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
       textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
-      textAlign: TextAlign.start,
-      alignment: AlignmentDirectional.topStart // or Alignment.topLeft
+      textAlign: TextAlign.start
     ),
   ],
 );
