@@ -102,6 +102,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "aniketambore",
+      "name": "Aniket Ambore",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/52826253?v=4",
+      "profile": "https://github.com/aniketambore",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
