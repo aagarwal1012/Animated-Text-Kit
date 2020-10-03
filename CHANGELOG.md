@@ -1,3 +1,13 @@
+## 2.2.0
+**New Animated Text**
+- Wavy Text by [@SirusCodes](https://github.com/SirusCodes).
+
+**Issues Fixed**
+
+- Issue [#112](https://github.com/aagarwal1012/Animated-Text-Kit/pull/112)
+
+- Issue [#107](https://github.com/aagarwal1012/Animated-Text-Kit/pull/107)
+
 ## 2.1.0
 **Issues Fixed**
 
