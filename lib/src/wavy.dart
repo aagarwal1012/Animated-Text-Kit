@@ -60,7 +60,8 @@ class WavyAnimatedTextKit extends StatefulWidget {
   _WavyAnimatedTextKitState createState() => _WavyAnimatedTextKitState();
 }
 
-class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit> with TickerProviderStateMixin {
+class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
+    with TickerProviderStateMixin {
   // List<GlobalKey<_WTextState>> _keys;
 
   Duration _speed;
@@ -146,7 +147,8 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit> with TickerPr
     )..addStatusListener(_statusListener);
 
     _waveAnim =
-        Tween<double>(begin: 0, end: widget.text[_index].length / 2 + 0.52).animate(_controller);
+        Tween<double>(begin: 0, end: widget.text[_index].length / 2 + 0.52)
+            .animate(_controller);
 
     _controller.forward();
   }
@@ -188,7 +190,8 @@ class _WTextPainter extends CustomPainter {
     if (_textLayoutInfo != null)
       for (_TextLayoutInfo textLayout in _textLayoutInfo) {
         // offset required to center the characters
-        final centerOffset = Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
+        final centerOffset =
+            Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
 
         if (textLayout.isMoving) {
           double p = percent * 2;
@@ -199,7 +202,8 @@ class _WTextPainter extends CustomPainter {
               textLayout.text,
               Offset(
                     textLayout.offsetX,
-                    (textLayout.offsetY - (textLayout.offsetY - textLayout.riseHeight) * p),
+                    (textLayout.offsetY -
+                        (textLayout.offsetY - textLayout.riseHeight) * p),
                   ) +
                   centerOffset,
               textLayout);
@@ -237,22 +241,26 @@ class _WTextPainter extends CustomPainter {
     if (txtInMoOdd < (text.length - 1) / 2 && !txtInMoOdd.isNegative) {
       _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].isMoving = true;
       // percent < .5 creates an phase difference between odd and even chars
-      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight =
-          percent < .5 ? 0 : -1.3 * height * math.sin((percent - .5) * math.pi).abs();
+      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = percent < .5
+          ? 0
+          : -1.3 * height * math.sin((percent - .5) * math.pi).abs();
     }
 
     // Calculating movement of the char at even place
     if (txtInMoEven < text.length) {
       _textLayoutInfo[txtInMoEven].isMoving = true;
-      _textLayoutInfo[txtInMoEven].riseHeight = -1.3 * height * math.sin(_percent * math.pi);
+      _textLayoutInfo[txtInMoEven].riseHeight =
+          -1.3 * height * math.sin(_percent * math.pi);
     }
   }
 
-  void drawText(Canvas canvas, String text, Offset offset, _TextLayoutInfo textLayoutInfo) {
-    var textPainter =
-        TextPainter(text: TextSpan(text: text, style: textStyle), textDirection: TextDirection.ltr)
-          ..textDirection = TextDirection.ltr
-          ..layout();
+  void drawText(Canvas canvas, String text, Offset offset,
+      _TextLayoutInfo textLayoutInfo) {
+    var textPainter = TextPainter(
+        text: TextSpan(text: text, style: textStyle),
+        textDirection: TextDirection.ltr)
+      ..textDirection = TextDirection.ltr
+      ..layout();
 
     textPainter.paint(
       canvas,
@@ -275,7 +283,8 @@ class _WTextPainter extends CustomPainter {
 
     textPainter.layout();
     for (int i = 0; i < text.length; i++) {
-      var forCaret = textPainter.getOffsetForCaret(TextPosition(offset: i), Rect.zero);
+      var forCaret =
+          textPainter.getOffsetForCaret(TextPosition(offset: i), Rect.zero);
       var offsetX = forCaret.dx;
       if (i > 0 && offsetX == 0) {
         break;
@@ -288,7 +297,8 @@ class _WTextPainter extends CustomPainter {
         ..offsetY = forCaret.dy
         ..width = textPainter.width
         ..height = textPainter.height
-        ..baseline = textPainter.computeDistanceToActualBaseline(TextBaseline.ideographic);
+        ..baseline = textPainter
+            .computeDistanceToActualBaseline(TextBaseline.ideographic);
 
       list.add(textLayoutInfo);
     }
