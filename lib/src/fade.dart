@@ -99,7 +99,7 @@ class FadeAnimatedTextKit extends StatefulWidget {
 }
 
 class _FadeTextState extends State<FadeAnimatedTextKit>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   Animation _fadeIn, _fadeOut;
 
   AnimationController _controller;
