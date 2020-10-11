@@ -105,7 +105,7 @@ class ScaleAnimatedTextKit extends StatefulWidget {
 }
 
 class _ScaleTextState extends State<ScaleAnimatedTextKit>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   Animation _fadeIn, _fadeOut, _scaleIn, _scaleOut;
@@ -141,6 +141,8 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
       _texts.add({'text': text, 'pause': _pause});
     });
 
+    // init controller and animations
+    _initAnimation();
     // Start animation
     _nextAnimation();
   }
@@ -180,34 +182,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
     );
   }
 
-  void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
-
-    _isCurrentlyPausing = false;
-
-    // Handling onNext callback
-    if (_index > -1) {
-      widget.onNext?.call(_index, isLast);
-    }
-
-    if (isLast) {
-      if (widget.isRepeatingAnimation &&
-          (widget.repeatForever ||
-              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
-        _index = 0;
-        if (!widget.repeatForever) {
-          _currentRepeatCount++;
-        }
-      } else {
-        widget.onFinished?.call();
-        return;
-      }
-    } else {
-      _index++;
-    }
-
-    setState(() {});
-
+  void _initAnimation() {
     _controller = AnimationController(
       duration: _duration,
       vsync: this,
@@ -238,8 +213,37 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
               curve: Curves.easeIn,
             )))
           ..addStatusListener(_animationEndCallback);
+  }
 
-    _controller.forward();
+  void _nextAnimation() {
+    final bool isLast = _index == widget.text.length - 1;
+
+    _isCurrentlyPausing = false;
+
+    // Handling onNext callback
+    if (_index > -1) {
+      widget.onNext?.call(_index, isLast);
+    }
+
+    if (isLast) {
+      if (widget.isRepeatingAnimation &&
+          (widget.repeatForever ||
+              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
+        _index = 0;
+        if (!widget.repeatForever) {
+          _currentRepeatCount++;
+        }
+      } else {
+        widget.onFinished?.call();
+        return;
+      }
+    } else {
+      _index++;
+    }
+
+    setState(() {});
+
+    _controller.forward(from: 0.0);
   }
 
   void _setPause() {
