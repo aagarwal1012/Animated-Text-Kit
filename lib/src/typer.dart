@@ -125,6 +125,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller?.stop();
     _controller?.dispose();
     super.dispose();
@@ -207,6 +208,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _setPause();
+      assert(null == _timer || !_timer.isActive);
       _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
@@ -227,6 +229,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
         _setPause();
 
+        assert(null == _timer || !_timer.isActive);
         _timer =
             Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
       }

@@ -147,6 +147,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller?.stop();
     _controller?.dispose();
     super.dispose();
@@ -255,6 +256,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _isCurrentlyPausing = true;
+      assert(null == _timer || !_timer.isActive);
       _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
@@ -274,6 +276,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
 
         _setPause();
 
+        assert(null == _timer || !_timer.isActive);
         _timer =
             Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
       }
