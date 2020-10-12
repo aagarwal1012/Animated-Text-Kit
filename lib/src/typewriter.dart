@@ -1,3 +1,4 @@
+import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
@@ -129,7 +130,12 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     _currentRepeatCount = 0;
 
     widget.text.forEach((text) {
-      _texts.add({'text': text, 'speed': _speed, 'pause': _pause});
+      _texts.add({
+        'text': text,
+        'chars': text.characters,
+        'speed': _speed,
+        'pause': _pause,
+      });
     });
 
     _nextAnimation();
@@ -137,6 +143,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller?.stop();
     _controller?.dispose();
     super.dispose();
@@ -144,57 +151,59 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
+    final text = _texts[_index]['text'];
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? RichText(
-                text: TextSpan(children: [
+      onTap: _onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: text),
                   TextSpan(
-                    text: _texts[_index]['text'],
-                  ),
-                  TextSpan(
-                      text: '_',
-                      style:
-                          widget.textStyle.copyWith(color: Colors.transparent))
-                ], style: widget.textStyle),
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  String visibleString = _texts[_index]['text'];
-                  Color suffixColor = Colors.transparent;
-                  if (_typewriterText.value == 0) {
-                    visibleString = "";
-                  } else if (_typewriterText.value >
-                      _texts[_index]['text'].length) {
-                    visibleString = _texts[_index]['text']
-                        .substring(0, _texts[_index]['text'].length);
-                    if ((_typewriterText.value -
-                                _texts[_index]['text'].length) %
-                            2 ==
-                        0) {
-                      suffixColor = widget.textStyle.color;
-                    } else {
-                      suffixColor = Colors.transparent;
-                    }
-                  } else {
-                    visibleString = _texts[_index]['text']
-                        .substring(0, _typewriterText.value);
-                    suffixColor = widget.textStyle.color;
-                  }
+                    text: '_',
+                    style: widget.textStyle.copyWith(color: Colors.transparent),
+                  )
+                ],
+                style: widget.textStyle,
+              ),
+              textAlign: widget.textAlign,
+            )
+          : AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child) {
+                final textCharacters = _texts[_index]['chars'];
+                final textLen = textCharacters.length;
+                String visibleString = text;
+                Color suffixColor = Colors.transparent;
+                if (_typewriterText.value == 0) {
+                  visibleString = "";
+                } else if (_typewriterText.value > textLen) {
+                  visibleString = textCharacters.take(textLen).toString();
+                  suffixColor = (_typewriterText.value - textLen) % 2 == 0
+                      ? widget.textStyle.color
+                      : Colors.transparent;
+                } else {
+                  visibleString =
+                      textCharacters.take(_typewriterText.value).toString();
+                  suffixColor = widget.textStyle.color;
+                }
 
-                  return RichText(
-                    text: TextSpan(children: [
+                return RichText(
+                  text: TextSpan(
+                    children: [
                       TextSpan(text: visibleString),
                       TextSpan(
-                          text: '_',
-                          style: widget.textStyle.copyWith(color: suffixColor))
-                    ], style: widget.textStyle),
-                    textAlign: widget.textAlign,
-                  );
-                },
-              ));
+                        text: '_',
+                        style: widget.textStyle.copyWith(color: suffixColor),
+                      )
+                    ],
+                    style: widget.textStyle,
+                  ),
+                  textAlign: widget.textAlign,
+                );
+              },
+            ),
+    );
   }
 
   void _nextAnimation() {
@@ -252,6 +261,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _setPause();
+      assert(null == _timer || !_timer.isActive);
       _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
@@ -272,6 +282,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
         _setPause();
 
+        assert(null == _timer || !_timer.isActive);
         _timer =
             Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
       }
