@@ -143,6 +143,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller?.stop();
     _controller?.dispose();
     super.dispose();
@@ -271,6 +272,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
+      assert(null == _timer || !_timer.isActive);
       _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
@@ -285,6 +287,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
         _setPause();
 
+        assert(null == _timer || !_timer.isActive);
         _timer = Timer(_texts[_index]['pause'], _nextAnimation);
       }
     }
