@@ -8,6 +8,7 @@ maintainer: Ayush Agarwal (@aagarwal1012)
 dependencies:
   flutter:
     sdk: flutter
+  characters: ^1.0.0
 
 dev_dependencies:
   flutter_test:
