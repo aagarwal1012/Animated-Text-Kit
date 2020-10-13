@@ -99,7 +99,7 @@ class FadeAnimatedTextKit extends StatefulWidget {
 }
 
 class _FadeTextState extends State<FadeAnimatedTextKit>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   Animation _fadeIn, _fadeOut;
 
   AnimationController _controller;
@@ -135,6 +135,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
       _texts.add({'text': text, 'pause': _pause});
     });
 
+    _initAnimation();
     _nextAnimation();
   }
 
@@ -171,6 +172,22 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
     );
   }
 
+  void _initAnimation() {
+    _controller = AnimationController(
+      duration: _duration,
+      vsync: this,
+    );
+
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.linear)));
+
+    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.8, 1.0, curve: Curves.linear)))
+      ..addStatusListener(_animationEndCallback);
+  }
+
   void _nextAnimation() {
     final bool isLast = _index == widget.text.length - 1;
 
@@ -199,21 +216,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
 
     if (mounted) setState(() {});
 
-    _controller = AnimationController(
-      duration: _duration,
-      vsync: this,
-    );
-
-    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.linear)));
-
-    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.8, 1.0, curve: Curves.linear)))
-      ..addStatusListener(_animationEndCallback);
-
-    _controller.forward();
+    _controller.forward(from: 0.0);
   }
 
   void _setPause() {
