@@ -1,4 +1,14 @@
-## 2.2.0
+## 2.4.0
+**Issues Fixed** 
+- Issue [#124](https://github.com/aagarwal1012/Animated-Text-Kit/pull/124)
+
+- Issue [#123](https://github.com/aagarwal1012/Animated-Text-Kit/pull/123)
+
+- Issue [#122](https://github.com/aagarwal1012/Animated-Text-Kit/pull/122)
+
+- Issue [#121](https://github.com/aagarwal1012/Animated-Text-Kit/pull/121)
+
+## 2.3.0
 **New Animated Text**
 - Wavy Text by [@SirusCodes](https://github.com/SirusCodes).
 
@@ -7,6 +17,25 @@
 - Issue [#112](https://github.com/aagarwal1012/Animated-Text-Kit/pull/112)
 
 - Issue [#107](https://github.com/aagarwal1012/Animated-Text-Kit/pull/107)
+
+## 2.2.0
+
+**Issues Fixed**
+
+* Issue [#51](https://github.com/aagarwal1012/Animated-Text-Kit/issues/51)
+
+**Code Review** [#81](https://github.com/aagarwal1012/Animated-Text-Kit/pull/81)
+
+- Removed obsolete `new` keywords.
+ - Added types to collection and function variables.
+ - Added `final` and `const` keywords.
+ - Replaced `null` guards with concise `?.` and `??` operators.
+ - Added missing null check on `dispose` for `FadeAnimatedTextKit`.
+ - In `fade.dart`, renamed the `_RotatingTextState` class to `_FadeTextState` to be consistent with the overall pattern and avoid confusion with `_RotatingTextState` in `rotate.dart`.
+
+**Warning**:
+
+ - Removed `onNextBeforePause` from `ColorizeAnimatedTextKit` because it was not referenced.
 
 ## 2.1.0
 **Issues Fixed**

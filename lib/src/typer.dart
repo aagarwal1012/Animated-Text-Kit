@@ -1,3 +1,4 @@
+import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
@@ -110,7 +111,12 @@ class _TyperState extends State<TyperAnimatedTextKit>
     _index = -1;
 
     widget.text.forEach((text) {
-      _texts.add({'text': text, 'speed': _speed, 'pause': _pause});
+      _texts.add({
+        'text': text,
+        'chars': text.characters,
+        'speed': _speed,
+        'pause': _pause,
+      });
     });
 
     // Start animation
@@ -119,6 +125,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller?.stop();
     _controller?.dispose();
     super.dispose();
@@ -126,29 +133,31 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
+    final text = _texts[_index]['text'];
     return GestureDetector(
-        onTap: _onTap,
-        child: _isCurrentlyPausing || !_controller.isAnimating
-            ? Text(
-                _texts[_index]['text'],
-                style: widget.textStyle,
-                textAlign: widget.textAlign,
-              )
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  final int offset =
-                      _texts[_index]['text'].length < _typingText.value
-                          ? _texts[_index]['text'].length
-                          : _typingText.value;
+      onTap: _onTap,
+      child: _isCurrentlyPausing || !_controller.isAnimating
+          ? Text(
+              text,
+              style: widget.textStyle,
+              textAlign: widget.textAlign,
+            )
+          : AnimatedBuilder(
+              animation: _controller,
+              builder: (BuildContext context, Widget child) {
+                final textCharacters = _texts[_index]['chars'];
+                final textLen = textCharacters.length;
+                final int offset =
+                    textLen < _typingText.value ? textLen : _typingText.value;
 
-                  return Text(
-                    _texts[_index]['text'].substring(0, offset),
-                    style: widget.textStyle,
-                    textAlign: widget.textAlign,
-                  );
-                },
-              ));
+                return Text(
+                  textCharacters.take(offset).toString(),
+                  style: widget.textStyle,
+                  textAlign: widget.textAlign,
+                );
+              },
+            ),
+    );
   }
 
   void _nextAnimation() {
@@ -174,14 +183,14 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
     if (mounted) setState(() {});
 
+    final textLen = _texts[_index]['chars'].length;
     _controller = AnimationController(
-      duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
+      duration: _texts[_index]['speed'] * textLen,
       vsync: this,
     );
 
-    _typingText = StepTween(begin: 0, end: _texts[_index]['text'].length)
-        .animate(_controller)
-          ..addStatusListener(_animationEndCallback);
+    _typingText = StepTween(begin: 0, end: textLen).animate(_controller)
+      ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
@@ -199,6 +208,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _setPause();
+      assert(null == _timer || !_timer.isActive);
       _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
@@ -213,12 +223,13 @@ class _TyperState extends State<TyperAnimatedTextKit>
       } else {
         final int pause = _texts[_index]['pause'].inMilliseconds;
         final int left = _texts[_index]['speed'].inMilliseconds *
-            (_texts[_index]['text'].length - _typingText.value);
+            (_texts[_index]['chars'].length - _typingText.value);
 
         _controller.stop();
 
         _setPause();
 
+        assert(null == _timer || !_timer.isActive);
         _timer =
             Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
       }

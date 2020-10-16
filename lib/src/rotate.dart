@@ -98,7 +98,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
 }
 
 class _RotatingTextState extends State<RotateAnimatedTextKit>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   double _transitionHeight;
@@ -137,11 +137,13 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       _texts.add({'text': text, 'pause': _pause});
     });
 
+    _initAnimation();
     _nextAnimation();
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller?.stop();
     _controller?.dispose();
     super.dispose();
@@ -178,40 +180,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     );
   }
 
-  void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
-
-    _isCurrentlyPausing = false;
-
-    // Handling onNext callback
-    if (_index > -1) {
-      widget.onNext?.call(_index, isLast);
-    }
-
-    if (isLast) {
-      if (widget.isRepeatingAnimation &&
-          (widget.repeatForever ||
-              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
-        _index = 0;
-        if (!widget.repeatForever) {
-          _currentRepeatCount++;
-        }
-      } else {
-        widget.onFinished?.call();
-        return;
-      }
-    } else {
-      _index++;
-    }
-
-    if (mounted) setState(() {});
-
-    if (widget.transitionHeight == null) {
-      _transitionHeight = widget.textStyle.fontSize * 10 / 3;
-    } else {
-      _transitionHeight = widget.transitionHeight;
-    }
-
+  void _initAnimation() {
     _controller = AnimationController(
       duration: _duration,
       vsync: this,
@@ -252,8 +221,43 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
         parent: _controller,
         curve: const Interval(0.7, 1.0, curve: Curves.easeIn)))
       ..addStatusListener(_animationEndCallback);
+  }
 
-    _controller.forward();
+  void _nextAnimation() {
+    final bool isLast = _index == widget.text.length - 1;
+
+    _isCurrentlyPausing = false;
+
+    // Handling onNext callback
+    if (_index > -1) {
+      widget.onNext?.call(_index, isLast);
+    }
+
+    if (isLast) {
+      if (widget.isRepeatingAnimation &&
+          (widget.repeatForever ||
+              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
+        _index = 0;
+        if (!widget.repeatForever) {
+          _currentRepeatCount++;
+        }
+      } else {
+        widget.onFinished?.call();
+        return;
+      }
+    } else {
+      _index++;
+    }
+
+    if (mounted) setState(() {});
+
+    if (widget.transitionHeight == null) {
+      _transitionHeight = widget.textStyle.fontSize * 10 / 3;
+    } else {
+      _transitionHeight = widget.transitionHeight;
+    }
+
+    _controller.forward(from: 0.0);
   }
 
   void _setPause() {
@@ -268,6 +272,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
+      assert(null == _timer || !_timer.isActive);
       _timer = Timer(_texts[_index]['pause'], _nextAnimation);
     }
   }
@@ -282,6 +287,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
         _setPause();
 
+        assert(null == _timer || !_timer.isActive);
         _timer = Timer(_texts[_index]['pause'], _nextAnimation);
       }
     }
