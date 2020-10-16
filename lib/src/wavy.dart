@@ -171,17 +171,16 @@ class _WTextPainter extends CustomPainter {
   });
 
   final double progress;
-  static int txtInMoInd;
   final String text;
   // Private class to store text information
   List<_TextLayoutInfo> _textLayoutInfo = [];
   final TextStyle textStyle;
   // percentage of animation completed
-  static double percent;
+  double percent;
   @override
   void paint(Canvas canvas, Size size) {
     percent = progress;
-    txtInMoInd = percent.floor();
+
     if (_textLayoutInfo.length == 0) {
       // calculate the initial position of each char
       calculateLayoutInfo(text, _textLayoutInfo);
@@ -233,17 +232,18 @@ class _WTextPainter extends CustomPainter {
 
   void calculateMove() {
     double height = _textLayoutInfo[0].height;
-    double _percent = percent - txtInMoInd;
-    int txtInMoOdd = (percent - .5).floor();
+    double _percent = progress - progress.floor();
+    int txtInMoInd = progress.floor();
+    int txtInMoOdd = (progress - .5).floor();
     int txtInMoEven = txtInMoInd * 2;
 
     // Calculating movement of the char at odd place
     if (txtInMoOdd < (text.length - 1) / 2 && !txtInMoOdd.isNegative) {
       _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].isMoving = true;
       // percent < .5 creates an phase difference between odd and even chars
-      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = percent < .5
+      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = progress < .5
           ? 0
-          : -1.3 * height * math.sin((percent - .5) * math.pi).abs();
+          : -1.3 * height * math.sin((progress - .5) * math.pi).abs();
     }
 
     // Calculating movement of the char at even place
