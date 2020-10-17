@@ -232,8 +232,8 @@ class _WTextPainter extends CustomPainter {
 
   void calculateMove() {
     double height = _textLayoutInfo[0].height;
-    double _percent = progress - progress.floor();
     int txtInMoInd = progress.floor();
+    double _percent = progress - txtInMoInd;
     int txtInMoOdd = (progress - .5).floor();
     int txtInMoEven = txtInMoInd * 2;
 
