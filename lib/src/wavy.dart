@@ -175,12 +175,8 @@ class _WTextPainter extends CustomPainter {
   // Private class to store text information
   List<_TextLayoutInfo> _textLayoutInfo = [];
   final TextStyle textStyle;
-  // percentage of animation completed
-  double percent;
   @override
   void paint(Canvas canvas, Size size) {
-    percent = progress;
-
     if (_textLayoutInfo.length == 0) {
       // calculate the initial position of each char
       calculateLayoutInfo(text, _textLayoutInfo);
@@ -193,7 +189,7 @@ class _WTextPainter extends CustomPainter {
             Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
 
         if (textLayout.isMoving) {
-          double p = percent * 2;
+          double p = progress * 2;
           p = p > 1 ? 1 : p;
           // drawing the char if the text is moving
           drawText(
@@ -233,7 +229,7 @@ class _WTextPainter extends CustomPainter {
   void calculateMove() {
     double height = _textLayoutInfo[0].height;
     int txtInMoInd = progress.floor();
-    double _percent = progress - txtInMoInd;
+    double percent = progress - txtInMoInd;
     int txtInMoOdd = (progress - .5).floor();
     int txtInMoEven = txtInMoInd * 2;
 
@@ -250,7 +246,7 @@ class _WTextPainter extends CustomPainter {
     if (txtInMoEven < text.length) {
       _textLayoutInfo[txtInMoEven].isMoving = true;
       _textLayoutInfo[txtInMoEven].riseHeight =
-          -1.3 * height * math.sin(_percent * math.pi);
+          -1.3 * height * math.sin(percent * math.pi);
     }
   }
 
