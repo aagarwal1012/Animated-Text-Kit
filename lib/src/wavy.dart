@@ -171,17 +171,12 @@ class _WTextPainter extends CustomPainter {
   });
 
   final double progress;
-  static int txtInMoInd;
   final String text;
   // Private class to store text information
   List<_TextLayoutInfo> _textLayoutInfo = [];
   final TextStyle textStyle;
-  // percentage of animation completed
-  static double percent;
   @override
   void paint(Canvas canvas, Size size) {
-    percent = progress;
-    txtInMoInd = percent.floor();
     if (_textLayoutInfo.length == 0) {
       // calculate the initial position of each char
       calculateLayoutInfo(text, _textLayoutInfo);
@@ -194,7 +189,7 @@ class _WTextPainter extends CustomPainter {
             Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
 
         if (textLayout.isMoving) {
-          double p = percent * 2;
+          double p = progress * 2;
           p = p > 1 ? 1 : p;
           // drawing the char if the text is moving
           drawText(
@@ -233,24 +228,25 @@ class _WTextPainter extends CustomPainter {
 
   void calculateMove() {
     double height = _textLayoutInfo[0].height;
-    double _percent = percent - txtInMoInd;
-    int txtInMoOdd = (percent - .5).floor();
+    int txtInMoInd = progress.floor();
+    double percent = progress - txtInMoInd;
+    int txtInMoOdd = (progress - .5).floor();
     int txtInMoEven = txtInMoInd * 2;
 
     // Calculating movement of the char at odd place
     if (txtInMoOdd < (text.length - 1) / 2 && !txtInMoOdd.isNegative) {
       _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].isMoving = true;
       // percent < .5 creates an phase difference between odd and even chars
-      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = percent < .5
+      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = progress < .5
           ? 0
-          : -1.3 * height * math.sin((percent - .5) * math.pi).abs();
+          : -1.3 * height * math.sin((progress - .5) * math.pi).abs();
     }
 
     // Calculating movement of the char at even place
     if (txtInMoEven < text.length) {
       _textLayoutInfo[txtInMoEven].isMoving = true;
       _textLayoutInfo[txtInMoEven].riseHeight =
-          -1.3 * height * math.sin(_percent * math.pi);
+          -1.3 * height * math.sin(percent * math.pi);
     }
   }
 
