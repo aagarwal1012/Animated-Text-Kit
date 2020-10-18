@@ -1,3 +1,7 @@
+## 2.4.1
+**Issue Fixed** 
+- Issue [#125](https://github.com/aagarwal1012/Animated-Text-Kit/issues/125)
+
 ## 2.4.0
 **Issues Fixed** 
 - Issue [#124](https://github.com/aagarwal1012/Animated-Text-Kit/pull/124)
