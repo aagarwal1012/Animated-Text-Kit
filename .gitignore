@@ -21,6 +21,7 @@ Pods/
 **/Flutter/flutter_assets/
 ServiceDefinitions.json
 xcuserdata/
+coverage
 
 local.properties
 .gradle/
