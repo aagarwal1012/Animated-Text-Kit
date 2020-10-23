@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 class RotateAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -74,24 +74,33 @@ class RotateAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool displayFullTextOnTap;
 
-  const RotateAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.transitionHeight,
-      this.pause,
-      this.onNext,
-      this.onNextBeforePause,
-      this.onFinished,
-      this.totalRepeatCount = 3,
-      this.duration,
-      this.onTap,
-      this.alignment = const Alignment(0.0, 0.0),
-      this.textAlign = TextAlign.start,
-      this.displayFullTextOnTap = false,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = true})
-      : super(key: key);
+  const RotateAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.textStyle,
+    this.transitionHeight,
+    this.pause = const Duration(milliseconds: 500),
+    this.onNext,
+    this.onNextBeforePause,
+    this.onFinished,
+    this.totalRepeatCount = 3,
+    this.duration = const Duration(milliseconds: 2000),
+    this.onTap,
+    this.alignment = const Alignment(0.0, 0.0),
+    this.textAlign = TextAlign.start,
+    this.displayFullTextOnTap = false,
+    this.repeatForever = false,
+    this.isRepeatingAnimation = true,
+  })  : assert(null != text),
+        assert(null != pause),
+        assert(null != totalRepeatCount),
+        assert(null != duration),
+        assert(null != alignment),
+        assert(null != textAlign),
+        assert(null != displayFullTextOnTap),
+        assert(null != repeatForever),
+        assert(null != isRepeatingAnimation),
+        super(key: key);
 
   @override
   _RotatingTextState createState() => _RotatingTextState();
@@ -105,11 +114,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   Animation _fadeIn, _fadeOut, _slideIn, _slideOut;
 
-  List<Widget> textWidgetList = [];
-
-  Duration _pause;
-
-  List<Map<String, dynamic>> _texts = [];
+  final _texts = <Map<String, dynamic>>[];
 
   int _index;
 
@@ -119,22 +124,22 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   int _currentRepeatCount;
 
-  Duration _duration;
-
   @override
   void initState() {
     super.initState();
 
-    _pause = widget.pause ?? const Duration(milliseconds: 500);
+    _transitionHeight =
+        widget.transitionHeight ?? (widget.textStyle.fontSize * 10 / 3);
 
     _index = -1;
 
     _currentRepeatCount = 0;
 
-    _duration = widget.duration ?? const Duration(milliseconds: 2000);
-
     widget.text.forEach((text) {
-      _texts.add({'text': text, 'pause': _pause});
+      _texts.add({
+        'text': text,
+        'pause': widget.pause,
+      });
     });
 
     _initAnimation();
@@ -169,10 +174,10 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
                   return AlignTransition(
                     alignment: _slideIn.value.y != 0.0 ? _slideIn : _slideOut,
                     child: Opacity(
-                        opacity: _fadeIn.value != 1.0
-                            ? _fadeIn.value
-                            : _fadeOut.value,
-                        child: child),
+                      opacity:
+                          _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+                      child: child,
+                    ),
                   );
                 },
               ),
@@ -182,45 +187,62 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   void _initAnimation() {
     _controller = AnimationController(
-      duration: _duration,
+      duration: widget.duration,
       vsync: this,
     );
 
     if (_index == 0) {
       _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0).add(widget.alignment),
-              end: Alignment(-1.0, 0.0).add(widget.alignment))
-          .animate(CurvedAnimation(
-              parent: _controller,
-              curve: const Interval(0.0, 0.4, curve: Curves.linear)));
-
-      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        begin: const Alignment(-1.0, -1.0) + widget.alignment,
+        end: const Alignment(-1.0, 0.0) + widget.alignment,
+      ).animate(
+        CurvedAnimation(
           parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
+          curve: const Interval(0.0, 0.4, curve: Curves.linear),
+        ),
+      );
+
+      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+        ),
+      );
     } else {
       _slideIn = AlignmentTween(
-              begin: Alignment(-1.0, -1.0).add(widget.alignment),
-              end: Alignment(-1.0, 0.0).add(widget.alignment))
-          .animate(CurvedAnimation(
-              parent: _controller,
-              curve: const Interval(0.0, 0.4, curve: Curves.linear)));
-
-      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        begin: const Alignment(-1.0, -1.0) + widget.alignment,
+        end: const Alignment(-1.0, 0.0) + widget.alignment,
+      ).animate(
+        CurvedAnimation(
           parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut)));
+          curve: const Interval(0.0, 0.4, curve: Curves.linear),
+        ),
+      );
+
+      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+        ),
+      );
     }
 
     _slideOut = AlignmentTween(
-      begin: Alignment(-1.0, 0.0).add(widget.alignment),
-      end: Alignment(-1.0, 1.0).add(widget.alignment),
-    ).animate(CurvedAnimation(
+      begin: const Alignment(-1.0, 0.0) + widget.alignment,
+      end: const Alignment(-1.0, 1.0) + widget.alignment,
+    ).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.7, 1.0, curve: Curves.linear)));
+        curve: const Interval(0.7, 1.0, curve: Curves.linear),
+      ),
+    );
 
-    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.7, 1.0, curve: Curves.easeIn)))
-      ..addStatusListener(_animationEndCallback);
+        curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
+      ),
+    )..addStatusListener(_animationEndCallback);
   }
 
   void _nextAnimation() {
@@ -250,12 +272,6 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     }
 
     if (mounted) setState(() {});
-
-    if (widget.transitionHeight == null) {
-      _transitionHeight = widget.textStyle.fontSize * 10 / 3;
-    } else {
-      _transitionHeight = widget.transitionHeight;
-    }
 
     _controller.forward(from: 0.0);
   }
