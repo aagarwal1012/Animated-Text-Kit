@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-GlobalKey _textKey;
-
 class TextLiquidFill extends StatefulWidget {
   /// Gives [TextStyle] to the text string.
   final TextStyle textStyle;
@@ -62,6 +60,8 @@ class TextLiquidFill extends StatefulWidget {
 
 class _TextLiquidFillState extends State<TextLiquidFill>
     with TickerProviderStateMixin {
+  final _textKey = GlobalKey();
+
   AnimationController _waveController, _loadController;
   Duration _waveDuration, _loadDuration;
 
@@ -78,8 +78,6 @@ class _TextLiquidFillState extends State<TextLiquidFill>
   @override
   void initState() {
     super.initState();
-
-    _textKey = GlobalKey();
 
     _boxHeight = widget.boxHeight ?? 250;
 
@@ -99,7 +97,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
     _waveColor = widget.waveColor ?? Colors.blueAccent;
 
     _textStyle = widget.textStyle ??
-        TextStyle(fontSize: 140, fontWeight: FontWeight.bold);
+        const TextStyle(fontSize: 140, fontWeight: FontWeight.bold);
 
     _textAlign = widget.textAlign ?? TextAlign.left;
 
@@ -128,6 +126,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
             builder: (BuildContext context, Widget child) {
               return CustomPaint(
                 painter: WavePainter(
+                    textKey: _textKey,
                     waveAnimation: _waveController,
                     percentValue: _loadValue.value,
                     boxHeight: _boxHeight,
@@ -163,41 +162,44 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 }
 
 class WavePainter extends CustomPainter {
-  Animation<double> waveAnimation;
-  double percentValue;
-  double boxHeight;
-  Color waveColor;
+  final _pi2 = 2 * pi;
+  final GlobalKey textKey;
+  final Animation<double> waveAnimation;
+  final double percentValue;
+  final double boxHeight;
+  final Color waveColor;
 
-  WavePainter(
-      {this.waveAnimation, this.percentValue, this.boxHeight, this.waveColor});
+  WavePainter({
+    @required this.textKey,
+    this.waveAnimation,
+    this.percentValue,
+    this.boxHeight,
+    this.waveColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    double width = (size.width != null) ? size.width : 200;
-    double height = (size.height != null) ? size.height : 200;
+    final RenderBox textBox = textKey.currentContext.findRenderObject();
+    final textHeight = textBox.size.height;
+    final percent = percentValue / 100.0;
+    final baseHeight =
+        (boxHeight / 2) + (textHeight / 2) - (percent * textHeight);
 
-    Paint wavePaint = Paint()..color = waveColor;
-
-    RenderBox textBox = _textKey.currentContext.findRenderObject();
-
-    double _textHeight = textBox.size.height;
-
-    double _percent = percentValue / 100.0;
-    double _baseHeight =
-        (boxHeight / 2) + (_textHeight / 2) - (_percent * _textHeight);
-
-    Path path = Path();
-    path.moveTo(0.0, _baseHeight);
+    final width = size.width ?? 200;
+    final height = size.height ?? 200;
+    final path = Path();
+    path.moveTo(0.0, baseHeight);
     for (double i = 0.0; i < width; i++) {
       path.lineTo(
-          i,
-          _baseHeight +
-              sin((i / width * 2 * pi) + (waveAnimation.value * 2 * pi)) * 8);
+        i,
+        baseHeight + sin((i / width * _pi2) + (waveAnimation.value * _pi2)) * 8,
+      );
     }
 
     path.lineTo(width, height);
     path.lineTo(0.0, height);
     path.close();
+    final wavePaint = Paint()..color = waveColor;
     canvas.drawPath(path, wavePaint);
   }
 
