@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 class TextLiquidFill extends StatefulWidget {
   /// Gives [TextStyle] to the text string.
+  ///
+  /// By default it is `TextStyle(fontSize: 140, fontWeight: FontWeight.bold)`
   final TextStyle textStyle;
 
   /// Gives [TextAlign] to the text string.
+  ///
+  /// By default it is [TextAlign.left].
   final TextAlign textAlign;
 
   /// Specifies the duration the text should fill with liquid.
@@ -41,18 +45,28 @@ class TextLiquidFill extends StatefulWidget {
   /// By default it is set to blueAccent color
   final Color waveColor;
 
-  TextLiquidFill(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.textAlign,
-      this.loadDuration,
-      this.waveDuration,
-      this.boxHeight,
-      this.boxWidth,
-      this.boxBackgroundColor,
-      this.waveColor})
-      : super(key: key);
+  TextLiquidFill({
+    Key key,
+    @required this.text,
+    this.textStyle =
+        const TextStyle(fontSize: 140, fontWeight: FontWeight.bold),
+    this.textAlign = TextAlign.left,
+    this.loadDuration = const Duration(milliseconds: 6000),
+    this.waveDuration = const Duration(milliseconds: 2000),
+    this.boxHeight = 250,
+    this.boxWidth = 400,
+    this.boxBackgroundColor = Colors.black,
+    this.waveColor = Colors.blueAccent,
+  })  : assert(null != text),
+        assert(null != textStyle),
+        assert(null != textAlign),
+        assert(null != loadDuration),
+        assert(null != waveDuration),
+        assert(null != boxHeight),
+        assert(null != boxWidth),
+        assert(null != boxBackgroundColor),
+        assert(null != waveColor),
+        super(key: key);
 
   @override
   _TextLiquidFillState createState() => _TextLiquidFillState();
@@ -63,43 +77,24 @@ class _TextLiquidFillState extends State<TextLiquidFill>
   final _textKey = GlobalKey();
 
   AnimationController _waveController, _loadController;
-  Duration _waveDuration, _loadDuration;
 
   Animation _loadValue;
-
-  double _boxHeight, _boxWidth;
-
-  Color _boxBackgroundColor, _waveColor;
-
-  TextStyle _textStyle;
-
-  TextAlign _textAlign;
 
   @override
   void initState() {
     super.initState();
 
-    _boxHeight = widget.boxHeight ?? 250;
+    _waveController = AnimationController(
+      vsync: this,
+      duration: widget.waveDuration,
+    );
 
-    _boxWidth = widget.boxWidth ?? 400;
-
-    _waveDuration = widget.waveDuration ?? const Duration(milliseconds: 2000);
-
-    _loadDuration = widget.loadDuration ?? const Duration(milliseconds: 6000);
-
-    _waveController = AnimationController(vsync: this, duration: _waveDuration);
-
-    _loadController = AnimationController(vsync: this, duration: _loadDuration);
+    _loadController = AnimationController(
+      vsync: this,
+      duration: widget.loadDuration,
+    );
 
     _loadValue = Tween<double>(begin: 0.0, end: 100.0).animate(_loadController);
-
-    _boxBackgroundColor = widget.boxBackgroundColor ?? Colors.black;
-    _waveColor = widget.waveColor ?? Colors.blueAccent;
-
-    _textStyle = widget.textStyle ??
-        const TextStyle(fontSize: 140, fontWeight: FontWeight.bold);
-
-    _textAlign = widget.textAlign ?? TextAlign.left;
 
     _waveController.repeat();
     _loadController.forward();
@@ -119,38 +114,40 @@ class _TextLiquidFillState extends State<TextLiquidFill>
     return Stack(
       children: <Widget>[
         SizedBox(
-          height: _boxHeight,
-          width: _boxWidth ?? MediaQuery.of(context).size.width,
+          height: widget.boxHeight,
+          width: widget.boxWidth,
           child: AnimatedBuilder(
             animation: _waveController,
             builder: (BuildContext context, Widget child) {
               return CustomPaint(
                 painter: WavePainter(
-                    textKey: _textKey,
-                    waveAnimation: _waveController,
-                    percentValue: _loadValue.value,
-                    boxHeight: _boxHeight,
-                    waveColor: _waveColor),
+                  textKey: _textKey,
+                  waveAnimation: _waveController,
+                  percentValue: _loadValue.value,
+                  boxHeight: widget.boxHeight,
+                  waveColor: widget.waveColor,
+                ),
               );
             },
           ),
         ),
         SizedBox(
-          height: _boxHeight,
-          width: _boxWidth ?? MediaQuery.of(context).size.width,
+          height: widget.boxHeight,
+          width: widget.boxWidth,
           child: ShaderMask(
             blendMode: BlendMode.srcOut,
-            shaderCallback: (bounds) =>
-                LinearGradient(colors: [_boxBackgroundColor], stops: [0.0])
-                    .createShader(bounds),
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [widget.boxBackgroundColor],
+              stops: [0.0],
+            ).createShader(bounds),
             child: Container(
               color: Colors.transparent,
               child: Center(
                 child: Text(
                   widget.text,
                   key: _textKey,
-                  style: _textStyle,
-                  textAlign: _textAlign,
+                  style: widget.textStyle,
+                  textAlign: widget.textAlign,
                 ),
               ),
             ),
