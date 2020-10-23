@@ -1,7 +1,7 @@
+import 'dart:async';
+import 'dart:math';
 import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'dart:async';
 
 class TyperAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -74,11 +74,19 @@ class TyperAnimatedTextKit extends StatefulWidget {
     this.alignment = AlignmentDirectional.topStart,
     this.textAlign = TextAlign.start,
     this.isRepeatingAnimation = true,
-    this.speed,
-    this.pause,
+    this.speed = const Duration(milliseconds: 40),
+    this.pause = const Duration(milliseconds: 1000),
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
-  }) : super(key: key);
+  })  : assert(null != text),
+        assert(null != alignment),
+        assert(null != textAlign),
+        assert(null != isRepeatingAnimation),
+        assert(null != speed),
+        assert(null != pause),
+        assert(null != displayFullTextOnTap),
+        assert(null != stopPauseOnTap),
+        super(key: key);
 
   @override
   _TyperState createState() => _TyperState();
@@ -88,12 +96,8 @@ class _TyperState extends State<TyperAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
   Animation _typingText;
-  List<Widget> textWidgetList = [];
 
-  Duration _speed;
-  Duration _pause;
-
-  List<Map<String, dynamic>> _texts = [];
+  final _texts = <Map<String, dynamic>>[];
 
   int _index;
 
@@ -105,17 +109,14 @@ class _TyperState extends State<TyperAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _speed = widget.speed ?? const Duration(milliseconds: 40);
-    _pause = widget.pause ?? const Duration(milliseconds: 1000);
-
     _index = -1;
 
     widget.text.forEach((text) {
       _texts.add({
         'text': text,
         'chars': text.characters,
-        'speed': _speed,
-        'pause': _pause,
+        'speed': widget.speed,
+        'pause': widget.pause,
       });
     });
 

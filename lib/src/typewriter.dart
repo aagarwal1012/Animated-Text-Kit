@@ -1,7 +1,7 @@
-import 'package:characters/characters.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:characters/characters.dart';
+import 'package:flutter/material.dart';
 
 class TypewriterAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -74,24 +74,33 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
-  TypewriterAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.speed,
-      this.pause,
-      this.displayFullTextOnTap = false,
-      this.stopPauseOnTap = false,
-      this.onTap,
-      this.onNext,
-      this.onNextBeforePause,
-      this.onFinished,
-      this.totalRepeatCount = 3,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = true})
-      : assert(text != null, 'You must specify the list of text'),
+  TypewriterAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.textStyle,
+    this.speed = const Duration(milliseconds: 30),
+    this.pause = const Duration(milliseconds: 1000),
+    this.displayFullTextOnTap = false,
+    this.stopPauseOnTap = false,
+    this.onTap,
+    this.onNext,
+    this.onNextBeforePause,
+    this.onFinished,
+    this.totalRepeatCount = 3,
+    this.alignment = AlignmentDirectional.topStart,
+    this.textAlign = TextAlign.start,
+    this.repeatForever = false,
+    this.isRepeatingAnimation = true,
+  })  : assert(text != null, 'You must specify the list of text'),
+        assert(null != speed),
+        assert(null != pause),
+        assert(null != displayFullTextOnTap),
+        assert(null != stopPauseOnTap),
+        assert(null != totalRepeatCount),
+        assert(null != alignment),
+        assert(null != textAlign),
+        assert(null != repeatForever),
+        assert(null != isRepeatingAnimation),
         super(key: key);
 
   @override
@@ -103,12 +112,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   AnimationController _controller;
 
   Animation _typewriterText;
-  List<Widget> textWidgetList = [];
 
-  Duration _speed;
-  Duration _pause;
-
-  List<Map<String, dynamic>> _texts = [];
+  final _texts = <Map<String, dynamic>>[];
 
   int _index;
 
@@ -122,9 +127,6 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _speed = widget.speed ?? const Duration(milliseconds: 30);
-    _pause = widget.pause ?? const Duration(milliseconds: 1000);
-
     _index = -1;
 
     _currentRepeatCount = 0;
@@ -133,8 +135,8 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
       _texts.add({
         'text': text,
         'chars': text.characters,
-        'speed': _speed,
-        'pause': _pause,
+        'speed': widget.speed,
+        'pause': widget.pause,
       });
     });
 
@@ -254,8 +256,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
-    if (widget.onNextBeforePause != null)
-      widget.onNextBeforePause(_index, isLast);
+    widget.onNextBeforePause?.call(_index, isLast);
   }
 
   void _animationEndCallback(state) {

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 class WavyAnimatedTextKit extends StatefulWidget {
@@ -13,9 +12,13 @@ class WavyAnimatedTextKit extends StatefulWidget {
     this.onNextBeforePause,
     this.onFinished,
     this.isRepeatingAnimation = true,
-    this.speed,
-    this.pause,
-  }) : super(key: key);
+    this.speed = const Duration(milliseconds: 300),
+    this.pause = const Duration(milliseconds: 1000),
+  })  : assert(null != text),
+        assert(null != isRepeatingAnimation),
+        assert(null != speed),
+        assert(null != pause),
+        super(key: key);
 
   /// List of [String] that would be displayed subsequently in the animation.
   final List<String> text;
@@ -64,11 +67,9 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
     with TickerProviderStateMixin {
   // List<GlobalKey<_WTextState>> _keys;
 
-  Duration _speed;
-  Duration _pause;
-
   AnimationController _controller;
   Animation<double> _waveAnim;
+  Timer _timer;
 
   int _index = -1;
 
@@ -76,21 +77,21 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _speed = widget.speed ?? const Duration(milliseconds: 300);
-    _pause = widget.pause ?? const Duration(milliseconds: 1000);
-
     _nextAnimation();
   }
 
   void _statusListener(status) {
     if (status == AnimationStatus.completed) {
       _setPause();
-      Timer(_pause, _nextAnimation);
+      assert(null == _timer || !_timer.isActive);
+      _timer = Timer(widget.pause, _nextAnimation);
     }
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
+    _controller?.stop();
     _controller.dispose();
     super.dispose();
   }
@@ -141,9 +142,7 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(
-        milliseconds: _speed.inMilliseconds * widget.text[_index].length,
-      ),
+      duration: widget.speed * widget.text[_index].length,
     )..addStatusListener(_statusListener);
 
     _waveAnim =

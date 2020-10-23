@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 class FadeAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -75,24 +75,34 @@ class FadeAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
-  const FadeAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.duration,
-      this.textStyle,
-      this.pause,
-      this.displayFullTextOnTap = false,
-      this.stopPauseOnTap = false,
-      this.onTap,
-      this.onNext,
-      this.onNextBeforePause,
-      this.onFinished,
-      this.totalRepeatCount = 3,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = true})
-      : super(key: key);
+  const FadeAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.duration = const Duration(milliseconds: 2000),
+    this.textStyle,
+    this.pause = const Duration(milliseconds: 500),
+    this.displayFullTextOnTap = false,
+    this.stopPauseOnTap = false,
+    this.onTap,
+    this.onNext,
+    this.onNextBeforePause,
+    this.onFinished,
+    this.totalRepeatCount = 3,
+    this.alignment = AlignmentDirectional.topStart,
+    this.textAlign = TextAlign.start,
+    this.repeatForever = false,
+    this.isRepeatingAnimation = true,
+  })  : assert(null != text),
+        assert(null != duration),
+        assert(null != pause),
+        assert(null != displayFullTextOnTap),
+        assert(null != stopPauseOnTap),
+        assert(null != totalRepeatCount),
+        assert(null != alignment),
+        assert(null != textAlign),
+        assert(null != repeatForever),
+        assert(null != isRepeatingAnimation),
+        super(key: key);
 
   @override
   _FadeTextState createState() => _FadeTextState();
@@ -103,11 +113,8 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
   Animation _fadeIn, _fadeOut;
 
   AnimationController _controller;
-  List<Widget> textWidgetList = [];
 
-  Duration _pause;
-
-  List<Map<String, dynamic>> _texts = [];
+  final _texts = <Map<String, dynamic>>[];
 
   int _index;
 
@@ -117,22 +124,19 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
 
   int _currentRepeatCount;
 
-  Duration _duration;
-
   @override
   void initState() {
     super.initState();
-
-    _pause = widget.pause ?? const Duration(milliseconds: 500);
 
     _index = -1;
 
     _currentRepeatCount = 0;
 
-    _duration = widget.duration ?? const Duration(milliseconds: 2000);
-
     widget.text.forEach((text) {
-      _texts.add({'text': text, 'pause': _pause});
+      _texts.add({
+        'text': text,
+        'pause': widget.pause,
+      });
     });
 
     _initAnimation();
@@ -174,18 +178,23 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
 
   void _initAnimation() {
     _controller = AnimationController(
-      duration: _duration,
+      duration: widget.duration,
       vsync: this,
     );
 
-    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.linear)));
+        curve: const Interval(0.0, 0.5, curve: Curves.linear),
+      ),
+    );
 
-    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.8, 1.0, curve: Curves.linear)))
-      ..addStatusListener(_animationEndCallback);
+        curve: const Interval(0.8, 1.0, curve: Curves.linear),
+      ),
+    )..addStatusListener(_animationEndCallback);
   }
 
   void _nextAnimation() {

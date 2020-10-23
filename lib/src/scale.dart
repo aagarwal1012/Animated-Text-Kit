@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 class ScaleAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -80,25 +80,36 @@ class ScaleAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
-  const ScaleAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.scalingFactor = 0.5,
-      this.pause,
-      this.duration,
-      this.onTap,
-      this.onNext,
-      this.onNextBeforePause,
-      this.onFinished,
-      this.totalRepeatCount = 3,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = true,
-      this.displayFullTextOnTap = false,
-      this.stopPauseOnTap = false})
-      : super(key: key);
+  const ScaleAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.textStyle,
+    this.scalingFactor = 0.5,
+    this.pause = const Duration(milliseconds: 500),
+    this.duration = const Duration(milliseconds: 2000),
+    this.onTap,
+    this.onNext,
+    this.onNextBeforePause,
+    this.onFinished,
+    this.totalRepeatCount = 3,
+    this.alignment = AlignmentDirectional.topStart,
+    this.textAlign = TextAlign.start,
+    this.repeatForever = false,
+    this.isRepeatingAnimation = true,
+    this.displayFullTextOnTap = false,
+    this.stopPauseOnTap = false,
+  })  : assert(null != text),
+        assert(null != scalingFactor),
+        assert(null != pause),
+        assert(null != duration),
+        assert(null != totalRepeatCount),
+        assert(null != alignment),
+        assert(null != textAlign),
+        assert(null != repeatForever),
+        assert(null != isRepeatingAnimation),
+        assert(null != displayFullTextOnTap),
+        assert(null != stopPauseOnTap),
+        super(key: key);
 
   @override
   _ScaleTextState createState() => _ScaleTextState();
@@ -109,11 +120,8 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
   AnimationController _controller;
 
   Animation _fadeIn, _fadeOut, _scaleIn, _scaleOut;
-  List<Widget> textWidgetList = [];
 
-  Duration _pause;
-
-  List<Map<String, dynamic>> _texts = [];
+  final _texts = <Map<String, dynamic>>[];
 
   int _index;
 
@@ -123,22 +131,19 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
 
   int _currentRepeatCount;
 
-  Duration _duration;
-
   @override
   void initState() {
     super.initState();
-
-    _pause = widget.pause ?? const Duration(milliseconds: 500);
 
     _index = -1;
 
     _currentRepeatCount = 0;
 
-    _duration = widget.duration ?? const Duration(milliseconds: 2000);
-
     widget.text.forEach((text) {
-      _texts.add({'text': text, 'pause': _pause});
+      _texts.add({
+        'text': text,
+        'pause': widget.pause,
+      });
     });
 
     // init controller and animations
@@ -185,35 +190,36 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
 
   void _initAnimation() {
     _controller = AnimationController(
-      duration: _duration,
+      duration: widget.duration,
       vsync: this,
     );
 
-    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeOut)));
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+      ),
+    );
 
-    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.5, 1.0, curve: Curves.easeOut)));
+        curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
+      ),
+    );
 
-    _scaleIn = Tween<double>(begin: widget.scalingFactor, end: 1.0)
-        .animate(CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(
-              0.0,
-              0.5,
-              curve: Curves.easeOut,
-            )));
-    _scaleOut = Tween<double>(begin: 1.0, end: widget.scalingFactor)
-        .animate(CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(
-              0.5,
-              1.0,
-              curve: Curves.easeIn,
-            )))
-          ..addStatusListener(_animationEndCallback);
+    _scaleIn = Tween<double>(begin: widget.scalingFactor, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+      ),
+    );
+    _scaleOut = Tween<double>(begin: 1.0, end: widget.scalingFactor).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.5, 1.0, curve: Curves.easeIn),
+      ),
+    )..addStatusListener(_animationEndCallback);
   }
 
   void _nextAnimation() {
@@ -274,7 +280,7 @@ class _ScaleTextState extends State<ScaleAnimatedTextKit>
         }
       } else {
         final int pause = _texts[_index]['pause'].inMilliseconds;
-        final int left = _duration.inMilliseconds;
+        final int left = widget.duration.inMilliseconds;
 
         _controller.stop();
 
