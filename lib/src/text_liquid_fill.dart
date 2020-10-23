@@ -94,7 +94,13 @@ class _TextLiquidFillState extends State<TextLiquidFill>
       duration: widget.loadDuration,
     );
 
-    _loadValue = Tween<double>(begin: 0.0, end: 100.0).animate(_loadController);
+    _loadValue = Tween<double>(begin: 0.0, end: 100.0).animate(_loadController)
+      ..addStatusListener((status) {
+        if (AnimationStatus.completed == status) {
+          // Stop the repeating wave when the load has completed
+          _waveController.stop();
+        }
+      });
 
     _waveController.repeat();
     _loadController.forward();
