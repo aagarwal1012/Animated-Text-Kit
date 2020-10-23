@@ -7,44 +7,17 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
-    expect(find.text(labels[0]), findsOneWidget);
+    // Exercise each Animation...
+    for (var label in labels) {
+      print('Testing $label');
+      expect(find.text(label), findsOneWidget);
+      final pumpCount = await tester.pumpAndSettle();
+      print(' > $label pumped $pumpCount');
 
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
+      await tester.tap(find.byIcon(Icons.play_circle_filled));
+      await tester.pump();
+    }
 
-    expect(find.text(labels[1]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
-
-    expect(find.text(labels[2]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
-
-    expect(find.text(labels[3]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
-
-    expect(find.text(labels[4]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
-
-    expect(find.text(labels[5]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
-
-    expect(find.text(labels[6]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
-
-    expect(find.text(labels[7]), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.play_circle_filled));
-    await tester.pump();
+    tester.verifyTickersWereDisposed();
   });
 }
