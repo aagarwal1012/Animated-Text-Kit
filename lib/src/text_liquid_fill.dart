@@ -78,7 +78,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 
   AnimationController _waveController, _loadController;
 
-  Animation _loadValue;
+  Animation<double> _loadValue;
 
   @override
   void initState() {
@@ -94,7 +94,13 @@ class _TextLiquidFillState extends State<TextLiquidFill>
       duration: widget.loadDuration,
     );
 
-    _loadValue = Tween<double>(begin: 0.0, end: 100.0).animate(_loadController);
+    _loadValue = Tween<double>(begin: 0.0, end: 100.0).animate(_loadController)
+      ..addStatusListener((status) {
+        if (AnimationStatus.completed == status) {
+          // Stop the repeating wave when the load has completed
+          _waveController.stop();
+        }
+      });
 
     _waveController.repeat();
     _loadController.forward();
@@ -186,7 +192,7 @@ class WavePainter extends CustomPainter {
     final height = size.height ?? 200;
     final path = Path();
     path.moveTo(0.0, baseHeight);
-    for (double i = 0.0; i < width; i++) {
+    for (var i = 0.0; i < width; i++) {
       path.lineTo(
         i,
         baseHeight + sin((i / width * _pi2) + (waveAnimation.value * _pi2)) * 8,

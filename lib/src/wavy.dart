@@ -120,7 +120,7 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
   }
 
   Future<void> _nextAnimation() async {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     // Handling onNext callback
     if (_index > -1) {
@@ -153,7 +153,7 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
   }
 
   void _setPause() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     if (mounted) setState(() {});
 
@@ -172,24 +172,23 @@ class _WTextPainter extends CustomPainter {
   final double progress;
   final String text;
   // Private class to store text information
-  List<_TextLayoutInfo> _textLayoutInfo = [];
+  final _textLayoutInfo = <_TextLayoutInfo>[];
   final TextStyle textStyle;
   @override
   void paint(Canvas canvas, Size size) {
-    if (_textLayoutInfo.length == 0) {
+    if (_textLayoutInfo.isEmpty) {
       // calculate the initial position of each char
       calculateLayoutInfo(text, _textLayoutInfo);
     }
     canvas.save();
-    if (_textLayoutInfo != null)
-      for (_TextLayoutInfo textLayout in _textLayoutInfo) {
+    if (_textLayoutInfo != null) {
+      for (var textLayout in _textLayoutInfo) {
         // offset required to center the characters
         final centerOffset =
             Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
 
         if (textLayout.isMoving) {
-          double p = progress * 2;
-          p = p > 1 ? 1 : p;
+          final p = math.min(progress * 2, 1.0);
           // drawing the char if the text is moving
           drawText(
               canvas,
@@ -211,6 +210,7 @@ class _WTextPainter extends CustomPainter {
           );
         }
       }
+    }
     canvas.restore();
   }
 
@@ -226,11 +226,11 @@ class _WTextPainter extends CustomPainter {
   }
 
   void calculateMove() {
-    double height = _textLayoutInfo[0].height;
-    int txtInMoInd = progress.floor();
-    double percent = progress - txtInMoInd;
-    int txtInMoOdd = (progress - .5).floor();
-    int txtInMoEven = txtInMoInd * 2;
+    final height = _textLayoutInfo[0].height;
+    final txtInMoInd = progress.floor();
+    final percent = progress - txtInMoInd;
+    final txtInMoOdd = (progress - .5).floor();
+    final txtInMoEven = txtInMoInd * 2;
 
     // Calculating movement of the char at odd place
     if (txtInMoOdd < (text.length - 1) / 2 && !txtInMoOdd.isNegative) {
@@ -252,10 +252,9 @@ class _WTextPainter extends CustomPainter {
   void drawText(Canvas canvas, String text, Offset offset,
       _TextLayoutInfo textLayoutInfo) {
     var textPainter = TextPainter(
-        text: TextSpan(text: text, style: textStyle),
-        textDirection: TextDirection.ltr)
-      ..textDirection = TextDirection.ltr
-      ..layout();
+      text: TextSpan(text: text, style: textStyle),
+      textDirection: TextDirection.ltr,
+    )..layout();
 
     textPainter.paint(
       canvas,
@@ -270,30 +269,33 @@ class _WTextPainter extends CustomPainter {
     list.clear();
 
     // creating a textPainter to get data about location and offset for chars
-    TextPainter textPainter = TextPainter(
+    final textPainter = TextPainter(
       text: TextSpan(text: text, style: textStyle),
       textDirection: TextDirection.ltr,
       maxLines: 1,
     );
 
     textPainter.layout();
-    for (int i = 0; i < text.length; i++) {
-      var forCaret =
-          textPainter.getOffsetForCaret(TextPosition(offset: i), Rect.zero);
+    for (var i = 0; i < text.length; i++) {
+      var forCaret = textPainter.getOffsetForCaret(
+        TextPosition(offset: i),
+        Rect.zero,
+      );
       var offsetX = forCaret.dx;
       if (i > 0 && offsetX == 0) {
         break;
       }
 
       // creating layout for each char
-      var textLayoutInfo = _TextLayoutInfo()
-        ..text = text[i]
-        ..offsetX = offsetX
-        ..offsetY = forCaret.dy
-        ..width = textPainter.width
-        ..height = textPainter.height
-        ..baseline = textPainter
-            .computeDistanceToActualBaseline(TextBaseline.ideographic);
+      final textLayoutInfo = _TextLayoutInfo(
+        text: text[i],
+        offsetX: offsetX,
+        offsetY: forCaret.dy,
+        width: textPainter.width,
+        height: textPainter.height,
+        baseline: textPainter
+            .computeDistanceToActualBaseline(TextBaseline.ideographic),
+      );
 
       list.add(textLayoutInfo);
     }
@@ -301,12 +303,21 @@ class _WTextPainter extends CustomPainter {
 }
 
 class _TextLayoutInfo {
-  String text;
-  double offsetX;
-  double offsetY;
-  double baseline;
-  double width;
-  double height;
+  final String text;
+  final double offsetX;
+  final double offsetY;
+  final double width;
+  final double height;
+  final double baseline;
   double riseHeight;
   bool isMoving = false;
+
+  _TextLayoutInfo({
+    @required this.text,
+    @required this.offsetX,
+    @required this.offsetY,
+    @required this.width,
+    @required this.height,
+    @required this.baseline,
+  });
 }
