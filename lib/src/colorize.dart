@@ -15,7 +15,7 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
 
   /// Define the [Duration] of the pause between texts
   ///
-  /// By default it is set to 500 milliseconds.
+  /// By default it is set to 1000 milliseconds.
   final Duration pause;
 
   /// Adds the onTap [VoidCallback] to the animated widget.
@@ -62,22 +62,31 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
   /// The [List] should contain at least two values of [Color] in it.
   final List<Color> colors;
 
-  const ColorizeAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      @required this.colors,
-      this.speed,
-      this.pause,
-      this.onTap,
-      this.onNext,
-      this.onFinished,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.totalRepeatCount = 3,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = true})
-      : super(key: key);
+  const ColorizeAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.textStyle,
+    @required this.colors,
+    this.speed = const Duration(milliseconds: 200),
+    this.pause = const Duration(milliseconds: 1000),
+    this.onTap,
+    this.onNext,
+    this.onFinished,
+    this.alignment = AlignmentDirectional.topStart,
+    this.textAlign = TextAlign.start,
+    this.totalRepeatCount = 3,
+    this.repeatForever = false,
+    this.isRepeatingAnimation = true,
+  })  : assert(null != text),
+        assert(null != colors && colors.length > 1),
+        assert(null != speed),
+        assert(null != pause),
+        assert(null != alignment),
+        assert(null != textAlign),
+        assert(null != totalRepeatCount),
+        assert(null != repeatForever),
+        assert(null != isRepeatingAnimation),
+        super(key: key);
 
   @override
   _ColorizeTextState createState() => _ColorizeTextState();
@@ -86,16 +95,14 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
 class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
+  Timer _timer;
 
-  Animation _colorShifter, _fadeIn, _fadeOut;
+  Animation<double> _colorShifter, _fadeIn, _fadeOut;
   double _tuning;
 
-  Duration _speed;
-  Duration _pause;
-
-  List<Map> _texts = [];
-
   int _index;
+
+  final _textCharacters = <Characters>[];
 
   bool _isCurrentlyPausing = false;
 
@@ -105,22 +112,21 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
   void initState() {
     super.initState();
 
-    _speed = widget.speed ?? const Duration(milliseconds: 200);
-    _pause = widget.pause ?? const Duration(milliseconds: 1000);
-
     _index = -1;
 
-    _currentRepeatCount = 0;
-
     widget.text.forEach((text) {
-      _texts.add({'text': text, 'speed': _speed, 'pause': _pause});
+      _textCharacters.add(text.characters);
     });
+
+    _currentRepeatCount = 0;
 
     _nextAnimation();
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
+    _controller?.stop();
     _controller?.dispose();
     super.dispose();
   }
@@ -131,25 +137,25 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
       onTap: widget.onTap,
       child: _isCurrentlyPausing || !_controller.isAnimating
           ? Text(
-              _texts[_index]['text'],
+              widget.text[_index],
               style: widget.textStyle,
               textAlign: widget.textAlign,
             )
           : AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {
-                Shader linearGradient = LinearGradient(colors: widget.colors)
-                    .createShader(
-                        Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0));
+                final linearGradient =
+                    LinearGradient(colors: widget.colors).createShader(
+                  Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0),
+                );
                 return Opacity(
                   opacity:
                       _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
                   child: Text(
-                    _texts[_index]['text'],
-                    style: widget.textStyle != null
-                        ? widget.textStyle.merge(TextStyle(
-                            foreground: Paint()..shader = linearGradient))
-                        : widget.textStyle,
+                    widget.text[_index],
+                    style: widget.textStyle?.merge(
+                      TextStyle(foreground: Paint()..shader = linearGradient),
+                    ),
                     textAlign: widget.textAlign,
                   ),
                 );
@@ -159,7 +165,7 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
@@ -186,30 +192,38 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
 
     if (mounted) setState(() {});
 
+    final textLen = _textCharacters[_index].length;
     _controller = AnimationController(
-      duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
+      duration: widget.speed * textLen,
       vsync: this,
     );
 
     _tuning = (300.0 * widget.colors.length) *
         (widget.textStyle.fontSize / 24.0) *
         0.75 *
-        (_texts[_index]['text'].length / 15.0);
+        (textLen / 15.0);
 
-    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.1, curve: Curves.easeOut)));
+        curve: const Interval(0.0, 0.1, curve: Curves.easeOut),
+      ),
+    );
 
-    _fadeOut = Tween<double>(begin: 1.0, end: 1.0).animate(CurvedAnimation(
+    _fadeOut = Tween<double>(begin: 1.0, end: 1.0).animate(
+      CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.9, 1.0, curve: Curves.easeIn)));
+        curve: const Interval(0.9, 1.0, curve: Curves.easeIn),
+      ),
+    );
 
     _colorShifter =
         Tween<double>(begin: 0.0, end: widget.colors.length * _tuning).animate(
-            CurvedAnimation(
-                parent: _controller,
-                curve: const Interval(0.0, 1.0, curve: Curves.easeIn)))
-          ..addStatusListener(_animationEndCallback);
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 1.0, curve: Curves.easeIn),
+      ),
+    )..addStatusListener(_animationEndCallback);
 
     _controller?.forward();
   }
@@ -217,7 +231,8 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _isCurrentlyPausing = true;
-      Timer(_texts[_index]['pause'], _nextAnimation);
+      assert(null == _timer || !_timer.isActive);
+      _timer = Timer(widget.pause, _nextAnimation);
     }
   }
 }

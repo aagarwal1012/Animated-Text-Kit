@@ -112,9 +112,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   double _transitionHeight;
 
-  Animation _fadeIn, _fadeOut, _slideIn, _slideOut;
-
-  final _texts = <Map<String, dynamic>>[];
+  Animation<double> _fadeIn, _fadeOut;
+  Animation<Alignment> _slideIn, _slideOut;
 
   int _index;
 
@@ -135,13 +134,6 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
     _currentRepeatCount = 0;
 
-    widget.text.forEach((text) {
-      _texts.add({
-        'text': text,
-        'pause': widget.pause,
-      });
-    });
-
     _initAnimation();
     _nextAnimation();
   }
@@ -157,7 +149,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final textWidget = Text(
-      _texts[_index]['text'],
+      widget.text[_index],
       style: widget.textStyle,
       textAlign: widget.textAlign,
     );
@@ -246,7 +238,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
@@ -277,7 +269,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   }
 
   void _setPause() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
@@ -289,7 +281,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       assert(null == _timer || !_timer.isActive);
-      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+      _timer = Timer(widget.pause, _nextAnimation);
     }
   }
 
@@ -304,7 +296,7 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
         _setPause();
 
         assert(null == _timer || !_timer.isActive);
-        _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+        _timer = Timer(widget.pause, _nextAnimation);
       }
     }
 

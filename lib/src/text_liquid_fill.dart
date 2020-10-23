@@ -78,7 +78,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 
   AnimationController _waveController, _loadController;
 
-  Animation _loadValue;
+  Animation<double> _loadValue;
 
   @override
   void initState() {
@@ -186,7 +186,7 @@ class WavePainter extends CustomPainter {
     final height = size.height ?? 200;
     final path = Path();
     path.moveTo(0.0, baseHeight);
-    for (double i = 0.0; i < width; i++) {
+    for (var i = 0.0; i < width; i++) {
       path.lineTo(
         i,
         baseHeight + sin((i / width * _pi2) + (waveAnimation.value * _pi2)) * 8,

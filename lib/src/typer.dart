@@ -95,11 +95,11 @@ class TyperAnimatedTextKit extends StatefulWidget {
 class _TyperState extends State<TyperAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
-  Animation _typingText;
-
-  final _texts = <Map<String, dynamic>>[];
+  Animation<int> _typingText;
 
   int _index;
+
+  final _textCharacters = <Characters>[];
 
   bool _isCurrentlyPausing = false;
 
@@ -112,12 +112,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
     _index = -1;
 
     widget.text.forEach((text) {
-      _texts.add({
-        'text': text,
-        'chars': text.characters,
-        'speed': widget.speed,
-        'pause': widget.pause,
-      });
+      _textCharacters.add(text.characters);
     });
 
     // Start animation
@@ -134,7 +129,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    final text = _texts[_index]['text'];
+    final text = widget.text[_index];
     return GestureDetector(
       onTap: _onTap,
       child: _isCurrentlyPausing || !_controller.isAnimating
@@ -146,9 +141,9 @@ class _TyperState extends State<TyperAnimatedTextKit>
           : AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {
-                final textCharacters = _texts[_index]['chars'];
+                final textCharacters = _textCharacters[_index];
                 final textLen = textCharacters.length;
-                final int offset =
+                final offset =
                     textLen < _typingText.value ? textLen : _typingText.value;
 
                 return Text(
@@ -162,7 +157,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
@@ -184,9 +179,9 @@ class _TyperState extends State<TyperAnimatedTextKit>
 
     if (mounted) setState(() {});
 
-    final textLen = _texts[_index]['chars'].length;
+    final textLen = _textCharacters[_index].length;
     _controller = AnimationController(
-      duration: _texts[_index]['speed'] * textLen,
+      duration: widget.speed * textLen,
       vsync: this,
     );
 
@@ -197,7 +192,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
   }
 
   void _setPause() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
@@ -210,7 +205,7 @@ class _TyperState extends State<TyperAnimatedTextKit>
     if (state == AnimationStatus.completed) {
       _setPause();
       assert(null == _timer || !_timer.isActive);
-      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+      _timer = Timer(widget.pause, _nextAnimation);
     }
   }
 
@@ -222,17 +217,23 @@ class _TyperState extends State<TyperAnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        final int pause = _texts[_index]['pause'].inMilliseconds;
-        final int left = _texts[_index]['speed'].inMilliseconds *
-            (_texts[_index]['chars'].length - _typingText.value);
+        final left = widget.speed.inMilliseconds *
+            (_textCharacters[_index].length - _typingText.value);
 
         _controller.stop();
 
         _setPause();
 
         assert(null == _timer || !_timer.isActive);
-        _timer =
-            Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
+        _timer = Timer(
+          Duration(
+            milliseconds: max(
+              widget.pause.inMilliseconds,
+              left,
+            ),
+          ),
+          _nextAnimation,
+        );
       }
     }
 

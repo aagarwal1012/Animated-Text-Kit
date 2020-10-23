@@ -110,11 +110,9 @@ class FadeAnimatedTextKit extends StatefulWidget {
 
 class _FadeTextState extends State<FadeAnimatedTextKit>
     with SingleTickerProviderStateMixin {
-  Animation _fadeIn, _fadeOut;
+  Animation<double> _fadeIn, _fadeOut;
 
   AnimationController _controller;
-
-  final _texts = <Map<String, dynamic>>[];
 
   int _index;
 
@@ -132,13 +130,6 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
 
     _currentRepeatCount = 0;
 
-    widget.text.forEach((text) {
-      _texts.add({
-        'text': text,
-        'pause': widget.pause,
-      });
-    });
-
     _initAnimation();
     _nextAnimation();
   }
@@ -154,7 +145,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final textWidget = Text(
-      _texts[_index]['text'],
+      widget.text[_index],
       style: widget.textStyle,
       textAlign: widget.textAlign,
     );
@@ -198,7 +189,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
@@ -229,7 +220,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
   }
 
   void _setPause() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
@@ -242,7 +233,7 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
     if (state == AnimationStatus.completed) {
       _isCurrentlyPausing = true;
       assert(null == _timer || !_timer.isActive);
-      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+      _timer = Timer(widget.pause, _nextAnimation);
     }
   }
 
@@ -254,16 +245,20 @@ class _FadeTextState extends State<FadeAnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        final int pause = _texts[_index]['pause'].inMilliseconds;
-        final int left = widget.duration.inMilliseconds;
-
         _controller?.stop();
 
         _setPause();
 
         assert(null == _timer || !_timer.isActive);
-        _timer =
-            Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
+        _timer = Timer(
+          Duration(
+            milliseconds: max(
+              widget.pause.inMilliseconds,
+              widget.duration.inMilliseconds,
+            ),
+          ),
+          _nextAnimation,
+        );
       }
     }
 

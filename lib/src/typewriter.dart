@@ -111,11 +111,11 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
-  Animation _typewriterText;
-
-  final _texts = <Map<String, dynamic>>[];
+  Animation<int> _typewriterText;
 
   int _index;
+
+  final _textCharacters = <Characters>[];
 
   bool _isCurrentlyPausing = false;
 
@@ -132,12 +132,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     _currentRepeatCount = 0;
 
     widget.text.forEach((text) {
-      _texts.add({
-        'text': text,
-        'chars': text.characters,
-        'speed': widget.speed,
-        'pause': widget.pause,
-      });
+      _textCharacters.add(text.characters);
     });
 
     _nextAnimation();
@@ -153,7 +148,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    final text = _texts[_index]['text'];
+    final text = widget.text[_index];
     return GestureDetector(
       onTap: _onTap,
       child: _isCurrentlyPausing || !_controller.isAnimating
@@ -173,14 +168,14 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
           : AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {
-                final textCharacters = _texts[_index]['chars'];
+                final textCharacters = _textCharacters[_index];
                 final textLen = textCharacters.length;
-                String visibleString = text;
-                Color suffixColor = Colors.transparent;
+                var visibleString = text;
+                var suffixColor = Colors.transparent;
                 if (_typewriterText.value == 0) {
-                  visibleString = "";
+                  visibleString = '';
                 } else if (_typewriterText.value > textLen) {
-                  visibleString = textCharacters.take(textLen).toString();
+                  visibleString = text;
                   suffixColor = (_typewriterText.value - textLen) % 2 == 0
                       ? widget.textStyle.color
                       : Colors.transparent;
@@ -209,7 +204,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
   }
 
   void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = false;
 
@@ -236,21 +231,23 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
     if (mounted) setState(() {});
 
+    final textLen = _textCharacters[_index].length;
     _controller = AnimationController(
-      duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
+      duration: widget.speed * textLen,
       vsync: this,
     );
 
-    _typewriterText =
-        StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
-            .animate(_controller)
-              ..addStatusListener(_animationEndCallback);
+    _typewriterText = StepTween(
+      begin: 0,
+      end: textLen + 8,
+    ).animate(_controller)
+      ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
 
   void _setPause() {
-    final bool isLast = _index == widget.text.length - 1;
+    final isLast = _index == widget.text.length - 1;
 
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
@@ -263,7 +260,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
     if (state == AnimationStatus.completed) {
       _setPause();
       assert(null == _timer || !_timer.isActive);
-      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+      _timer = Timer(widget.pause, _nextAnimation);
     }
   }
 
@@ -275,17 +272,23 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        final int pause = _texts[_index]['pause'].inMilliseconds;
-        final int left = _texts[_index]['speed'].inMilliseconds *
-            (_texts[_index]['text'].length - _typewriterText.value);
+        final left = widget.speed.inMilliseconds *
+            (_textCharacters[_index].length - _typewriterText.value);
 
         _controller.stop();
 
         _setPause();
 
         assert(null == _timer || !_timer.isActive);
-        _timer =
-            Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
+        _timer = Timer(
+          Duration(
+            milliseconds: max(
+              widget.pause.inMilliseconds,
+              left,
+            ),
+          ),
+          _nextAnimation,
+        );
       }
     }
 
