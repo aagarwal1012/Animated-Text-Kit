@@ -51,8 +51,8 @@ class TextLiquidFill extends StatefulWidget {
     this.textStyle =
         const TextStyle(fontSize: 140, fontWeight: FontWeight.bold),
     this.textAlign = TextAlign.left,
-    this.loadDuration = const Duration(milliseconds: 6000),
-    this.waveDuration = const Duration(milliseconds: 2000),
+    this.loadDuration = const Duration(seconds: 6),
+    this.waveDuration = const Duration(seconds: 2),
     this.boxHeight = 250,
     this.boxWidth = 400,
     this.boxBackgroundColor = Colors.black,
