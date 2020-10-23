@@ -119,7 +119,7 @@ class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
     );
   }
 
-  Future<void> _nextAnimation() async {
+  void _nextAnimation() {
     final isLast = _index == widget.text.length - 1;
 
     // Handling onNext callback
