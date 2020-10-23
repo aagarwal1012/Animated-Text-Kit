@@ -183,41 +183,22 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       vsync: this,
     );
 
-    if (_index == 0) {
-      _slideIn = AlignmentTween(
-        begin: const Alignment(-1.0, -1.0) + widget.alignment,
-        end: const Alignment(-1.0, 0.0) + widget.alignment,
-      ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.linear),
-        ),
-      );
+    _slideIn = AlignmentTween(
+      begin: const Alignment(-1.0, -1.0) + widget.alignment,
+      end: const Alignment(-1.0, 0.0) + widget.alignment,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.4, curve: Curves.linear),
+      ),
+    );
 
-      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
-        ),
-      );
-    } else {
-      _slideIn = AlignmentTween(
-        begin: const Alignment(-1.0, -1.0) + widget.alignment,
-        end: const Alignment(-1.0, 0.0) + widget.alignment,
-      ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.linear),
-        ),
-      );
-
-      _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
-        ),
-      );
-    }
+    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      ),
+    );
 
     _slideOut = AlignmentTween(
       begin: const Alignment(-1.0, 0.0) + widget.alignment,
