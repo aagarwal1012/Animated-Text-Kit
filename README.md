@@ -55,7 +55,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^2.4.1
+  animated_text_kit: ^2.5.0
 ```
 
 ### 2. Install it

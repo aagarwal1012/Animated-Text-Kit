@@ -8,7 +8,8 @@ coverage/
 # Edit at https://www.toptal.com/developers/gitignore?templates=code,flutter,macos
 
 ### Code ###
-.vscode/*
+.idea
+.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
