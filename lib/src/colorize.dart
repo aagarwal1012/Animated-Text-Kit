@@ -225,7 +225,7 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
       ),
     )..addStatusListener(_animationEndCallback);
 
-    _controller?.forward();
+    _controller.forward();
   }
 
   void _animationEndCallback(state) {
