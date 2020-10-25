@@ -31,6 +31,8 @@ void main() {
     ];
     const textStyle = TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold);
 
+    var tapped = false;
+
     final tapableWidgets = <Widget>[
       ColorizeAnimatedTextKit(
         text: tripleText,
@@ -41,7 +43,7 @@ void main() {
           Colors.green,
         ],
         onTap: () {
-          print(' > ColorizeAnimatedTextKit was tapped');
+          tapped = true;
         },
       ),
       FadeAnimatedTextKit(
@@ -49,7 +51,7 @@ void main() {
         textStyle: textStyle,
         displayFullTextOnTap: true,
         onTap: () {
-          print(' > FadeAnimatedTextKit was tapped');
+          tapped = true;
         },
       ),
       RotateAnimatedTextKit(
@@ -57,7 +59,7 @@ void main() {
         textStyle: textStyle,
         displayFullTextOnTap: true,
         onTap: () {
-          print(' > RotateAnimatedTextKit was tapped');
+          tapped = true;
         },
       ),
       ScaleAnimatedTextKit(
@@ -65,7 +67,7 @@ void main() {
         textStyle: textStyle,
         displayFullTextOnTap: true,
         onTap: () {
-          print(' > ScaleAnimatedTextKit was tapped');
+          tapped = true;
         },
       ),
       TyperAnimatedTextKit(
@@ -73,7 +75,7 @@ void main() {
         textStyle: textStyle,
         displayFullTextOnTap: true,
         onTap: () {
-          print(' > TyperAnimatedTextKit was tapped');
+          tapped = true;
         },
       ),
       TypewriterAnimatedTextKit(
@@ -81,17 +83,17 @@ void main() {
         textStyle: textStyle,
         displayFullTextOnTap: true,
         onTap: () {
-          print(' > TypewriterAnimatedTextKit was tapped');
+          tapped = true;
         },
       ),
     ];
 
     for (var widget in tapableWidgets) {
-      print('Testing ${widget.runtimeType}');
-
+      print('Tap Testing ${widget.runtimeType}');
+      tapped = false;
       await tester.pumpWidget(MaterialApp(home: widget));
       await tester.tap(find.byWidget(widget));
-      await tester.pumpAndSettle();
+      assert(tapped);
     }
 
     tester.verifyTickersWereDisposed();
