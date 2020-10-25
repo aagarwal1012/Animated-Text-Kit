@@ -45,8 +45,13 @@ class RotateAnimatedTextKit extends StatefulWidget {
 
   /// Adds [AlignmentGeometry] property to the text in the widget.
   ///
-  /// By default it is set to [AlignmentDirectional.topStart]
+  /// By default it is set to [Alignment.center]
   final AlignmentGeometry alignment;
+
+  /// Specifies the [TextDirection] for resolving alignment.
+  ///
+  /// By default it is set to [TextDirection.ltr]
+  final TextDirection textDirection;
 
   /// Adds [TextAlign] property to the text in the widget.
   ///
@@ -86,7 +91,8 @@ class RotateAnimatedTextKit extends StatefulWidget {
     this.totalRepeatCount = 3,
     this.duration = const Duration(milliseconds: 2000),
     this.onTap,
-    this.alignment = const Alignment(0.0, 0.0),
+    this.alignment = Alignment.center,
+    this.textDirection = TextDirection.ltr,
     this.textAlign = TextAlign.start,
     this.displayFullTextOnTap = false,
     this.repeatForever = false,
@@ -155,7 +161,10 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     );
     return GestureDetector(
       onTap: _onTap,
-      child: SizedBox(
+      child: Container(
+        // Note that Transparent color is workaround for GestureDetector.onTap
+        // See https://github.com/flutter/flutter/issues/68986
+        color: Colors.transparent,
         height: _transitionHeight,
         child: _isCurrentlyPausing || !_controller.isAnimating
             ? textWidget
@@ -183,9 +192,11 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       vsync: this,
     );
 
+    final direction = widget.textDirection;
+
     _slideIn = AlignmentTween(
-      begin: const Alignment(-1.0, -1.0) + widget.alignment,
-      end: const Alignment(-1.0, 0.0) + widget.alignment,
+      begin: Alignment.topLeft.add(widget.alignment).resolve(direction),
+      end: Alignment.centerLeft.add(widget.alignment).resolve(direction),
     ).animate(
       CurvedAnimation(
         parent: _controller,
@@ -201,8 +212,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
     );
 
     _slideOut = AlignmentTween(
-      begin: const Alignment(-1.0, 0.0) + widget.alignment,
-      end: const Alignment(-1.0, 1.0) + widget.alignment,
+      begin: Alignment.centerLeft.add(widget.alignment).resolve(direction),
+      end: Alignment.bottomLeft.add(widget.alignment).resolve(direction),
     ).animate(
       CurvedAnimation(
         parent: _controller,
