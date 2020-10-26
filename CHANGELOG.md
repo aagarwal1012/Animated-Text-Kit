@@ -1,10 +1,15 @@
+## 2.5.1
+**Bug Fixes and Enhancements**
+- Minor bug fix to `RotateAnimatedTextKit` to properly handle `alignment` property, and introduced `textDirection` property [#138](https://github.com/aagarwal1012/Animated-Text-Kit/pull/138)
+- Increased test coverage [#128](https://github.com/aagarwal1012/Animated-Text-Kit/issues/128)
+
 ## 2.5.0
 **Bug Fixes and Enhancements** 
 - Increase test coverage [#137](https://github.com/aagarwal1012/Animated-Text-Kit/pull/137) and [#135](https://github.com/aagarwal1012/Animated-Text-Kit/pull/135).
-- Removed redundant _texts variables [#133](https://github.com/aagarwal1012/Animated-Text-Kit/pull/133).
+- Removed redundant `_texts` variables [#133](https://github.com/aagarwal1012/Animated-Text-Kit/pull/133).
 - Added pedantic lint rules. [#132](https://github.com/aagarwal1012/Animated-Text-Kit/pull/132).
 - Refactored code to move default logic from the State class to the StatefulWidget [#131](https://github.com/aagarwal1012/Animated-Text-Kit/pull/131).
-- Revised _textKey to not be a global variable. Resolves [#129](https://github.com/aagarwal1012/Animated-Text-Kit/issues/129) issue -- PR [#130](https://github.com/aagarwal1012/Animated-Text-Kit/pull/130).
+- Revised `_textKey` to not be a global variable. Resolves [#129](https://github.com/aagarwal1012/Animated-Text-Kit/issues/129) issue -- PR [#130](https://github.com/aagarwal1012/Animated-Text-Kit/pull/130).
 - Other basic improvements [#136](https://github.com/aagarwal1012/Animated-Text-Kit/pull/136) and [#134](https://github.com/aagarwal1012/Animated-Text-Kit/pull/134).
 
 ## 2.4.1
