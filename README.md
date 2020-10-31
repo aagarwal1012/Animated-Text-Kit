@@ -3,49 +3,53 @@
 # <div align="center">Animated Text Kit</div>
 
 <div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>  
-<div align="center">  
-   <a href="https://flutter.io">  
-    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"  
-      alt="Platform" />  
-  </a>  
-   <a href="https://pub.dartlang.org/packages/animated_text_kit">  
-    <img src="https://img.shields.io/pub/v/animated_text_kit.svg"  
-      alt="Pub Package" />  
-  </a>  
-   <a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">  
-    <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"  
-      alt="Build Status" />  
-  </a>  
-  <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">  
-    <img src="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit/branch/master/graph/badge.svg"  
-      alt="Codecov Coverage" />  
-  </a>  
-   <a href="https://opensource.org/licenses/MIT">  
-    <img src="https://img.shields.io/badge/License-MIT-red.svg"  
-      alt="License: MIT" />  
-  </a>  
-   <a href="https://www.paypal.me/aagarwal1012">  
-    <img src="https://img.shields.io/badge/Donate-PayPal-green.svg"  
-      alt="Donate" />  
-  </a>  
-</div><br>  
+<div align="center">
+  <a href="https://flutter.io">
+    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
+      alt="Platform" />
+  </a>
+  <a href="https://pub.dartlang.org/packages/animated_text_kit">
+    <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
+      alt="Pub Package" />
+  </a>
+  <a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">
+    <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"
+      alt="Build Status" />
+  </a>
+  <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">
+    <img src="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit/branch/master/graph/badge.svg"
+      alt="Codecov Coverage" />
+  </a>
+  <a href="https://www.codefactor.io/repository/github/aagarwal1012/animated-text-kit">
+    <img src="https://www.codefactor.io/repository/github/aagarwal1012/animated-text-kit/badge"
+      alt="CodeFactor" />
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-red.svg"
+      alt="License: MIT" />
+  </a>
+  <a href="https://www.paypal.me/aagarwal1012">
+    <img src="https://img.shields.io/badge/Donate-PayPal-green.svg"
+      alt="Donate" />
+  </a>
+</div><br>
 
 # Table of contents  
 
- * [Installing](#installing)  
- * [Usage](#usage)  
-    * [Rotate](#rotate)  
-   * [Fade](#fade)  
-   * [Typer](#typer)  
-   * [Typewriter](#typewriter)  
-   * [Scale](#scale)  
-   * [Colorize](#colorize)  
+ * [Installing](#installing)
+ * [Usage](#usage)
+   * [Rotate](#rotate)
+   * [Fade](#fade)
+   * [Typer](#typer)
+   * [Typewriter](#typewriter)
+   * [Scale](#scale)
+   * [Colorize](#colorize)
    * [TextLiquidFill](#textliquidfill)
    * [Wavy](#wavy)
- * [Bugs or Requests](#bugs-or-requests)  
- * [Donate](#donate)  
- * [Contributors](#contributors)  
- * [License](#license)  
+ * [Bugs or Requests](#bugs-or-requests)
+ * [Donate](#donate)
+ * [Contributors](#contributors)
+ * [License](#license)
 
 
 # Installing
@@ -76,7 +80,7 @@ $ flutter packages get
 
 ### 3. Import it
 
-Now in your `Dart` code, you can use: 
+Now in your `Dart` code, you can use:
 
 ```dart
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -106,7 +110,7 @@ Also, different callbacks are added to each AnimatedTextKit class along with the
  - onNextBeforePause(int index, bool isLast) - This callback will be called before the next text animation, before the previous one's pause.
  - onFinished - This callback is called at the end, if the parameter isRepeatingAnimation is set to false.
 
-  
+
 
 ## Rotate
 
@@ -152,7 +156,7 @@ SizedBox(
       "do it RIGHT NOW!!!"
     ],
     textStyle: TextStyle(
-        fontSize: 32.0, 
+        fontSize: 32.0,
         fontWeight: FontWeight.bold
     ),
     textAlign: TextAlign.start,
@@ -257,7 +261,7 @@ SizedBox(
       "Steve Jobs",
     ],
     textStyle: TextStyle(
-        fontSize: 50.0, 
+        fontSize: 50.0,
         fontFamily: "Horizon"
     ),
     colors: [
@@ -271,7 +275,7 @@ SizedBox(
   ),
 );
 ```
-**Note:** `colors` list should contains at least two values. 
+**Note:** `colors` list should contains at least two values.
 
 ## TextLiquidFill  
 
@@ -293,7 +297,7 @@ SizedBox(
 );
 ```
 
-To get more information about how the animated text made from scratch by @HemilPanchiwala, visit the Medium [blog](https://link.medium.com/AfxVRdkWJ2). 
+To get more information about how the animated text made from scratch by @HemilPanchiwala, visit the Medium [blog](https://link.medium.com/AfxVRdkWJ2).
 
 ## Wavy  
 
@@ -302,7 +306,7 @@ To get more information about how the animated text made from scratch by @HemilP
 ```dart  
 WavyAnimatedTextKit(
   textStyle: TextStyle(
-        fontSize: 32.0, 
+        fontSize: 32.0,
         fontWeight: FontWeight.bold
     ),
   text: [
