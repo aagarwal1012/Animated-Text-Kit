@@ -1,4 +1,4 @@
-<div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>  
+<div align="center"><img src="display/cover.gif?raw=true"/></div>
 
 # <div align="center">Animated Text Kit</div>
 
@@ -34,27 +34,27 @@
   </a>
 </div><br>
 
-# Table of contents  
+# Table of contents
 
- * [Installing](#installing)
- * [Usage](#usage)
-   * [Rotate](#rotate)
-   * [Fade](#fade)
-   * [Typer](#typer)
-   * [Typewriter](#typewriter)
-   * [Scale](#scale)
-   * [Colorize](#colorize)
-   * [TextLiquidFill](#textliquidfill)
-   * [Wavy](#wavy)
- * [Bugs or Requests](#bugs-or-requests)
- * [Donate](#donate)
- * [Contributors](#contributors)
- * [License](#license)
-
+- [Installing](#installing)
+- [Usage](#usage)
+  - [Rotate](#rotate)
+  - [Fade](#fade)
+  - [Typer](#typer)
+  - [Typewriter](#typewriter)
+  - [Scale](#scale)
+  - [Colorize](#colorize)
+  - [TextLiquidFill](#textliquidfill)
+  - [Wavy](#wavy)
+- [Bugs or Requests](#bugs-or-requests)
+- [Donate](#donate)
+- [Contributors](#contributors)
+- [License](#license)
 
 # Installing
 
 ### 1. Depend on it
+
 Add this to your package's `pubspec.yaml` file:
 
 ```yaml
@@ -68,14 +68,14 @@ You can install packages from the command line:
 
 with `pub`:
 
-```css
+```
 $ pub get
 ```
 
 with `Flutter`:
 
-```css
-$ flutter packages get
+```
+$ flutter pub get
 ```
 
 ### 3. Import it
@@ -86,10 +86,10 @@ Now in your `Dart` code, you can use:
 import 'package:animated_text_kit/animated_text_kit.dart';
 ```
 
+# Usage
 
-# Usage  
+You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount` (or repeat forever with `repeatForever`). The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes.
 
-  You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount` (or repeat forever with `repeatForever`). The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes.
 ```dart
 TypewriterAnimatedTextKit(
   speed: Duration(milliseconds: 2000),
@@ -106,15 +106,13 @@ TypewriterAnimatedTextKit(
 
 Also, different callbacks are added to each AnimatedTextKit class along with the onTap callback:
 
- - onNext(int index, bool isLast) - This callback will be called before the next text animation, after the previous one's pause.
- - onNextBeforePause(int index, bool isLast) - This callback will be called before the next text animation, before the previous one's pause.
- - onFinished - This callback is called at the end, if the parameter isRepeatingAnimation is set to false.
-
-
+- onNext(int index, bool isLast) - This callback will be called before the next text animation, after the previous one's pause.
+- onNextBeforePause(int index, bool isLast) - This callback will be called before the next text animation, before the previous one's pause.
+- onFinished - This callback is called at the end, if the parameter isRepeatingAnimation is set to false.
 
 ## Rotate
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/rotate.gif?raw=true" align = "right" height = "300px">
+<img src="display/rotate.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 Row(
@@ -137,11 +135,12 @@ Row(
   ],
 );
 ```
+
 **Note:** You can override transition height by setting the value of parameter `transitionHeight` for RotateAnimatedTextKit class.
 
 ## Fade
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/fade.gif?raw=true" align = "right" height = "300px">
+<img src="display/fade.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -167,7 +166,7 @@ SizedBox(
 
 ## Typer
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typer.gif?raw=true" align = "right" height = "300px">
+<img src="display/typer.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -191,9 +190,10 @@ SizedBox(
   ),
 );
 ```
+
 ## Typewriter
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typewriter.gif?raw=true" align = "right" height = "300px">
+<img src="display/typewriter.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -220,7 +220,7 @@ SizedBox(
 
 ## Scale
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/scale.gif?raw=true" align = "right" height = "300px">
+<img src="display/scale.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -246,7 +246,7 @@ SizedBox(
 
 ## Colorize
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/colorize.gif?raw=true" align = "right" height = "300px">
+<img src="display/colorize.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -275,13 +275,14 @@ SizedBox(
   ),
 );
 ```
+
 **Note:** `colors` list should contains at least two values.
 
-## TextLiquidFill  
+## TextLiquidFill
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/text_liquid_fill.gif?raw=true" align = "right" height = "300px">  
+<img src="display/text_liquid_fill.gif?raw=true" align = "right" height = "300px">
 
-```dart  
+```dart
 SizedBox(
   width: 250.0,
   child: TextLiquidFill(
@@ -299,11 +300,11 @@ SizedBox(
 
 To get more information about how the animated text made from scratch by @HemilPanchiwala, visit the Medium [blog](https://link.medium.com/AfxVRdkWJ2).
 
-## Wavy  
+## Wavy
 
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">
+<img src="display/wavy.gif?raw=true" align = "right" height = "300px">
 
-```dart  
+```dart
 WavyAnimatedTextKit(
   textStyle: TextStyle(
         fontSize: 32.0,
@@ -317,20 +318,21 @@ WavyAnimatedTextKit(
 ),
 ```
 
-# Bugs or Requests  
+# Bugs or Requests
 
-If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.   
+If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
 
-See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
+See [Contributing.md](CONTRIBUTING.md).
 
-# Donate  
-> If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:  
->  
-> - [PayPal](https://www.paypal.me/aagarwal1012/)  
+# Donate
 
-# Contributors  
+> If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:
+>
+> - [PayPal](https://www.paypal.me/aagarwal1012/)
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):  
+# Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -356,9 +358,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->  
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).  
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-# License  
-Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](CONTRIBUTING.md).
+
+# License
+
+Animated-Text-Kit is licensed under `MIT license`. View [license](LICENSE).
