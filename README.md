@@ -59,7 +59,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^2.5.1
+  animated_text_kit: ^2.5.2
 ```
 
 ### 2. Install it
@@ -361,7 +361,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome! See [Contributing.md](CONTRIBUTING.md).
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! See [Contributing.md](CONTRIBUTING.md).
 
 # License
 
