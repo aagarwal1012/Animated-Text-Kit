@@ -1,6 +1,10 @@
+## 2.5.3
+
+- Updated the `README` to revert links to be `pub.dev` friendly.
+
 ## 2.5.2
 
-**Bug Fixes and Enhancements**
+**Issue Fixed**
 
 - Bug fix for `ScaleAnimatedTextKit` to check `mounted` before `setState` to avoid potential conflict with `dispose`. Resolves [#105](https://github.com/aagarwal1012/Animated-Text-Kit/issues/105) -- PR [#143](https://github.com/aagarwal1012/Animated-Text-Kit/pull/143)
 
