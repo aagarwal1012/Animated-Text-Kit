@@ -160,11 +160,9 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
       textAlign: widget.textAlign,
     );
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: _onTap,
-      child: Container(
-        // Note that Transparent color is workaround for GestureDetector.onTap
-        // See https://github.com/flutter/flutter/issues/68986
-        color: Colors.transparent,
+      child: SizedBox(
         height: _transitionHeight,
         child: _isCurrentlyPausing || !_controller.isAnimating
             ? textWidget
