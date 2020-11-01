@@ -1,4 +1,4 @@
-<div align="center"><img src="display/cover.gif?raw=true"/></div>
+<div align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></div>
 
 # <div align="center">Animated Text Kit</div>
 
@@ -59,7 +59,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^2.5.2
+  animated_text_kit: ^2.5.3
 ```
 
 ### 2. Install it
@@ -112,7 +112,7 @@ Also, different callbacks are added to each AnimatedTextKit class along with the
 
 ## Rotate
 
-<img src="display/rotate.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/rotate.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 Row(
@@ -140,7 +140,7 @@ Row(
 
 ## Fade
 
-<img src="display/fade.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/fade.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -166,7 +166,7 @@ SizedBox(
 
 ## Typer
 
-<img src="display/typer.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typer.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -193,7 +193,7 @@ SizedBox(
 
 ## Typewriter
 
-<img src="display/typewriter.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typewriter.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -220,7 +220,7 @@ SizedBox(
 
 ## Scale
 
-<img src="display/scale.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/scale.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -246,7 +246,7 @@ SizedBox(
 
 ## Colorize
 
-<img src="display/colorize.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/colorize.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -280,7 +280,7 @@ SizedBox(
 
 ## TextLiquidFill
 
-<img src="display/text_liquid_fill.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/text_liquid_fill.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 SizedBox(
@@ -302,7 +302,7 @@ To get more information about how the animated text made from scratch by @HemilP
 
 ## Wavy
 
-<img src="display/wavy.gif?raw=true" align = "right" height = "300px">
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">
 
 ```dart
 WavyAnimatedTextKit(
@@ -322,7 +322,7 @@ WavyAnimatedTextKit(
 
 If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
 
-See [Contributing.md](CONTRIBUTING.md).
+See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
 # Donate
 
@@ -361,8 +361,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! See [Contributing.md](CONTRIBUTING.md).
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
 # License
 
-Animated-Text-Kit is licensed under `MIT license`. View [license](LICENSE).
+Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
