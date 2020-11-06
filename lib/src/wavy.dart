@@ -63,14 +63,13 @@ class WavyAnimatedTextKit extends StatefulWidget {
   /// By default it is set to true.
   final bool isRepeatingAnimation;
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _WavyAnimatedTextKitState createState() => _WavyAnimatedTextKitState();
 }
 
 class _WavyAnimatedTextKitState extends State<WavyAnimatedTextKit>
     with TickerProviderStateMixin {
-  // List<GlobalKey<_WTextState>> _keys;
-
   AnimationController _controller;
   Animation<double> _waveAnim;
   Timer _timer;

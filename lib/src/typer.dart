@@ -92,6 +92,7 @@ class TyperAnimatedTextKit extends StatefulWidget {
         assert(null != stopPauseOnTap),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _TyperState createState() => _TyperState();
 }

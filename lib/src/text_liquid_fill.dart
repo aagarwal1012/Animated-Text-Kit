@@ -72,6 +72,7 @@ class TextLiquidFill extends StatefulWidget {
         assert(null != waveColor),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _TextLiquidFillState createState() => _TextLiquidFillState();
 }

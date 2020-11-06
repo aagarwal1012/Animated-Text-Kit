@@ -107,6 +107,7 @@ class FadeAnimatedTextKit extends StatefulWidget {
         assert(null != isRepeatingAnimation),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _FadeTextState createState() => _FadeTextState();
 }
