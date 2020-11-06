@@ -2,6 +2,10 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// Animation that displays [text] elements, with each text animated with its
+/// characters popping like a stadium wave.
+///
+/// ![Wavy example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/wavy.gif)
 class WavyAnimatedTextKit extends StatefulWidget {
   const WavyAnimatedTextKit({
     Key key,
