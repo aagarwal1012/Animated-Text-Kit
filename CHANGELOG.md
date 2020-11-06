@@ -1,3 +1,7 @@
+## 2.5.4
+
+- Added missing dart documentation to the public classes and methods.
+
 ## 2.5.3
 
 - Updated the `README` to revert links to be `pub.dev` friendly.
