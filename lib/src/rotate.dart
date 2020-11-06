@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+/// Animation that displays [text] elements, rotating them in one at a time.
+///
+/// ![rotate example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/rotate.gif)
 class RotateAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
   final List<String> text;
@@ -108,6 +111,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
         assert(null != isRepeatingAnimation),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _RotatingTextState createState() => _RotatingTextState();
 }

@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
 
+/// Animation that displays [text] elements, as if they are being typed one
+/// character at a time. Similar to [TyperAnimatedTextKit], but shows a cursor.
+///
+/// ![typewriter example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/typewriter.gif)
 class TypewriterAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
   final List<String> text;
@@ -103,6 +107,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
         assert(null != isRepeatingAnimation),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _TypewriterState createState() => _TypewriterState();
 }

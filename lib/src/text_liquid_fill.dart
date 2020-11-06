@@ -1,6 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+/// Animation that displays a [text] element, coloring it to look like sloshing
+/// water is filling it up.
+///
+/// ![TextLiquidFill example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/text_liquid_fill.gif)
 class TextLiquidFill extends StatefulWidget {
   /// Gives [TextStyle] to the text string.
   ///
@@ -68,6 +72,7 @@ class TextLiquidFill extends StatefulWidget {
         assert(null != waveColor),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _TextLiquidFillState createState() => _TextLiquidFillState();
 }
@@ -126,7 +131,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
             animation: _waveController,
             builder: (BuildContext context, Widget child) {
               return CustomPaint(
-                painter: WavePainter(
+                painter: _WavePainter(
                   textKey: _textKey,
                   waveAnimation: _waveController,
                   percentValue: _loadValue.value,
@@ -164,7 +169,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
   }
 }
 
-class WavePainter extends CustomPainter {
+class _WavePainter extends CustomPainter {
   final _pi2 = 2 * pi;
   final GlobalKey textKey;
   final Animation<double> waveAnimation;
@@ -172,7 +177,7 @@ class WavePainter extends CustomPainter {
   final double boxHeight;
   final Color waveColor;
 
-  WavePainter({
+  _WavePainter({
     @required this.textKey,
     this.waveAnimation,
     this.percentValue,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+/// Animation that displays [text] elements, shimmering transition between [colors].
+///
+/// ![colorize example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/colorize.gif)
 class ColorizeAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
   final List<String> text;
@@ -88,6 +91,7 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
         assert(null != isRepeatingAnimation),
         super(key: key);
 
+  /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
   _ColorizeTextState createState() => _ColorizeTextState();
 }
