@@ -24,11 +24,12 @@
     <img src="https://www.codefactor.io/repository/github/aagarwal1012/animated-text-kit/badge"
       alt="CodeFactor" />
   </a>
+  <br>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/github/license/aagarwal1012/animated-text-kit?color=red"
       alt="License: MIT" />
   </a>
-  <a href="https://github.com/Solido/awesome-flutter">
+  <a href="https://github.com/Solido/awesome-flutter#animation">
     <img src="https://img.shields.io/badge/Awesome-Flutter-FC60A8?logo=awesome-lists"
       alt="Awesome Flutter" />
   </a>
