@@ -54,7 +54,6 @@
 - [Bugs or Requests](#bugs-or-requests)
 - [Donate](#donate)
 - [Contributors](#contributors)
-- [License](#license)
 
 # Installing
 
@@ -368,6 +367,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
-# License
-
-Animated-Text-Kit is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/LICENSE).
