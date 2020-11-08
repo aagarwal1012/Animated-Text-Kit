@@ -4,8 +4,8 @@
 
 <div align="center">A flutter package which contains a collection of some cool and awesome text animations.</div><br>  
 <div align="center">
-  <a href="https://flutter.io">
-    <img src="https://img.shields.io/badge/Platform-Flutter-yellow.svg"
+  <a href="https://flutter.dev">
+    <img src="https://img.shields.io/badge/Platform-Flutter-02569B?logo=flutter"
       alt="Platform" />
   </a>
   <a href="https://pub.dartlang.org/packages/animated_text_kit">
@@ -24,12 +24,17 @@
     <img src="https://www.codefactor.io/repository/github/aagarwal1012/animated-text-kit/badge"
       alt="CodeFactor" />
   </a>
+  <br>
   <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-red.svg"
+    <img src="https://img.shields.io/github/license/aagarwal1012/animated-text-kit?color=red"
       alt="License: MIT" />
   </a>
+  <a href="https://github.com/Solido/awesome-flutter#animation">
+    <img src="https://img.shields.io/badge/Awesome-Flutter-FC60A8?logo=awesome-lists"
+      alt="Awesome Flutter" />
+  </a>
   <a href="https://www.paypal.me/aagarwal1012">
-    <img src="https://img.shields.io/badge/Donate-PayPal-green.svg"
+    <img src="https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal"
       alt="Donate" />
   </a>
 </div><br>
