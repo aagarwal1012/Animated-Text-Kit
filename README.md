@@ -328,12 +328,6 @@ If you encounter any problems feel free to open an [issue](https://github.com/aa
 
 See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
-# Donate
-
-> If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:
->
-> - [PayPal](https://www.paypal.me/aagarwal1012/)
-
 # Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
