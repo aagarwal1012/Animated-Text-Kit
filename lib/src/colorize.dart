@@ -95,7 +95,6 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
   Timer _timer;
 
   Animation<double> _colorShifter, _fadeIn, _fadeOut;
-  double _tuning;
 
   int _index;
 
@@ -195,7 +194,7 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
       vsync: this,
     );
 
-    _tuning = (300.0 * widget.colors.length) *
+    final tuning = (300.0 * widget.colors.length) *
         (widget.textStyle.fontSize / 24.0) *
         0.75 *
         (textLen / 15.0);
@@ -215,7 +214,7 @@ class _ColorizeTextState extends State<ColorizeAnimatedTextKit>
     );
 
     _colorShifter =
-        Tween<double>(begin: 0.0, end: widget.colors.length * _tuning).animate(
+        Tween<double>(begin: 0.0, end: widget.colors.length * tuning).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.0, 1.0, curve: Curves.easeIn),
