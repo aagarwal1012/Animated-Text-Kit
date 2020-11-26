@@ -1,3 +1,7 @@
+## 2.6.0
+
+- Removed the unused `alignment` property from all except `RotateAnimatedTextKit`.
+
 ## 2.5.4
 
 - Added missing dart documentation to the public classes and methods.

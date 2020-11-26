@@ -42,11 +42,6 @@ class TyperAnimatedTextKit extends StatefulWidget {
   /// Will be called at the end of n-1 animation, before the pause parameter
   final void Function(int, bool) onNextBeforePause;
 
-  /// Adds [AlignmentGeometry] property to the text in the widget.
-  ///
-  /// By default it is set to [AlignmentDirectional.topStart]
-  final AlignmentGeometry alignment;
-
   /// Adds [TextAlign] property to the text in the widget.
   ///
   /// By default it is set to [TextAlign.start]
@@ -75,7 +70,6 @@ class TyperAnimatedTextKit extends StatefulWidget {
     this.onNext,
     this.onNextBeforePause,
     this.onFinished,
-    this.alignment = AlignmentDirectional.topStart,
     this.textAlign = TextAlign.start,
     this.isRepeatingAnimation = true,
     this.speed = const Duration(milliseconds: 40),
@@ -83,7 +77,6 @@ class TyperAnimatedTextKit extends StatefulWidget {
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
   })  : assert(null != text),
-        assert(null != alignment),
         assert(null != textAlign),
         assert(null != isRepeatingAnimation),
         assert(null != speed),

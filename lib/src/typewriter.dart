@@ -42,11 +42,6 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// Will be called at the end of n-1 animation, before the pause parameter
   final void Function(int, bool) onNextBeforePause;
 
-  /// Adds [AlignmentGeometry] property to the text in the widget.
-  ///
-  /// By default it is set to [AlignmentDirectional.topStart]
-  final AlignmentGeometry alignment;
-
   /// Adds [TextAlign] property to the text in the widget.
   ///
   /// By default it is set to [TextAlign.start]
@@ -91,7 +86,6 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
     this.onNextBeforePause,
     this.onFinished,
     this.totalRepeatCount = 3,
-    this.alignment = AlignmentDirectional.topStart,
     this.textAlign = TextAlign.start,
     this.repeatForever = false,
     this.isRepeatingAnimation = true,
@@ -101,7 +95,6 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
         assert(null != displayFullTextOnTap),
         assert(null != stopPauseOnTap),
         assert(null != totalRepeatCount),
-        assert(null != alignment),
         assert(null != textAlign),
         assert(null != repeatForever),
         assert(null != isRepeatingAnimation),
