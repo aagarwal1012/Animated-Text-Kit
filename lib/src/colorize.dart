@@ -34,11 +34,6 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
   /// Will be called right before the next text, after the pause parameter
   final void Function(int, bool) onNext;
 
-  /// Adds [AlignmentGeometry] property to the text in the widget.
-  ///
-  /// By default it is set to [AlignmentDirectional.topStart]
-  final AlignmentGeometry alignment;
-
   /// Adds [TextAlign] property to the text in the widget.
   ///
   /// By default it is set to [TextAlign.start]
@@ -75,7 +70,6 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
     this.onTap,
     this.onNext,
     this.onFinished,
-    this.alignment = AlignmentDirectional.topStart,
     this.textAlign = TextAlign.start,
     this.totalRepeatCount = 3,
     this.repeatForever = false,
@@ -84,7 +78,6 @@ class ColorizeAnimatedTextKit extends StatefulWidget {
         assert(null != colors && colors.length > 1),
         assert(null != speed),
         assert(null != pause),
-        assert(null != alignment),
         assert(null != textAlign),
         assert(null != totalRepeatCount),
         assert(null != repeatForever),
