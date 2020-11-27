@@ -135,6 +135,7 @@ class AnimatedTextKit extends StatefulWidget {
         assert(null != isRepeatingAnimation),
         assert(null != repeatForever),
         assert(repeatForever || null != totalRepeatCount),
+        assert(null == onFinished || !isRepeatingAnimation),
         super(key: key);
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
