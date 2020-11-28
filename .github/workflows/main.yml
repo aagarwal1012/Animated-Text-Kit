@@ -37,7 +37,7 @@ jobs:
       - name: Run Tests
         run: |
           flutter pub get
-          flutter format --set-exit-if-changed .
+          flutter format --dry-run --set-exit-if-changed .
           flutter analyze --no-pub
           flutter test --no-pub --coverage
       - name: Upload coverage to Codecov
