@@ -2,13 +2,13 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,6 +19,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        channel: [stable, beta, dev]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -28,13 +32,16 @@ jobs:
       - name: Flutter action
         uses: subosito/flutter-action@v1
         with:
-          channel: stable
+          channel: ${{ matrix.channel }}
 
       - name: Run Tests
         run: |
           flutter pub get
-          flutter test --coverage
+          flutter format --set-exit-if-changed .
+          flutter analyze
+          flutter test --no-pub --coverage
       - name: Upload coverage to Codecov
+        if: ${{ matrix.channel == 'stable' }}
         uses: codecov/codecov-action@v1
         with:
           file: coverage/lcov.info
