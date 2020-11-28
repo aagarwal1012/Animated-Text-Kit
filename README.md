@@ -12,8 +12,8 @@
     <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
       alt="Pub Package" />
   </a>
-  <a href="https://travis-ci.com/aagarwal1012/Animated-Text-Kit">
-    <img src="https://travis-ci.com/aagarwal1012/Animated-Text-Kit.svg?token=pXLTRcXnVLpccbxqiWBi&branch=master"
+  <a href="https://github.com/aagarwal1012/Animated-Text-Kit/actions?query=workflow%3ACI">
+    <img src="https://img.shields.io/github/workflow/status/aagarwal1012/Animated-Text-Kit/CI?logo=github"
       alt="Build Status" />
   </a>
   <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">
