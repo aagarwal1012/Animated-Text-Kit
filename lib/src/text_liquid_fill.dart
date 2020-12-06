@@ -98,8 +98,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
       vsync: this,
       duration: widget.loadDuration,
     );
-
-    _loadValue = Tween<double>(begin: 0.0, end: 100.0).animate(_loadController)
+    _loadValue = Tween<double>(begin: 0.0, end: 1.0).animate(_loadController)
       ..addStatusListener((status) {
         if (AnimationStatus.completed == status) {
           // Stop the repeating wave when the load has completed
@@ -113,10 +112,8 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 
   @override
   void dispose() {
-    _waveController?.stop();
-    _waveController?.dispose();
-    _loadController?.stop();
-    _loadController?.dispose();
+    _waveController.dispose();
+    _loadController.dispose();
     super.dispose();
   }
 
@@ -133,8 +130,8 @@ class _TextLiquidFillState extends State<TextLiquidFill>
               return CustomPaint(
                 painter: _WavePainter(
                   textKey: _textKey,
-                  waveAnimation: _waveController,
-                  percentValue: _loadValue.value,
+                  waveValue: _waveController.value,
+                  loadValue: _loadValue.value,
                   boxHeight: widget.boxHeight,
                   waveColor: widget.waveColor,
                 ),
@@ -170,17 +167,17 @@ class _TextLiquidFillState extends State<TextLiquidFill>
 }
 
 class _WavePainter extends CustomPainter {
-  final _pi2 = 2 * pi;
+  static const _pi2 = 2 * pi;
   final GlobalKey textKey;
-  final Animation<double> waveAnimation;
-  final double percentValue;
+  final double waveValue;
+  final double loadValue;
   final double boxHeight;
   final Color waveColor;
 
   _WavePainter({
     @required this.textKey,
-    this.waveAnimation,
-    this.percentValue,
+    this.waveValue,
+    this.loadValue,
     this.boxHeight,
     this.waveColor,
   });
@@ -189,19 +186,15 @@ class _WavePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final RenderBox textBox = textKey.currentContext.findRenderObject();
     final textHeight = textBox.size.height;
-    final percent = percentValue / 100.0;
     final baseHeight =
-        (boxHeight / 2) + (textHeight / 2) - (percent * textHeight);
+        (boxHeight / 2) + (textHeight / 2) - (loadValue * textHeight);
 
     final width = size.width ?? 200;
     final height = size.height ?? 200;
     final path = Path();
     path.moveTo(0.0, baseHeight);
     for (var i = 0.0; i < width; i++) {
-      path.lineTo(
-        i,
-        baseHeight + sin((i / width * _pi2) + (waveAnimation.value * _pi2)) * 8,
-      );
+      path.lineTo(i, baseHeight + sin(_pi2 * (i / width + waveValue)) * 8);
     }
 
     path.lineTo(width, height);
