@@ -16,12 +16,18 @@ class ColorizeAnimatedText extends AnimatedText {
   /// The [List] should contain at least two values of [Color] in it.
   final List<Color> colors;
 
+  /// Specifies the [TextDirection] for animation direction.
+  ///
+  /// By default it is set to [TextDirection.ltr]
+  final TextDirection textDirection;
+
   ColorizeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
     @required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 200),
     @required this.colors,
+    this.textDirection = TextDirection.ltr,
   })  : assert(null != speed),
         assert(null != colors && colors.length > 1),
         super(
@@ -32,6 +38,8 @@ class ColorizeAnimatedText extends AnimatedText {
         );
 
   Animation<double> _colorShifter, _fadeIn, _fadeOut;
+  // Copy of colors that may be reversed when RTL.
+  List<Color> _colors;
 
   @override
   void initAnimation(AnimationController controller) {
@@ -54,18 +62,33 @@ class ColorizeAnimatedText extends AnimatedText {
       ),
     );
 
-    _colorShifter =
-        Tween<double>(begin: 0.0, end: colors.length * tuning).animate(
+    final colorShift = colors.length * tuning;
+    final colorTween = textDirection == TextDirection.ltr
+        ? Tween<double>(
+            begin: 0.0,
+            end: colorShift,
+          )
+        : Tween<double>(
+            begin: colorShift,
+            end: 0.0,
+          );
+    _colorShifter = colorTween.animate(
       CurvedAnimation(
         parent: controller,
         curve: const Interval(0.0, 1.0, curve: Curves.easeIn),
       ),
     );
+
+    // With RTL, colors need to be reversed to compensate for colorTween
+    // counting down instead of up.
+    _colors = textDirection == TextDirection.ltr
+        ? colors
+        : colors.reversed.toList(growable: false);
   }
 
   @override
   Widget completeText() {
-    final linearGradient = LinearGradient(colors: colors).createShader(
+    final linearGradient = LinearGradient(colors: _colors).createShader(
       Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0),
     );
     return Text(
@@ -94,6 +117,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     Key key,
     @required List<String> text,
     TextAlign textAlign = TextAlign.start,
+    TextDirection textDirection = TextDirection.ltr,
     TextStyle textStyle,
     List<Color> colors,
     Duration speed = const Duration(milliseconds: 200),
@@ -109,8 +133,8 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     bool stopPauseOnTap = false,
   }) : super(
           key: key,
-          animatedTexts:
-              _animatedTexts(text, textAlign, textStyle, speed, colors),
+          animatedTexts: _animatedTexts(
+              text, textAlign, textStyle, speed, colors, textDirection),
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
@@ -129,6 +153,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     TextStyle textStyle,
     Duration speed,
     List<Color> colors,
+    TextDirection textDirection,
   ) =>
       text
           .map((_) => ColorizeAnimatedText(
@@ -137,6 +162,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
                 textStyle: textStyle,
                 speed: speed,
                 colors: colors,
+                textDirection: textDirection,
               ))
           .toList();
 }
