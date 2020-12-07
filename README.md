@@ -43,6 +43,8 @@
 
 - [Installing](#installing)
 - [Usage](#usage)
+  - [New with Version 3](#new-with-version-3)
+- [Animations](#animations)
   - [Rotate](#rotate)
   - [Fade](#fade)
   - [Typer](#typer)
@@ -51,6 +53,7 @@
   - [Colorize](#colorize)
   - [TextLiquidFill](#textliquidfill)
   - [Wavy](#wavy)
+  - [Create your own Animations](#create-your-own-animations)
 - [Bugs or Requests](#bugs-or-requests)
 - [Donate](#donate)
 - [Contributors](#contributors)
@@ -92,27 +95,69 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 # Usage
 
-You can override the `duration` of animation of single text by setting its duration in each AnimatedTextKit class, also you can set the time of the pause between texts by setting the `pause` parameter and with this when `isRepeatingAnimation` is set to true, you can set number of times the animation should repeat with `totalRepeatCount` (or repeat forever with `repeatForever`). The `speed` parameter is also included for some classes which sets the delay between the apparition of each characters. Also, the `displayFullTextOnTap` and `stopPauseOnTap` parameters have been included for some classes.
+`AnimatedTextKit` classes are _Stateful Widgets_ that produce text animations.
+Include them in your `build` method like:
 
 ```dart
 TypewriterAnimatedTextKit(
   speed: Duration(milliseconds: 2000),
   totalRepeatCount: 4,
-  repeatForever: true, //this will ignore [totalRepeatCount]
-  pause: Duration(milliseconds:  1000),
   text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
   textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
   pause: Duration(milliseconds: 1000),
   displayFullTextOnTap: true,
-  stopPauseOnTap: true
+  stopPauseOnTap: true,
 );
 ```
 
-Also, different callbacks are added to each AnimatedTextKit class along with the onTap callback:
+They have many configurable properties, including:
 
-- onNext(int index, bool isLast) - This callback will be called before the next text animation, after the previous one's pause.
-- onNextBeforePause(int index, bool isLast) - This callback will be called before the next text animation, before the previous one's pause.
-- onFinished - This callback is called at the end, if the parameter isRepeatingAnimation is set to false.
+- `pause` – the time of the pause between animation texts
+- `displayFullTextOnTap` – tapping the animation will rush it to completion
+- `isRepeatingAnimation` – controls whether the animation repeats
+- `repeatForever` – controls whether the animation repeats forever
+- `totalRepeatCount` – number of times the animation should repeat (when `repeatForever` is `false`)
+
+There are also custom callbacks:
+
+- `onTap` – This is called when a user taps the animated text
+- `onNext(int index, bool isLast)` – This is called before the next text animation, after the previous one's pause
+- `onNextBeforePause(int index, bool isLast)` – This is called before the next text animation, before the previous one's pause
+- `onFinished` - This is called at the end, when the parameter `isRepeatingAnimation` is set to `false`
+
+## New with Version 3
+
+Version 3 refactored the code so that common animation controls were moved to
+`AnimatedTextKit` and all animations, except for `TextLiquidFill`, extend from
+`AnimatedText`. This saved hundreds of lines of duplicate code, increased
+consistency across animations, and makes it easier to create new animations.
+
+It also makes the animations more flexible because multiple animations may now
+be easily combined. For example:
+
+```dart
+    AnimatedTextKit(
+      animatedTexts: [
+        FadeAnimatedText(
+          'Fade First',
+          textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+        ),
+        ScaleAnimatedText(
+          'Then Scale',
+          textStyle: TextStyle(fontSize: 70.0, fontFamily: 'Canterbury'),
+        ),
+      ],
+    ),
+```
+
+Using `FadeAnimatedTextKit` is equivalent to using `AnimatedTextKit` with
+`FadeAnimatedText`. An advantage of `AnimatedTextKit` is that the `animatedTexts`
+may be any subclass of `AnimatedText`, while using `FadeAnimatedTextKit`
+essentially restricts you to using just `FadeAnimatedText`.
+
+# Animations
+
+Many animations are provided, but you can also [create your own animations](#create-your-own-animations).
 
 ## Rotate
 
@@ -315,6 +360,30 @@ WavyAnimatedTextKit(
   ],
   isRepeatingAnimation: true,
 ),
+```
+
+## Create your own Animations
+
+You can easily create your own animations by creating new classes that extend
+`AnimatedText`, just like most animations in this package. You will need to
+implement:
+
+- Class _constructor_ – Initializes animation parameters.
+- `initAnimation` – Initializes `Animation` instances and binds them to the given `AnimationController`.
+- `animatedBuilder` – Builder method to return a `Widget` based on `Animation` values.
+- `completeText` – Returns the `Widget` to display once the animation is complete. (The default implementation returns a styled `Text` widget.)
+
+Then use `AnimatedTextKit` to display the custom animated text class like:
+
+```dart
+    AnimatedTextKit(
+      animatedTexts: [
+        CustomAnimatedText(
+          'Insert Text Here',
+          textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
 ```
 
 # Bugs or Requests
