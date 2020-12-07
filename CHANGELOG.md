@@ -4,7 +4,7 @@
 - Removed the unused `alignment` property from all except `RotateAnimatedTextKit`. Resolves [#153](https://github.com/aagarwal1012/Animated-Text-Kit/issues/153)
 - Added a `textDirection` property to `ColorizeAnimatedTextKit` to support RTL text. Resolves [#109](https://github.com/aagarwal1012/Animated-Text-Kit/issues/109)
 - Added a `loadUntil` property to `TextLiquidFill` to optionally show a partial fill. Resolves [#75](https://github.com/aagarwal1012/Animated-Text-Kit/issues/75)
-- Optimized `TextLiquidFill`. PR [#165][(https://github.com/aagarwal1012/Animated-Text-Kit/pull/165)
+- Optimized `TextLiquidFill`. PR [#165](https://github.com/aagarwal1012/Animated-Text-Kit/pull/165)
 - Optimized `ColorizeAnimatedTextKit`. PR [#155](https://github.com/aagarwal1012/Animated-Text-Kit/pull/155)
 - Updated the Dart SDK constraint to be 2.10+.
 - Regenerated the `example` platform code. PR [#162](https://github.com/aagarwal1012/Animated-Text-Kit/pull/162)
