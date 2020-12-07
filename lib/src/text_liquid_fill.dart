@@ -49,6 +49,12 @@ class TextLiquidFill extends StatefulWidget {
   /// By default it is set to blueAccent color
   final Color waveColor;
 
+  /// Specifies the load limit: (0, 1.0].  This may be used to limit the liquid
+  /// fill effect to less than 100%.
+  ///
+  /// By default, the animation will load to 1.0 (100%).
+  final double loadUntil;
+
   TextLiquidFill({
     Key key,
     @required this.text,
@@ -61,6 +67,7 @@ class TextLiquidFill extends StatefulWidget {
     this.boxWidth = 400,
     this.boxBackgroundColor = Colors.black,
     this.waveColor = Colors.blueAccent,
+    this.loadUntil = 1.0,
   })  : assert(null != text),
         assert(null != textStyle),
         assert(null != textAlign),
@@ -70,6 +77,7 @@ class TextLiquidFill extends StatefulWidget {
         assert(null != boxWidth),
         assert(null != boxBackgroundColor),
         assert(null != waveColor),
+        assert(loadUntil > 0 && loadUntil <= 1.0),
         super(key: key);
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
@@ -98,13 +106,18 @@ class _TextLiquidFillState extends State<TextLiquidFill>
       vsync: this,
       duration: widget.loadDuration,
     );
-    _loadValue = Tween<double>(begin: 0.0, end: 1.0).animate(_loadController)
-      ..addStatusListener((status) {
+    _loadValue = Tween<double>(
+      begin: 0.0,
+      end: widget.loadUntil,
+    ).animate(_loadController);
+    if (1.0 == widget.loadUntil) {
+      _loadValue.addStatusListener((status) {
         if (AnimationStatus.completed == status) {
-          // Stop the repeating wave when the load has completed
+          // Stop the repeating wave when the load has completed to 100%
           _waveController.stop();
         }
       });
+    }
 
     _waveController.repeat();
     _loadController.forward();
