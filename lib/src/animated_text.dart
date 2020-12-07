@@ -134,7 +134,8 @@ class AnimatedTextKit extends StatefulWidget {
         assert(null != stopPauseOnTap),
         assert(null != isRepeatingAnimation),
         assert(null != repeatForever),
-        assert(repeatForever || null != totalRepeatCount),
+        assert(
+            !isRepeatingAnimation || null != totalRepeatCount || repeatForever),
         assert(null == onFinished || !repeatForever),
         super(key: key);
 
