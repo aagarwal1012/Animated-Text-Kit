@@ -150,7 +150,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   int _currentRepeatCount = 0;
 
-  int _index = -1;
+  int _index = 0;
 
   bool _isCurrentlyPausing = false;
 
@@ -159,7 +159,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   void initState() {
     super.initState();
-    _nextAnimation();
+    _initAnimation();
   }
 
   @override
@@ -172,7 +172,6 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    assert(_index >= 0);
     final animatedText = widget.animatedTexts[_index];
     final completeText = animatedText.completeText();
     return GestureDetector(
@@ -197,9 +196,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     _isCurrentlyPausing = false;
 
     // Handling onNext callback
-    if (_index > -1) {
-      widget.onNext?.call(_index, isLast);
-    }
+    widget.onNext?.call(_index, isLast);
 
     if (isLast) {
       if (widget.isRepeatingAnimation &&
@@ -219,9 +216,14 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     if (mounted) setState(() {});
 
-    final animatedText = widget.animatedTexts[_index];
+    _controller.dispose();
 
-    _controller?.dispose();
+    // Re-initialize animation
+    _initAnimation();
+  }
+
+  void _initAnimation() {
+    final animatedText = widget.animatedTexts[_index];
 
     _controller = AnimationController(
       duration: animatedText.duration,
