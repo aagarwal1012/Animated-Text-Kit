@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Optimized the `initState` for `AnimatedTextKit`.
+
 ## 3.0.0
 
 - Refactored code to reduce duplication, improve consistency, and simplify making new animations. Created `AnimatedText` and `AnimatedTextKit`. PR [#157](https://github.com/aagarwal1012/Animated-Text-Kit/pull/157)
