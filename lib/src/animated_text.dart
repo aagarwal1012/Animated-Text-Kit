@@ -89,12 +89,12 @@ class AnimatedTextKit extends StatefulWidget {
   /// This method will run only if [isRepeatingAnimation] is set to false.
   final VoidCallback onFinished;
 
-  /// Adds the onNext [VoidCallback] to the animated widget.
+  /// Adds the onNext callback to the animated widget.
   ///
   /// Will be called right before the next text, after the pause parameter
   final void Function(int, bool) onNext;
 
-  /// Adds the onNextBeforePause [VoidCallback] to the animated widget.
+  /// Adds the onNextBeforePause callback to the animated widget.
   ///
   /// Will be called at the end of n-1 animation, before the pause parameter
   final void Function(int, bool) onNextBeforePause;

@@ -123,7 +123,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     Duration speed = const Duration(milliseconds: 200),
     Duration pause = const Duration(milliseconds: 1000),
     VoidCallback onTap,
-    Function(int, bool) onNext,
+    void Function(int, bool) onNext,
     void Function(int, bool) onNextBeforePause,
     VoidCallback onFinished,
     bool isRepeatingAnimation = true,
