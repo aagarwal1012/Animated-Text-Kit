@@ -165,8 +165,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   void dispose() {
     _timer?.cancel();
-    _controller?.stop();
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
