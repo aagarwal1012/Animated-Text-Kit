@@ -60,7 +60,7 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
     VoidCallback onTap,
-    Function(int, bool) onNext,
+    void Function(int, bool) onNext,
     void Function(int, bool) onNextBeforePause,
     VoidCallback onFinished,
     bool isRepeatingAnimation = true,

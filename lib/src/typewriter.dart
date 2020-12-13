@@ -108,7 +108,7 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
     bool displayFullTextOnTap = false,
     bool stopPauseOnTap = false,
     VoidCallback onTap,
-    Function(int, bool) onNext,
+    void Function(int, bool) onNext,
     void Function(int, bool) onNextBeforePause,
     VoidCallback onFinished,
     bool isRepeatingAnimation = true,
