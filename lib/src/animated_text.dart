@@ -148,6 +148,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
+  AnimatedText _currentAnimatedText;
+
   int _currentRepeatCount = 0;
 
   int _index = 0;
@@ -171,8 +173,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    final animatedText = widget.animatedTexts[_index];
-    final completeText = animatedText.completeText();
+    final completeText = _currentAnimatedText.completeText();
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
@@ -181,8 +182,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           : AnimatedBuilder(
               animation: _controller,
               child: completeText,
-              builder: (BuildContext context, Widget child) =>
-                  animatedText.animatedBuilder(context, child),
+              builder: _currentAnimatedText.animatedBuilder,
             ),
     );
   }
@@ -222,14 +222,14 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   }
 
   void _initAnimation() {
-    final animatedText = widget.animatedTexts[_index];
+    _currentAnimatedText = widget.animatedTexts[_index];
 
     _controller = AnimationController(
-      duration: animatedText.duration,
+      duration: _currentAnimatedText.duration,
       vsync: this,
     );
 
-    animatedText.initAnimation(_controller);
+    _currentAnimatedText.initAnimation(_controller);
 
     _controller.addStatusListener(_animationEndCallback);
 
@@ -262,9 +262,9 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        final animatedText = widget.animatedTexts[_index];
         final left =
-            (animatedText.remaining ?? animatedText.duration).inMilliseconds;
+            (_currentAnimatedText.remaining ?? _currentAnimatedText.duration)
+                .inMilliseconds;
 
         _controller.stop();
 
