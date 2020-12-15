@@ -47,122 +47,111 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _textAnimationKit = <Widget>[
-    ListView(
-      scrollDirection: Axis.horizontal,
-      children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.min,
+  List<Widget> get _textAnimationKit => <Widget>[
+        ListView(
+          scrollDirection: Axis.horizontal,
           children: <Widget>[
-            SizedBox(
-              width: 20.0,
-              height: 100.0,
-            ),
-            Text(
-              'Be',
-              style: TextStyle(fontSize: 43.0),
-            ),
-            SizedBox(
-              width: 20.0,
-              height: 100.0,
-            ),
-            RotateAnimatedTextKit(
-              onTap: () {
-                print('Tap Event');
-              },
-              isRepeatingAnimation: true,
-              totalRepeatCount: 10,
-              text: ['AWESOME', 'OPTIMISTIC', 'DIFFERENT'],
-              // alignment: Alignment(1.0, 0.5),
-              textStyle: TextStyle(fontSize: 40.0, fontFamily: 'Horizon'),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: 20.0,
+                  height: 100.0,
+                ),
+                Text(
+                  'Be',
+                  style: TextStyle(fontSize: 43.0),
+                ),
+                SizedBox(
+                  width: 20.0,
+                  height: 100.0,
+                ),
+                RotateAnimatedTextKit(
+                  onTap: () => _onTap(),
+                  isRepeatingAnimation: true,
+                  totalRepeatCount: 10,
+                  text: ['AWESOME', 'OPTIMISTIC', 'DIFFERENT'],
+                  // alignment: Alignment(1.0, 0.5),
+                  textStyle: TextStyle(fontSize: 40.0, fontFamily: 'Horizon'),
+                ),
+              ],
             ),
           ],
         ),
-      ],
-    ),
-    FadeAnimatedTextKit(
-      onTap: () {
-        print('Tap Event');
-      },
-      text: ['do IT!', 'do it RIGHT!!', 'do it RIGHT NOW!!!'],
-      textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-    ),
-    SizedBox(
-      width: 250.0,
-      child: TyperAnimatedTextKit(
-        onTap: () {
-          print('Tap Event');
-        },
-        text: [
-          'It is not enough to do your best,',
-          'you must know what to do,',
-          'and then do your best',
-          '- W.Edwards Deming',
-        ],
-        textStyle: TextStyle(fontSize: 30.0, fontFamily: 'Bobbers'),
-      ),
-    ),
-    SizedBox(
-      width: 250.0,
-      child: TypewriterAnimatedTextKit(
-        onTap: () {
-          print('Tap Event');
-        },
-        text: [
-          'Discipline is the best tool',
-          'Design first, then code',
-          'Do not patch bugs out, rewrite them',
-          'Do not test bugs out, design them out',
-        ],
-        textStyle: TextStyle(fontSize: 30.0, fontFamily: 'Agne'),
-      ),
-    ),
-    ScaleAnimatedTextKit(
-      onTap: () {
-        print('Tap Event');
-      },
-      text: ['Think', 'Build', 'Ship'],
-      textStyle: TextStyle(fontSize: 70.0, fontFamily: 'Canterbury'),
-    ),
+        FadeAnimatedTextKit(
+          onTap: () => _onTap(),
+          text: ['do IT!', 'do it RIGHT!!', 'do it RIGHT NOW!!!'],
+          textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          width: 250.0,
+          child: TyperAnimatedTextKit(
+            onTap: () => _onTap(),
+            text: [
+              'It is not enough to do your best,',
+              'you must know what to do,',
+              'and then do your best',
+              '- W.Edwards Deming',
+            ],
+            textStyle: TextStyle(fontSize: 30.0, fontFamily: 'Bobbers'),
+          ),
+        ),
+        SizedBox(
+          width: 250.0,
+          child: TypewriterAnimatedTextKit(
+            onTap: () => _onTap(),
+            text: [
+              'Discipline is the best tool',
+              'Design first, then code',
+              'Do not patch bugs out, rewrite them',
+              'Do not test bugs out, design them out',
+            ],
+            textStyle: TextStyle(fontSize: 30.0, fontFamily: 'Agne'),
+          ),
+        ),
+        ScaleAnimatedTextKit(
+          onTap: () => _onTap(),
+          text: ['Think', 'Build', 'Ship'],
+          textStyle: TextStyle(fontSize: 70.0, fontFamily: 'Canterbury'),
+        ),
 
-    /// colors.length >= 2
-    ColorizeAnimatedTextKit(
-      onTap: () {
-        print('Tap Event');
-      },
-      text: [
-        'Larry Page',
-        'Bill Gates',
-        'Steve Jobs',
-      ],
-      textStyle: TextStyle(fontSize: 50.0, fontFamily: 'Horizon'),
-      colors: [
-        Colors.purple,
-        Colors.blue,
-        Colors.yellow,
-        Colors.red,
-      ],
-    ),
+        /// colors.length >= 2
+        ColorizeAnimatedTextKit(
+          onTap: () => _onTap(),
+          text: [
+            'Larry Page',
+            'Bill Gates',
+            'Steve Jobs',
+          ],
+          textStyle: TextStyle(fontSize: 50.0, fontFamily: 'Horizon'),
+          colors: [
+            Colors.purple,
+            Colors.blue,
+            Colors.yellow,
+            Colors.red,
+          ],
+        ),
 
-    Center(
-      child: TextLiquidFill(
-        text: 'LIQUIDY',
-        waveColor: Colors.blueAccent,
-        boxBackgroundColor: Colors.redAccent,
-        textStyle: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
-        boxHeight: 300,
-      ),
-    ),
+        Center(
+          child: TextLiquidFill(
+            text: 'LIQUIDY',
+            waveColor: Colors.blueAccent,
+            boxBackgroundColor: Colors.redAccent,
+            textStyle: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
+            boxHeight: 300,
+          ),
+        ),
 
-    WavyAnimatedTextKit(
-      textStyle: TextStyle(fontSize: 20),
-      text: [
-        'Hello World',
-        'Look at the waves',
-        'They look so Amazing',
-      ],
-    ),
-  ];
+        WavyAnimatedTextKit(
+          onTap: () => _onTap(),
+          textStyle: TextStyle(fontSize: 20),
+          text: [
+            'Hello World',
+            'Look at the waves',
+            'They look so Amazing',
+          ],
+        ),
+      ];
 
   final _colors = <Color>[
     Colors.orange[800],
@@ -176,20 +165,26 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   int _index = 0;
+  int _tapCount = 0;
+
+  void _onTap() {
+    print('Tap Event');
+    setState(() {
+      _tapCount++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          labels[_index],
+          style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Column(
         children: <Widget>[
-          SizedBox(
-            height: 40.0,
-            width: double.maxFinite,
-          ),
-          Text(
-            labels[_index],
-            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-          ),
           Expanded(
             child: Container(),
           ),
@@ -200,24 +195,25 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 300.0,
           ),
           Expanded(
-            child: Container(),
-          ),
-          InkWell(
-            child: Icon(
-              Icons.play_circle_filled,
-              size: 70.0,
+            child: Container(
+              alignment: Alignment.center,
+              child: Text('Taps: $_tapCount'),
             ),
-            onTap: () {
-              setState(() {
-                _index = ++_index % _textAnimationKit.length;
-              });
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-            width: double.maxFinite,
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _index = ++_index % _textAnimationKit.length;
+            _tapCount = 0;
+          });
+        },
+        tooltip: 'Increment',
+        child: const Icon(
+          Icons.play_circle_filled,
+          size: 50.0,
+        ),
       ),
     );
   }
