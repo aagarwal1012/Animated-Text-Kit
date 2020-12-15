@@ -10,11 +10,12 @@ void main() {
     await tester.pumpWidget(MyApp());
 
     // Exercise each Animation...
-    for (var label in labels) {
-      print('Testing $label');
-      expect(find.text(label), findsOneWidget);
+    final examples = animatedTextExamples();
+    for (var example in examples) {
+      print('Testing ${example.label}');
+      expect(find.text(example.label), findsOneWidget);
       final pumpCount = await tester.pumpAndSettle();
-      print(' > $label pumped $pumpCount');
+      print(' > ${example.label} pumped $pumpCount');
 
       await tester.tap(find.byIcon(Icons.play_circle_filled));
       await tester.pump();
