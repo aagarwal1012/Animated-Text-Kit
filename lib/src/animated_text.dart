@@ -231,9 +231,9 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     _currentAnimatedText.initAnimation(_controller);
 
-    _controller.addStatusListener(_animationEndCallback);
-
-    _controller.forward();
+    _controller
+      ..addStatusListener(_animationEndCallback)
+      ..forward();
   }
 
   void _setPause() {
@@ -246,7 +246,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     widget.onNextBeforePause?.call(_index, isLast);
   }
 
-  void _animationEndCallback(state) {
+  void _animationEndCallback(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
       _setPause();
       assert(null == _timer || !_timer.isActive);
