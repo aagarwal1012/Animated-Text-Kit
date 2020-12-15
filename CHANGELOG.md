@@ -1,3 +1,10 @@
+## 3.0.2
+
+- Fixed major bug [#168](https://github.com/aagarwal1012/Animated-Text-Kit/issues/168), introduced with version 3 
+- Updated the `example` app to show a _Tap Count_
+- Optimized the `dispose` for `AnimatedTextKit`
+- Added missing return type to `onNext` function signatures
+
 ## 3.0.1
 
 - Optimized the `initState` for `AnimatedTextKit`.
