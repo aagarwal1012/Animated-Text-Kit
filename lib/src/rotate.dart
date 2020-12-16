@@ -20,6 +20,16 @@ class RotateAnimatedText extends AnimatedText {
   /// By default it is set to [TextDirection.ltr]
   final TextDirection textDirection;
 
+  /// Controls whether the text:
+  /// * rotates in _and_ out (true), or
+  /// * just rotates _in_ (false).
+  ///
+  /// Note that you may want to adjust the [duration] when mixing
+  /// [RotateAnimatedText] instances with mixed [rotateOut] values.
+  ///
+  /// By default, it is set to true.
+  final bool rotateOut;
+
   /// Effective Transition Height
   final double _transitionHeight;
 
@@ -31,8 +41,10 @@ class RotateAnimatedText extends AnimatedText {
     this.transitionHeight,
     this.alignment = Alignment.center,
     this.textDirection = TextDirection.ltr,
+    this.rotateOut = true,
   })  : assert(null != alignment),
         assert(null != textDirection),
+        assert(null != rotateOut),
         _transitionHeight = transitionHeight ?? (textStyle.fontSize * 10 / 3),
         super(
           text: text,
@@ -48,52 +60,58 @@ class RotateAnimatedText extends AnimatedText {
   void initAnimation(AnimationController controller) {
     final direction = textDirection;
 
+    final inIntervalEnd = rotateOut ? 0.4 : 1.0;
+
     _slideIn = AlignmentTween(
-      begin: Alignment.topLeft.add(alignment).resolve(direction),
-      end: Alignment.centerLeft.add(alignment).resolve(direction),
+      begin: Alignment.topCenter.add(alignment).resolve(direction),
+      end: Alignment.center.add(alignment).resolve(direction),
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.0, 0.4, curve: Curves.linear),
+        curve: Interval(0.0, inIntervalEnd, curve: Curves.linear),
       ),
     );
 
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+        curve: Interval(0.0, inIntervalEnd, curve: Curves.easeOut),
       ),
     );
 
-    _slideOut = AlignmentTween(
-      begin: Alignment.centerLeft.add(alignment).resolve(direction),
-      end: Alignment.bottomLeft.add(alignment).resolve(direction),
-    ).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.7, 1.0, curve: Curves.linear),
-      ),
-    );
+    if (rotateOut) {
+      _slideOut = AlignmentTween(
+        begin: Alignment.center.add(alignment).resolve(direction),
+        end: Alignment.bottomCenter.add(alignment).resolve(direction),
+      ).animate(
+        CurvedAnimation(
+          parent: controller,
+          curve: const Interval(0.7, 1.0, curve: Curves.linear),
+        ),
+      );
 
-    _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
-      ),
-    );
+      _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+          parent: controller,
+          curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
+        ),
+      );
+    }
   }
 
   @override
-  Widget completeText() => SizedBox.shrink();
+  Widget completeText() => rotateOut ? SizedBox.shrink() : super.completeText();
 
   @override
   Widget animatedBuilder(BuildContext context, Widget child) {
     return SizedBox(
       height: _transitionHeight,
       child: AlignTransition(
-        alignment: _slideIn.value.y != 0.0 ? _slideIn : _slideOut,
+        alignment: _slideIn.value.y != 0.0 || !rotateOut ? _slideIn : _slideOut,
         child: Opacity(
-          opacity: _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+          opacity: _fadeIn.value != 1.0 || !rotateOut
+              ? _fadeIn.value
+              : _fadeOut.value,
           child: textWidget(text),
         ),
       ),
