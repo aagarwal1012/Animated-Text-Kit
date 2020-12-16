@@ -258,25 +258,33 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback onTap}) =>
         child: AnimatedTextKit(
           onTap: onTap,
           animatedTexts: [
+            WavyAnimatedText(
+              'On Your Marks',
+              textStyle: const TextStyle(
+                fontSize: 24.0,
+              ),
+            ),
             FadeAnimatedText(
-              'Fade First',
+              'Get Set',
               textStyle: const TextStyle(
                 fontSize: 32.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
             ScaleAnimatedText(
-              'Then Scale',
+              'Ready',
               textStyle: const TextStyle(
                 fontSize: 48.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            WavyAnimatedText(
-              'Awesome',
+            RotateAnimatedText(
+              'Go!',
               textStyle: const TextStyle(
-                fontSize: 48.0,
+                fontSize: 64.0,
               ),
+              rotateOut: false,
+              duration: const Duration(milliseconds: 400),
             )
           ],
         ),
