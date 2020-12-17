@@ -1,3 +1,8 @@
+## 3.1.0
+
+- Added `rotateOut` flag to `RotateAnimatedText` so that one may optionally disable the _rotation-out_ animation.
+- Updated the `example` app to demonstrate `RotateAnimatedText` with `rotateOut` disabled.
+
 ## 3.0.2
 
 - Fixed major bug [#168](https://github.com/aagarwal1012/Animated-Text-Kit/issues/168), introduced with version 3 
