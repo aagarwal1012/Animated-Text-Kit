@@ -12,11 +12,17 @@ class TyperAnimatedText extends AnimatedText {
   /// By default it is set to 40 milliseconds.
   final Duration speed;
 
+  /// The [Curve] of the rate of change of animation over time.
+  ///
+  /// By default it is set to Curves.ease.
+  final Curve curve;
+
   TyperAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
     @required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 40),
+    this.curve = Curves.ease,
   })  : assert(null != speed),
         super(
           text: text,
@@ -25,23 +31,32 @@ class TyperAnimatedText extends AnimatedText {
           duration: speed * text.characters.length,
         );
 
-  Animation<int> _typingText;
+  Animation<double> _typingText;
 
   @override
   Duration get remaining => speed * (textCharacters.length - _typingText.value);
 
   @override
   void initAnimation(AnimationController controller) {
-    _typingText = StepTween(
-      begin: 0,
-      end: textCharacters.length,
+    _typingText = CurveTween(
+      curve: curve,
     ).animate(controller);
   }
 
   /// Widget showing partial text, up to [count] characters
   @override
   Widget animatedBuilder(BuildContext context, Widget child) {
-    final count = _typingText.value;
+    /// Output of CurveTween is in the range [0, 1] for majority of the curves.
+    /// It is converted to [0, textCharacters.length].
+    var count = (_typingText.value * textCharacters.length).round();
+
+    if (count < 0) {
+      count = 0;
+    }
+    if (count >= textCharacters.length) {
+      count = textCharacters.length - 1;
+    }
+
     assert(count <= textCharacters.length);
     return textWidget(textCharacters.take(count).toString());
   }
@@ -68,9 +83,11 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
     bool isRepeatingAnimation = true,
     bool repeatForever = true,
     int totalRepeatCount = 3,
+    Curve curve = Curves.ease,
   }) : super(
           key: key,
-          animatedTexts: _animatedTexts(text, textAlign, textStyle, speed),
+          animatedTexts:
+              _animatedTexts(text, textAlign, textStyle, speed, curve),
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
@@ -88,6 +105,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
     TextAlign textAlign,
     TextStyle textStyle,
     Duration speed,
+    Curve curve,
   ) =>
       text
           .map((_) => TyperAnimatedText(
@@ -95,6 +113,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
+                curve: curve,
               ))
           .toList();
 }
