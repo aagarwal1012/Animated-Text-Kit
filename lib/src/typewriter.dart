@@ -15,11 +15,17 @@ class TypewriterAnimatedText extends AnimatedText {
   /// By default it is set to 30 milliseconds.
   final Duration speed;
 
+  /// The [Curve] of the rate of change of animation over time.
+  ///
+  /// By default it is set to Curves.ease.
+  final Curve curve;
+
   TypewriterAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
     @required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 30),
+    this.curve = Curves.ease,
   })  : assert(null != speed),
         super(
           text: text,
@@ -28,7 +34,7 @@ class TypewriterAnimatedText extends AnimatedText {
           duration: speed * (text.characters.length + extraLengthForBlinks),
         );
 
-  Animation<int> _typewriterText;
+  Animation<double> _typewriterText;
 
   @override
   Duration get remaining =>
@@ -37,9 +43,8 @@ class TypewriterAnimatedText extends AnimatedText {
 
   @override
   void initAnimation(AnimationController controller) {
-    _typewriterText = StepTween(
-      begin: 0,
-      end: textCharacters.length + extraLengthForBlinks,
+    _typewriterText = CurveTween(
+      curve: curve,
     ).animate(controller);
   }
 
@@ -61,8 +66,18 @@ class TypewriterAnimatedText extends AnimatedText {
   /// Widget showing partial text
   @override
   Widget animatedBuilder(BuildContext context, Widget child) {
+    /// Output of CurveTween is in the range [0, 1] for majority of the curves.
+    /// It is converted to [0, textCharacters.length].
     final textLen = textCharacters.length;
-    final typewriterValue = _typewriterText.value;
+    var typewriterValue =
+        (_typewriterText.value * textCharacters.length).round();
+
+    if (typewriterValue < 0) {
+      typewriterValue = 0;
+    }
+    if (typewriterValue >= textCharacters.length) {
+      typewriterValue = textCharacters.length - 1;
+    }
 
     var visibleString = text;
     var suffixColor = Colors.transparent;
@@ -114,9 +129,11 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
     bool isRepeatingAnimation = true,
     bool repeatForever = true,
     int totalRepeatCount = 3,
+    Curve curve = Curves.ease,
   }) : super(
           key: key,
-          animatedTexts: _animatedTexts(text, textAlign, textStyle, speed),
+          animatedTexts:
+              _animatedTexts(text, textAlign, textStyle, speed, curve),
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
@@ -134,6 +151,7 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
     TextAlign textAlign,
     TextStyle textStyle,
     Duration speed,
+    Curve curve,
   ) =>
       text
           .map((_) => TypewriterAnimatedText(
@@ -141,6 +159,7 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
+                curve: curve,
               ))
           .toList();
 }
