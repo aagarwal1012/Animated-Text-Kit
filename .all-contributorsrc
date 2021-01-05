@@ -122,6 +122,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "AbhayVAshokan",
+      "name": "Abhay V Ashokan",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/35297280?v=4",
+      "profile": "https://medium.com/@abhayvashokan",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
