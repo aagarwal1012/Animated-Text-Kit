@@ -14,7 +14,7 @@ class TyperAnimatedText extends AnimatedText {
 
   /// The [Curve] of the rate of change of animation over time.
   ///
-  /// By default it is set to Curves.ease.
+  /// By default it is set to Curves.linear.
   final Curve curve;
 
   TyperAnimatedText(
@@ -22,8 +22,9 @@ class TyperAnimatedText extends AnimatedText {
     TextAlign textAlign = TextAlign.start,
     @required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 40),
-    this.curve = Curves.ease,
+    this.curve = Curves.linear,
   })  : assert(null != speed),
+        assert(null != curve),
         super(
           text: text,
           textAlign: textAlign,
@@ -48,14 +49,8 @@ class TyperAnimatedText extends AnimatedText {
   Widget animatedBuilder(BuildContext context, Widget child) {
     /// Output of CurveTween is in the range [0, 1] for majority of the curves.
     /// It is converted to [0, textCharacters.length].
-    var count = (_typingText.value * textCharacters.length).round();
-
-    if (count < 0) {
-      count = 0;
-    }
-    if (count >= textCharacters.length) {
-      count = textCharacters.length - 1;
-    }
+    final count =
+        (_typingText.value.clamp(0, 1) * textCharacters.length).round();
 
     assert(count <= textCharacters.length);
     return textWidget(textCharacters.take(count).toString());
@@ -83,7 +78,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
     bool isRepeatingAnimation = true,
     bool repeatForever = true,
     int totalRepeatCount = 3,
-    Curve curve = Curves.ease,
+    Curve curve = Curves.linear,
   }) : super(
           key: key,
           animatedTexts:

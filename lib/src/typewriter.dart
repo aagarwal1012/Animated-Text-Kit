@@ -17,7 +17,7 @@ class TypewriterAnimatedText extends AnimatedText {
 
   /// The [Curve] of the rate of change of animation over time.
   ///
-  /// By default it is set to Curves.ease.
+  /// By default it is set to Curves.linear.
   final Curve curve;
 
   TypewriterAnimatedText(
@@ -25,8 +25,9 @@ class TypewriterAnimatedText extends AnimatedText {
     TextAlign textAlign = TextAlign.start,
     @required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 30),
-    this.curve = Curves.ease,
+    this.curve = Curves.linear,
   })  : assert(null != speed),
+        assert(null != curve),
         super(
           text: text,
           textAlign: textAlign,
@@ -67,17 +68,11 @@ class TypewriterAnimatedText extends AnimatedText {
   @override
   Widget animatedBuilder(BuildContext context, Widget child) {
     /// Output of CurveTween is in the range [0, 1] for majority of the curves.
-    /// It is converted to [0, textCharacters.length].
+    /// It is converted to [0, textCharacters.length + extraLengthForBlinks].
     final textLen = textCharacters.length;
-    var typewriterValue =
-        (_typewriterText.value * textCharacters.length).round();
-
-    if (typewriterValue < 0) {
-      typewriterValue = 0;
-    }
-    if (typewriterValue >= textCharacters.length) {
-      typewriterValue = textCharacters.length - 1;
-    }
+    final typewriterValue = (_typewriterText.value.clamp(0, 1) *
+            (textCharacters.length + extraLengthForBlinks))
+        .round();
 
     var visibleString = text;
     var suffixColor = Colors.transparent;
@@ -129,7 +124,7 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
     bool isRepeatingAnimation = true,
     bool repeatForever = true,
     int totalRepeatCount = 3,
-    Curve curve = Curves.ease,
+    Curve curve = Curves.linear,
   }) : super(
           key: key,
           animatedTexts:
