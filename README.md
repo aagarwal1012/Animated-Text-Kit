@@ -1,8 +1,9 @@
 <p align="center"><img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/cover.gif?raw=true"/></p>
 
-# <div align="center">Animated Text Kit</div>
+<h1 align="center">Animated Text Kit</h1>
 
-<p align="center">A flutter package which contains a collection of some cool and awesome text animations.</p><br>  
+<p align="center">A flutter package which contains a collection of some cool and awesome text animations.</p><br>
+
 <p align="center">
   <a href="https://flutter.dev">
     <img src="https://img.shields.io/badge/Platform-Flutter-02569B?logo=flutter"
@@ -40,9 +41,8 @@
 </p><br>
 
 <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="https://github.com/mobxjs/mobx.dart/raw/master/docs/src/images/flutter-favorite.png">
+  <img height="150" align="right" src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flutter-favorite-badge.png?raw=true">
 </a>
-</br>
 
 # Table of contents
 
