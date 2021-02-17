@@ -1,3 +1,6 @@
+## 3.1.2
+- Fixed insecure links in readme.
+
 ## 3.1.1
 - Added Flutter Favorite badge to readme.
 
