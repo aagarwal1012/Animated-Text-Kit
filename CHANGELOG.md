@@ -1,3 +1,6 @@
+## 3.1.1
+- Added Flutter Favorite badge to readme.
+
 ## 3.1.0
 
 - Added `rotateOut` flag to `RotateAnimatedText` so that one may optionally disable the _rotation-out_ animation.
