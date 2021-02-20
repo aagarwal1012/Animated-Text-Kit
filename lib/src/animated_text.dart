@@ -172,8 +172,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           : AnimatedBuilder(
               animation: _controller,
               child: completeText,
-              builder: _currentAnimatedText.animatedBuilder as Widget Function(
-                  BuildContext, Widget?),
+              builder: _currentAnimatedText.animatedBuilder,
             ),
     );
   }
