@@ -2,7 +2,7 @@ name: example
 description: An example app to show the use of Animation Text Kit.
 
 environment:
-  sdk: ">=2.10.0 <3.0.0"
+  sdk: '>=2.12.0-259.12.beta <3.0.0'
   flutter: ">=1.22.0"
 
 dependencies:

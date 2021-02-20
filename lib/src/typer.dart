@@ -20,19 +20,17 @@ class TyperAnimatedText extends AnimatedText {
   TyperAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    @required TextStyle textStyle,
+    required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 40),
     this.curve = Curves.linear,
-  })  : assert(null != speed),
-        assert(null != curve),
-        super(
+  }) : super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
           duration: speed * text.characters.length,
         );
 
-  Animation<double> _typingText;
+  late Animation<double> _typingText;
 
   @override
   Duration get remaining => speed * (textCharacters.length - _typingText.value);
@@ -46,7 +44,7 @@ class TyperAnimatedText extends AnimatedText {
 
   /// Widget showing partial text, up to [count] characters
   @override
-  Widget animatedBuilder(BuildContext context, Widget child) {
+  Widget animatedBuilder(BuildContext context, Widget? child) {
     /// Output of CurveTween is in the range [0, 1] for majority of the curves.
     /// It is converted to [0, textCharacters.length].
     final count =
@@ -63,18 +61,18 @@ class TyperAnimatedText extends AnimatedText {
 /// ![Typer example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/typer.gif)
 class TyperAnimatedTextKit extends AnimatedTextKit {
   TyperAnimatedTextKit({
-    Key key,
-    @required List<String> text,
+    Key? key,
+    required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed = const Duration(milliseconds: 40),
     Duration pause = const Duration(milliseconds: 1000),
     bool displayFullTextOnTap = false,
     bool stopPauseOnTap = false,
-    VoidCallback onTap,
-    void Function(int, bool) onNext,
-    void Function(int, bool) onNextBeforePause,
-    VoidCallback onFinished,
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
     bool isRepeatingAnimation = true,
     bool repeatForever = true,
     int totalRepeatCount = 3,
@@ -98,7 +96,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed,
     Curve curve,
   ) =>
@@ -106,7 +104,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
           .map((_) => TyperAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle,
+                textStyle: textStyle!,
                 speed: speed,
                 curve: curve,
               ))

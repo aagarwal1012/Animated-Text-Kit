@@ -24,12 +24,11 @@ class ColorizeAnimatedText extends AnimatedText {
   ColorizeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    @required TextStyle textStyle,
+    required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 200),
-    @required this.colors,
+    required this.colors,
     this.textDirection = TextDirection.ltr,
-  })  : assert(null != speed),
-        assert(null != colors && colors.length > 1),
+  })  : assert(colors.length > 1),
         super(
           text: text,
           textAlign: textAlign,
@@ -37,14 +36,14 @@ class ColorizeAnimatedText extends AnimatedText {
           duration: speed * text.characters.length,
         );
 
-  Animation<double> _colorShifter, _fadeIn, _fadeOut;
+  late Animation<double> _colorShifter, _fadeIn, _fadeOut;
   // Copy of colors that may be reversed when RTL.
-  List<Color> _colors;
+  List<Color>? _colors;
 
   @override
   void initAnimation(AnimationController controller) {
     final tuning = (300.0 * colors.length) *
-        (textStyle.fontSize / 24.0) *
+        (textStyle.fontSize! / 24.0) *
         0.75 *
         (textCharacters.length / 15.0);
 
@@ -88,12 +87,12 @@ class ColorizeAnimatedText extends AnimatedText {
 
   @override
   Widget completeText() {
-    final linearGradient = LinearGradient(colors: _colors).createShader(
+    final linearGradient = LinearGradient(colors: _colors!).createShader(
       Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0),
     );
     return Text(
       text,
-      style: textStyle?.merge(
+      style: textStyle.merge(
         TextStyle(foreground: Paint()..shader = linearGradient),
       ),
       textAlign: textAlign,
@@ -101,7 +100,7 @@ class ColorizeAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget animatedBuilder(BuildContext context, Widget child) {
+  Widget animatedBuilder(BuildContext context, Widget? child) {
     return Opacity(
       opacity: _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
       child: completeText(),
@@ -114,18 +113,18 @@ class ColorizeAnimatedText extends AnimatedText {
 /// ![Colorize example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/colorize.gif)
 class ColorizeAnimatedTextKit extends AnimatedTextKit {
   ColorizeAnimatedTextKit({
-    Key key,
-    @required List<String> text,
+    Key? key,
+    required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextDirection textDirection = TextDirection.ltr,
-    TextStyle textStyle,
-    List<Color> colors,
+    TextStyle? textStyle,
+    List<Color>? colors,
     Duration speed = const Duration(milliseconds: 200),
     Duration pause = const Duration(milliseconds: 1000),
-    VoidCallback onTap,
-    void Function(int, bool) onNext,
-    void Function(int, bool) onNextBeforePause,
-    VoidCallback onFinished,
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
     bool isRepeatingAnimation = true,
     int totalRepeatCount = 3,
     bool repeatForever = false,
@@ -150,18 +149,18 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed,
-    List<Color> colors,
+    List<Color>? colors,
     TextDirection textDirection,
   ) =>
       text
           .map((_) => ColorizeAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle,
+                textStyle: textStyle!,
                 speed: speed,
-                colors: colors,
+                colors: colors!,
                 textDirection: textDirection,
               ))
           .toList();

@@ -8,7 +8,7 @@ class FadeAnimatedText extends AnimatedText {
   FadeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    @required TextStyle textStyle,
+    required TextStyle textStyle,
     Duration duration = const Duration(milliseconds: 2000),
   }) : super(
           text: text,
@@ -17,7 +17,7 @@ class FadeAnimatedText extends AnimatedText {
           duration: duration,
         );
 
-  Animation<double> _fadeIn, _fadeOut;
+  late Animation<double> _fadeIn, _fadeOut;
 
   @override
   void initAnimation(AnimationController controller) {
@@ -40,7 +40,7 @@ class FadeAnimatedText extends AnimatedText {
   Widget completeText() => SizedBox.shrink();
 
   @override
-  Widget animatedBuilder(BuildContext context, Widget child) {
+  Widget animatedBuilder(BuildContext context, Widget? child) {
     return Opacity(
       opacity: _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
       child: textWidget(text),
@@ -53,16 +53,16 @@ class FadeAnimatedText extends AnimatedText {
 /// ![Fade example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/fade.gif)
 class FadeAnimatedTextKit extends AnimatedTextKit {
   FadeAnimatedTextKit({
-    Key key,
-    @required List<String> text,
+    Key? key,
+    required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
-    VoidCallback onTap,
-    void Function(int, bool) onNext,
-    void Function(int, bool) onNextBeforePause,
-    VoidCallback onFinished,
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
     bool isRepeatingAnimation = true,
     int totalRepeatCount = 3,
     bool repeatForever = false,
@@ -86,14 +86,14 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration,
   ) =>
       text
           .map((_) => FadeAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle,
+                textStyle: textStyle!,
                 duration: duration,
               ))
           .toList();

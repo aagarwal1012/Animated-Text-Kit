@@ -56,8 +56,8 @@ class TextLiquidFill extends StatefulWidget {
   final double loadUntil;
 
   TextLiquidFill({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.textStyle =
         const TextStyle(fontSize: 140, fontWeight: FontWeight.bold),
     this.textAlign = TextAlign.left,
@@ -68,16 +68,7 @@ class TextLiquidFill extends StatefulWidget {
     this.boxBackgroundColor = Colors.black,
     this.waveColor = Colors.blueAccent,
     this.loadUntil = 1.0,
-  })  : assert(null != text),
-        assert(null != textStyle),
-        assert(null != textAlign),
-        assert(null != loadDuration),
-        assert(null != waveDuration),
-        assert(null != boxHeight),
-        assert(null != boxWidth),
-        assert(null != boxBackgroundColor),
-        assert(null != waveColor),
-        assert(loadUntil > 0 && loadUntil <= 1.0),
+  })  : assert(loadUntil > 0 && loadUntil <= 1.0),
         super(key: key);
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
@@ -89,9 +80,9 @@ class _TextLiquidFillState extends State<TextLiquidFill>
     with TickerProviderStateMixin {
   final _textKey = GlobalKey();
 
-  AnimationController _waveController, _loadController;
+  AnimationController? _waveController, _loadController;
 
-  Animation<double> _loadValue;
+  late Animation<double> _loadValue;
 
   @override
   void initState() {
@@ -109,24 +100,24 @@ class _TextLiquidFillState extends State<TextLiquidFill>
     _loadValue = Tween<double>(
       begin: 0.0,
       end: widget.loadUntil,
-    ).animate(_loadController);
+    ).animate(_loadController!);
     if (1.0 == widget.loadUntil) {
       _loadValue.addStatusListener((status) {
         if (AnimationStatus.completed == status) {
           // Stop the repeating wave when the load has completed to 100%
-          _waveController.stop();
+          _waveController!.stop();
         }
       });
     }
 
-    _waveController.repeat();
-    _loadController.forward();
+    _waveController!.repeat();
+    _loadController!.forward();
   }
 
   @override
   void dispose() {
-    _waveController.dispose();
-    _loadController.dispose();
+    _waveController!.dispose();
+    _loadController!.dispose();
     super.dispose();
   }
 
@@ -138,12 +129,12 @@ class _TextLiquidFillState extends State<TextLiquidFill>
           height: widget.boxHeight,
           width: widget.boxWidth,
           child: AnimatedBuilder(
-            animation: _waveController,
-            builder: (BuildContext context, Widget child) {
+            animation: _waveController!,
+            builder: (BuildContext context, Widget? child) {
               return CustomPaint(
                 painter: _WavePainter(
                   textKey: _textKey,
-                  waveValue: _waveController.value,
+                  waveValue: _waveController!.value,
                   loadValue: _loadValue.value,
                   boxHeight: widget.boxHeight,
                   waveColor: widget.waveColor,
@@ -188,22 +179,24 @@ class _WavePainter extends CustomPainter {
   final Color waveColor;
 
   _WavePainter({
-    @required this.textKey,
-    this.waveValue,
-    this.loadValue,
-    this.boxHeight,
-    this.waveColor,
+    required this.textKey,
+    required this.waveValue,
+    required this.loadValue,
+    required this.boxHeight,
+    required this.waveColor,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final RenderBox textBox = textKey.currentContext.findRenderObject();
+    final RenderBox? textBox =
+        textKey.currentContext!.findRenderObject() as RenderBox;
+    if (textBox == null) return;
     final textHeight = textBox.size.height;
     final baseHeight =
         (boxHeight / 2) + (textHeight / 2) - (loadValue * textHeight);
 
-    final width = size.width ?? 200;
-    final height = size.height ?? 200;
+    final width = size.width;
+    final height = size.height;
     final path = Path();
     path.moveTo(0.0, baseHeight);
     for (var i = 0.0; i < width; i++) {
