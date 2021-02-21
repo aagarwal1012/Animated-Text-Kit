@@ -117,7 +117,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextDirection textDirection = TextDirection.ltr,
-    TextStyle? textStyle,
+    required TextStyle textStyle,
     List<Color>? colors,
     Duration speed = const Duration(milliseconds: 200),
     Duration pause = const Duration(milliseconds: 1000),
@@ -133,7 +133,13 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
   }) : super(
           key: key,
           animatedTexts: _animatedTexts(
-              text, textAlign, textStyle, speed, colors, textDirection),
+            text,
+            textAlign,
+            textStyle,
+            speed,
+            colors,
+            textDirection,
+          ),
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
@@ -149,7 +155,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle? textStyle,
+    TextStyle textStyle,
     Duration speed,
     List<Color>? colors,
     TextDirection textDirection,
@@ -158,7 +164,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
           .map((_) => ColorizeAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle!,
+                textStyle: textStyle,
                 speed: speed,
                 colors: colors!,
                 textDirection: textDirection,

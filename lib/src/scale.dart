@@ -78,7 +78,7 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    required TextStyle textStyle,
     double scalingFactor = 0.5,
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
@@ -94,7 +94,12 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
   }) : super(
           key: key,
           animatedTexts: _animatedTexts(
-              text, textAlign, textStyle, duration, scalingFactor),
+            text,
+            textAlign,
+            textStyle,
+            duration,
+            scalingFactor,
+          ),
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
@@ -110,7 +115,7 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle? textStyle,
+    TextStyle textStyle,
     Duration duration,
     double scalingFactor,
   ) =>
@@ -118,7 +123,7 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
           .map((_) => ScaleAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle!,
+                textStyle: textStyle,
                 duration: duration,
                 scalingFactor: scalingFactor,
               ))

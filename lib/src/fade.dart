@@ -56,7 +56,7 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    required TextStyle textStyle,
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
     VoidCallback? onTap,
@@ -86,14 +86,14 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle? textStyle,
+    TextStyle textStyle,
     Duration duration,
   ) =>
       text
           .map((_) => FadeAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle!,
+                textStyle: textStyle,
                 duration: duration,
               ))
           .toList();

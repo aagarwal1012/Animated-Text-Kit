@@ -124,7 +124,7 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    required TextStyle textStyle,
     double? transitionHeight,
     AlignmentGeometry alignment = Alignment.center,
     TextDirection textDirection = TextDirection.ltr,
@@ -165,7 +165,7 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle? textStyle,
+    TextStyle textStyle,
     Duration duration,
     double? transitionHeight,
     AlignmentGeometry alignment,
@@ -175,7 +175,7 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
           .map((_) => RotateAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle!,
+                textStyle: textStyle,
                 duration: duration,
                 transitionHeight: transitionHeight,
                 alignment: alignment,

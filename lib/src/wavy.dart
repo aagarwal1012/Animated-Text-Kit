@@ -56,7 +56,7 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    required TextStyle textStyle,
     Duration speed = const Duration(milliseconds: 300),
     Duration pause = const Duration(milliseconds: 1000),
     VoidCallback? onTap,
@@ -86,14 +86,14 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle? textStyle,
+    TextStyle textStyle,
     Duration speed,
   ) =>
       text
           .map((_) => WavyAnimatedText(
                 _,
                 textAlign: textAlign,
-                textStyle: textStyle!,
+                textStyle: textStyle,
                 speed: speed,
               ))
           .toList();
