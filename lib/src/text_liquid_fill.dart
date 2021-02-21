@@ -80,7 +80,7 @@ class _TextLiquidFillState extends State<TextLiquidFill>
     with TickerProviderStateMixin {
   final _textKey = GlobalKey();
 
-  AnimationController? _waveController, _loadController;
+  late AnimationController _waveController, _loadController;
 
   late Animation<double> _loadValue;
 
@@ -100,24 +100,24 @@ class _TextLiquidFillState extends State<TextLiquidFill>
     _loadValue = Tween<double>(
       begin: 0.0,
       end: widget.loadUntil,
-    ).animate(_loadController!);
+    ).animate(_loadController);
     if (1.0 == widget.loadUntil) {
       _loadValue.addStatusListener((status) {
         if (AnimationStatus.completed == status) {
           // Stop the repeating wave when the load has completed to 100%
-          _waveController!.stop();
+          _waveController.stop();
         }
       });
     }
 
-    _waveController!.repeat();
-    _loadController!.forward();
+    _waveController.repeat();
+    _loadController.forward();
   }
 
   @override
   void dispose() {
-    _waveController!.dispose();
-    _loadController!.dispose();
+    _waveController.dispose();
+    _loadController.dispose();
     super.dispose();
   }
 
@@ -129,12 +129,12 @@ class _TextLiquidFillState extends State<TextLiquidFill>
           height: widget.boxHeight,
           width: widget.boxWidth,
           child: AnimatedBuilder(
-            animation: _waveController!,
+            animation: _waveController,
             builder: (BuildContext context, Widget? child) {
               return CustomPaint(
                 painter: _WavePainter(
                   textKey: _textKey,
-                  waveValue: _waveController!.value,
+                  waveValue: _waveController.value,
                   loadValue: _loadValue.value,
                   boxHeight: widget.boxHeight,
                   waveColor: widget.waveColor,

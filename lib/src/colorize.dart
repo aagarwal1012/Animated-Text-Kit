@@ -38,7 +38,7 @@ class ColorizeAnimatedText extends AnimatedText {
 
   late Animation<double> _colorShifter, _fadeIn, _fadeOut;
   // Copy of colors that may be reversed when RTL.
-  List<Color>? _colors;
+  late List<Color> _colors;
 
   @override
   void initAnimation(AnimationController controller) {
@@ -87,7 +87,7 @@ class ColorizeAnimatedText extends AnimatedText {
 
   @override
   Widget completeText() {
-    final linearGradient = LinearGradient(colors: _colors!).createShader(
+    final linearGradient = LinearGradient(colors: _colors).createShader(
       Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0),
     );
     return Text(
@@ -118,7 +118,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     TextAlign textAlign = TextAlign.start,
     TextDirection textDirection = TextDirection.ltr,
     required TextStyle textStyle,
-    List<Color>? colors,
+    required List<Color> colors,
     Duration speed = const Duration(milliseconds: 200),
     Duration pause = const Duration(milliseconds: 1000),
     VoidCallback? onTap,
@@ -157,7 +157,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     TextAlign textAlign,
     TextStyle textStyle,
     Duration speed,
-    List<Color>? colors,
+    List<Color> colors,
     TextDirection textDirection,
   ) =>
       text
@@ -166,7 +166,7 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
-                colors: colors!,
+                colors: colors,
                 textDirection: textDirection,
               ))
           .toList();
