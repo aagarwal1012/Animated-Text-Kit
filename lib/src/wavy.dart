@@ -15,17 +15,16 @@ class WavyAnimatedText extends AnimatedText {
   WavyAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    @required TextStyle textStyle,
+    required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 300),
-  })  : assert(null != speed),
-        super(
+  }) : super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
           duration: speed * text.characters.length,
         );
 
-  Animation<double> _waveAnim;
+  late Animation<double> _waveAnim;
 
   @override
   void initAnimation(AnimationController controller) {
@@ -34,7 +33,7 @@ class WavyAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget animatedBuilder(BuildContext context, Widget child) {
+  Widget animatedBuilder(BuildContext context, Widget? child) {
     return RepaintBoundary(
       child: CustomPaint(
         size: MediaQuery.of(context).size,
@@ -54,16 +53,16 @@ class WavyAnimatedText extends AnimatedText {
 /// ![Wavy example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/wavy.gif)
 class WavyAnimatedTextKit extends AnimatedTextKit {
   WavyAnimatedTextKit({
-    Key key,
-    @required List<String> text,
+    Key? key,
+    required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    TextStyle textStyle,
+    required TextStyle textStyle,
     Duration speed = const Duration(milliseconds: 300),
     Duration pause = const Duration(milliseconds: 1000),
-    VoidCallback onTap,
-    void Function(int, bool) onNext,
-    void Function(int, bool) onNextBeforePause,
-    VoidCallback onFinished,
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
     bool isRepeatingAnimation = true,
     int totalRepeatCount = 3,
     bool repeatForever = true,
@@ -102,9 +101,9 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
 
 class _WTextPainter extends CustomPainter {
   _WTextPainter({
-    @required this.progress,
-    @required this.text,
-    this.textStyle,
+    required this.progress,
+    required this.text,
+    required this.textStyle,
   });
 
   final double progress;
@@ -119,34 +118,33 @@ class _WTextPainter extends CustomPainter {
       calculateLayoutInfo(text, _textLayoutInfo);
     }
     canvas.save();
-    if (_textLayoutInfo != null) {
-      for (var textLayout in _textLayoutInfo) {
-        // offset required to center the characters
-        final centerOffset =
-            Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
 
-        if (textLayout.isMoving) {
-          final p = math.min(progress * 2, 1.0);
-          // drawing the char if the text is moving
-          drawText(
-              canvas,
-              textLayout.text,
-              Offset(
-                    textLayout.offsetX,
-                    (textLayout.offsetY -
-                        (textLayout.offsetY - textLayout.riseHeight) * p),
-                  ) +
-                  centerOffset,
-              textLayout);
-        } else {
-          // drawing the char if text is not moving
-          drawText(
+    for (var textLayout in _textLayoutInfo) {
+      // offset required to center the characters
+      final centerOffset =
+          Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
+
+      if (textLayout.isMoving) {
+        final p = math.min(progress * 2, 1.0);
+        // drawing the char if the text is moving
+        drawText(
             canvas,
             textLayout.text,
-            Offset(textLayout.offsetX, textLayout.offsetY) + centerOffset,
-            textLayout,
-          );
-        }
+            Offset(
+                  textLayout.offsetX,
+                  (textLayout.offsetY -
+                      (textLayout.offsetY - textLayout.riseHeight) * p),
+                ) +
+                centerOffset,
+            textLayout);
+      } else {
+        // drawing the char if text is not moving
+        drawText(
+          canvas,
+          textLayout.text,
+          Offset(textLayout.offsetX, textLayout.offsetY) + centerOffset,
+          textLayout,
+        );
       }
     }
     canvas.restore();
@@ -247,15 +245,15 @@ class _TextLayoutInfo {
   final double width;
   final double height;
   final double baseline;
-  double riseHeight;
+  late double riseHeight;
   bool isMoving = false;
 
   _TextLayoutInfo({
-    @required this.text,
-    @required this.offsetX,
-    @required this.offsetY,
-    @required this.width,
-    @required this.height,
-    @required this.baseline,
+    required this.text,
+    required this.offsetX,
+    required this.offsetY,
+    required this.width,
+    required this.height,
+    required this.baseline,
   });
 }

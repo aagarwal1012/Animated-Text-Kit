@@ -23,19 +23,17 @@ class TypewriterAnimatedText extends AnimatedText {
   TypewriterAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    @required TextStyle textStyle,
+    required TextStyle textStyle,
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
-  })  : assert(null != speed),
-        assert(null != curve),
-        super(
+  }) : super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
           duration: speed * (text.characters.length + extraLengthForBlinks),
         );
 
-  Animation<double> _typewriterText;
+  late Animation<double> _typewriterText;
 
   @override
   Duration get remaining =>
@@ -66,7 +64,7 @@ class TypewriterAnimatedText extends AnimatedText {
 
   /// Widget showing partial text
   @override
-  Widget animatedBuilder(BuildContext context, Widget child) {
+  Widget animatedBuilder(BuildContext context, Widget? child) {
     /// Output of CurveTween is in the range [0, 1] for majority of the curves.
     /// It is converted to [0, textCharacters.length + extraLengthForBlinks].
     final textLen = textCharacters.length;
@@ -75,7 +73,7 @@ class TypewriterAnimatedText extends AnimatedText {
         .round();
 
     var visibleString = text;
-    var suffixColor = Colors.transparent;
+    Color? suffixColor = Colors.transparent;
     if (typewriterValue == 0) {
       visibleString = '';
     } else if (typewriterValue > textLen) {
@@ -109,18 +107,18 @@ class TypewriterAnimatedText extends AnimatedText {
 /// ![Typewriter example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/typewriter.gif)
 class TypewriterAnimatedTextKit extends AnimatedTextKit {
   TypewriterAnimatedTextKit({
-    Key key,
-    @required List<String> text,
+    Key? key,
+    required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    @required TextStyle textStyle,
+    required TextStyle textStyle,
     Duration speed = const Duration(milliseconds: 30),
     Duration pause = const Duration(milliseconds: 1000),
     bool displayFullTextOnTap = false,
     bool stopPauseOnTap = false,
-    VoidCallback onTap,
-    void Function(int, bool) onNext,
-    void Function(int, bool) onNextBeforePause,
-    VoidCallback onFinished,
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
     bool isRepeatingAnimation = true,
     bool repeatForever = true,
     int totalRepeatCount = 3,

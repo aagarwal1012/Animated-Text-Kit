@@ -22,16 +22,14 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({
-    Key key,
-  }) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<AnimatedTextExample> _examples;
+  late List<AnimatedTextExample> _examples;
   int _index = 0;
   int _tapCount = 0;
 
@@ -95,16 +93,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class AnimatedTextExample {
   final String label;
-  final Color color;
+  final Color? color;
   final Widget child;
   const AnimatedTextExample({
-    @required this.label,
-    @required this.color,
-    @required this.child,
+    required this.label,
+    required this.color,
+    required this.child,
   });
 }
 
-List<AnimatedTextExample> animatedTextExamples({VoidCallback onTap}) =>
+List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
     <AnimatedTextExample>[
       AnimatedTextExample(
         label: 'Rotate',

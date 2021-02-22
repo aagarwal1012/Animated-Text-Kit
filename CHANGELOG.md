@@ -1,3 +1,7 @@
+## 4.0.0
+
+- Migrated to nnbd(null-safety)
+
 ## 3.1.2
 - Fixed insecure links in readme.
 
@@ -11,7 +15,7 @@
 
 ## 3.0.2
 
-- Fixed major bug [#168](https://github.com/aagarwal1012/Animated-Text-Kit/issues/168), introduced with version 3 
+- Fixed major bug [#168](https://github.com/aagarwal1012/Animated-Text-Kit/issues/168), introduced with version 3
 - Updated the `example` app to show a _Tap Count_
 - Optimized the `dispose` for `AnimatedTextKit`
 - Added missing return type to `onNext` function signatures
@@ -147,7 +151,7 @@
   - `displayFullTextOnTap` - If true, tapping the screen will stop current animated text, and display it fully.
   - `stopPauseOnTap` - If true, tapping during a pause will stop it and start the next text animation.
 
-- **Better control over Animated Texts:**  
+- **Better control over Animated Texts:**
   Callbacks added:
   - `onNext(int index, bool isLast)` - This callback will be called before the next text animation, after the previous ones pause.
   - `onNextBeforePause(int index, bool isLast)` - This callback will be called before the next text animation, before the previous one's pause.
