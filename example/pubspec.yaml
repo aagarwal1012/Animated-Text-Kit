@@ -16,7 +16,7 @@ dev_dependencies:
     sdk: flutter
   animated_text_kit:
     path: ../
-  pedantic: ^1.9.2
+  pedantic: ^1.11.0
 
 flutter:
   uses-material-design: true

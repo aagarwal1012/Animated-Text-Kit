@@ -62,9 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Container(
             decoration: BoxDecoration(color: animatedTextExample.color),
-            child: Center(child: animatedTextExample.child),
             height: 300.0,
             width: 300.0,
+            child: Center(child: animatedTextExample.child),
           ),
           Expanded(
             child: Container(
