@@ -171,8 +171,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           ? completeText
           : AnimatedBuilder(
               animation: _controller,
-              child: completeText,
               builder: _currentAnimatedText.animatedBuilder,
+              child: completeText,
             ),
     );
   }
