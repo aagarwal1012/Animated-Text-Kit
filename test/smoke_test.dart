@@ -55,6 +55,12 @@ void main() {
           tapped = true;
         },
       ),
+      FadeAnimatedTextKit(
+        text: tripleText,
+        textStyle: textStyle,
+        fadeInEnd: 0.4,
+        fadeOutStart: 0.6,
+      ),
       RotateAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
