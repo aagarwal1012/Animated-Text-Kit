@@ -7,14 +7,13 @@ import 'animated_text.dart';
 class FadeAnimatedText extends AnimatedText {
   double fadeInEnd, fadeOutStart;
 
-  FadeAnimatedText(
-    String text, {
-    TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
-    Duration duration = const Duration(milliseconds: 2000),
-    this.fadeInEnd = 0.5,
-    this.fadeOutStart = 0.8
-    }) : super(
+  FadeAnimatedText(String text,
+      {TextAlign textAlign = TextAlign.start,
+      required TextStyle textStyle,
+      Duration duration = const Duration(milliseconds: 2000),
+      this.fadeInEnd = 0.5,
+      this.fadeOutStart = 0.8})
+      : super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
@@ -74,38 +73,37 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     bool repeatForever = false,
     bool displayFullTextOnTap = false,
     bool stopPauseOnTap = false,
-  }) : assert(fadeInEnd < fadeOutStart, 'The "fadeInEnd" argument has to be lesser than "fadeOutStart"'), 
-      super(
-        key: key,
-        animatedTexts: _animatedTexts(text, textAlign, textStyle, duration, fadeInEnd, fadeOutStart),
-        pause: pause,
-        displayFullTextOnTap: displayFullTextOnTap,
-        stopPauseOnTap: stopPauseOnTap,
-        onTap: onTap,
-        onNext: onNext,
-        onNextBeforePause: onNextBeforePause,
-        onFinished: onFinished,
-        isRepeatingAnimation: isRepeatingAnimation,
-        totalRepeatCount: totalRepeatCount,
-        repeatForever: repeatForever,
-      );
+  })  : assert(fadeInEnd < fadeOutStart,
+            'The "fadeInEnd" argument has to be lesser than "fadeOutStart"'),
+        super(
+          key: key,
+          animatedTexts: _animatedTexts(
+              text, textAlign, textStyle, duration, fadeInEnd, fadeOutStart),
+          pause: pause,
+          displayFullTextOnTap: displayFullTextOnTap,
+          stopPauseOnTap: stopPauseOnTap,
+          onTap: onTap,
+          onNext: onNext,
+          onNextBeforePause: onNextBeforePause,
+          onFinished: onFinished,
+          isRepeatingAnimation: isRepeatingAnimation,
+          totalRepeatCount: totalRepeatCount,
+          repeatForever: repeatForever,
+        );
 
   static List<AnimatedText> _animatedTexts(
-    List<String> text,
-    TextAlign textAlign,
-    TextStyle textStyle,
-    Duration duration,
-    double fadeInEnd,
-    double fadeOutStart
-  ) =>
+          List<String> text,
+          TextAlign textAlign,
+          TextStyle textStyle,
+          Duration duration,
+          double fadeInEnd,
+          double fadeOutStart) =>
       text
-          .map((_) => FadeAnimatedText(
-                _,
-                textAlign: textAlign,
-                textStyle: textStyle,
-                duration: duration,
-                fadeInEnd: fadeInEnd,
-                fadeOutStart: fadeOutStart
-              ))
+          .map((_) => FadeAnimatedText(_,
+              textAlign: textAlign,
+              textStyle: textStyle,
+              duration: duration,
+              fadeInEnd: fadeInEnd,
+              fadeOutStart: fadeOutStart))
           .toList();
 }
