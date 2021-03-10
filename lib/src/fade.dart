@@ -5,15 +5,18 @@ import 'animated_text.dart';
 ///
 /// ![Fade example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/fade.gif)
 class FadeAnimatedText extends AnimatedText {
-  double fadeInEnd, fadeOutStart;
+  final double fadeInEnd, fadeOutBegin;
 
-  FadeAnimatedText(String text,
-      {TextAlign textAlign = TextAlign.start,
-      required TextStyle textStyle,
-      Duration duration = const Duration(milliseconds: 2000),
-      this.fadeInEnd = 0.5,
-      this.fadeOutStart = 0.8})
-      : super(
+  FadeAnimatedText(
+    String text, {
+    TextAlign textAlign = TextAlign.start,
+    required TextStyle textStyle,
+    Duration duration = const Duration(milliseconds: 2000),
+    this.fadeInEnd = 0.5,
+    this.fadeOutBegin = 0.8,
+  })  : assert(fadeInEnd < fadeOutBegin,
+            'The "fadeInEnd" argument must be less than "fadeOutBegin"'),
+        super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
@@ -34,7 +37,7 @@ class FadeAnimatedText extends AnimatedText {
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(fadeOutStart, 1.0, curve: Curves.linear),
+        curve: Interval(fadeOutBegin, 1.0, curve: Curves.linear),
       ),
     );
   }
@@ -63,7 +66,7 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
     double fadeInEnd = 0.5,
-    double fadeOutStart = 0.8,
+    double fadeOutBegin = 0.8,
     VoidCallback? onTap,
     void Function(int, bool)? onNext,
     void Function(int, bool)? onNextBeforePause,
@@ -73,12 +76,10 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     bool repeatForever = false,
     bool displayFullTextOnTap = false,
     bool stopPauseOnTap = false,
-  })  : assert(fadeInEnd < fadeOutStart,
-            'The "fadeInEnd" argument has to be lesser than "fadeOutStart"'),
-        super(
+  }) : super(
           key: key,
           animatedTexts: _animatedTexts(
-              text, textAlign, textStyle, duration, fadeInEnd, fadeOutStart),
+              text, textAlign, textStyle, duration, fadeInEnd, fadeOutBegin),
           pause: pause,
           displayFullTextOnTap: displayFullTextOnTap,
           stopPauseOnTap: stopPauseOnTap,
@@ -92,18 +93,21 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
         );
 
   static List<AnimatedText> _animatedTexts(
-          List<String> text,
-          TextAlign textAlign,
-          TextStyle textStyle,
-          Duration duration,
-          double fadeInEnd,
-          double fadeOutStart) =>
+    List<String> text,
+    TextAlign textAlign,
+    TextStyle textStyle,
+    Duration duration,
+    double fadeInEnd,
+    double fadeOutBegin,
+  ) =>
       text
-          .map((_) => FadeAnimatedText(_,
-              textAlign: textAlign,
-              textStyle: textStyle,
-              duration: duration,
-              fadeInEnd: fadeInEnd,
-              fadeOutStart: fadeOutStart))
+          .map((_) => FadeAnimatedText(
+                _,
+                textAlign: textAlign,
+                textStyle: textStyle,
+                duration: duration,
+                fadeInEnd: fadeInEnd,
+                fadeOutBegin: fadeOutBegin,
+              ))
           .toList();
 }
