@@ -5,8 +5,11 @@ import 'animated_text.dart';
 ///
 /// ![Fade example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/fade.gif)
 class FadeAnimatedText extends AnimatedText {
-  final double fadeInEnd, fadeOutBegin;
+  /// Marks ending of fade-in interval, default value = 0.5
+  final double fadeInEnd;
 
+  /// Marks the beginning of fade-out interval, default value = 0.8
+  final double fadeOutBegin;
   FadeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
