@@ -1,20 +1,6 @@
-# Additions to generated gitignore...
-# Skip pubspec.lock because this is a library, not an application.
-**/pubspec.lock
-# The code coverage folder is like a build result.
-coverage/
 
-# Created by https://www.toptal.com/developers/gitignore/api/code,flutter,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=code,flutter,macos
-
-### Code ###
-.idea
-.vscode
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
+# Created by https://www.toptal.com/developers/gitignore/api/flutter
+# Edit at https://www.toptal.com/developers/gitignore?templates=flutter
 
 ### Flutter ###
 # Flutter/Dart/Pub related
@@ -22,11 +8,17 @@ coverage/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.fvm/
 .packages
 .pub-cache/
 .pub/
 build/
+coverage/
 lib/generated_plugin_registrant.dart
+# For library packages, don’t commit the pubspec.lock file.
+# Regenerating the pubspec.lock file lets you test your package against the latest compatible versions of its dependencies.
+# See https://dart.dev/guides/libraries/private-files#pubspeclock
+pubspec.lock
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -74,32 +66,4 @@ lib/generated_plugin_registrant.dart
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
-### macOS ###
-# General
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# End of https://www.toptal.com/developers/gitignore/api/code,flutter,macos
+# End of https://www.toptal.com/developers/gitignore/api/flutter
