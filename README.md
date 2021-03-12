@@ -347,6 +347,27 @@ SizedBox(
 );
 ```
 
+## ZoomInFadeOut
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/zoom_in_fade_out.gif?raw=true" align = "right" height = "300px">
+
+```dart
+SizedBox(
+  width: 250.0,
+  child: ZoomInFadeOutAnimatedTextKit(
+          onTap: onTap,
+          text: ['OUT NOW'],
+          textStyle: TextStyle(
+            color: Colors.white,
+            letterSpacing: 5.0,
+            fontSize: 70.0,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+    ),
+);
+```
+
 To get more information about how the animated text made from scratch by @HemilPanchiwala, visit the Medium [blog](https://link.medium.com/AfxVRdkWJ2).
 
 ## Wavy

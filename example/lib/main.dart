@@ -287,4 +287,19 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
           ],
         ),
       ),
+      AnimatedTextExample(
+        label: 'ZoomInFadeOut',
+        color: Colors.amber,
+        child: ZoomInFadeOutAnimatedTextKit(
+          onTap: onTap,
+          text: ['OUT NOW'],
+          textStyle: TextStyle(
+            color: Colors.white,
+            letterSpacing: 5.0,
+            fontSize: 70.0,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     ];
