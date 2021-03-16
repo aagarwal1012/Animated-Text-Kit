@@ -33,6 +33,8 @@ void main() {
     const textStyle = TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold);
 
     var tapped = false;
+    var fadeInEnd = 0.5;
+    var fadeOutBegin = 0.8;
 
     final tapableWidgets = <Widget>[
       ColorizeAnimatedTextKit(
@@ -51,6 +53,8 @@ void main() {
         text: tripleText,
         textStyle: textStyle,
         displayFullTextOnTap: true,
+        fadeInEnd: fadeInEnd,
+        fadeOutBegin: fadeOutBegin,
         onTap: () {
           tapped = true;
         },
