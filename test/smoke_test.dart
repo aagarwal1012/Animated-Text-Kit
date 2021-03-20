@@ -93,6 +93,15 @@ void main() {
           tapped = true;
         },
       ),
+      // ignore: deprecated_member_use_from_same_package
+      WavyAnimatedTextKit(
+        text: tripleText,
+        textStyle: textStyle,
+        displayFullTextOnTap: true,
+        onTap: () {
+          tapped = true;
+        },
+      ),
     ];
 
     for (var widget in tapableWidgets) {
