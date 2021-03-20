@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'animated_text.dart';
 
-/// Animated Text for [ColorizeAnimatedTextKit] that will show text shimmering
-/// between [colors].
+/// Animated Text that shows text shimmering between [colors].
 ///
 /// ![Colorize example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/colorize.gif)
 class ColorizeAnimatedText extends AnimatedText {
@@ -111,6 +110,7 @@ class ColorizeAnimatedText extends AnimatedText {
 /// Animation that displays [text] elements, shimmering transition between [colors].
 ///
 /// ![Colorize example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/colorize.gif)
+@Deprecated('Use AnimatedTextKit with ColorizeAnimatedText instead.')
 class ColorizeAnimatedTextKit extends AnimatedTextKit {
   ColorizeAnimatedTextKit({
     Key? key,

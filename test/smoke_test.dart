@@ -35,6 +35,7 @@ void main() {
     var tapped = false;
 
     final tapableWidgets = <Widget>[
+      // ignore: deprecated_member_use_from_same_package
       ColorizeAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -47,6 +48,7 @@ void main() {
           tapped = true;
         },
       ),
+      // ignore: deprecated_member_use_from_same_package
       FadeAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -55,6 +57,7 @@ void main() {
           tapped = true;
         },
       ),
+      // ignore: deprecated_member_use_from_same_package
       RotateAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -63,6 +66,7 @@ void main() {
           tapped = true;
         },
       ),
+      // ignore: deprecated_member_use_from_same_package
       ScaleAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -71,6 +75,7 @@ void main() {
           tapped = true;
         },
       ),
+      // ignore: deprecated_member_use_from_same_package
       TyperAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -79,6 +84,7 @@ void main() {
           tapped = true;
         },
       ),
+      // ignore: deprecated_member_use_from_same_package
       TypewriterAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,

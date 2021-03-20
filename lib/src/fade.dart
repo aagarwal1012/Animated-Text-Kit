@@ -60,6 +60,7 @@ class FadeAnimatedText extends AnimatedText {
 /// Animation that displays [text] elements, fading them in and then out.
 ///
 /// ![Fade example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/fade.gif)
+@Deprecated('Use AnimatedTextKit with FadeAnimatedText instead.')
 class FadeAnimatedTextKit extends AnimatedTextKit {
   FadeAnimatedTextKit({
     Key? key,

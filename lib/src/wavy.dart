@@ -51,6 +51,7 @@ class WavyAnimatedText extends AnimatedText {
 /// characters popping like a stadium wave.
 ///
 /// ![Wavy example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/wavy.gif)
+@Deprecated('Use AnimatedTextKit with WavyAnimatedText instead.')
 class WavyAnimatedTextKit extends AnimatedTextKit {
   WavyAnimatedTextKit({
     Key? key,

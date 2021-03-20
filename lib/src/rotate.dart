@@ -119,6 +119,7 @@ class RotateAnimatedText extends AnimatedText {
 /// Animation that displays [text] elements, rotating them in one at a time.
 ///
 /// ![Rotate example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/rotate.gif)
+@Deprecated('Use AnimatedTextKit with RotateAnimatedText instead.')
 class RotateAnimatedTextKit extends AnimatedTextKit {
   RotateAnimatedTextKit({
     Key? key,

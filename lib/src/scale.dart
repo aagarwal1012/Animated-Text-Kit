@@ -73,6 +73,7 @@ class ScaleAnimatedText extends AnimatedText {
 /// Animation that displays [text] elements, scaling them up and then out, one at a time.
 ///
 /// ![Scale example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/scale.gif)
+@Deprecated('Use AnimatedTextKit with ScaleAnimatedText instead.')
 class ScaleAnimatedTextKit extends AnimatedTextKit {
   ScaleAnimatedTextKit({
     Key? key,

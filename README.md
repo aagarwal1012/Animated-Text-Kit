@@ -112,22 +112,29 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 # Usage
 
-`AnimatedTextKit` classes are _Stateful Widgets_ that produce text animations.
+`AnimatedTextKit` is a _Stateful Widget_ that produces text animations.
 Include them in your `build` method like:
 
 ```dart
-TypewriterAnimatedTextKit(
-  speed: Duration(milliseconds: 2000),
+AnimatedTextKit(
+  animatedTexts: [
+    TypewriterAnimatedText(
+      'Hello world!',
+      textStyle: const TextStyle(
+        fontSize: 32.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ],
+  speed: const Duration(milliseconds: 2000),
   totalRepeatCount: 4,
-  text: ["do IT!", "do it RIGHT!!", "do it RIGHT NOW!!!"],
-  textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-  pause: Duration(milliseconds: 1000),
+  pause: const Duration(milliseconds: 1000),
   displayFullTextOnTap: true,
   stopPauseOnTap: true,
-);
+)
 ```
 
-They have many configurable properties, including:
+It has many configurable properties, including:
 
 - `pause` – the time of the pause between animation texts
 - `displayFullTextOnTap` – tapping the animation will rush it to completion
@@ -153,24 +160,34 @@ It also makes the animations more flexible because multiple animations may now
 be easily combined. For example:
 
 ```dart
-    AnimatedTextKit(
-      animatedTexts: [
-        FadeAnimatedText(
-          'Fade First',
-          textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-        ),
-        ScaleAnimatedText(
-          'Then Scale',
-          textStyle: TextStyle(fontSize: 70.0, fontFamily: 'Canterbury'),
-        ),
-      ],
+AnimatedTextKit(
+  animatedTexts: [
+    FadeAnimatedText(
+      'Fade First',
+      textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
     ),
+    ScaleAnimatedText(
+      'Then Scale',
+      textStyle: TextStyle(fontSize: 70.0, fontFamily: 'Canterbury'),
+    ),
+  ],
+),
 ```
 
-Using `FadeAnimatedTextKit` is equivalent to using `AnimatedTextKit` with
-`FadeAnimatedText`. An advantage of `AnimatedTextKit` is that the `animatedTexts`
-may be any subclass of `AnimatedText`, while using `FadeAnimatedTextKit`
-essentially restricts you to using just `FadeAnimatedText`.
+Using the legacy `FadeAnimatedTextKit` is equivalent to using `AnimatedTextKit` with `FadeAnimatedText`.
+An advantage of `AnimatedTextKit` is that the `animatedTexts` may be any subclass of `AnimatedText`, while using `FadeAnimatedTextKit` essentially restricts you to using just `FadeAnimatedText`.
+
+### Legacy AnimatedTextKit classes
+
+Have you noticed that animation classes come in pairs?
+For example, there is `FadeAnimatedText` and `FadeAnimatedTextKit`.
+The significant refactoring with Version 3 split the original `FadeAnimatedTextKit` into `FadeAnimatedText` and a re-usable `AnimatedTextKit`, then `FadeAnimatedTextKit` was adjusted for backwards compatibility.
+
+When introducing a new `AnimationText` subclass, you may wonder if you also need to also introduce an additional `Kit` class. The answer is **NO**. :tada:
+
+Going forward, we are championing the adoption of the Version 3 approach, and have deprecated the legacy `Kit` classes.
+This will make creating new animations easier.
+We know it makes some legacy code more verbose, but the flexibility and simplicity is a conscious trade-off.
 
 # Animations
 
@@ -181,22 +198,38 @@ Many animations are provided, but you can also [create your own animations](#cre
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/rotate.gif?raw=true" align = "right" height = "300px">
 
 ```dart
+const rotateTextStyle = TextStyle(
+  fontSize: 40.0,
+  fontFamily: 'Horizon',
+);
+
 Row(
   mainAxisSize: MainAxisSize.min,
   children: <Widget>[
-    SizedBox(width: 20.0, height: 100.0),
-    Text(
-      "Be",
+    const SizedBox(width: 20.0, height: 100.0),
+    const Text(
+      'Be',
       style: TextStyle(fontSize: 43.0),
     ),
-    SizedBox(width: 20.0, height: 100.0),
-    RotateAnimatedTextKit(
+    const SizedBox(width: 20.0, height: 100.0),
+    AnimatedTextKit(
+      animatedTexts: [
+        RotateAnimatedText(
+          'AWESOME',
+          textStyle: rotateTextStyle,
+        ),
+        RotateAnimatedText(
+          'OPTIMISTIC',
+          textStyle: rotateTextStyle,
+        ),
+        RotateAnimatedText(
+          'DIFFERENT',
+          textStyle: rotateTextStyle,
+        ),
+      ]
       onTap: () {
         print("Tap Event");
       },
-      text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
-      textStyle: TextStyle(fontSize: 40.0, fontFamily: "Horizon"),
-      textAlign: TextAlign.start
     ),
   ],
 );
@@ -209,22 +242,31 @@ Row(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/fade.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-SizedBox(
+const fadeTextStyle = TextStyle(
+  fontSize: 32.0,
+  fontWeight: FontWeight.bold,
+);
+
+return SizedBox(
   width: 250.0,
-  child: FadeAnimatedTextKit(
-    onTap: () {
-        print("Tap Event");
-      },
-    text: [
-      "do IT!",
-      "do it RIGHT!!",
-      "do it RIGHT NOW!!!"
+  child: AnimatedTextKit(
+    animatedTexts: [
+      FadeAnimatedText(
+        'do IT!',
+        textStyle: fadeTextStyle,
+      ),
+      FadeAnimatedText(
+        'do it RIGHT!!',
+        textStyle: fadeTextStyle,
+      ),
+      FadeAnimatedText(
+        'do it RIGHT NOW!!!',
+        textStyle: fadeTextStyle,
+      ),
     ],
-    textStyle: TextStyle(
-        fontSize: 32.0,
-        fontWeight: FontWeight.bold
-    ),
-    textAlign: TextAlign.start,
+    onTap: () {
+      print("Tap Event");
+    },
   ),
 );
 ```
@@ -234,23 +276,35 @@ SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typer.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-SizedBox(
+const typerTextStyle = TextStyle(
+  fontSize: 30.0,
+  fontFamily: 'Bobbers',
+);
+
+return SizedBox(
   width: 250.0,
-  child: TyperAnimatedTextKit(
+  child: AnimatedTextKit(
+    animatedTexts: [
+      TyperAnimatedTextKit(
+        'It is not enough to do your best,',
+        textStyle: typerTextStyle,
+      ),
+      TyperAnimatedTextKit(
+        'you must know what to do,',
+        textStyle: typerTextStyle,
+      ),
+      TyperAnimatedTextKit(
+        'and then do your best',
+        textStyle: typerTextStyle,
+      ),
+      TyperAnimatedTextKit(
+        '- W.Edwards Deming',
+        textStyle: typerTextStyle,
+      ),
+    ]
     onTap: () {
-        print("Tap Event");
-      },
-    text: [
-      "It is not enough to do your best,",
-      "you must know what to do,",
-      "and then do your best",
-      "- W.Edwards Deming",
-    ],
-    textStyle: TextStyle(
-        fontSize: 30.0,
-        fontFamily: "Bobbers"
-    ),
-    textAlign: TextAlign.start,
+      print("Tap Event");
+    },
   ),
 );
 ```
@@ -260,23 +314,35 @@ SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typewriter.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-SizedBox(
+const typewriterTextStyle = TextStyle(
+  fontSize: 30.0,
+  fontFamily: 'Agne',
+);
+
+return SizedBox(
   width: 250.0,
-  child: TypewriterAnimatedTextKit(
-    onTap: () {
-        print("Tap Event");
-      },
-    text: [
-      "Discipline is the best tool",
-      "Design first, then code",
-      "Do not patch bugs out, rewrite them",
-      "Do not test bugs out, design them out",
+  child: AnimatedTextKit(
+    animatedTexts: [
+      TypewriterAnimatedText(
+        'Discipline is the best tool',
+        textStyle: typewriterTextStyle,
+      ),
+      TypewriterAnimatedText(
+        'Design first, then code',
+        textStyle: typewriterTextStyle,
+      ),
+      TypewriterAnimatedText(
+        'Do not patch bugs out, rewrite them',
+        textStyle: typewriterTextStyle,
+      ),
+      TypewriterAnimatedText(
+        'Do not test bugs out, design them out',
+        textStyle: typewriterTextStyle,
+      ),
     ],
-    textStyle: TextStyle(
-        fontSize: 30.0,
-        fontFamily: "Agne"
-    ),
-    textAlign: TextAlign.start,
+    onTap: () {
+      print("Tap Event");
+    },
   ),
 );
 ```
@@ -286,22 +352,31 @@ SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/scale.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-SizedBox(
+const scaleTextStyle = TextStyle(
+  fontSize: 70.0,
+  fontFamily: 'Canterbury',
+);
+
+return SizedBox(
   width: 250.0,
-  child: ScaleAnimatedTextKit(
+  child: AnimatedTextKit(
+    animatedTexts: [
+      ScaleAnimatedText(
+        'Think',
+        textStyle: scaleTextStyle,
+      ),
+      ScaleAnimatedText(
+        'Build',
+        textStyle: scaleTextStyle,
+      ),
+      ScaleAnimatedText(
+        'Ship',
+        textStyle: scaleTextStyle,
+      ),
+    ],
     onTap: () {
-        print("Tap Event");
-      },
-    text: [
-      "Think",
-      "Build",
-      "Ship"
-      ],
-    textStyle: TextStyle(
-        fontSize: 70.0,
-        fontFamily: "Canterbury"
-    ),
-    textAlign: TextAlign.start,
+      print("Tap Event");
+    },
   ),
 );
 ```
@@ -311,28 +386,42 @@ SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/colorize.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-SizedBox(
+const colorizeColors = [
+  Colors.purple,
+  Colors.blue,
+  Colors.yellow,
+  Colors.red,
+];
+
+const colorizeTextStyle = TextStyle(
+  fontSize: 50.0,
+  fontFamily: 'Horizon',
+);
+
+return SizedBox(
   width: 250.0,
-  child: ColorizeAnimatedTextKit(
+  child: AnimatedTextKit(
+    animatedTexts: [
+      ColorizeAnimatedText(
+        'Larry Page',
+        textStyle: colorizeTextStyle,
+        colors: colorizeColors,
+      ),
+      ColorizeAnimatedText(
+        'Bill Gates',
+        textStyle: colorizeTextStyle,
+        colors: colorizeColors,
+      ),
+      ColorizeAnimatedText(
+        'Steve Jobs',
+        textStyle: colorizeTextStyle,
+        colors: colorizeColors,
+      ),
+    ],
+    isRepeatingAnimation: true,
     onTap: () {
-        print("Tap Event");
-      },
-    text: [
-      "Larry Page",
-      "Bill Gates",
-      "Steve Jobs",
-    ],
-    textStyle: TextStyle(
-        fontSize: 50.0,
-        fontFamily: "Horizon"
-    ),
-    colors: [
-      Colors.purple,
-      Colors.blue,
-      Colors.yellow,
-      Colors.red,
-    ],
-    textAlign: TextAlign.start,
+      print("Tap Event");
+    },
   ),
 );
 ```
@@ -344,7 +433,7 @@ SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/text_liquid_fill.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-SizedBox(
+return SizedBox(
   width: 250.0,
   child: TextLiquidFill(
         text: 'LIQUIDY',
@@ -366,17 +455,24 @@ To get more information about how the animated text made from scratch by @HemilP
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-WavyAnimatedTextKit(
-  textStyle: TextStyle(
-        fontSize: 32.0,
-        fontWeight: FontWeight.bold
+const wavyTextStyle = TextStyle(
+  fontSize: 32.0,
+  fontWeight: FontWeight.bold,
+);
+
+return AnimatedTextKit(
+  animatedTexts: [
+    WavyAnimatedText(
+      'Hello World',
+      textStyle: wavyTextStyle,
     ),
-  text: [
-    "Hello World",
-    "Look at the waves",
+    WavyAnimatedText(
+      'Look at the waves',
+      textStyle: wavyTextStyle,
+    ),
   ],
   isRepeatingAnimation: true,
-),
+);
 ```
 
 ## Create your own Animations
@@ -393,14 +489,17 @@ implement:
 Then use `AnimatedTextKit` to display the custom animated text class like:
 
 ```dart
-    AnimatedTextKit(
-      animatedTexts: [
-        CustomAnimatedText(
-          'Insert Text Here',
-          textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-        ),
-      ],
+AnimatedTextKit(
+  animatedTexts: [
+    CustomAnimatedText(
+      'Insert Text Here',
+      textStyle: const TextStyle(
+        fontSize: 32.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
+  ],
+),
 ```
 
 # Bugs or Requests
