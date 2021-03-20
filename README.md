@@ -113,7 +113,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 # Usage
 
 `AnimatedTextKit` is a _Stateful Widget_ that produces text animations.
-Include them in your `build` method like:
+Include it in your `build` method like:
 
 ```dart
 AnimatedTextKit(
