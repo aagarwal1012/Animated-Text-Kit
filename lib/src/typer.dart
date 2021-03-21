@@ -59,6 +59,7 @@ class TyperAnimatedText extends AnimatedText {
 /// character at a time.
 ///
 /// ![Typer example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/typer.gif)
+@Deprecated('Use AnimatedTextKit with TyperAnimatedText instead.')
 class TyperAnimatedTextKit extends AnimatedTextKit {
   TyperAnimatedTextKit({
     Key? key,

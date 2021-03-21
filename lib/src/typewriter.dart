@@ -105,6 +105,7 @@ class TypewriterAnimatedText extends AnimatedText {
 /// character at a time. Similar to [TyperAnimatedTextKit], but shows a cursor.
 ///
 /// ![Typewriter example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/typewriter.gif)
+@Deprecated('Use AnimatedTextKit with TypewriterAnimatedText instead.')
 class TypewriterAnimatedTextKit extends AnimatedTextKit {
   TypewriterAnimatedTextKit({
     Key? key,
