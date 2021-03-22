@@ -27,7 +27,8 @@ class ColorizeAnimatedText extends AnimatedText {
     this.speed = const Duration(milliseconds: 200),
     required this.colors,
     this.textDirection = TextDirection.ltr,
-  })  : assert(colors.length > 1),
+  })  : assert(null != textStyle.fontSize),
+        assert(colors.length > 1),
         super(
           text: text,
           textAlign: textAlign,
@@ -41,8 +42,9 @@ class ColorizeAnimatedText extends AnimatedText {
 
   @override
   void initAnimation(AnimationController controller) {
+    // Note: This calculation is the only reason why [textStyle] is required
     final tuning = (300.0 * colors.length) *
-        (textStyle.fontSize! / 24.0) *
+        (textStyle!.fontSize! / 24.0) *
         0.75 *
         (textCharacters.length / 15.0);
 
@@ -85,16 +87,18 @@ class ColorizeAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget completeText() {
+  Widget completeText(BuildContext context) {
     final linearGradient = LinearGradient(colors: _colors).createShader(
       Rect.fromLTWH(0.0, 0.0, _colorShifter.value, 0.0),
     );
-    return Text(
-      text,
-      style: textStyle.merge(
-        TextStyle(foreground: Paint()..shader = linearGradient),
+
+    return DefaultTextStyle.merge(
+      style: textStyle,
+      child: Text(
+        text,
+        style: TextStyle(foreground: Paint()..shader = linearGradient),
+        textAlign: textAlign,
       ),
-      textAlign: textAlign,
     );
   }
 
@@ -102,7 +106,7 @@ class ColorizeAnimatedText extends AnimatedText {
   Widget animatedBuilder(BuildContext context, Widget? child) {
     return Opacity(
       opacity: _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
-      child: completeText(),
+      child: completeText(context),
     );
   }
 }

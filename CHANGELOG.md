@@ -1,11 +1,20 @@
+## 4.1.0
+
+- Legacy `Kit` classes are now marked as _deprecated_
+- `DefaultTextStyle` may be used to set a common text style across `AnimatedText` instances
+- `textStyle` is no longer _required_ for `AnimatedText` subclasses (except for `ColorizeAnimatedText`)
+- **BREAKING CHANGE**: `AnimatedText.completeText` now has a `BuildContext` parameter
+
 ## 4.0.0
 
 - Migrated to nnbd(null-safety)
 
 ## 3.1.2
+
 - Fixed insecure links in readme.
 
 ## 3.1.1
+
 - Added Flutter Favorite badge to readme.
 
 ## 3.1.0

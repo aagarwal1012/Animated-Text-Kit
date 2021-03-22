@@ -13,7 +13,7 @@ abstract class AnimatedText {
   final TextAlign textAlign;
 
   /// [TextStyle] property for [Text] widget.
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// The Duration for the Animation Controller.
   ///
@@ -31,7 +31,7 @@ abstract class AnimatedText {
   AnimatedText({
     required this.text,
     this.textAlign = TextAlign.start,
-    required this.textStyle,
+    this.textStyle,
     required this.duration,
   }) : textCharacters = text.characters;
 
@@ -51,7 +51,7 @@ abstract class AnimatedText {
 
   /// Widget showing the complete text (when animation is complete or paused).
   /// By default, it shows a Text widget, but this may be overridden.
-  Widget completeText() => textWidget(text);
+  Widget completeText(BuildContext context) => textWidget(text);
 
   /// Widget showing animated text, based on animation value(s).
   Widget animatedBuilder(BuildContext context, Widget? child);
@@ -163,7 +163,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    final completeText = _currentAnimatedText.completeText();
+    final completeText = _currentAnimatedText.completeText(context);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,

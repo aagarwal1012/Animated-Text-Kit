@@ -23,7 +23,7 @@ class TypewriterAnimatedText extends AnimatedText {
   TypewriterAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
   }) : super(
@@ -48,16 +48,16 @@ class TypewriterAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget completeText() => RichText(
+  Widget completeText(BuildContext context) => RichText(
         text: TextSpan(
           children: [
             TextSpan(text: text),
             TextSpan(
               text: '_',
-              style: textStyle.copyWith(color: Colors.transparent),
+              style: const TextStyle(color: Colors.transparent),
             )
           ],
-          style: textStyle,
+          style: DefaultTextStyle.of(context).style.merge(textStyle),
         ),
         textAlign: textAlign,
       );
@@ -72,17 +72,15 @@ class TypewriterAnimatedText extends AnimatedText {
             (textCharacters.length + extraLengthForBlinks))
         .round();
 
+    var showCursor = true;
     var visibleString = text;
-    Color? suffixColor = Colors.transparent;
     if (typewriterValue == 0) {
       visibleString = '';
+      showCursor = false;
     } else if (typewriterValue > textLen) {
-      suffixColor = (typewriterValue - textLen) % 2 == 0
-          ? textStyle.color
-          : Colors.transparent;
+      showCursor = (typewriterValue - textLen) % 2 == 0;
     } else {
       visibleString = textCharacters.take(typewriterValue).toString();
-      suffixColor = textStyle.color;
     }
 
     return RichText(
@@ -91,10 +89,11 @@ class TypewriterAnimatedText extends AnimatedText {
           TextSpan(text: visibleString),
           TextSpan(
             text: '_',
-            style: textStyle.copyWith(color: suffixColor),
+            style:
+                showCursor ? null : const TextStyle(color: Colors.transparent),
           )
         ],
-        style: textStyle,
+        style: DefaultTextStyle.of(context).style.merge(textStyle),
       ),
       textAlign: textAlign,
     );

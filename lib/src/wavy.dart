@@ -15,7 +15,7 @@ class WavyAnimatedText extends AnimatedText {
   WavyAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 300),
   }) : super(
           text: text,
@@ -40,7 +40,7 @@ class WavyAnimatedText extends AnimatedText {
         foregroundPainter: _WTextPainter(
           progress: _waveAnim.value,
           text: text,
-          textStyle: textStyle,
+          textStyle: DefaultTextStyle.of(context).style.merge(textStyle),
         ),
       ),
     );
@@ -57,7 +57,7 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed = const Duration(milliseconds: 300),
     Duration pause = const Duration(milliseconds: 1000),
     VoidCallback? onTap,
@@ -87,7 +87,7 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed,
   ) =>
       text
@@ -189,7 +189,10 @@ class _WTextPainter extends CustomPainter {
   void drawText(Canvas canvas, String text, Offset offset,
       _TextLayoutInfo textLayoutInfo) {
     var textPainter = TextPainter(
-      text: TextSpan(text: text, style: textStyle),
+      text: TextSpan(
+        text: text,
+        style: textStyle,
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
 
@@ -207,7 +210,10 @@ class _WTextPainter extends CustomPainter {
 
     // creating a textPainter to get data about location and offset for chars
     final textPainter = TextPainter(
-      text: TextSpan(text: text, style: textStyle),
+      text: TextSpan(
+        text: text,
+        style: textStyle,
+      ),
       textDirection: TextDirection.ltr,
       maxLines: 1,
     );

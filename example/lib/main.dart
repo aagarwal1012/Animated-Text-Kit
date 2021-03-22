@@ -105,38 +105,8 @@ class AnimatedTextExample {
   });
 }
 
-// Rotate Text Style
-const _textStyleHorizon40 = TextStyle(
-  fontSize: 40.0,
-  fontFamily: 'Horizon',
-);
-
-// Fade Text Style
-const _textStyleBold32 = TextStyle(
-  fontSize: 32.0,
-  fontWeight: FontWeight.bold,
-);
-
-// Typer Text Style
-const _textStyleBobbers30 = TextStyle(
-  fontSize: 30.0,
-  fontFamily: 'Bobbers',
-);
-
-// Typewriter Text Style
-const _textStyleAgne30 = TextStyle(
-  fontSize: 30.0,
-  fontFamily: 'Agne',
-);
-
-// Scale Text Style
-const _textStyleCanterbury70 = TextStyle(
-  fontSize: 70.0,
-  fontFamily: 'Canterbury',
-);
-
 // Colorize Text Style
-const _textStyleHorizon50 = TextStyle(
+const _colorizeTextStyle = TextStyle(
   fontSize: 50.0,
   fontFamily: 'Horizon',
 );
@@ -148,9 +118,6 @@ const _colorizeColors = [
   Colors.yellow,
   Colors.red,
 ];
-
-// Wavy Text Style
-const _textStyleDefault20 = TextStyle(fontSize: 20);
 
 List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
     <AnimatedTextExample>[
@@ -175,24 +142,26 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
                   width: 20.0,
                   height: 100.0,
                 ),
-                AnimatedTextKit(
-                  animatedTexts: [
-                    RotateAnimatedText(
-                      'AWESOME',
-                      textStyle: _textStyleHorizon40,
-                    ),
-                    RotateAnimatedText(
-                      'OPTIMISTIC',
-                      textStyle: _textStyleHorizon40,
-                    ),
-                    RotateAnimatedText(
-                      'DIFFERENT',
-                      textStyle: _textStyleHorizon40,
-                    ),
-                  ],
-                  onTap: onTap,
-                  isRepeatingAnimation: true,
-                  totalRepeatCount: 10,
+                DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontFamily: 'Horizon',
+                  ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      RotateAnimatedText('AWESOME'),
+                      RotateAnimatedText('OPTIMISTIC'),
+                      RotateAnimatedText(
+                        'DIFFERENT',
+                        textStyle: const TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                    onTap: onTap,
+                    isRepeatingAnimation: true,
+                    totalRepeatCount: 10,
+                  ),
                 ),
               ],
             ),
@@ -202,22 +171,19 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
       AnimatedTextExample(
         label: 'Fade',
         color: Colors.brown[600],
-        child: AnimatedTextKit(
-          animatedTexts: [
-            FadeAnimatedText(
-              'do IT!',
-              textStyle: _textStyleBold32,
-            ),
-            FadeAnimatedText(
-              'do it RIGHT!!',
-              textStyle: _textStyleBold32,
-            ),
-            FadeAnimatedText(
-              'do it RIGHT NOW!!!',
-              textStyle: _textStyleBold32,
-            ),
-          ],
-          onTap: onTap,
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              FadeAnimatedText('do IT!'),
+              FadeAnimatedText('do it RIGHT!!'),
+              FadeAnimatedText('do it RIGHT NOW!!!'),
+            ],
+            onTap: onTap,
+          ),
         ),
       ),
       AnimatedTextExample(
@@ -225,26 +191,20 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
         color: Colors.lightGreen[800],
         child: SizedBox(
           width: 250.0,
-          child: AnimatedTextKit(
-            animatedTexts: [
-              TyperAnimatedText(
-                'It is not enough to do your best,',
-                textStyle: _textStyleBobbers30,
-              ),
-              TyperAnimatedText(
-                'you must know what to do,',
-                textStyle: _textStyleBobbers30,
-              ),
-              TyperAnimatedText(
-                'and then do your best',
-                textStyle: _textStyleBobbers30,
-              ),
-              TyperAnimatedText(
-                '- W.Edwards Deming',
-                textStyle: _textStyleBobbers30,
-              ),
-            ],
-            onTap: onTap,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontFamily: 'Bobbers',
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                TyperAnimatedText('It is not enough to do your best,'),
+                TyperAnimatedText('you must know what to do,'),
+                TyperAnimatedText('and then do your best'),
+                TyperAnimatedText('- W.Edwards Deming'),
+              ],
+              onTap: onTap,
+            ),
           ),
         ),
       ),
@@ -253,48 +213,39 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
         color: Colors.teal[700],
         child: SizedBox(
           width: 250.0,
-          child: AnimatedTextKit(
-            animatedTexts: [
-              TypewriterAnimatedText(
-                'Discipline is the best tool',
-                textStyle: _textStyleAgne30,
-              ),
-              TypewriterAnimatedText(
-                'Design first, then code',
-                textStyle: _textStyleAgne30,
-              ),
-              TypewriterAnimatedText(
-                'Do not patch bugs out, rewrite them',
-                textStyle: _textStyleAgne30,
-              ),
-              TypewriterAnimatedText(
-                'Do not test bugs out, design them out',
-                textStyle: _textStyleAgne30,
-              ),
-            ],
-            onTap: onTap,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontFamily: 'Agne',
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText('Discipline is the best tool'),
+                TypewriterAnimatedText('Design first, then code'),
+                TypewriterAnimatedText('Do not patch bugs out, rewrite them'),
+                TypewriterAnimatedText('Do not test bugs out, design them out'),
+              ],
+              onTap: onTap,
+            ),
           ),
         ),
       ),
       AnimatedTextExample(
         label: 'Scale',
         color: Colors.blue[700],
-        child: AnimatedTextKit(
-          animatedTexts: [
-            ScaleAnimatedText(
-              'Think',
-              textStyle: _textStyleCanterbury70,
-            ),
-            ScaleAnimatedText(
-              'Build',
-              textStyle: _textStyleCanterbury70,
-            ),
-            ScaleAnimatedText(
-              'Ship',
-              textStyle: _textStyleCanterbury70,
-            ),
-          ],
-          onTap: onTap,
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 70.0,
+            fontFamily: 'Canterbury',
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              ScaleAnimatedText('Think'),
+              ScaleAnimatedText('Build'),
+              ScaleAnimatedText('Ship'),
+            ],
+            onTap: onTap,
+          ),
         ),
       ),
       AnimatedTextExample(
@@ -304,17 +255,17 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
           animatedTexts: [
             ColorizeAnimatedText(
               'Larry Page',
-              textStyle: _textStyleHorizon50,
+              textStyle: _colorizeTextStyle,
               colors: _colorizeColors,
             ),
             ColorizeAnimatedText(
               'Bill Gates',
-              textStyle: _textStyleHorizon50,
+              textStyle: _colorizeTextStyle,
               colors: _colorizeColors,
             ),
             ColorizeAnimatedText(
               'Steve Jobs',
-              textStyle: _textStyleHorizon50,
+              textStyle: _colorizeTextStyle,
               colors: _colorizeColors,
             ),
           ],
@@ -338,22 +289,24 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
       AnimatedTextExample(
         label: 'Wavy Text',
         color: Colors.black87,
-        child: AnimatedTextKit(
-          animatedTexts: [
-            WavyAnimatedText(
-              'Hello World',
-              textStyle: _textStyleDefault20,
-            ),
-            WavyAnimatedText(
-              'Look at the waves',
-              textStyle: _textStyleDefault20,
-            ),
-            WavyAnimatedText(
-              'They look so Amazing',
-              textStyle: _textStyleDefault20,
-            ),
-          ],
-          onTap: onTap,
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 20.0,
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              WavyAnimatedText(
+                'Hello World',
+                textStyle: const TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              WavyAnimatedText('Look at the waves'),
+              WavyAnimatedText('They look so Amazing'),
+            ],
+            onTap: onTap,
+          ),
         ),
       ),
       AnimatedTextExample(
