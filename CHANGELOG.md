@@ -3,6 +3,7 @@
 - Legacy `Kit` classes are now marked as _deprecated_
 - `DefaultTextStyle` may be used to set a common text style across `AnimatedText` instances
 - `textStyle` is no longer _required_ for `AnimatedText` subclasses (except for `ColorizeAnimatedText`)
+- `FadeAnimatedText` may now be customized to adjust the _fade-in_ and _fade-out_ interval
 - **BREAKING CHANGE**: `AnimatedText.completeText` now has a `BuildContext` parameter
 
 ## 4.0.0
