@@ -13,7 +13,7 @@ class FadeAnimatedText extends AnimatedText {
   FadeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration = const Duration(milliseconds: 2000),
     this.fadeInEnd = 0.5,
     this.fadeOutBegin = 0.8,
@@ -46,7 +46,7 @@ class FadeAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget completeText() => SizedBox.shrink();
+  Widget completeText(BuildContext context) => SizedBox.shrink();
 
   @override
   Widget animatedBuilder(BuildContext context, Widget? child) {
@@ -66,7 +66,7 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
     double fadeInEnd = 0.5,
@@ -99,7 +99,7 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration,
     double fadeInEnd,
     double fadeOutBegin,

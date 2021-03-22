@@ -30,20 +30,16 @@ class RotateAnimatedText extends AnimatedText {
   /// By default, it is set to true.
   final bool rotateOut;
 
-  /// Effective Transition Height
-  final double _transitionHeight;
-
   RotateAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration = const Duration(milliseconds: 2000),
     this.transitionHeight,
     this.alignment = Alignment.center,
     this.textDirection = TextDirection.ltr,
     this.rotateOut = true,
-  })  : _transitionHeight = transitionHeight ?? (textStyle.fontSize! * 10 / 3),
-        super(
+  }) : super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
@@ -97,12 +93,16 @@ class RotateAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget completeText() => rotateOut ? SizedBox.shrink() : super.completeText();
+  Widget completeText(BuildContext context) =>
+      rotateOut ? SizedBox.shrink() : super.completeText(context);
 
   @override
   Widget animatedBuilder(BuildContext context, Widget? child) {
+    final fontSize =
+        textStyle?.fontSize ?? DefaultTextStyle.of(context).style.fontSize;
+
     return SizedBox(
-      height: _transitionHeight,
+      height: transitionHeight ?? (fontSize! * 10 / 3),
       child: AlignTransition(
         alignment: _slideIn.value.y != 0.0 || !rotateOut ? _slideIn : _slideOut,
         child: Opacity(
@@ -125,7 +125,7 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     double? transitionHeight,
     AlignmentGeometry alignment = Alignment.center,
     TextDirection textDirection = TextDirection.ltr,
@@ -166,7 +166,7 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration,
     double? transitionHeight,
     AlignmentGeometry alignment,

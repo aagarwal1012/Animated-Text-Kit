@@ -20,7 +20,7 @@ class TyperAnimatedText extends AnimatedText {
   TyperAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 40),
     this.curve = Curves.linear,
   }) : super(
@@ -65,7 +65,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed = const Duration(milliseconds: 40),
     Duration pause = const Duration(milliseconds: 1000),
     bool displayFullTextOnTap = false,
@@ -97,7 +97,7 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration speed,
     Curve curve,
   ) =>

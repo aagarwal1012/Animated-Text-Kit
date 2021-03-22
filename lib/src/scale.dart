@@ -13,7 +13,7 @@ class ScaleAnimatedText extends AnimatedText {
   ScaleAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration = const Duration(milliseconds: 2000),
     this.scalingFactor = 0.5,
   }) : super(
@@ -56,7 +56,7 @@ class ScaleAnimatedText extends AnimatedText {
   }
 
   @override
-  Widget completeText() => SizedBox.shrink();
+  Widget completeText(BuildContext context) => SizedBox.shrink();
 
   @override
   Widget animatedBuilder(BuildContext context, Widget? child) {
@@ -79,7 +79,7 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
     Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    TextStyle? textStyle,
     double scalingFactor = 0.5,
     Duration duration = const Duration(milliseconds: 2000),
     Duration pause = const Duration(milliseconds: 500),
@@ -116,7 +116,7 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
   static List<AnimatedText> _animatedTexts(
     List<String> text,
     TextAlign textAlign,
-    TextStyle textStyle,
+    TextStyle? textStyle,
     Duration duration,
     double scalingFactor,
   ) =>

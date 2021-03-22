@@ -83,7 +83,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^3.1.2
+  animated_text_kit: ^4.1.0
 ```
 
 ### 2. Install it
@@ -198,11 +198,6 @@ Many animations are provided, but you can also [create your own animations](#cre
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/rotate.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-const rotateTextStyle = TextStyle(
-  fontSize: 40.0,
-  fontFamily: 'Horizon',
-);
-
 Row(
   mainAxisSize: MainAxisSize.min,
   children: <Widget>[
@@ -212,24 +207,21 @@ Row(
       style: TextStyle(fontSize: 43.0),
     ),
     const SizedBox(width: 20.0, height: 100.0),
-    AnimatedTextKit(
-      animatedTexts: [
-        RotateAnimatedText(
-          'AWESOME',
-          textStyle: rotateTextStyle,
-        ),
-        RotateAnimatedText(
-          'OPTIMISTIC',
-          textStyle: rotateTextStyle,
-        ),
-        RotateAnimatedText(
-          'DIFFERENT',
-          textStyle: rotateTextStyle,
-        ),
-      ]
-      onTap: () {
-        print("Tap Event");
-      },
+    DefaultTextStyle(
+      style: const TextStyle(
+        fontSize: 40.0,
+        fontFamily: 'Horizon',
+      ),
+      child: AnimatedTextKit(
+        animatedTexts: [
+          RotateAnimatedText('AWESOME'),
+          RotateAnimatedText('OPTIMISTIC'),
+          RotateAnimatedText('DIFFERENT'),
+        ]
+        onTap: () {
+          print("Tap Event");
+        },
+      ),
     ),
   ],
 );
@@ -242,31 +234,23 @@ Row(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/fade.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-const fadeTextStyle = TextStyle(
-  fontSize: 32.0,
-  fontWeight: FontWeight.bold,
-);
-
 return SizedBox(
   width: 250.0,
-  child: AnimatedTextKit(
-    animatedTexts: [
-      FadeAnimatedText(
-        'do IT!',
-        textStyle: fadeTextStyle,
-      ),
-      FadeAnimatedText(
-        'do it RIGHT!!',
-        textStyle: fadeTextStyle,
-      ),
-      FadeAnimatedText(
-        'do it RIGHT NOW!!!',
-        textStyle: fadeTextStyle,
-      ),
-    ],
-    onTap: () {
-      print("Tap Event");
-    },
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 32.0,
+      fontWeight: FontWeight.bold,
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        FadeAnimatedText('do IT!'),
+        FadeAnimatedText('do it RIGHT!!'),
+        FadeAnimatedText('do it RIGHT NOW!!!'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
   ),
 );
 ```
@@ -276,35 +260,24 @@ return SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typer.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-const typerTextStyle = TextStyle(
-  fontSize: 30.0,
-  fontFamily: 'Bobbers',
-);
-
 return SizedBox(
   width: 250.0,
-  child: AnimatedTextKit(
-    animatedTexts: [
-      TyperAnimatedTextKit(
-        'It is not enough to do your best,',
-        textStyle: typerTextStyle,
-      ),
-      TyperAnimatedTextKit(
-        'you must know what to do,',
-        textStyle: typerTextStyle,
-      ),
-      TyperAnimatedTextKit(
-        'and then do your best',
-        textStyle: typerTextStyle,
-      ),
-      TyperAnimatedTextKit(
-        '- W.Edwards Deming',
-        textStyle: typerTextStyle,
-      ),
-    ]
-    onTap: () {
-      print("Tap Event");
-    },
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 30.0,
+      fontFamily: 'Bobbers',
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        TyperAnimatedText('It is not enough to do your best,'),
+        TyperAnimatedText('you must know what to do,'),
+        TyperAnimatedText('and then do your best'),
+        TyperAnimatedText('- W.Edwards Deming'),
+      ]
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
   ),
 );
 ```
@@ -314,35 +287,24 @@ return SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typewriter.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-const typewriterTextStyle = TextStyle(
-  fontSize: 30.0,
-  fontFamily: 'Agne',
-);
-
 return SizedBox(
   width: 250.0,
-  child: AnimatedTextKit(
-    animatedTexts: [
-      TypewriterAnimatedText(
-        'Discipline is the best tool',
-        textStyle: typewriterTextStyle,
-      ),
-      TypewriterAnimatedText(
-        'Design first, then code',
-        textStyle: typewriterTextStyle,
-      ),
-      TypewriterAnimatedText(
-        'Do not patch bugs out, rewrite them',
-        textStyle: typewriterTextStyle,
-      ),
-      TypewriterAnimatedText(
-        'Do not test bugs out, design them out',
-        textStyle: typewriterTextStyle,
-      ),
-    ],
-    onTap: () {
-      print("Tap Event");
-    },
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 30.0,
+      fontFamily: 'Agne',
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        TypewriterAnimatedText('Discipline is the best tool'),
+        TypewriterAnimatedText('Design first, then code'),
+        TypewriterAnimatedText('Do not patch bugs out, rewrite them'),
+        TypewriterAnimatedText('Do not test bugs out, design them out'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
   ),
 );
 ```
@@ -352,31 +314,23 @@ return SizedBox(
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/scale.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-const scaleTextStyle = TextStyle(
-  fontSize: 70.0,
-  fontFamily: 'Canterbury',
-);
-
 return SizedBox(
   width: 250.0,
-  child: AnimatedTextKit(
-    animatedTexts: [
-      ScaleAnimatedText(
-        'Think',
-        textStyle: scaleTextStyle,
-      ),
-      ScaleAnimatedText(
-        'Build',
-        textStyle: scaleTextStyle,
-      ),
-      ScaleAnimatedText(
-        'Ship',
-        textStyle: scaleTextStyle,
-      ),
-    ],
-    onTap: () {
-      print("Tap Event");
-    },
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 70.0,
+      fontFamily: 'Canterbury',
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        ScaleAnimatedText('Think'),
+        ScaleAnimatedText('Build'),
+        ScaleAnimatedText('Ship'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
   ),
 );
 ```
@@ -436,14 +390,14 @@ return SizedBox(
 return SizedBox(
   width: 250.0,
   child: TextLiquidFill(
-        text: 'LIQUIDY',
-        waveColor: Colors.blueAccent,
-        boxBackgroundColor: Colors.redAccent,
-        textStyle: TextStyle(
-          fontSize: 80.0,
-          fontWeight: FontWeight.bold,
-        ),
-        boxHeight: 300.0,
+    text: 'LIQUIDY',
+    waveColor: Colors.blueAccent,
+    boxBackgroundColor: Colors.redAccent,
+    textStyle: TextStyle(
+      fontSize: 80.0,
+      fontWeight: FontWeight.bold,
+    ),
+    boxHeight: 300.0,
   ),
 );
 ```
@@ -455,23 +409,20 @@ To get more information about how the animated text made from scratch by @HemilP
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-const wavyTextStyle = TextStyle(
-  fontSize: 32.0,
-  fontWeight: FontWeight.bold,
-);
-
-return AnimatedTextKit(
-  animatedTexts: [
-    WavyAnimatedText(
-      'Hello World',
-      textStyle: wavyTextStyle,
-    ),
-    WavyAnimatedText(
-      'Look at the waves',
-      textStyle: wavyTextStyle,
-    ),
-  ],
-  isRepeatingAnimation: true,
+return DefaultTextStyle(
+  style: const TextStyle(
+    fontSize: 20.0,
+  ),
+  child: AnimatedTextKit(
+    animatedTexts: [
+      WavyAnimatedText('Hello World'),
+      WavyAnimatedText('Look at the waves'),
+    ],
+    isRepeatingAnimation: true,
+    onTap: () {
+      print("Tap Event");
+    },
+  ),
 );
 ```
 
