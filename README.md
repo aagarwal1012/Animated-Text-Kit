@@ -182,12 +182,12 @@ An advantage of `AnimatedTextKit` is that the `animatedTexts` may be any subclas
 Have you noticed that animation classes come in pairs?
 For example, there is `FadeAnimatedText` and `FadeAnimatedTextKit`.
 The significant refactoring with Version 3 split the original `FadeAnimatedTextKit` into `FadeAnimatedText` and a re-usable `AnimatedTextKit`, then `FadeAnimatedTextKit` was adjusted for backwards compatibility.
-
-When introducing a new `AnimationText` subclass, you may wonder if you also need to also introduce an additional `Kit` class. The answer is **NO**. :tada:
-
+ 
+When introducing a new `AnimationText` subclass, you may wonder if you also need to introduce an additional `Kit` class. The answer is **NO**. :tada:
+ 
 Going forward, we are championing the adoption of the Version 3 approach, and have deprecated the legacy `Kit` classes.
 This will make creating new animations easier.
-We know it makes some legacy code more verbose, but the flexibility and simplicity is a conscious trade-off.
+We know it makes some legacy code more verbose, but flexibility and simplicity are a conscious trade-off.
 
 # Animations
 
