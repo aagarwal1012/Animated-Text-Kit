@@ -483,6 +483,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://jemmytech.com"><img src="https://avatars3.githubusercontent.com/u/17760450?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nsiah Akuoko Jeremiah</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=nakjemmy" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/aniketambore"><img src="https://avatars2.githubusercontent.com/u/52826253?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aniket Ambore</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=aniketambore" title="Documentation">📖</a></td>
     <td align="center"><a href="https://medium.com/@abhayvashokan"><img src="https://avatars1.githubusercontent.com/u/35297280?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhay V Ashokan</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=AbhayVAshokan" title="Code">💻</a></td>
+    <td align="center"><a href="https://linktr.ee/ritvij14"><img src="https://avatars.githubusercontent.com/u/51456744?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ritvij Kumar Sharma</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=ritvij14" title="Code">💻</a></td>
   </tr>
 </table>
 
