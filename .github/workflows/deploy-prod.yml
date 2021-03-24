@@ -17,8 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-      - run: flutter pub get
-      - run: flutter build web --release
+      - run: |
+          flutter pub get
+          flutter build web --release
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
