@@ -1,0 +1,29 @@
+# .github/workflows/deploy-prod.yml
+
+name: Deploy to Live Channel
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+      - run: |
+          flutter pub get
+          flutter build web --release
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: animated-text-kit
+          entryPoint: "./example"
+          channelId: live
