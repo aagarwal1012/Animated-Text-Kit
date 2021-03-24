@@ -2,7 +2,7 @@
 
 <h1 align="center">Animated Text Kit</h1>
 
-<p align="center">A flutter package which contains a collection of some cool and awesome text animations. Recommended package for text animations in Codemagic's Ebook, <a href="https://blog.codemagic.io/flutter-libraries-ebook-by-codemagic/ebook-flutter-libraries-we-love-by-codemagic.pdf">"Flutter libraries we love"</a>.</p><br>
+<p align="center">A flutter package which contains a collection of some cool and awesome text animations. Recommended package for text animations in Codemagic's Ebook, <a href="https://blog.codemagic.io/flutter-libraries-ebook-by-codemagic/ebook-flutter-libraries-we-love-by-codemagic.pdf">"Flutter libraries we love"</a>. Try-out our example app in <a href="https://animated-text-kit.web.app/">live action</a>. 🚀🚀</p><br>
 
 <p align="center">
   <a href="https://flutter.dev">
