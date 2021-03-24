@@ -8,26 +8,20 @@ on:
       - master
 
 jobs:
-  preview:
+  live:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./example
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
       - uses: subosito/flutter-action@v1
-        with:
-          channel: stable
       - run: flutter pub get
       - run: flutter build web --release
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANIMATED_TEXT_KIT }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: animated-text-kit
           entryPoint: "./example"
           channelId: live
