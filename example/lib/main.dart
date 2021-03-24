@@ -288,7 +288,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
       ),
       AnimatedTextExample(
         label: 'Wavy Text',
-        color: Colors.black87,
+        color: Colors.purple,
         child: DefaultTextStyle(
           style: const TextStyle(
             fontSize: 20.0,
