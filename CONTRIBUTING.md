@@ -65,3 +65,5 @@ Animated-Text-Kit uses `dartfmt`  for performing style checks on the codebase, w
    conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
 ```
 
+
+
