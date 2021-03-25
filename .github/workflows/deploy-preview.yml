@@ -1,4 +1,4 @@
-name: Deploy Animated Text Kit Example to Preview Channel
+name: Deploy Example to Preview Channel
 
 on:
   pull_request:
@@ -16,8 +16,8 @@ jobs:
       - run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
           expires: 30d
-          entryPoint: "./example"
           projectId: animated-text-kit
+          entryPoint: "./example"

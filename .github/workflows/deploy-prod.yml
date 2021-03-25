@@ -1,4 +1,4 @@
-name: Deploy Animated Text Kit Example to Live Channel
+name: Deploy Example to Live Channel
 
 on:
   push:
@@ -18,8 +18,8 @@ jobs:
       - run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
           projectId: animated-text-kit
-          entryPoint: "./example"
           channelId: live
+          entryPoint: "./example"
