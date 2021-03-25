@@ -20,12 +20,16 @@ class TypewriterAnimatedText extends AnimatedText {
   /// By default it is set to Curves.linear.
   final Curve curve;
 
+  /// Cursor text. Defaults to underscore.
+  final String cursor;
+
   TypewriterAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
+    this.cursor = '_',
   }) : super(
           text: text,
           textAlign: textAlign,
@@ -53,7 +57,7 @@ class TypewriterAnimatedText extends AnimatedText {
           children: [
             TextSpan(text: text),
             TextSpan(
-              text: '_',
+              text: cursor,
               style: const TextStyle(color: Colors.transparent),
             )
           ],
@@ -88,7 +92,7 @@ class TypewriterAnimatedText extends AnimatedText {
         children: [
           TextSpan(text: visibleString),
           TextSpan(
-            text: '_',
+            text: cursor,
             style:
                 showCursor ? null : const TextStyle(color: Colors.transparent),
           )
