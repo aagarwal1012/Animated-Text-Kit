@@ -35,7 +35,7 @@ void main() {
     var tapped = false;
 
     final tapableWidgets = <Widget>[
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       ColorizeAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -48,7 +48,7 @@ void main() {
           tapped = true;
         },
       ),
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       FadeAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -57,7 +57,7 @@ void main() {
           tapped = true;
         },
       ),
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       RotateAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -66,7 +66,7 @@ void main() {
           tapped = true;
         },
       ),
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       ScaleAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -75,7 +75,7 @@ void main() {
           tapped = true;
         },
       ),
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       TyperAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -84,7 +84,7 @@ void main() {
           tapped = true;
         },
       ),
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       TypewriterAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
@@ -93,7 +93,7 @@ void main() {
           tapped = true;
         },
       ),
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       WavyAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
