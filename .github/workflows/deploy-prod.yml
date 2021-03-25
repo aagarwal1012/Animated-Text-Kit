@@ -1,6 +1,4 @@
-# .github/workflows/deploy-prod.yml
-
-name: Deploy to Live Channel
+name: Deploy Animated Text Kit Example to Live Channel
 
 on:
   push:
@@ -17,9 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-      - run: |
-          flutter pub get
-          flutter build web --release
+      - run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
