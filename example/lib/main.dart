@@ -221,9 +221,11 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
             child: AnimatedTextKit(
               animatedTexts: [
                 TypewriterAnimatedText('Discipline is the best tool'),
-                TypewriterAnimatedText('Design first, then code'),
-                TypewriterAnimatedText('Do not patch bugs out, rewrite them'),
-                TypewriterAnimatedText('Do not test bugs out, design them out'),
+                TypewriterAnimatedText('Design first, then code', cursor: '|'),
+                TypewriterAnimatedText('Do not patch bugs out, rewrite them',
+                    cursor: '<|>'),
+                TypewriterAnimatedText('Do not test bugs out, design them out',
+                    cursor: '💡'),
               ],
               onTap: onTap,
             ),

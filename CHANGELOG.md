@@ -1,3 +1,7 @@
+## 4.1.1
+
+- `TypewriterAnimatedText` may now be customized to adjust the cursor.
+
 ## 4.1.0
 
 - Legacy `Kit` classes are now marked as _deprecated_
