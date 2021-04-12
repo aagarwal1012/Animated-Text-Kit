@@ -130,18 +130,6 @@ const _colorizeColors = [
 List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
     <AnimatedTextExample>[
       AnimatedTextExample(
-        label: 'Flicker',
-        color: Colors.pink[300],
-        child: AnimatedTextKit(
-          animatedTexts: [
-            FlickerAnimatedText('Flicker', textStyle: _flickerTextStyle),
-            FlickerAnimatedText('Frenzy', textStyle: _flickerTextStyle),
-            FlickerAnimatedText('Flicker Frenzy', textStyle: _flickerTextStyle),
-          ],
-          onTap: onTap,
-        ),
-      ),
-      AnimatedTextExample(
         label: 'Rotate',
         color: Colors.orange[800],
         child: ListView(
@@ -186,6 +174,18 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
               ],
             ),
           ],
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Flicker',
+        color: Colors.pink[300],
+        child: AnimatedTextKit(
+          animatedTexts: [
+            FlickerAnimatedText('Flicker Frenzy', textStyle: _flickerTextStyle),
+            FlickerAnimatedText('Night Vibes !', textStyle: _flickerTextStyle),
+            FlickerAnimatedText("C'est La Vie", textStyle: _flickerTextStyle),
+          ],
+          onTap: onTap,
         ),
       ),
       AnimatedTextExample(

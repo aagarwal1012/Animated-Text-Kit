@@ -7,16 +7,18 @@ import 'animated_text.dart';
 class FlickerAnimatedText extends AnimatedText {
   /// Marks ending of flickering entry interval of text
   final double entryEnd;
+  final Duration speed;
 
   FlickerAnimatedText(
     String text, {
+    TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
-    Duration duration = const Duration(milliseconds: 1600),
+    this.speed = const Duration(milliseconds: 1600),
     this.entryEnd = 0.5,
   }) : super(
           text: text,
           textStyle: textStyle,
-          duration: duration,
+          duration: speed,
         );
 
   late Animation<double> _entry;
@@ -43,26 +45,54 @@ class FlickerAnimatedText extends AnimatedText {
   }
 }
 
+@Deprecated('Use AnimatedTextKit with FlickerAnimatedText instead.')
 class FlickerAnimatedTextKit extends AnimatedTextKit {
   FlickerAnimatedTextKit({
     Key? key,
     required List<String> text,
+    TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
+    TextDirection textDirection = TextDirection.ltr,
+    Duration speed = const Duration(milliseconds: 1600),
+    double entryEnd = 0.5,
     VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
+    bool isRepeatingAnimation = true,
+    int totalRepeatCount = 3,
+    bool repeatForever = false,
+    bool displayFullTextOnTap = false,
+    bool stopPauseOnTap = false,
   }) : super(
           key: key,
-          animatedTexts: _animatedTexts(text, textStyle),
+          animatedTexts:
+              _animatedTexts(text, textAlign, textStyle, speed, entryEnd),
           onTap: onTap,
+          onNext: onNext,
+          onNextBeforePause: onNextBeforePause,
+          onFinished: onFinished,
+          isRepeatingAnimation: isRepeatingAnimation,
+          totalRepeatCount: totalRepeatCount,
+          repeatForever: repeatForever,
+          displayFullTextOnTap: displayFullTextOnTap,
+          stopPauseOnTap: stopPauseOnTap,
         );
 
   static List<AnimatedText> _animatedTexts(
     List<String> text,
+    TextAlign textAlign,
     TextStyle? textStyle,
+    Duration speed,
+    double entryEnd,
   ) =>
       text
           .map((_) => FlickerAnimatedText(
                 _,
+                textAlign: textAlign,
                 textStyle: textStyle,
+                speed: speed,
+                entryEnd: entryEnd,
               ))
           .toList();
 }
