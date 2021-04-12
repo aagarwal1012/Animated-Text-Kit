@@ -35,6 +35,13 @@ void main() {
     var tapped = false;
 
     final tapableWidgets = <Widget>[
+      FlickerAnimatedTextKit(
+        text: tripleText,
+        textStyle: textStyle,
+        onTap: () {
+          tapped = true;
+        },
+      ),
       // ignore: deprecated_member_use_from_same_package
       ColorizeAnimatedTextKit(
         text: tripleText,

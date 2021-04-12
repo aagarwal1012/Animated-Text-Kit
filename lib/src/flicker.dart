@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'animated_text.dart';
 
-/// Animated Text that displays a [Text] element, fading it in and then out.
+/// Animated Text that displays a [Text] element, as a flickering glow text.
 ///
-/// ![Fade example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/fade.gif)
+/// ![Flicker example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/flicker.gif)
 class FlickerAnimatedText extends AnimatedText {
-  /// Marks ending of fade-in interval, default value = 0.5
+  /// Marks ending of flickering entry interval of text
   final double entryEnd;
 
-  /// Marks the beginning of fade-out interval, default value = 0.8
   FlickerAnimatedText(
     String text, {
     TextStyle? textStyle,
@@ -42,4 +41,28 @@ class FlickerAnimatedText extends AnimatedText {
       child: textWidget(text),
     );
   }
+}
+
+class FlickerAnimatedTextKit extends AnimatedTextKit {
+  FlickerAnimatedTextKit({
+    Key? key,
+    required List<String> text,
+    TextStyle? textStyle,
+    VoidCallback? onTap,
+  }) : super(
+          key: key,
+          animatedTexts: _animatedTexts(text, textStyle),
+          onTap: onTap,
+        );
+
+  static List<AnimatedText> _animatedTexts(
+    List<String> text,
+    TextStyle? textStyle,
+  ) =>
+      text
+          .map((_) => FlickerAnimatedText(
+                _,
+                textStyle: textStyle,
+              ))
+          .toList();
 }
