@@ -111,6 +111,14 @@ const _colorizeTextStyle = TextStyle(
   fontFamily: 'Horizon',
 );
 
+const _flickerTextStyle = TextStyle(fontSize: 35, shadows: [
+  Shadow(
+    blurRadius: 7.0,
+    color: Colors.white,
+    offset: Offset(0, 0),
+  ),
+]);
+
 // Colorize Colors
 const _colorizeColors = [
   Colors.purple,
@@ -121,6 +129,18 @@ const _colorizeColors = [
 
 List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
     <AnimatedTextExample>[
+      AnimatedTextExample(
+        label: 'Flicker',
+        color: Colors.pink[300],
+        child: AnimatedTextKit(
+          animatedTexts: [
+            FlickerAnimatedText('Flicker', textStyle: _flickerTextStyle),
+            FlickerAnimatedText('Frenzy', textStyle: _flickerTextStyle),
+            FlickerAnimatedText('Flicker Frenzy', textStyle: _flickerTextStyle),
+          ],
+          onTap: onTap,
+        ),
+      ),
       AnimatedTextExample(
         label: 'Rotate',
         color: Colors.orange[800],
