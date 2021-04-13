@@ -180,10 +180,11 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
         label: 'Flicker',
         color: Colors.pink[300],
         child: AnimatedTextKit(
+          // using FlickerAnimateText class instead of "FlickerAnimatedTextKit" class
           animatedTexts: [
             FlickerAnimatedText('Flicker Frenzy', textStyle: _flickerTextStyle),
-            FlickerAnimatedText('Night Vibes !', textStyle: _flickerTextStyle),
-            FlickerAnimatedText("C'est La Vie", textStyle: _flickerTextStyle),
+            FlickerAnimatedText('Night Vibes On', textStyle: _flickerTextStyle),
+            FlickerAnimatedText("C'est La Vie !", textStyle: _flickerTextStyle),
           ],
           onTap: onTap,
         ),
