@@ -230,6 +230,42 @@ Row(
 
 **Note:** You can override transition height by setting the value of parameter `transitionHeight` for RotateAnimatedTextKit class.
 
+## Rotate
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flicker.gif?raw=true" align = "right" height = "300px">
+
+```dart
+const _flickerTextStyle = TextStyle(fontSize: 35, shadows: [
+  Shadow(
+    blurRadius: 7.0,
+    color: Colors.white,
+    offset: Offset(0, 0),
+  ),
+]);
+return SizedBox(
+  width: 250.0,
+  child: AnimatedTextKit(
+    animatedTexts: [
+      FlickerAnimatedText(
+        'Flicker Frenzy',
+        textStyle: _flickerTextStyle,
+      ),
+      FlickerAnimatedText(
+        'Night Vibes On',
+        textStyle: _flickerTextStyle,
+      ),
+      FlickerAnimatedText(
+        "C'est La Vie !",
+        textStyle: _flickerTextStyle,
+      ),
+    ],
+    onTap: () {
+      print("Tap Event");
+    },
+  ),
+);
+```
+
 ## Fade
 
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/fade.gif?raw=true" align = "right" height = "300px">
