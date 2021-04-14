@@ -111,6 +111,14 @@ const _colorizeTextStyle = TextStyle(
   fontFamily: 'Horizon',
 );
 
+const _flickerTextStyle = TextStyle(fontSize: 35, shadows: [
+  Shadow(
+    blurRadius: 7.0,
+    color: Colors.white,
+    offset: Offset(0, 0),
+  ),
+]);
+
 // Colorize Colors
 const _colorizeColors = [
   Colors.purple,
@@ -166,6 +174,18 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
               ],
             ),
           ],
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Flicker',
+        color: Colors.pink[300],
+        child: AnimatedTextKit(
+          animatedTexts: [
+            FlickerAnimatedText('Flicker Frenzy', textStyle: _flickerTextStyle),
+            FlickerAnimatedText('Night Vibes On', textStyle: _flickerTextStyle),
+            FlickerAnimatedText("C'est La Vie !", textStyle: _flickerTextStyle),
+          ],
+          onTap: onTap,
         ),
       ),
       AnimatedTextExample(
