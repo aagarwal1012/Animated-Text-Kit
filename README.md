@@ -70,6 +70,7 @@
   - [Colorize](#colorize)
   - [TextLiquidFill](#textliquidfill)
   - [Wavy](#wavy)
+  - [Flicker](#flicker)
   - [Create your own Animations](#create-your-own-animations)
 - [Bugs or Requests](#bugs-or-requests)
 - [Donate](#donate)
@@ -83,7 +84,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^4.1.1
+  animated_text_kit: ^4.2.0
 ```
 
 ### 2. Install it
@@ -427,6 +428,40 @@ return DefaultTextStyle(
 );
 ```
 
+## Flicker
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flicker.gif?raw=true" align = "right" height = "300px">
+
+```dart
+return SizedBox(
+  width: 250.0,
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 35,
+      color: Colors.white,
+      shadows: [
+        Shadow(
+          blurRadius: 7.0,
+          color: Colors.white,
+          offset: Offset(0, 0),
+        ),
+      ],
+    ),
+    child: AnimatedTextKit(
+      repeatForever: true,
+      animatedTexts: [
+        FlickerAnimatedText('Flicker Frenzy'),
+        FlickerAnimatedText('Night Vibes On'),
+        FlickerAnimatedText("C'est La Vie !"),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
+  ),
+);
+```
+
 ## Create your own Animations
 
 You can easily create your own animations by creating new classes that extend
@@ -488,6 +523,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Koniiro"><img src="https://avatars.githubusercontent.com/u/81352867?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Koniiro</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=Koniiro" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/CoderInTheWoods"><img src="https://avatars.githubusercontent.com/u/25412142?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kalgi Sheth</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=CoderInTheWoods" title="Code">💻</a> <a href="#example-CoderInTheWoods" title="Examples">💡</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=CoderInTheWoods" title="Documentation">📖</a></td>
   </tr>
 </table>
 
