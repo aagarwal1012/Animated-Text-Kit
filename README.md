@@ -230,7 +230,7 @@ Row(
 
 **Note:** You can override transition height by setting the value of parameter `transitionHeight` for RotateAnimatedTextKit class.
 
-## Rotate
+## Flicker
 
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flicker.gif?raw=true" align = "right" height = "300px">
 
