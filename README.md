@@ -70,6 +70,7 @@
   - [Colorize](#colorize)
   - [TextLiquidFill](#textliquidfill)
   - [Wavy](#wavy)
+  - [Flicker](#flicker)
   - [Create your own Animations](#create-your-own-animations)
 - [Bugs or Requests](#bugs-or-requests)
 - [Donate](#donate)
@@ -83,7 +84,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^4.1.1
+  animated_text_kit: ^4.2.0
 ```
 
 ### 2. Install it
@@ -229,42 +230,6 @@ Row(
 ```
 
 **Note:** You can override transition height by setting the value of parameter `transitionHeight` for RotateAnimatedTextKit class.
-
-## Flicker
-
-<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flicker.gif?raw=true" align = "right" height = "300px">
-
-```dart
-const _flickerTextStyle = TextStyle(fontSize: 35, shadows: [
-  Shadow(
-    blurRadius: 7.0,
-    color: Colors.white,
-    offset: Offset(0, 0),
-  ),
-]);
-return SizedBox(
-  width: 250.0,
-  child: AnimatedTextKit(
-    animatedTexts: [
-      FlickerAnimatedText(
-        'Flicker Frenzy',
-        textStyle: _flickerTextStyle,
-      ),
-      FlickerAnimatedText(
-        'Night Vibes On',
-        textStyle: _flickerTextStyle,
-      ),
-      FlickerAnimatedText(
-        "C'est La Vie !",
-        textStyle: _flickerTextStyle,
-      ),
-    ],
-    onTap: () {
-      print("Tap Event");
-    },
-  ),
-);
-```
 
 ## Fade
 
@@ -459,6 +424,40 @@ return DefaultTextStyle(
     onTap: () {
       print("Tap Event");
     },
+  ),
+);
+```
+
+## Flicker
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flicker.gif?raw=true" align = "right" height = "300px">
+
+```dart
+return SizedBox(
+  width: 250.0,
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 35,
+      color: Colors.white,
+      shadows: [
+        Shadow(
+          blurRadius: 7.0,
+          color: Colors.white,
+          offset: Offset(0, 0),
+        ),
+      ],
+    ),
+    child: AnimatedTextKit(
+      repeatForever: true,
+      animatedTexts: [
+        FlickerAnimatedText('Flicker Frenzy'),
+        FlickerAnimatedText('Night Vibes On'),
+        FlickerAnimatedText("C'est La Vie !"),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
   ),
 );
 ```

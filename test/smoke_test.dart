@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 // ignore: avoid_relative_lib_imports
 import '../example/lib/main.dart';
 
@@ -35,16 +36,6 @@ void main() {
     var tapped = false;
 
     final tapableWidgets = <Widget>[
-      // ignore: deprecated_member_use_from_same_package
-      FlickerAnimatedTextKit(
-        text: tripleText,
-        textStyle: textStyle,
-        displayFullTextOnTap: true,
-        onTap: () {
-          tapped = true;
-        },
-      ),
-
       // ignore: deprecated_member_use_from_same_package
       ColorizeAnimatedTextKit(
         text: tripleText,
@@ -105,6 +96,15 @@ void main() {
       ),
       // ignore: deprecated_member_use_from_same_package
       WavyAnimatedTextKit(
+        text: tripleText,
+        textStyle: textStyle,
+        displayFullTextOnTap: true,
+        onTap: () {
+          tapped = true;
+        },
+      ),
+      // ignore: deprecated_member_use_from_same_package
+      FlickerAnimatedTextKit(
         text: tripleText,
         textStyle: textStyle,
         displayFullTextOnTap: true,
