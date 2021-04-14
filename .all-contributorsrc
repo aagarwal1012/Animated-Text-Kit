@@ -140,6 +140,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "CoderInTheWoods",
+      "name": "Kalgi Sheth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25412142?v=4",
+      "profile": "https://github.com/CoderInTheWoods",
+      "contributions": [
+        "code",
+        "example",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
