@@ -1,3 +1,9 @@
+## 4.2.0
+
+**New Animated Text**
+
+- Flicker Animated Text by [@CoderInTheWoods](https://github.com/CoderInTheWoods).
+
 ## 4.1.1
 
 - `TypewriterAnimatedText` may now be customized to adjust the cursor.

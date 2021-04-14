@@ -98,6 +98,7 @@ class AnimatedTextExample {
   final String label;
   final Color? color;
   final Widget child;
+
   const AnimatedTextExample({
     required this.label,
     required this.color,
@@ -306,6 +307,32 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
               ),
               WavyAnimatedText('Look at the waves'),
               WavyAnimatedText('They look so Amazing'),
+            ],
+            onTap: onTap,
+          ),
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Flicker',
+        color: Colors.pink[300],
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 35,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                blurRadius: 7.0,
+                color: Colors.white,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: AnimatedTextKit(
+            repeatForever: true,
+            animatedTexts: [
+              FlickerAnimatedText('Flicker Frenzy'),
+              FlickerAnimatedText('Night Vibes On'),
+              FlickerAnimatedText("C'est La Vie !"),
             ],
             onTap: onTap,
           ),
