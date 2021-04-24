@@ -1,5 +1,9 @@
 ## 4.2.0
 
+- Fix position in wavy animation [#242](https://github.com/aagarwal1012/Animated-Text-Kit/pull/242)
+
+## 4.2.0
+
 **New Animated Text**
 
 - Flicker Animated Text by [@CoderInTheWoods](https://github.com/CoderInTheWoods).
