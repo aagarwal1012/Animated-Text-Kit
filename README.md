@@ -151,6 +151,8 @@ There are also custom callbacks:
 - `onNextBeforePause(int index, bool isLast)` – This is called before the next text animation, before the previous one's pause
 - `onFinished` - This is called at the end, when the parameter `isRepeatingAnimation` is set to `false`
 
+**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27). The solution to this, is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
+
 ## New with Version 3
 
 Version 3 refactored the code so that common animation controls were moved to
