@@ -136,8 +136,6 @@ AnimatedTextKit(
 )
 ```
 
-**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27). The solution to this, is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
-
 It has many configurable properties, including:
 
 - `pause` – the time of the pause between animation texts
@@ -152,6 +150,8 @@ There are also custom callbacks:
 - `onNext(int index, bool isLast)` – This is called before the next text animation, after the previous one's pause
 - `onNextBeforePause(int index, bool isLast)` – This is called before the next text animation, before the previous one's pause
 - `onFinished` - This is called at the end, when the parameter `isRepeatingAnimation` is set to `false`
+
+**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27). The solution to this, is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
 
 ## New with Version 3
 
