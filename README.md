@@ -136,6 +136,8 @@ AnimatedTextKit(
 )
 ```
 
+**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27). The solution to this, is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
+
 It has many configurable properties, including:
 
 - `pause` – the time of the pause between animation texts
@@ -488,8 +490,6 @@ AnimatedTextKit(
   ],
 ),
 ```
-
-**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27).The solution to this, is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
 
 # Bugs or Requests
 
