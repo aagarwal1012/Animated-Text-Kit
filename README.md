@@ -151,7 +151,7 @@ There are also custom callbacks:
 - `onNextBeforePause(int index, bool isLast)` – This is called before the next text animation, before the previous one's pause
 - `onFinished` - This is called at the end, when the parameter `isRepeatingAnimation` is set to `false`
 
-**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27). The solution to this, is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
+**Note:** You might come up with an issue that the `text` does not get updated with `setState` as shown [here](https://github.com/aagarwal1012/Animated-Text-Kit/issues/27). The solution to this is a key that changes based on the text. For reference, watch [this](https://www.youtube.com/watch?v=kn0EOS-ZiIc) video.
 
 ## New with Version 3
 
@@ -179,7 +179,7 @@ AnimatedTextKit(
 ```
 
 Using the legacy `FadeAnimatedTextKit` is equivalent to using `AnimatedTextKit` with `FadeAnimatedText`.
-An advantage of `AnimatedTextKit` is that the `animatedTexts` may be any subclass of `AnimatedText`, while using `FadeAnimatedTextKit` essentially restricts you to using just `FadeAnimatedText`.
+An advantage of `AnimatedTextKit` is that the `animatedTexts` may be any subclass of `AnimatedText` while using `FadeAnimatedTextKit` essentially restricts you to using just `FadeAnimatedText`.
 
 ### Legacy AnimatedTextKit classes
 
@@ -191,7 +191,7 @@ When introducing a new `AnimationText` subclass, you may wonder if you also need
 
 Going forward, we are championing the adoption of the Version 3 approach, and have deprecated the legacy `Kit` classes.
 This will make creating new animations easier.
-We know it makes some legacy code more verbose, but the flexibility and simplicity is a conscious trade-off.
+We know it makes some legacy code more verbose, but the flexibility and simplicity are a conscious trade-off.
 
 # Animations
 
@@ -384,7 +384,7 @@ return SizedBox(
 );
 ```
 
-**Note:** `colors` list should contains at least two values.
+**Note:** `colors` list should contain at least two values.
 
 ## TextLiquidFill
 
@@ -493,7 +493,7 @@ AnimatedTextKit(
 
 # Bugs or Requests
 
-If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
+If you encounter any problems feel free to open an [issue](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/aagarwal1012/Animated-Text-Kit/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull requests are also welcome.
 
 See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
@@ -533,6 +533,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- ALL-CONTRIBUTORS-LIST: END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
