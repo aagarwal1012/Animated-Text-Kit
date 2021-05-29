@@ -197,6 +197,12 @@ We know it makes some legacy code more verbose, but the flexibility and simplici
 
 Many animations are provided, but you can also [create your own animations](#create-your-own-animations).
 
+## DefaultTextStyle
+For every widget, Flutter permits to outline an exclusive TextStyle however while we need to use the identical identifor a couple of widgets, DefaultTextStyle is used. 
+to use a default textual styleto its descendant widgets. 
+
+Hence, the DefaultTextStyle widget need to be the ascendant of the widgets wherein the style might be applied.
+
 ## Rotate
 
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/rotate.gif?raw=true" align = "right" height = "300px">
