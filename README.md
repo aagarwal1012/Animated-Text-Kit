@@ -58,6 +58,7 @@
 
 # Table of contents
 
+- [Flutter Package of the Week](#flutter-package-of-the-week)
 - [Installing](#installing)
 - [Usage](#usage)
   - [New with Version 3](#new-with-version-3)
@@ -75,6 +76,13 @@
 - [Bugs or Requests](#bugs-or-requests)
 - [Donate](#donate)
 - [Contributors](#contributors)
+
+# Flutter Package of the Week
+
+<a href="https://youtu.be/foQTKCQqVWk">
+    <img src="https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/flutter_package_of_the_week.png"
+      alt="Flutter Package of the Week" />
+</a>
 
 # Installing
 
