@@ -74,13 +74,12 @@
   - [Flicker](#flicker)
   - [Create your own Animations](#create-your-own-animations)
 - [Bugs or Requests](#bugs-or-requests)
-- [Donate](#donate)
 - [Contributors](#contributors)
 
 # Flutter Package of the Week
 
-<a href="https://youtu.be/foQTKCQqVWk">
-    <img src="https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/flutter_package_of_the_week.png"
+<a href="https://youtu.be/foQTKCQqVWk" target="_blank">
+    <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/flutter_package_of_the_week.PNG?raw=true"
       alt="Flutter Package of the Week" />
 </a>
 
