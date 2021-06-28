@@ -228,7 +228,7 @@ Row(
           RotateAnimatedText('AWESOME'),
           RotateAnimatedText('OPTIMISTIC'),
           RotateAnimatedText('DIFFERENT'),
-        ]
+        ],
         onTap: () {
           print("Tap Event");
         },
@@ -284,7 +284,7 @@ return SizedBox(
         TyperAnimatedText('you must know what to do,'),
         TyperAnimatedText('and then do your best'),
         TyperAnimatedText('- W.Edwards Deming'),
-      ]
+      ],
       onTap: () {
         print("Tap Event");
       },
