@@ -287,6 +287,9 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
             fontWeight: FontWeight.bold,
           ),
           boxHeight: 300,
+          onFinished: () {
+            //This is called at the animation end
+          },
         ),
       ),
       AnimatedTextExample(
