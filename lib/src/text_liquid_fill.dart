@@ -1,12 +1,5 @@
-import "dart:async";
 import 'dart:math';
 import 'package:flutter/material.dart';
-
-void main() {
-  var counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => x).take(15);
-  counterStream.forEach(print);
-}
 
 /// Animation that displays a [text] element, coloring it to look like sloshing
 /// water is filling it up.
