@@ -31,7 +31,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late List<AnimatedTextExample> _examples;
   int _index = 0;
-  int _tapCount = 0;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _examples = animatedTextExamples(onTap: () {
       print('Tap Event');
       setState(() {
-        _tapCount++;
+        _index++;
       });
     });
   }
@@ -72,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              child: Text('Taps: $_tapCount'),
+              child: Text('Order: $_index'),
             ),
           ),
         ],
@@ -81,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           setState(() {
             _index = ++_index % _examples.length;
-            _tapCount = 0;
           });
         },
         tooltip: 'Next',
