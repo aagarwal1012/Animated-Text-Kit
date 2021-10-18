@@ -110,7 +110,7 @@ class AnimatedTextKit extends StatefulWidget {
   ///
   /// By default it is set to 3
   final int totalRepeatCount;
-
+  final int startIndex;
   const AnimatedTextKit({
     Key? key,
     required this.animatedTexts,
@@ -118,6 +118,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
     this.onTap,
+    this.startIndex = 0,
     this.onNext,
     this.onNextBeforePause,
     this.onFinished,
@@ -150,6 +151,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   @override
   void initState() {
+    _index = widget.startIndex< widget.animatedTexts.length?widget.startIndex:0;
     super.initState();
     _initAnimation();
   }
@@ -212,8 +214,9 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   }
 
   void _initAnimation() {
+    
     _currentAnimatedText = widget.animatedTexts[_index];
-
+    
     _controller = AnimationController(
       duration: _currentAnimatedText.duration,
       vsync: this,
