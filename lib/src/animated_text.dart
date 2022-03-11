@@ -95,6 +95,12 @@ class AnimatedTextKit extends StatefulWidget {
   /// Will be called at the end of n-1 animation, before the pause parameter
   final void Function(int, bool)? onNextBeforePause;
 
+  /// Adds the onRequestNextAnimation request the next to the animated widget
+  ///
+  /// Will be called right before the next text. It will only call the next animation if the return is true.
+  /// If the return is false, the animation will stop.
+  final bool Function(int, bool)? onRequestNext;
+
   /// Set if the animation should not repeat by changing the value of it to false.
   ///
   /// By default it is set to true.
@@ -120,6 +126,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.onTap,
     this.onNext,
     this.onNextBeforePause,
+    this.onRequestNext,
     this.onFinished,
     this.isRepeatingAnimation = true,
     this.totalRepeatCount = 3,
@@ -181,6 +188,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   void _nextAnimation() {
     final isLast = _isLast;
+    final continueAnimation = widget.onRequestNext?.call(_index, _isLast);
 
     _isCurrentlyPausing = false;
 
@@ -205,10 +213,11 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     if (mounted) setState(() {});
 
-    _controller.dispose();
-
     // Re-initialize animation
-    _initAnimation();
+    if (continueAnimation ?? true) {
+      _controller.dispose();
+      _initAnimation();
+    }
   }
 
   void _initAnimation() {
