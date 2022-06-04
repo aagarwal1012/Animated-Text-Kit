@@ -535,7 +535,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/CoderInTheWoods"><img src="https://avatars.githubusercontent.com/u/25412142?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kalgi Sheth</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=CoderInTheWoods" title="Code">💻</a> <a href="#example-CoderInTheWoods" title="Examples">💡</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=CoderInTheWoods" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Mohitmadhav"><img src="https://avatars.githubusercontent.com/u/59333817?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohit_007</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=Mohitmadhav" title="Documentation">📖</a></td>
   </tr>
-</table>
+</table>  
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
