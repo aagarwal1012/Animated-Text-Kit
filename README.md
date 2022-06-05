@@ -17,26 +17,10 @@
     <img src="https://img.shields.io/github/workflow/status/aagarwal1012/Animated-Text-Kit/CI?logo=github"
       alt="Build Status" />
   </a>
-  <a href="https://pub.green/packages/animated_text_kit#channel-stable">
-    <img src="https://img.shields.io/endpoint?url=https://pub.green/packages/animated_text_kit/badge?channel=stable&style=flat"
-      alt="Latest compatibility result for Stable channel" />
-  </a>
-  <a href="https://pub.green/packages/animated_text_kit#channel-beta">
-    <img src="https://img.shields.io/endpoint?url=https://pub.green/packages/animated_text_kit/badge?channel=beta&style=flat"
-      alt="Latest compatibility result for Beta channel" />
-  </a>
-  <a href="https://pub.green/packages/animated_text_kit#channel-dev">
-    <img src="https://img.shields.io/endpoint?url=https://pub.green/packages/animated_text_kit/badge?channel=dev&style=flat"
-      alt="Latest compatibility result for Dev channel" />
-  </a>
   <br>
   <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">
     <img src="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit/branch/master/graph/badge.svg"
       alt="Codecov Coverage" />
-  </a>
-  <a href="https://www.codefactor.io/repository/github/aagarwal1012/animated-text-kit">
-    <img src="https://www.codefactor.io/repository/github/aagarwal1012/animated-text-kit/badge"
-      alt="CodeFactor" />
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/github/license/aagarwal1012/animated-text-kit?color=red"
@@ -91,7 +75,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_text_kit: ^4.2.1
+  animated_text_kit: ^4.2.2
 ```
 
 ### 2. Install it
