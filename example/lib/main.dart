@@ -187,6 +187,27 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
           ),
         ),
       ),
+
+      AnimatedTextExample(
+        label: 'Fade With Index',
+        color: Colors.brown[600],
+        
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+          ),
+          child: AnimatedTextKit(
+            startIndex: 1,
+            animatedTexts: [
+              FadeAnimatedText('do IT!'),
+              FadeAnimatedText('do it RIGHT!!'),
+              FadeAnimatedText('do it RIGHT NOW!!!'),
+            ],
+            onTap: onTap,
+          ),
+        ),
+      ),
       AnimatedTextExample(
         label: 'Typer',
         color: Colors.lightGreen[800],
