@@ -55,6 +55,9 @@ class TextLiquidFill extends StatefulWidget {
   /// By default, the animation will load to 1.0 (100%).
   final double loadUntil;
 
+  /// Adds the onFinished [VoidCallback] to the animated widget.
+  final VoidCallback? onFinished;
+
   TextLiquidFill({
     Key? key,
     required this.text,
@@ -68,6 +71,7 @@ class TextLiquidFill extends StatefulWidget {
     this.boxBackgroundColor = Colors.black,
     this.waveColor = Colors.blueAccent,
     this.loadUntil = 1.0,
+    this.onFinished,
   })  : assert(loadUntil > 0 && loadUntil <= 1.0),
         super(key: key);
 
@@ -97,6 +101,19 @@ class _TextLiquidFillState extends State<TextLiquidFill>
       vsync: this,
       duration: widget.loadDuration,
     );
+
+    //If exist, call onFisihed callback on animation end and remove listener.
+    if (widget.onFinished != null) {
+      late Callback statusListener;
+      statusListener = (status) {
+        if (status == AnimationStatus.completed) {
+          widget.onFinished?.call();
+          _loadController.removeStatusListener(statusListener);
+        }
+      };
+      _loadController.addStatusListener(statusListener);
+    }
+
     _loadValue = Tween<double>(
       begin: 0.0,
       end: widget.loadUntil,
@@ -215,3 +232,5 @@ class _WavePainter extends CustomPainter {
     return true;
   }
 }
+
+typedef Callback = void Function(AnimationStatus);

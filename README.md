@@ -119,7 +119,7 @@ AnimatedTextKit(
       speed: const Duration(milliseconds: 2000),
     ),
   ],
-  
+
   totalRepeatCount: 4,
   pause: const Duration(milliseconds: 1000),
   displayFullTextOnTap: true,
@@ -393,6 +393,9 @@ return SizedBox(
       fontWeight: FontWeight.bold,
     ),
     boxHeight: 300.0,
+    onFinished: () {
+      print("Animation finished!");
+    },
   ),
 );
 ```
