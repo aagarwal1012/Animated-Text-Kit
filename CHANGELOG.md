@@ -1,3 +1,7 @@
+## 4.2.2+1
+
+- Add issue-tracker link to pub.dev
+
 ## 4.2.2
 
 - Removed unused import statements.
