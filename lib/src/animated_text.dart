@@ -167,31 +167,35 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    final completeText = _currentAnimatedText.completeText(context);
     return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: _onTap,
-        child: Column(
-          children: widget.animatedTexts
-                  .take(_index)
-                  .map<Widget>((e) => Text(
-                        e.text,
-                        style: e.textStyle,
-                      ))
-                  .toList() +
-              [
-                _isCurrentlyPausing || !_controller.isAnimating
-                    ? completeText
-                    : AnimatedBuilder(
-                        animation: _controller,
-                        builder: _currentAnimatedText.animatedBuilder,
-                        child: completeText,
-                      )
-              ],
-        ));
+      behavior: HitTestBehavior.opaque,
+      onTap: _onTap,
+      child: widget.overrideTexts
+          ? _animationRenderer()
+          : Column(
+              children: widget.animatedTexts
+                      .take(_index)
+                      .map<Widget>((e) => Text(
+                            e.text,
+                            style: e.textStyle,
+                          ))
+                      .toList() +
+                  [_animationRenderer()],
+            ),
+    );
   }
 
   bool get _isLast => _index == widget.animatedTexts.length - 1;
+
+  Widget _animationRenderer() {
+    final completeText = _currentAnimatedText.completeText(context);
+    return _isCurrentlyPausing || !_controller.isAnimating
+        ? completeText
+        : AnimatedBuilder(
+            animation: _controller,
+            builder: _currentAnimatedText.animatedBuilder,
+            child: completeText);
+  }
 
   void _nextAnimation() {
     final isLast = _isLast;
