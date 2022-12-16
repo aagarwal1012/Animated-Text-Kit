@@ -134,6 +134,7 @@ It has many configurable properties, including:
 - `isRepeatingAnimation` – controls whether the animation repeats
 - `repeatForever` – controls whether the animation repeats forever
 - `totalRepeatCount` – number of times the animation should repeat (when `repeatForever` is `false`)
+- `overrideTexts` – it allows to show animated texts without override it (default is `true`)
 
 There are also custom callbacks:
 

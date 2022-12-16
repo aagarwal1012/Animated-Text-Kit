@@ -72,6 +72,9 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool displayFullTextOnTap;
 
+  ///Overrides previous text to other one. It's true by default
+  final bool overrideTexts;
+
   /// If on pause, should a tap remove the remaining pause time ?
   ///
   /// By default it is set to false.
@@ -117,6 +120,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.pause = const Duration(milliseconds: 1000),
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
+    this.overrideTexts = true,
     this.onTap,
     this.onNext,
     this.onNextBeforePause,
@@ -163,21 +167,35 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   @override
   Widget build(BuildContext context) {
-    final completeText = _currentAnimatedText.completeText(context);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
-      child: _isCurrentlyPausing || !_controller.isAnimating
-          ? completeText
-          : AnimatedBuilder(
-              animation: _controller,
-              builder: _currentAnimatedText.animatedBuilder,
-              child: completeText,
+      child: widget.overrideTexts
+          ? _animationRenderer()
+          : Column(
+              children: widget.animatedTexts
+                      .take(_index)
+                      .map<Widget>((e) => Text(
+                            e.text,
+                            style: e.textStyle,
+                          ))
+                      .toList() +
+                  [_animationRenderer()],
             ),
     );
   }
 
   bool get _isLast => _index == widget.animatedTexts.length - 1;
+
+  Widget _animationRenderer() {
+    final completeText = _currentAnimatedText.completeText(context);
+    return _isCurrentlyPausing || !_controller.isAnimating
+        ? completeText
+        : AnimatedBuilder(
+            animation: _controller,
+            builder: _currentAnimatedText.animatedBuilder,
+            child: completeText);
+  }
 
   void _nextAnimation() {
     final isLast = _isLast;
