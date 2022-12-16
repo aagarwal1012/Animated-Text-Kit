@@ -114,6 +114,9 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
+  ///It appends padding to every child of text widget
+  final EdgeInsets appendPadding;
+
   const AnimatedTextKit({
     Key? key,
     required this.animatedTexts,
@@ -121,6 +124,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.displayFullTextOnTap = false,
     this.stopPauseOnTap = false,
     this.overrideTexts = true,
+    this.appendPadding = EdgeInsets.zero,
     this.onTap,
     this.onNext,
     this.onNextBeforePause,
@@ -175,9 +179,12 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           : Column(
               children: widget.animatedTexts
                       .take(_index)
-                      .map<Widget>((e) => Text(
-                            e.text,
-                            style: e.textStyle,
+                      .map<Widget>((e) => Padding(
+                            padding: widget.appendPadding,
+                            child: Text(
+                              e.text,
+                              style: e.textStyle,
+                            ),
                           ))
                       .toList() +
                   [_animationRenderer()],
