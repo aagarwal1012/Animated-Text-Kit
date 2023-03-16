@@ -16,6 +16,7 @@ class WavyAnimatedText extends AnimatedText {
     String text, {
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
+    this.jumpHeight,
     this.speed = const Duration(milliseconds: 300),
   }) : super(
           text: text,
@@ -25,6 +26,7 @@ class WavyAnimatedText extends AnimatedText {
         );
 
   late Animation<double> _waveAnim;
+  final double? jumpHeight;
 
   @override
   void initAnimation(AnimationController controller) {
@@ -43,6 +45,7 @@ class WavyAnimatedText extends AnimatedText {
           text: text,
           textStyle: defaultTextStyle.merge(textStyle),
           scaleFactor: scaleFactor,
+          jumpHeight:jumpHeight
         ),
         child: Text(
           text,
@@ -115,6 +118,7 @@ class _WTextPainter extends CustomPainter {
     required this.text,
     required this.textStyle,
     required this.scaleFactor,
+    this.jumpHeight
   });
 
   final double progress, scaleFactor;
@@ -122,6 +126,7 @@ class _WTextPainter extends CustomPainter {
   // Private class to store text information
   final _textLayoutInfo = <_TextLayoutInfo>[];
   final TextStyle textStyle;
+  final double? jumpHeight;
   @override
   void paint(Canvas canvas, Size size) {
     if (_textLayoutInfo.isEmpty) {
@@ -185,14 +190,14 @@ class _WTextPainter extends CustomPainter {
       // percent < .5 creates an phase difference between odd and even chars
       _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = progress < .5
           ? 0
-          : -1.3 * height * math.sin((progress - .5) * math.pi).abs();
+          : -1.3 * (jumpHeight??height) * math.sin((progress - .5) * math.pi).abs();
     }
 
     // Calculating movement of the char at even place
     if (txtInMoEven < text.length) {
       _textLayoutInfo[txtInMoEven].isMoving = true;
       _textLayoutInfo[txtInMoEven].riseHeight =
-          -1.3 * height * math.sin(percent * math.pi);
+          -1.3 * (jumpHeight??height) * math.sin(percent * math.pi);
     }
   }
 
