@@ -225,25 +225,27 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
               animatedTexts: [
                 TypewriterAnimatedText(
                   'Discipline is the best tool',
-                  selectionActions: [
-                    InkWell(
-                      onTap: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            color: Colors.black,
-                            padding: const EdgeInsets.all(12),
-                            child: Text(
-                              'Custom action',
+                  selectionActions: (selectedText) {
+                    return [
+                      InkWell(
+                        onTap: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              color: Colors.black,
+                              padding: const EdgeInsets.all(12),
+                              child: Text(
+                                'Custom action',
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ];
+                  },
                 ),
                 TypewriterAnimatedText('Design first, then code', cursor: '|'),
                 TypewriterAnimatedText('Do not patch bugs out, rewrite them',
