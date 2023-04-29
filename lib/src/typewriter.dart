@@ -6,6 +6,8 @@ import 'animated_text.dart';
 ///
 /// ![Typewriter example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/typewriter.gif)
 class TypewriterAnimatedText extends AnimatedText {
+  final List<Widget>? selectionActions;
+
   // The text length is padded to cause extra cursor blinking after typing.
   static const extraLengthForBlinks = 8;
 
@@ -28,6 +30,7 @@ class TypewriterAnimatedText extends AnimatedText {
     TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
+    this.selectionActions,
     this.cursor = '_',
   }) : super(
           text: text,
@@ -54,7 +57,20 @@ class TypewriterAnimatedText extends AnimatedText {
   Widget completeText(BuildContext context) => RichText(
         text: TextSpan(
           children: [
-            TextSpan(text: text),
+            if (selectionActions == null) TextSpan(text: text),
+            if (selectionActions != null)
+              WidgetSpan(
+                child: SelectableText(
+                  text,
+                  style: textStyle,
+                  contextMenuBuilder: (context, editableTextState) {
+                    return AdaptiveTextSelectionToolbar(
+                      anchors: editableTextState.contextMenuAnchors,
+                      children: selectionActions,
+                    );
+                  },
+                ),
+              ),
             TextSpan(
               text: cursor,
               style: const TextStyle(color: Colors.transparent),
