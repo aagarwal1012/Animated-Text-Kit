@@ -19,6 +19,9 @@ class TypewriterAnimatedText extends AnimatedText {
   /// By default it is set to Curves.linear.
   final Curve curve;
 
+  ///Action widgets for text selection
+  final List<Widget> Function(String selectedText)? selectionActions;
+
   /// Cursor text. Defaults to underscore.
   final String cursor;
 
@@ -28,6 +31,7 @@ class TypewriterAnimatedText extends AnimatedText {
     TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
+    this.selectionActions,
     this.cursor = '_',
   }) : super(
           text: text,
@@ -54,7 +58,26 @@ class TypewriterAnimatedText extends AnimatedText {
   Widget completeText(BuildContext context) => RichText(
         text: TextSpan(
           children: [
-            TextSpan(text: text),
+            if (selectionActions == null) TextSpan(text: text),
+            if (selectionActions != null)
+              WidgetSpan(
+                child: SelectableText(
+                  text,
+                  style: textStyle,
+                  contextMenuBuilder: (context, editableTextState) {
+                    return AdaptiveTextSelectionToolbar(
+                      anchors: editableTextState.contextMenuAnchors,
+                      children: selectionActions?.call(editableTextState
+                          .currentTextEditingValue.text
+                          .substring(
+                              editableTextState
+                                  .currentTextEditingValue.selection.start,
+                              editableTextState
+                                  .currentTextEditingValue.selection.end)),
+                    );
+                  },
+                ),
+              ),
             TextSpan(
               text: cursor,
               style: const TextStyle(color: Colors.transparent),

@@ -281,27 +281,48 @@ return SizedBox(
 
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/typewriter.gif?raw=true" align = "right" height = "300px">
 
-```dart
-return SizedBox(
-  width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 30.0,
-      fontFamily: 'Agne',
-    ),
-    child: AnimatedTextKit(
-      animatedTexts: [
-        TypewriterAnimatedText('Discipline is the best tool'),
-        TypewriterAnimatedText('Design first, then code'),
-        TypewriterAnimatedText('Do not patch bugs out, rewrite them'),
-        TypewriterAnimatedText('Do not test bugs out, design them out'),
-      ],
-      onTap: () {
-        print("Tap Event");
-      },
-    ),
-  ),
-);
+```
+              return SizedBox(
+                width: 250.0,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 30.0,
+                    fontFamily: 'Agne',
+                  ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'Discipline is the best tool',
+                        selectionActions: [
+                          InkWell(
+                            onTap: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  color: Colors.black,
+                                  padding: const EdgeInsets.all(12),
+                                  child: Text(
+                                    'Custom action',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      TypewriterAnimatedText('Design first, then code', cursor: '|'),
+                      TypewriterAnimatedText('Do not patch bugs out, rewrite them',
+                          cursor: '<|>'),
+                      TypewriterAnimatedText('Do not test bugs out, design them out',
+                          cursor: '💡'),
+                    ],
+                    onTap: onTap,
+                  ),
+                ),
+              ),
 ```
 
 ## Scale
