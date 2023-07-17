@@ -19,6 +19,7 @@ class FlickerAnimatedText extends AnimatedText {
           text: text,
           textStyle: textStyle,
           duration: speed,
+          textAlign: textAlign
         );
 
   late Animation<double> _entry;
