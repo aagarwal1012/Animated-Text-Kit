@@ -111,6 +111,11 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
+  /// Return the onTap handler to outside, for triggering onTap by other event
+  ///
+  /// By default it is set to null
+  final void Function(VoidCallback)? tapTrigger;
+
   const AnimatedTextKit({
     Key? key,
     required this.animatedTexts,
@@ -124,6 +129,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.isRepeatingAnimation = true,
     this.totalRepeatCount = 3,
     this.repeatForever = false,
+    this.tapTrigger,
   })  : assert(animatedTexts.length > 0),
         assert(!isRepeatingAnimation || totalRepeatCount > 0 || repeatForever),
         assert(null == onFinished || !repeatForever),
@@ -134,8 +140,7 @@ class AnimatedTextKit extends StatefulWidget {
   _AnimatedTextKitState createState() => _AnimatedTextKitState();
 }
 
-class _AnimatedTextKitState extends State<AnimatedTextKit>
-    with TickerProviderStateMixin {
+class _AnimatedTextKitState extends State<AnimatedTextKit> with TickerProviderStateMixin {
   late AnimationController _controller;
 
   late AnimatedText _currentAnimatedText;
@@ -152,6 +157,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   void initState() {
     super.initState();
     _initAnimation();
+    widget.tapTrigger?.call(_onTap);
   }
 
   @override
@@ -189,8 +195,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     if (isLast) {
       if (widget.isRepeatingAnimation &&
-          (widget.repeatForever ||
-              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
+          (widget.repeatForever || _currentRepeatCount != (widget.totalRepeatCount - 1))) {
         _index = 0;
         if (!widget.repeatForever) {
           _currentRepeatCount++;
@@ -252,9 +257,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           _nextAnimation();
         }
       } else {
-        final left =
-            (_currentAnimatedText.remaining ?? _currentAnimatedText.duration)
-                .inMilliseconds;
+        final left = (_currentAnimatedText.remaining ?? _currentAnimatedText.duration).inMilliseconds;
 
         _controller.stop();
 
