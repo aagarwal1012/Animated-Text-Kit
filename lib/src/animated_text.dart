@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Abstract base class for text animations.
 abstract class AnimatedText {
   /// Text for [Text] widget.
-  final String text;
+  String text;
 
   /// [TextAlign] property for [Text] widget.
   ///
