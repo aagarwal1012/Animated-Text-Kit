@@ -26,7 +26,7 @@ class TyperAnimatedText extends AnimatedText {
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
-          duration: speed * text.characters.length,
+          duration: speed * 1000,
         );
 
   late Animation<double> _typingText;
