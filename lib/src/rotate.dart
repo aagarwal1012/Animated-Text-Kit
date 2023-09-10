@@ -53,7 +53,7 @@ class RotateAnimatedText extends AnimatedText {
     this.alignment = Alignment.center,
     this.textDirection = TextDirection.ltr,
     this.rotateOut = true,
-    this.slideDirection = SlideDirection.bottomToTop,
+    this.slideDirection = SlideDirection.topToBottom,
   }) : super(
           text: text,
           textAlign: textAlign,
