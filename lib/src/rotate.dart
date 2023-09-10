@@ -70,7 +70,7 @@ class RotateAnimatedText extends AnimatedText {
 
     final inIntervalEnd = rotateOut ? 0.4 : 1.0;
 
-    AlignmentTween slideInTween;
+    late final AlignmentTween slideInTween;
     switch (slideDirection) {
       case SlideDirection.leftToRight:
         slideInTween = AlignmentTween(
@@ -113,7 +113,7 @@ class RotateAnimatedText extends AnimatedText {
     );
 
     if (rotateOut) {
-      AlignmentTween slideOutTween;
+      late final AlignmentTween slideOutTween;
       switch (slideDirection) {
         case SlideDirection.leftToRight:
           slideOutTween = AlignmentTween(
