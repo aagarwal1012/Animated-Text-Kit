@@ -249,11 +249,3 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
               ))
           .toList();
 }
-
-// Hi, I'm Yashas this will be my first contribution.
-//
-// I had a pretty cool idea when I was working on a todo app, I wanted to mark the task as done and strikethrough the text but there was no option to do so with an animation. I looked through various libraries but wasn't able to find a good one.
-//
-// I have been using animated text kit for some time a now and thought of contributing to the library by adding a strike through animation.
-//
-// Is anyone working on this? If not, may I contribute to this?
