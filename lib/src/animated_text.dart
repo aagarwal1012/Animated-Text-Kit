@@ -24,7 +24,7 @@ abstract class AnimatedText {
 
   /// Same as [text] but as [Characters].
   ///
-  /// Need to use character length, not String length, to propertly support
+  /// Need to use character length, not String length, to properly support
   /// Unicode and Emojis.
   final Characters textCharacters;
 
