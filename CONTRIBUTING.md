@@ -7,13 +7,14 @@ of Animated-Text-Kit, then here are some notes on how to do that.
 Please **note** we have a [code of conduct](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ## Contents
-* [Reporting bugs and opening issues](#reporting-bugs-and-opening-issues)
-* [Coding Guidelines](#coding-guidelines)
-    * [Pull Requests](#pull-requests)
-    * [MVP architecture](#mvp-architecture)
-    * [Style Check](#style-check)
-    * [Git Commit Messages](#git-commit-messages)
-* [Security](#security)
+- [Contributing to Animated-Text-Kit](#contributing-to-animated-text-kit)
+  - [Contents](#contents)
+  - [Reporting bugs and opening issues](#reporting-bugs-and-opening-issues)
+  - [Coding Guidelines](#coding-guidelines)
+    - [Pull Requests](#pull-requests)
+    - [MVP architecture](#mvp-architecture)
+    - [Style Check](#style-check)
+    - [Git Commit Messages](#git-commit-messages)
   
 ## Reporting bugs and opening issues
 
@@ -61,7 +62,7 @@ Animated-Text-Kit uses `dartfmt`  for performing style checks on the codebase, w
    docs: (documenting the code, be it readme, or extra comments)
    bfix: (bug fixing)
    chor: (chore - beautifying code, indents, spaces, camelcasing, changing variable names to have an appropriate meaning)
-   ptch: (patches - small changes in code, mainly UI, for example color of a button, incrasing size of tet, etc etc)
+   ptch: (patches - small changes in code, mainly UI, for example color of a button, increasing size of text, etc etc)
    conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
 ```
 
