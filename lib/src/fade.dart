@@ -5,42 +5,60 @@ import 'animated_text.dart';
 ///
 /// ![Fade example](https://raw.githubusercontent.com/aagarwal1012/Animated-Text-Kit/master/display/fade.gif)
 class FadeAnimatedText extends AnimatedText {
-  /// Marks ending of fade-in interval, default value = 0.5
-  final double fadeInEnd;
+  /// The Duration of fade-in animation, default value = const Duration(milliseconds: 1000)
+  /// Total duration = fadeInDuration + holdDuration + fadeOutDuration
+  final Duration fadeInDuration;
 
-  /// Marks the beginning of fade-out interval, default value = 0.8
-  final double fadeOutBegin;
+  /// The Duration of text hold between fadein and fadeout, default value = const Duration(milliseconds: 2000)
+  /// Total duration = fadeInDuration + holdDuration + fadeOutDuration
+  final Duration holdDuration;
+
+  /// The Duration of fade-out animation, default value = const Duration(milliseconds: 1000)
+  /// Total duration = fadeInDuration + holdDuration + fadeOutDuration
+  final Duration fadeOutDuration;
+
+  // /// Marks the beginning of fade-out interval, default value = 0.8
+  // final Duration fadeOutBegin;
   FadeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
-    Duration duration = const Duration(milliseconds: 2000),
-    this.fadeInEnd = 0.5,
-    this.fadeOutBegin = 0.8,
-  })  : assert(fadeInEnd < fadeOutBegin,
-            'The "fadeInEnd" argument must be less than "fadeOutBegin"'),
+    this.holdDuration = const Duration(milliseconds: 2000),
+    this.fadeInDuration = const Duration(milliseconds: 1000),
+    this.fadeOutDuration = const Duration(milliseconds: 1000),
+  }) :
+        // assert(fadeInEnd < fadeOutBegin,
+        //           'The "fadeInEnd" argument must be less than "fadeOutBegin"'),
         super(
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
-          duration: duration,
+          duration: fadeInDuration + holdDuration + fadeOutDuration,
         );
 
   late Animation<double> _fadeIn, _fadeOut;
 
   @override
   void initAnimation(AnimationController controller) {
+    final _fadeOutStartTime =
+        (fadeInDuration.inMilliseconds + holdDuration.inMilliseconds);
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, fadeInEnd, curve: Curves.linear),
+        curve: Interval(
+            0.0, fadeInDuration.inMilliseconds / duration.inMilliseconds,
+            curve: Curves.linear),
       ),
     );
 
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(fadeOutBegin, 1.0, curve: Curves.linear),
+        curve: Interval(
+            _fadeOutStartTime / duration.inMilliseconds,
+            (_fadeOutStartTime + fadeOutDuration.inMilliseconds) /
+                duration.inMilliseconds.toDouble(),
+            curve: Curves.linear),
       ),
     );
   }
@@ -109,9 +127,9 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
                 _,
                 textAlign: textAlign,
                 textStyle: textStyle,
-                duration: duration,
-                fadeInEnd: fadeInEnd,
-                fadeOutBegin: fadeOutBegin,
+                holdDuration: duration,
+                // fadeInEnd: fadeInEnd,
+                // fadeOutBegin: fadeOutBegin,
               ))
           .toList();
 }
