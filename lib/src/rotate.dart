@@ -30,11 +30,22 @@ class RotateAnimatedText extends AnimatedText {
   /// By default, it is set to true.
   final bool rotateOut;
 
+  /// The Duration of text hold, default value = const Duration(milliseconds: 2000)
+  /// Total Duration = animationDuration * (rotateOut ? 2 : 1) + holdDuration
+  final Duration holdDuration;
+
+  /// The Duration text will take to animate in and out.
+  /// By default it is set to const Duration(milliseconds: 1000)
+  /// Out Duration will only be applied if [rotateOut] is set to `true`
+  /// Total Duration = animationDuration * (rotateOut ? 2 : 1) + holdDuration
+  final Duration animationDuration;
+
   RotateAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
-    Duration duration = const Duration(milliseconds: 2000),
+    this.animationDuration = const Duration(milliseconds: 1000),
+    this.holdDuration = const Duration(microseconds: 2000),
     this.transitionHeight,
     this.alignment = Alignment.center,
     this.textDirection = TextDirection.ltr,
@@ -43,7 +54,7 @@ class RotateAnimatedText extends AnimatedText {
           text: text,
           textAlign: textAlign,
           textStyle: textStyle,
-          duration: duration,
+          duration: animationDuration * (rotateOut ? 2 : 1) + holdDuration,
         );
 
   late Animation<double> _fadeIn, _fadeOut;
@@ -53,7 +64,9 @@ class RotateAnimatedText extends AnimatedText {
   void initAnimation(AnimationController controller) {
     final direction = textDirection;
 
-    final inIntervalEnd = rotateOut ? 0.4 : 1.0;
+    final inIntervalEndTime = animationDuration.inMilliseconds;
+    final outIntervalStartTime =
+        inIntervalEndTime + holdDuration.inMilliseconds;
 
     _slideIn = AlignmentTween(
       begin: Alignment.topCenter.add(alignment).resolve(direction),
@@ -61,14 +74,16 @@ class RotateAnimatedText extends AnimatedText {
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, inIntervalEnd, curve: Curves.linear),
+        curve: Interval(0.0, inIntervalEndTime / duration.inMilliseconds,
+            curve: Curves.linear),
       ),
     );
 
     _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, inIntervalEnd, curve: Curves.easeOut),
+        curve: Interval(0.0, inIntervalEndTime / duration.inMilliseconds,
+            curve: Curves.easeOut),
       ),
     );
 
@@ -79,14 +94,16 @@ class RotateAnimatedText extends AnimatedText {
       ).animate(
         CurvedAnimation(
           parent: controller,
-          curve: const Interval(0.7, 1.0, curve: Curves.linear),
+          curve: Interval(outIntervalStartTime / duration.inMilliseconds, 1.0,
+              curve: Curves.linear),
         ),
       );
 
       _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(
           parent: controller,
-          curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
+          curve: Interval(outIntervalStartTime / duration.inMilliseconds, 1.0,
+              curve: Curves.easeIn),
         ),
       );
     }
@@ -177,7 +194,7 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
                 _,
                 textAlign: textAlign,
                 textStyle: textStyle,
-                duration: duration,
+                animationDuration: duration,
                 transitionHeight: transitionHeight,
                 alignment: alignment,
                 textDirection: textDirection,

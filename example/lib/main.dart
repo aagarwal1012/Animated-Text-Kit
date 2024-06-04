@@ -150,13 +150,15 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
                   ),
                   child: AnimatedTextKit(
                     animatedTexts: [
-                      RotateAnimatedText('AWESOME'),
+                      RotateAnimatedText('AWESOME',
+                          holdDuration: Duration(seconds: 1)),
                       RotateAnimatedText('OPTIMISTIC'),
                       RotateAnimatedText(
                         'DIFFERENT',
                         textStyle: const TextStyle(
                           decoration: TextDecoration.underline,
                         ),
+                        holdDuration: Duration(seconds: 5),
                       ),
                     ],
                     onTap: onTap,
@@ -370,7 +372,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
                 fontSize: 64.0,
               ),
               rotateOut: false,
-              duration: const Duration(milliseconds: 400),
+              animationDuration: const Duration(milliseconds: 400),
             )
           ],
         ),
