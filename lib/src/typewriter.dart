@@ -22,6 +22,9 @@ class TypewriterAnimatedText extends AnimatedText {
   /// Cursor text. Defaults to underscore.
   final String cursor;
 
+  /// Cursor color. Defaults to default.
+  final TextStyle? cursorStyle;
+
   TypewriterAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
@@ -29,6 +32,7 @@ class TypewriterAnimatedText extends AnimatedText {
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
     this.cursor = '_',
+    this.cursorStyle,
   }) : super(
           text: text,
           textAlign: textAlign,
@@ -54,13 +58,16 @@ class TypewriterAnimatedText extends AnimatedText {
   Widget completeText(BuildContext context) => RichText(
         text: TextSpan(
           children: [
-            TextSpan(text: text),
+            TextSpan(
+              text: text,
+              style: DefaultTextStyle.of(context).style.merge(textStyle),
+            ),
             TextSpan(
               text: cursor,
-              style: const TextStyle(color: Colors.transparent),
+              style: cursorStyle ??
+                  DefaultTextStyle.of(context).style.merge(textStyle),
             )
           ],
-          style: DefaultTextStyle.of(context).style.merge(textStyle),
         ),
         textAlign: textAlign,
       );
