@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /// Abstract base class for text animations.
@@ -140,6 +141,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   late AnimatedText _currentAnimatedText;
 
+  bool _isCompleted = false;
+
   int _currentRepeatCount = 0;
 
   int _index = 0;
@@ -164,6 +167,11 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final completeText = _currentAnimatedText.completeText(context);
+    if (_isCompleted) {
+      return widget.animatedTexts.last
+          .textWidget(widget.animatedTexts.last.text);
+    }
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
@@ -196,6 +204,9 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
           _currentRepeatCount++;
         }
       } else {
+        setState(() {
+          _isCompleted = true;
+        });
         widget.onFinished?.call();
         return;
       }
