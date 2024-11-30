@@ -178,6 +178,14 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
             fontWeight: FontWeight.bold,
           ),
           child: AnimatedTextKit(
+            onRequestNext: (index, isLast) {
+              // any condition
+              if(1 > 0){
+                return true;
+              }else{
+                return false;
+              }
+            },
             animatedTexts: [
               FadeAnimatedText('do IT!'),
               FadeAnimatedText('do it RIGHT!!'),
