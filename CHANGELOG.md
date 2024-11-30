@@ -1,4 +1,8 @@
-## 4.2.0
+## 4.2.2
+
+- Removed unused import statements.
+
+## 4.2.1
 
 - Fix position in wavy animation [#242](https://github.com/aagarwal1012/Animated-Text-Kit/pull/242)
 
