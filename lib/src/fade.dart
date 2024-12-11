@@ -105,8 +105,8 @@ class FadeAnimatedTextKit extends AnimatedTextKit {
     double fadeOutBegin,
   ) =>
       text
-          .map((_) => FadeAnimatedText(
-                _,
+          .map((str) => FadeAnimatedText(
+                str,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 duration: duration,
