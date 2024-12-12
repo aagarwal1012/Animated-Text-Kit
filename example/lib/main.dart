@@ -83,6 +83,21 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            onPressed: () {
+              animatedTextExample.controller.reset();
+              setState(() {
+                _isAnimationPaused = false;
+                _tapCount = 0;
+              });
+            },
+            tooltip: 'Reset current animation',
+            child: const Icon(
+              Icons.replay_sharp,
+              size: 50.0,
+            ),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
               onPressed: () {
                 if (_isAnimationPaused) {
                   animatedTextExample.controller.play();

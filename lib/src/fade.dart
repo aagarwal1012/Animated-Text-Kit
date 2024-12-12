@@ -36,7 +36,6 @@ class FadeAnimatedText extends AnimatedText {
         curve: Interval(0.0, fadeInEnd, curve: Curves.linear),
       ),
     );
-
     _fadeOut = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,

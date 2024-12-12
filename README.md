@@ -119,11 +119,12 @@ AnimatedTextKit(
       speed: const Duration(milliseconds: 2000),
     ),
   ],
-  
+
   totalRepeatCount: 4,
   pause: const Duration(milliseconds: 1000),
   displayFullTextOnTap: true,
   stopPauseOnTap: true,
+  controller: myAnimatedTextController
 )
 ```
 
@@ -134,6 +135,7 @@ It has many configurable properties, including:
 - `isRepeatingAnimation` – controls whether the animation repeats
 - `repeatForever` – controls whether the animation repeats forever
 - `totalRepeatCount` – number of times the animation should repeat (when `repeatForever` is `false`)
+- `controller` - It allows for control over the animation by providing methods to play, pause and reset the text animations programmatically
 
 There are also custom callbacks:
 

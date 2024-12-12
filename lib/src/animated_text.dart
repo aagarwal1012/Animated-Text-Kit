@@ -112,10 +112,12 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
-  /// The controller for the animation.
-  /// This can be used to control the animation.
-  /// For example, you can pause, play, or reset the animation, by calling
-  /// [play()], [pause()], or [reset()] on the controller.
+  /// A controller for managing the state of an animated text sequence.
+  ///
+  /// This controller exposes methods to play, pause, and reset the animation.
+  /// The [AnimatedTextState] enum represents the various states the animation
+  /// can be in. By calling [play()], [pause()], or [reset()], you can transition
+  /// between these states and the animated widget will react accordingly.
   final AnimatedTextController? controller;
 
   const AnimatedTextKit({
@@ -168,16 +170,12 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     if (!mounted) return;
     if (_animatedTextController.state == AnimatedTextState.playing &&
         !_controller.isAnimating) {
-      debugPrint('Playing');
       _controller.forward();
-    } else if (_animatedTextController.state == AnimatedTextState.paused) {
-      debugPrint('Pausing');
+    } else if (_animatedTextController.state == AnimatedTextState.userPaused) {
       _controller.stop();
     } else if (_animatedTextController.state == AnimatedTextState.reset) {
-      debugPrint('Resetting');
       _controller.reset();
-    } else {
-      debugPrint('Unknown state: ${_animatedTextController.state}');
+      _animatedTextController.state = AnimatedTextState.playing;
     }
   }
 
@@ -186,6 +184,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     _timer?.cancel();
     _controller.dispose();
     _animatedTextController.stateNotifier.removeListener(_stateChangedCallback);
+    // Only dispose the controller if it was created by this widget
     if (widget.controller == null) _animatedTextController.dispose();
     super.dispose();
   }
@@ -212,8 +211,6 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   void _nextAnimation() {
     final isLast = _isLast;
-
-    _animatedTextController.state = AnimatedTextState.playing;
 
     // Handling onNext callback
     widget.onNext?.call(_index, isLast);
@@ -252,10 +249,18 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     _currentAnimatedText.initAnimation(_controller);
 
-    _controller
-      ..addStatusListener(_animationEndCallback)
-      ..forward();
+    _controller.addStatusListener(_animationEndCallback);
+
+    if (_animatedTextController.state ==
+        AnimatedTextState.pausingBetweenAnimationsWithUserPauseRequested) {
+      // This post frame callback is needed to ensure that the state is set and the widget is built
+      // before we pause the animation. otherwise nothing will be shown during the animation cycle
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _animatedTextController.state = AnimatedTextState.userPaused;
+      });
+    }
     _animatedTextController.state = AnimatedTextState.playing;
+    _controller.forward();
   }
 
   void _setPauseBetweenAnimations() {
