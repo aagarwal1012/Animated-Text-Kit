@@ -171,7 +171,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     if (_animatedTextController.state == AnimatedTextState.playing &&
         !_controller.isAnimating) {
       _controller.forward();
-    } else if (_animatedTextController.state == AnimatedTextState.userPaused) {
+    } else if (_animatedTextController.state ==
+        AnimatedTextState.pausedByUser) {
       _controller.stop();
     } else if (_animatedTextController.state == AnimatedTextState.reset) {
       _controller.reset();
@@ -196,7 +197,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
       child: _animatedTextController.state ==
-                  AnimatedTextState.pausingBetweenAnimations ||
+                  AnimatedTextState.pausedBetweenAnimations ||
               !_controller.isAnimating
           ? completeText
           : AnimatedBuilder(
@@ -252,11 +253,11 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     _controller.addStatusListener(_animationEndCallback);
 
     if (_animatedTextController.state ==
-        AnimatedTextState.pausingBetweenAnimationsWithUserPauseRequested) {
+        AnimatedTextState.pausedBetweenAnimationsByUser) {
       // This post frame callback is needed to ensure that the state is set and the widget is built
       // before we pause the animation. otherwise nothing will be shown during the animation cycle
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _animatedTextController.state = AnimatedTextState.userPaused;
+        _animatedTextController.state = AnimatedTextState.pausedByUser;
       });
     }
     _animatedTextController.state = AnimatedTextState.playing;
@@ -266,7 +267,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   void _setPauseBetweenAnimations() {
     final isLast = _isLast;
 
-    _animatedTextController.state = AnimatedTextState.pausingBetweenAnimations;
+    _animatedTextController.state = AnimatedTextState.pausedBetweenAnimations;
 
     if (mounted) setState(() {});
 
@@ -285,7 +286,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
   void _onTap() {
     if (widget.displayFullTextOnTap) {
       if (_animatedTextController.state ==
-          AnimatedTextState.pausingBetweenAnimations) {
+          AnimatedTextState.pausedBetweenAnimations) {
         if (widget.stopPauseOnTap) {
           _timer?.cancel();
           _nextAnimation();

@@ -13,9 +13,9 @@ import 'package:flutter/material.dart';
 /// * [reset]: The animation should reset to its initial state.
 enum AnimatedTextState {
   playing,
-  userPaused,
-  pausingBetweenAnimations,
-  pausingBetweenAnimationsWithUserPauseRequested,
+  pausedByUser,
+  pausedBetweenAnimations,
+  pausedBetweenAnimationsByUser,
   stopped,
   reset,
 }
@@ -53,8 +53,8 @@ class AnimatedTextController {
   /// Call this to resume the animation if it was previously paused.
   void play() {
     if (stateNotifier.value ==
-        AnimatedTextState.pausingBetweenAnimationsWithUserPauseRequested) {
-      stateNotifier.value = AnimatedTextState.pausingBetweenAnimations;
+        AnimatedTextState.pausedBetweenAnimationsByUser) {
+      stateNotifier.value = AnimatedTextState.pausedBetweenAnimations;
     } else {
       stateNotifier.value = AnimatedTextState.playing;
     }
@@ -67,11 +67,10 @@ class AnimatedTextController {
   ///
   /// Call this to pause the animation due to user interaction.
   void pause() {
-    if (stateNotifier.value == AnimatedTextState.pausingBetweenAnimations) {
-      stateNotifier.value =
-          AnimatedTextState.pausingBetweenAnimationsWithUserPauseRequested;
+    if (stateNotifier.value == AnimatedTextState.pausedBetweenAnimations) {
+      stateNotifier.value = AnimatedTextState.pausedBetweenAnimationsByUser;
     } else {
-      stateNotifier.value = AnimatedTextState.userPaused;
+      stateNotifier.value = AnimatedTextState.pausedByUser;
     }
   }
 
