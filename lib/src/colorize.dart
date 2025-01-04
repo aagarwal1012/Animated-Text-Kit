@@ -165,8 +165,8 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
     TextDirection textDirection,
   ) =>
       text
-          .map((_) => ColorizeAnimatedText(
-                _,
+          .map((str) => ColorizeAnimatedText(
+                str,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
