@@ -1,7 +1,6 @@
 /// _Animated Text Kit_ is a library of some cool and awesome text animations.
 library animated_text_kit;
 
-export 'src/animated_text_controller.dart';
 export 'src/animated_text.dart';
 export 'src/typer.dart';
 export 'src/rotate.dart';

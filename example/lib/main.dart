@@ -33,8 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _index = 0;
   int _tapCount = 0;
 
-  bool _isAnimationPaused = false;
-
   @override
   void initState() {
     super.initState();
@@ -79,58 +77,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              animatedTextExample.controller.reset();
-              setState(() {
-                _isAnimationPaused = false;
-                _tapCount = 0;
-              });
-            },
-            tooltip: 'Reset current animation',
-            child: const Icon(
-              Icons.replay_sharp,
-              size: 50.0,
-            ),
-          ),
-          const SizedBox(width: 16),
-          FloatingActionButton(
-              onPressed: () {
-                if (_isAnimationPaused) {
-                  animatedTextExample.controller.play();
-                  setState(() {
-                    _isAnimationPaused = false;
-                  });
-                } else {
-                  animatedTextExample.controller.pause();
-                  setState(() {
-                    _isAnimationPaused = true;
-                  });
-                }
-              },
-              tooltip: _isAnimationPaused ? 'Play' : 'Pause',
-              child: Icon(
-                _isAnimationPaused ? Icons.play_circle : Icons.pause_circle,
-                size: 50,
-              )),
-          const SizedBox(width: 16),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                _index = ++_index % _examples.length;
-                _tapCount = 0;
-              });
-            },
-            tooltip: 'Next',
-            child: const Icon(
-              Icons.arrow_right,
-              size: 50.0,
-            ),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _index = ++_index % _examples.length;
+            _tapCount = 0;
+          });
+        },
+        tooltip: 'Next',
+        child: const Icon(
+          Icons.play_circle_filled,
+          size: 50.0,
+        ),
       ),
     );
   }
@@ -140,13 +98,12 @@ class AnimatedTextExample {
   final String label;
   final Color? color;
   final Widget child;
-  final AnimatedTextController controller;
 
-  const AnimatedTextExample(
-      {required this.label,
-      required this.color,
-      required this.child,
-      required this.controller});
+  const AnimatedTextExample({
+    required this.label,
+    required this.color,
+    required this.child,
+  });
 }
 
 // Colorize Text Style
@@ -163,290 +120,259 @@ const _colorizeColors = [
   Colors.red,
 ];
 
-List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
-  final rotateController = AnimatedTextController();
-  final fadeController = AnimatedTextController();
-  final typerController = AnimatedTextController();
-  final typewriterController = AnimatedTextController();
-  final scaleController = AnimatedTextController();
-  final colorizeController = AnimatedTextController();
-  final textLiquidFillController = AnimatedTextController();
-  final wavyTextController = AnimatedTextController();
-  final flickerController = AnimatedTextController();
-  final combinationController = AnimatedTextController();
-
-  return <AnimatedTextExample>[
-    AnimatedTextExample(
-      label: 'Rotate',
-      color: Colors.orange[800],
-      controller: rotateController,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SizedBox(
-                width: 20.0,
-                height: 100.0,
-              ),
-              const Text(
-                'Be',
-                style: TextStyle(fontSize: 43.0),
-              ),
-              const SizedBox(
-                width: 20.0,
-                height: 100.0,
-              ),
-              DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 40.0,
-                  fontFamily: 'Horizon',
+List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) =>
+    <AnimatedTextExample>[
+      AnimatedTextExample(
+        label: 'Rotate',
+        color: Colors.orange[800],
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(
+                  width: 20.0,
+                  height: 100.0,
                 ),
-                child: AnimatedTextKit(
-                  animatedTexts: [
-                    RotateAnimatedText('AWESOME'),
-                    RotateAnimatedText('OPTIMISTIC'),
-                    RotateAnimatedText(
-                      'DIFFERENT',
-                      textStyle: const TextStyle(
-                        decoration: TextDecoration.underline,
+                const Text(
+                  'Be',
+                  style: TextStyle(fontSize: 43.0),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                  height: 100.0,
+                ),
+                DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontFamily: 'Horizon',
+                  ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      RotateAnimatedText('AWESOME'),
+                      RotateAnimatedText('OPTIMISTIC'),
+                      RotateAnimatedText(
+                        'DIFFERENT',
+                        textStyle: const TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
-                    ),
-                  ],
-                  controller: rotateController,
-                  onTap: onTap,
-                  isRepeatingAnimation: true,
-                  totalRepeatCount: 10,
+                    ],
+                    onTap: onTap,
+                    isRepeatingAnimation: true,
+                    totalRepeatCount: 10,
+                  ),
                 ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Fade',
+        color: Colors.brown[600],
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              FadeAnimatedText('do IT!'),
+              FadeAnimatedText('do it RIGHT!!'),
+              FadeAnimatedText('do it RIGHT NOW!!!'),
+            ],
+            onTap: onTap,
+          ),
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Typer',
+        color: Colors.lightGreen[800],
+        child: SizedBox(
+          width: 250.0,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontFamily: 'Bobbers',
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                TyperAnimatedText('It is not enough to do your best,'),
+                TyperAnimatedText('you must know what to do,'),
+                TyperAnimatedText('and then do your best'),
+                TyperAnimatedText('- W.Edwards Deming'),
+              ],
+              onTap: onTap,
+            ),
+          ),
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Typewriter',
+        color: Colors.teal[700],
+        child: SizedBox(
+          width: 250.0,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontFamily: 'Agne',
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText('Discipline is the best tool'),
+                TypewriterAnimatedText('Design first, then code', cursor: '|'),
+                TypewriterAnimatedText('Do not patch bugs out, rewrite them',
+                    cursor: '<|>'),
+                TypewriterAnimatedText('Do not test bugs out, design them out',
+                    cursor: '💡'),
+              ],
+              onTap: onTap,
+            ),
+          ),
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Scale',
+        color: Colors.blue[700],
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 70.0,
+            fontFamily: 'Canterbury',
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              ScaleAnimatedText('Think'),
+              ScaleAnimatedText('Build'),
+              ScaleAnimatedText('Ship'),
+            ],
+            onTap: onTap,
+          ),
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Colorize',
+        color: Colors.blueGrey[50],
+        child: AnimatedTextKit(
+          animatedTexts: [
+            ColorizeAnimatedText(
+              'Larry Page',
+              textStyle: _colorizeTextStyle,
+              colors: _colorizeColors,
+            ),
+            ColorizeAnimatedText(
+              'Bill Gates',
+              textStyle: _colorizeTextStyle,
+              colors: _colorizeColors,
+            ),
+            ColorizeAnimatedText(
+              'Steve Jobs',
+              textStyle: _colorizeTextStyle,
+              colors: _colorizeColors,
+            ),
+          ],
+          onTap: onTap,
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'TextLiquidFill',
+        color: Colors.white,
+        child: TextLiquidFill(
+          text: 'LIQUIDY',
+          waveColor: Colors.blueAccent,
+          boxBackgroundColor: Colors.redAccent,
+          textStyle: const TextStyle(
+            fontSize: 70,
+            fontWeight: FontWeight.bold,
+          ),
+          boxHeight: 300,
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Wavy Text',
+        color: Colors.purple,
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 20.0,
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              WavyAnimatedText(
+                'Hello World',
+                textStyle: const TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              WavyAnimatedText('Look at the waves'),
+              WavyAnimatedText('They look so Amazing'),
+            ],
+            onTap: onTap,
+          ),
+        ),
+      ),
+      AnimatedTextExample(
+        label: 'Flicker',
+        color: Colors.pink[300],
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 35,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                blurRadius: 7.0,
+                color: Colors.white,
+                offset: Offset(0, 0),
               ),
             ],
           ),
-        ],
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'Fade',
-      color: Colors.brown[600],
-      controller: fadeController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 32.0,
-          fontWeight: FontWeight.bold,
-        ),
-        child: AnimatedTextKit(
-          animatedTexts: [
-            FadeAnimatedText('do IT!'),
-            FadeAnimatedText('do it RIGHT!!'),
-            FadeAnimatedText('do it RIGHT NOW!!!'),
-          ],
-          controller: fadeController,
-          onTap: onTap,
-        ),
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'Typer',
-      color: Colors.lightGreen[800],
-      controller: typerController,
-      child: SizedBox(
-        width: 250.0,
-        child: DefaultTextStyle(
-          style: const TextStyle(
-            fontSize: 30.0,
-            fontFamily: 'Bobbers',
-          ),
           child: AnimatedTextKit(
+            repeatForever: true,
             animatedTexts: [
-              TyperAnimatedText('It is not enough to do your best,'),
-              TyperAnimatedText('you must know what to do,'),
-              TyperAnimatedText('and then do your best'),
-              TyperAnimatedText('- W.Edwards Deming'),
+              FlickerAnimatedText('Flicker Frenzy'),
+              FlickerAnimatedText('Night Vibes On'),
+              FlickerAnimatedText("C'est La Vie !"),
             ],
-            controller: typerController,
             onTap: onTap,
           ),
         ),
       ),
-    ),
-    AnimatedTextExample(
-      label: 'Typewriter',
-      color: Colors.teal[700],
-      controller: typewriterController,
-      child: SizedBox(
-        width: 250.0,
-        child: DefaultTextStyle(
-          style: const TextStyle(
-            fontSize: 30.0,
-            fontFamily: 'Agne',
-          ),
-          child: AnimatedTextKit(
-            animatedTexts: [
-              TypewriterAnimatedText('Discipline is the best tool'),
-              TypewriterAnimatedText('Design first, then code', cursor: '|'),
-              TypewriterAnimatedText('Do not patch bugs out, rewrite them',
-                  cursor: '<|>'),
-              TypewriterAnimatedText('Do not test bugs out, design them out',
-                  cursor: '💡'),
-            ],
-            controller: typewriterController,
-            onTap: onTap,
-          ),
-        ),
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'Scale',
-      color: Colors.blue[700],
-      controller: scaleController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 70.0,
-          fontFamily: 'Canterbury',
-        ),
+      AnimatedTextExample(
+        label: 'Combination',
+        color: Colors.pink,
         child: AnimatedTextKit(
-          animatedTexts: [
-            ScaleAnimatedText('Think'),
-            ScaleAnimatedText('Build'),
-            ScaleAnimatedText('Ship'),
-          ],
-          controller: scaleController,
           onTap: onTap,
-        ),
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'Colorize',
-      color: Colors.blueGrey[50],
-      controller: colorizeController,
-      child: AnimatedTextKit(
-        animatedTexts: [
-          ColorizeAnimatedText(
-            'Larry Page',
-            textStyle: _colorizeTextStyle,
-            colors: _colorizeColors,
-          ),
-          ColorizeAnimatedText(
-            'Bill Gates',
-            textStyle: _colorizeTextStyle,
-            colors: _colorizeColors,
-          ),
-          ColorizeAnimatedText(
-            'Steve Jobs',
-            textStyle: _colorizeTextStyle,
-            colors: _colorizeColors,
-          ),
-        ],
-        controller: colorizeController,
-        onTap: onTap,
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'TextLiquidFill',
-      color: Colors.white,
-      controller: textLiquidFillController,
-      child: TextLiquidFill(
-        text: 'LIQUIDY',
-        waveColor: Colors.blueAccent,
-        boxBackgroundColor: Colors.redAccent,
-        textStyle: const TextStyle(
-          fontSize: 70,
-          fontWeight: FontWeight.bold,
-        ),
-        boxHeight: 300,
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'Wavy Text',
-      color: Colors.purple,
-      controller: wavyTextController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 20.0,
-        ),
-        child: AnimatedTextKit(
           animatedTexts: [
             WavyAnimatedText(
-              'Hello World',
+              'On Your Marks',
               textStyle: const TextStyle(
                 fontSize: 24.0,
+              ),
+            ),
+            FadeAnimatedText(
+              'Get Set',
+              textStyle: const TextStyle(
+                fontSize: 32.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            WavyAnimatedText('Look at the waves'),
-            WavyAnimatedText('They look so Amazing'),
-          ],
-          controller: wavyTextController,
-          onTap: onTap,
-        ),
-      ),
-    ),
-    AnimatedTextExample(
-      label: 'Flicker',
-      color: Colors.pink[300],
-      controller: flickerController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 35,
-          color: Colors.white,
-          shadows: [
-            Shadow(
-              blurRadius: 7.0,
-              color: Colors.white,
-              offset: Offset(0, 0),
+            ScaleAnimatedText(
+              'Ready',
+              textStyle: const TextStyle(
+                fontSize: 48.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            RotateAnimatedText(
+              'Go!',
+              textStyle: const TextStyle(
+                fontSize: 64.0,
+              ),
+              rotateOut: false,
+              duration: const Duration(milliseconds: 400),
+            )
           ],
         ),
-        child: AnimatedTextKit(
-          repeatForever: true,
-          animatedTexts: [
-            FlickerAnimatedText('Flicker Frenzy'),
-            FlickerAnimatedText('Night Vibes On'),
-            FlickerAnimatedText("C'est La Vie !"),
-          ],
-          onTap: onTap,
-          controller: flickerController,
-        ),
       ),
-    ),
-    AnimatedTextExample(
-      label: 'Combination',
-      color: Colors.pink,
-      controller: combinationController,
-      child: AnimatedTextKit(
-        onTap: onTap,
-        controller: combinationController,
-        animatedTexts: [
-          WavyAnimatedText(
-            'On Your Marks',
-            textStyle: const TextStyle(
-              fontSize: 24.0,
-            ),
-          ),
-          FadeAnimatedText(
-            'Get Set',
-            textStyle: const TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          ScaleAnimatedText(
-            'Ready',
-            textStyle: const TextStyle(
-              fontSize: 48.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          RotateAnimatedText(
-            'Go!',
-            textStyle: const TextStyle(
-              fontSize: 64.0,
-            ),
-            rotateOut: false,
-            duration: const Duration(milliseconds: 400),
-          )
-        ],
-      ),
-    ),
-  ];
-}
+    ];

@@ -35,21 +35,21 @@ class WavyAnimatedText extends AnimatedText {
   @override
   Widget animatedBuilder(BuildContext context, Widget? child) {
     final defaultTextStyle = DefaultTextStyle.of(context).style;
-    final textScaler = MediaQuery.textScalerOf(context);
+    final scaleFactor = MediaQuery.of(context).textScaleFactor;
     return RepaintBoundary(
       child: CustomPaint(
         painter: _WTextPainter(
           progress: _waveAnim.value,
           text: text,
           textStyle: defaultTextStyle.merge(textStyle),
-          textScaler: textScaler,
+          scaleFactor: scaleFactor,
         ),
         child: Text(
           text,
           style: defaultTextStyle
               .merge(textStyle)
               .merge(TextStyle(color: Colors.transparent)),
-          textScaler: textScaler,
+          textScaleFactor: scaleFactor,
         ),
       ),
     );
@@ -114,11 +114,10 @@ class _WTextPainter extends CustomPainter {
     required this.progress,
     required this.text,
     required this.textStyle,
-    required this.textScaler,
+    required this.scaleFactor,
   });
 
-  final double progress;
-  final TextScaler textScaler;
+  final double progress, scaleFactor;
   final String text;
   // Private class to store text information
   final _textLayoutInfo = <_TextLayoutInfo>[];
@@ -205,7 +204,7 @@ class _WTextPainter extends CustomPainter {
         style: textStyle,
       ),
       textDirection: TextDirection.ltr,
-      textScaler: textScaler,
+      textScaleFactor: scaleFactor,
     )..layout();
 
     textPainter.paint(
@@ -228,7 +227,7 @@ class _WTextPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
       maxLines: 1,
-      textScaler: textScaler,
+      textScaleFactor: scaleFactor,
     );
 
     textPainter.layout();

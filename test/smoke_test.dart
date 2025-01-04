@@ -18,7 +18,7 @@ void main() {
       final pumpCount = await tester.pumpAndSettle();
       print(' > ${example.label} pumped $pumpCount');
 
-      await tester.tap(find.byIcon(Icons.arrow_right));
+      await tester.tap(find.byIcon(Icons.play_circle_filled));
       await tester.pump();
     }
 

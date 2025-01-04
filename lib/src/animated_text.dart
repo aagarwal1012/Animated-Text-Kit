@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:animated_text_kit/src/animated_text_controller.dart';
 import 'package:flutter/material.dart';
 
 /// Abstract base class for text animations.
@@ -112,14 +111,6 @@ class AnimatedTextKit extends StatefulWidget {
   /// By default it is set to 3
   final int totalRepeatCount;
 
-  /// A controller for managing the state of an animated text sequence.
-  ///
-  /// This controller exposes methods to play, pause, and reset the animation.
-  /// The [AnimatedTextState] enum represents the various states the animation
-  /// can be in. By calling [play()], [pause()], or [reset()], you can transition
-  /// between these states and the animated widget will react accordingly.
-  final AnimatedTextController? controller;
-
   const AnimatedTextKit({
     Key? key,
     required this.animatedTexts,
@@ -130,7 +121,6 @@ class AnimatedTextKit extends StatefulWidget {
     this.onNext,
     this.onNextBeforePause,
     this.onFinished,
-    this.controller,
     this.isRepeatingAnimation = true,
     this.totalRepeatCount = 3,
     this.repeatForever = false,
@@ -150,43 +140,24 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   late AnimatedText _currentAnimatedText;
 
-  late AnimatedTextController _animatedTextController;
-
   int _currentRepeatCount = 0;
 
   int _index = 0;
+
+  bool _isCurrentlyPausing = false;
 
   Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    _animatedTextController = widget.controller ?? AnimatedTextController();
-    _animatedTextController.stateNotifier.addListener(_stateChangedCallback);
     _initAnimation();
-  }
-
-  void _stateChangedCallback() {
-    if (!mounted) return;
-    if (_animatedTextController.state == AnimatedTextState.playing &&
-        !_controller.isAnimating) {
-      _controller.forward();
-    } else if (_animatedTextController.state ==
-        AnimatedTextState.pausedByUser) {
-      _controller.stop();
-    } else if (_animatedTextController.state == AnimatedTextState.reset) {
-      _controller.reset();
-      _animatedTextController.state = AnimatedTextState.playing;
-    }
   }
 
   @override
   void dispose() {
     _timer?.cancel();
     _controller.dispose();
-    _animatedTextController.stateNotifier.removeListener(_stateChangedCallback);
-    // Only dispose the controller if it was created by this widget
-    if (widget.controller == null) _animatedTextController.dispose();
     super.dispose();
   }
 
@@ -196,9 +167,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _onTap,
-      child: _animatedTextController.state ==
-                  AnimatedTextState.pausedBetweenAnimations ||
-              !_controller.isAnimating
+      child: _isCurrentlyPausing || !_controller.isAnimating
           ? completeText
           : AnimatedBuilder(
               animation: _controller,
@@ -212,6 +181,8 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   void _nextAnimation() {
     final isLast = _isLast;
+
+    _isCurrentlyPausing = false;
 
     // Handling onNext callback
     widget.onNext?.call(_index, isLast);
@@ -250,25 +221,15 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
     _currentAnimatedText.initAnimation(_controller);
 
-    _controller.addStatusListener(_animationEndCallback);
-
-    if (_animatedTextController.state ==
-        AnimatedTextState.pausedBetweenAnimationsByUser) {
-      // This post frame callback is needed to ensure that the state is set and the widget is built
-      // before we pause the animation. otherwise nothing will be shown during the animation cycle
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _animatedTextController.state = AnimatedTextState.pausedByUser;
-      });
-    }
-    _animatedTextController.state = AnimatedTextState.playing;
-    _controller.forward();
+    _controller
+      ..addStatusListener(_animationEndCallback)
+      ..forward();
   }
 
-  void _setPauseBetweenAnimations() {
+  void _setPause() {
     final isLast = _isLast;
 
-    _animatedTextController.state = AnimatedTextState.pausedBetweenAnimations;
-
+    _isCurrentlyPausing = true;
     if (mounted) setState(() {});
 
     // Handle onNextBeforePause callback
@@ -277,7 +238,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   void _animationEndCallback(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
-      _setPauseBetweenAnimations();
+      _setPause();
       assert(null == _timer || !_timer!.isActive);
       _timer = Timer(widget.pause, _nextAnimation);
     }
@@ -285,8 +246,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
   void _onTap() {
     if (widget.displayFullTextOnTap) {
-      if (_animatedTextController.state ==
-          AnimatedTextState.pausedBetweenAnimations) {
+      if (_isCurrentlyPausing) {
         if (widget.stopPauseOnTap) {
           _timer?.cancel();
           _nextAnimation();
@@ -298,7 +258,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
 
         _controller.stop();
 
-        _setPauseBetweenAnimations();
+        _setPause();
 
         assert(null == _timer || !_timer!.isActive);
         _timer = Timer(
