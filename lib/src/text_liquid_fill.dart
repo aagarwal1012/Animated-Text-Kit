@@ -68,7 +68,7 @@ class TextLiquidFill extends StatefulWidget {
     this.boxBackgroundColor = Colors.black,
     this.waveColor = Colors.blueAccent,
     this.loadUntil = 1.0,
-  })  : assert(loadUntil > 0 && loadUntil <= 1.0);
+  }) : assert(loadUntil > 0 && loadUntil <= 1.0);
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
