@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   /// This widget is the root of your application.
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,13 +22,13 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   late List<AnimatedTextExample> _examples;
   int _index = 0;
   int _tapCount = 0;
@@ -142,11 +142,7 @@ class AnimatedTextExample {
   final Widget child;
   final AnimatedTextController controller;
 
-  const AnimatedTextExample(
-      {required this.label,
-      required this.color,
-      required this.child,
-      required this.controller});
+  const AnimatedTextExample({required this.label, required this.color, required this.child, required this.controller});
 }
 
 // Colorize Text Style
@@ -284,10 +280,8 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
             animatedTexts: [
               TypewriterAnimatedText('Discipline is the best tool'),
               TypewriterAnimatedText('Design first, then code', cursor: '|'),
-              TypewriterAnimatedText('Do not patch bugs out, rewrite them',
-                  cursor: '<|>'),
-              TypewriterAnimatedText('Do not test bugs out, design them out',
-                  cursor: '💡'),
+              TypewriterAnimatedText('Do not patch bugs out, rewrite them', cursor: '<|>'),
+              TypewriterAnimatedText('Do not test bugs out, design them out', cursor: '💡'),
             ],
             controller: typewriterController,
             onTap: onTap,
