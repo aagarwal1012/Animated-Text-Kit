@@ -56,7 +56,7 @@ class TextLiquidFill extends StatefulWidget {
   final double loadUntil;
 
   TextLiquidFill({
-    Key? key,
+    super.key,
     required this.text,
     this.textStyle =
         const TextStyle(fontSize: 140, fontWeight: FontWeight.bold),
@@ -68,15 +68,14 @@ class TextLiquidFill extends StatefulWidget {
     this.boxBackgroundColor = Colors.black,
     this.waveColor = Colors.blueAccent,
     this.loadUntil = 1.0,
-  })  : assert(loadUntil > 0 && loadUntil <= 1.0),
-        super(key: key);
+  })  : assert(loadUntil > 0 && loadUntil <= 1.0);
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
-  _TextLiquidFillState createState() => _TextLiquidFillState();
+  TextLiquidFillState createState() => TextLiquidFillState();
 }
 
-class _TextLiquidFillState extends State<TextLiquidFill>
+class TextLiquidFillState extends State<TextLiquidFill>
     with TickerProviderStateMixin {
   final _textKey = GlobalKey();
 
@@ -188,9 +187,8 @@ class _WavePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final RenderBox? textBox =
+    final RenderBox textBox =
         textKey.currentContext!.findRenderObject() as RenderBox;
-    if (textBox == null) return;
     final textHeight = textBox.size.height;
     final baseHeight =
         (boxHeight / 2) + (textHeight / 2) - (loadValue * textHeight);

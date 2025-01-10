@@ -1,5 +1,7 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+
 import 'animated_text.dart';
 
 /// Animated Text that displays a [Text] element with each character popping
@@ -14,13 +16,11 @@ class WavyAnimatedText extends AnimatedText {
 
   WavyAnimatedText(
     String text, {
-    TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    super.textAlign,
+    super.textStyle,
     this.speed = const Duration(milliseconds: 300),
   }) : super(
           text: text,
-          textAlign: textAlign,
-          textStyle: textStyle,
           duration: speed * text.characters.length,
         );
 
@@ -28,8 +28,7 @@ class WavyAnimatedText extends AnimatedText {
 
   @override
   void initAnimation(AnimationController controller) {
-    _waveAnim = Tween<double>(begin: 0, end: textCharacters.length / 2 + 0.52)
-        .animate(controller);
+    _waveAnim = Tween<double>(begin: 0, end: textCharacters.length / 2 + 0.52).animate(controller);
   }
 
   @override
@@ -46,9 +45,7 @@ class WavyAnimatedText extends AnimatedText {
         ),
         child: Text(
           text,
-          style: defaultTextStyle
-              .merge(textStyle)
-              .merge(TextStyle(color: Colors.transparent)),
+          style: defaultTextStyle.merge(textStyle).merge(TextStyle(color: Colors.transparent)),
           textScaler: textScaler,
         ),
       ),
@@ -63,34 +60,23 @@ class WavyAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with WavyAnimatedText instead.')
 class WavyAnimatedTextKit extends AnimatedTextKit {
   WavyAnimatedTextKit({
-    Key? key,
+    super.key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
     Duration speed = const Duration(milliseconds: 300),
-    Duration pause = const Duration(milliseconds: 1000),
-    VoidCallback? onTap,
-    void Function(int, bool)? onNext,
-    void Function(int, bool)? onNextBeforePause,
-    VoidCallback? onFinished,
-    bool isRepeatingAnimation = true,
-    int totalRepeatCount = 3,
-    bool repeatForever = true,
-    bool displayFullTextOnTap = false,
-    bool stopPauseOnTap = false,
+    super.pause,
+    super.onTap,
+    super.onNext,
+    super.onNextBeforePause,
+    super.onFinished,
+    super.isRepeatingAnimation,
+    super.totalRepeatCount,
+    super.repeatForever = true,
+    super.displayFullTextOnTap,
+    super.stopPauseOnTap,
   }) : super(
-          key: key,
           animatedTexts: _animatedTexts(text, textAlign, textStyle, speed),
-          pause: pause,
-          displayFullTextOnTap: displayFullTextOnTap,
-          stopPauseOnTap: stopPauseOnTap,
-          onTap: onTap,
-          onNext: onNext,
-          onNextBeforePause: onNextBeforePause,
-          onFinished: onFinished,
-          isRepeatingAnimation: isRepeatingAnimation,
-          totalRepeatCount: totalRepeatCount,
-          repeatForever: repeatForever,
         );
 
   static List<AnimatedText> _animatedTexts(
@@ -100,8 +86,8 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
     Duration speed,
   ) =>
       text
-          .map((_) => WavyAnimatedText(
-                _,
+          .map((text) => WavyAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
@@ -133,8 +119,7 @@ class _WTextPainter extends CustomPainter {
 
     for (var textLayout in _textLayoutInfo) {
       // offset required to center the characters
-      final centerOffset =
-          Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
+      final centerOffset = Offset(size.width / 2, (size.height / 2 - textLayout.height / 2));
 
       if (textLayout.isMoving) {
         final p = math.min(progress * 2, 1.0);
@@ -144,8 +129,7 @@ class _WTextPainter extends CustomPainter {
             textLayout.text,
             Offset(
                   textLayout.offsetX,
-                  (textLayout.offsetY -
-                      (textLayout.offsetY - textLayout.riseHeight) * p),
+                  (textLayout.offsetY - (textLayout.offsetY - textLayout.riseHeight) * p),
                 ) +
                 centerOffset,
             textLayout);
@@ -184,21 +168,18 @@ class _WTextPainter extends CustomPainter {
     if (txtInMoOdd < (text.length - 1) / 2 && !txtInMoOdd.isNegative) {
       _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].isMoving = true;
       // percent < .5 creates an phase difference between odd and even chars
-      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight = progress < .5
-          ? 0
-          : -1.3 * height * math.sin((progress - .5) * math.pi).abs();
+      _textLayoutInfo[txtInMoOdd + (txtInMoOdd + 1)].riseHeight =
+          progress < .5 ? 0 : -1.3 * height * math.sin((progress - .5) * math.pi).abs();
     }
 
     // Calculating movement of the char at even place
     if (txtInMoEven < text.length) {
       _textLayoutInfo[txtInMoEven].isMoving = true;
-      _textLayoutInfo[txtInMoEven].riseHeight =
-          -1.3 * height * math.sin(percent * math.pi);
+      _textLayoutInfo[txtInMoEven].riseHeight = -1.3 * height * math.sin(percent * math.pi);
     }
   }
 
-  void drawText(Canvas canvas, String text, Offset offset,
-      _TextLayoutInfo textLayoutInfo) {
+  void drawText(Canvas canvas, String text, Offset offset, _TextLayoutInfo textLayoutInfo) {
     var textPainter = TextPainter(
       text: TextSpan(
         text: text,
@@ -249,8 +230,7 @@ class _WTextPainter extends CustomPainter {
         offsetY: forCaret.dy,
         width: textPainter.width,
         height: textPainter.height,
-        baseline: textPainter
-            .computeDistanceToActualBaseline(TextBaseline.ideographic),
+        baseline: textPainter.computeDistanceToActualBaseline(TextBaseline.ideographic),
       );
 
       list.add(textLayoutInfo);

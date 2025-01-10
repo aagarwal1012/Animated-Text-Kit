@@ -24,15 +24,13 @@ class TypewriterAnimatedText extends AnimatedText {
 
   TypewriterAnimatedText(
     String text, {
-    TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    super.textAlign,
+    super.textStyle,
     this.speed = const Duration(milliseconds: 30),
     this.curve = Curves.linear,
     this.cursor = '_',
   }) : super(
           text: text,
-          textAlign: textAlign,
-          textStyle: textStyle,
           duration: speed * (text.characters.length + extraLengthForBlinks),
         );
 
@@ -110,36 +108,25 @@ class TypewriterAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with TypewriterAnimatedText instead.')
 class TypewriterAnimatedTextKit extends AnimatedTextKit {
   TypewriterAnimatedTextKit({
-    Key? key,
+    super.key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     required TextStyle textStyle,
     Duration speed = const Duration(milliseconds: 30),
-    Duration pause = const Duration(milliseconds: 1000),
-    bool displayFullTextOnTap = false,
-    bool stopPauseOnTap = false,
-    VoidCallback? onTap,
-    void Function(int, bool)? onNext,
-    void Function(int, bool)? onNextBeforePause,
-    VoidCallback? onFinished,
-    bool isRepeatingAnimation = true,
-    bool repeatForever = true,
-    int totalRepeatCount = 3,
+    super.pause,
+    super.displayFullTextOnTap,
+    super.stopPauseOnTap,
+    super.onTap,
+    super.onNext,
+    super.onNextBeforePause,
+    super.onFinished,
+    super.isRepeatingAnimation,
+    super.repeatForever = true,
+    super.totalRepeatCount,
     Curve curve = Curves.linear,
   }) : super(
-          key: key,
           animatedTexts:
               _animatedTexts(text, textAlign, textStyle, speed, curve),
-          pause: pause,
-          displayFullTextOnTap: displayFullTextOnTap,
-          stopPauseOnTap: stopPauseOnTap,
-          onTap: onTap,
-          onNext: onNext,
-          onNextBeforePause: onNextBeforePause,
-          onFinished: onFinished,
-          isRepeatingAnimation: isRepeatingAnimation,
-          repeatForever: repeatForever,
-          totalRepeatCount: totalRepeatCount,
         );
 
   static List<AnimatedText> _animatedTexts(
@@ -150,8 +137,8 @@ class TypewriterAnimatedTextKit extends AnimatedTextKit {
     Curve curve,
   ) =>
       text
-          .map((_) => TypewriterAnimatedText(
-                _,
+          .map((text) => TypewriterAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,

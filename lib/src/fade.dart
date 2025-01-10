@@ -12,18 +12,15 @@ class FadeAnimatedText extends AnimatedText {
   final double fadeOutBegin;
   FadeAnimatedText(
     String text, {
-    TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
-    Duration duration = const Duration(milliseconds: 2000),
+    super.textAlign,
+    super.textStyle,
+    super.duration = const Duration(milliseconds: 2000),
     this.fadeInEnd = 0.5,
     this.fadeOutBegin = 0.8,
   })  : assert(fadeInEnd < fadeOutBegin,
             'The "fadeInEnd" argument must be less than "fadeOutBegin"'),
         super(
           text: text,
-          textAlign: textAlign,
-          textStyle: textStyle,
-          duration: duration,
         );
 
   late Animation<double> _fadeIn, _fadeOut;
@@ -62,37 +59,26 @@ class FadeAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with FadeAnimatedText instead.')
 class FadeAnimatedTextKit extends AnimatedTextKit {
   FadeAnimatedTextKit({
-    Key? key,
+    super.key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
     Duration duration = const Duration(milliseconds: 2000),
-    Duration pause = const Duration(milliseconds: 500),
+    super.pause = const Duration(milliseconds: 500),
     double fadeInEnd = 0.5,
     double fadeOutBegin = 0.8,
-    VoidCallback? onTap,
-    void Function(int, bool)? onNext,
-    void Function(int, bool)? onNextBeforePause,
-    VoidCallback? onFinished,
-    bool isRepeatingAnimation = true,
-    int totalRepeatCount = 3,
-    bool repeatForever = false,
-    bool displayFullTextOnTap = false,
-    bool stopPauseOnTap = false,
+    super.onTap,
+    super.onNext,
+    super.onNextBeforePause,
+    super.onFinished,
+    super.isRepeatingAnimation,
+    super.totalRepeatCount,
+    super.repeatForever,
+    super.displayFullTextOnTap,
+    super.stopPauseOnTap,
   }) : super(
-          key: key,
           animatedTexts: _animatedTexts(
               text, textAlign, textStyle, duration, fadeInEnd, fadeOutBegin),
-          pause: pause,
-          displayFullTextOnTap: displayFullTextOnTap,
-          stopPauseOnTap: stopPauseOnTap,
-          onTap: onTap,
-          onNext: onNext,
-          onNextBeforePause: onNextBeforePause,
-          onFinished: onFinished,
-          isRepeatingAnimation: isRepeatingAnimation,
-          totalRepeatCount: totalRepeatCount,
-          repeatForever: repeatForever,
         );
 
   static List<AnimatedText> _animatedTexts(

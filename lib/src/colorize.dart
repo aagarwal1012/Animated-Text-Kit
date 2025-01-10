@@ -22,8 +22,8 @@ class ColorizeAnimatedText extends AnimatedText {
 
   ColorizeAnimatedText(
     String text, {
-    TextAlign textAlign = TextAlign.start,
-    required TextStyle textStyle,
+    super.textAlign,
+    required TextStyle super.textStyle,
     this.speed = const Duration(milliseconds: 200),
     required this.colors,
     this.textDirection = TextDirection.ltr,
@@ -31,8 +31,6 @@ class ColorizeAnimatedText extends AnimatedText {
         assert(colors.length > 1),
         super(
           text: text,
-          textAlign: textAlign,
-          textStyle: textStyle,
           duration: speed * text.characters.length,
         );
 
@@ -117,25 +115,24 @@ class ColorizeAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with ColorizeAnimatedText instead.')
 class ColorizeAnimatedTextKit extends AnimatedTextKit {
   ColorizeAnimatedTextKit({
-    Key? key,
+    super.key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextDirection textDirection = TextDirection.ltr,
     required TextStyle textStyle,
     required List<Color> colors,
     Duration speed = const Duration(milliseconds: 200),
-    Duration pause = const Duration(milliseconds: 1000),
-    VoidCallback? onTap,
-    void Function(int, bool)? onNext,
-    void Function(int, bool)? onNextBeforePause,
-    VoidCallback? onFinished,
-    bool isRepeatingAnimation = true,
-    int totalRepeatCount = 3,
-    bool repeatForever = false,
-    bool displayFullTextOnTap = false,
-    bool stopPauseOnTap = false,
+    super.pause,
+    super.onTap,
+    super.onNext,
+    super.onNextBeforePause,
+    super.onFinished,
+    super.isRepeatingAnimation,
+    super.totalRepeatCount,
+    super.repeatForever,
+    super.displayFullTextOnTap,
+    super.stopPauseOnTap,
   }) : super(
-          key: key,
           animatedTexts: _animatedTexts(
             text,
             textAlign,
@@ -144,16 +141,6 @@ class ColorizeAnimatedTextKit extends AnimatedTextKit {
             colors,
             textDirection,
           ),
-          pause: pause,
-          displayFullTextOnTap: displayFullTextOnTap,
-          stopPauseOnTap: stopPauseOnTap,
-          onTap: onTap,
-          onNext: onNext,
-          onNextBeforePause: onNextBeforePause,
-          onFinished: onFinished,
-          isRepeatingAnimation: isRepeatingAnimation,
-          totalRepeatCount: totalRepeatCount,
-          repeatForever: repeatForever,
         );
 
   static List<AnimatedText> _animatedTexts(

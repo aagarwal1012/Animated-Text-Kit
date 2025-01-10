@@ -12,15 +12,12 @@ class ScaleAnimatedText extends AnimatedText {
 
   ScaleAnimatedText(
     String text, {
-    TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
-    Duration duration = const Duration(milliseconds: 2000),
+    super.textAlign,
+    super.textStyle,
+    super.duration = const Duration(milliseconds: 2000),
     this.scalingFactor = 0.5,
   }) : super(
           text: text,
-          textAlign: textAlign,
-          textStyle: textStyle,
-          duration: duration,
         );
 
   late Animation<double> _fadeIn, _fadeOut, _scaleIn, _scaleOut;
@@ -76,24 +73,23 @@ class ScaleAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with ScaleAnimatedText instead.')
 class ScaleAnimatedTextKit extends AnimatedTextKit {
   ScaleAnimatedTextKit({
-    Key? key,
+    super.key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
     double scalingFactor = 0.5,
     Duration duration = const Duration(milliseconds: 2000),
-    Duration pause = const Duration(milliseconds: 500),
-    VoidCallback? onTap,
-    void Function(int, bool)? onNext,
-    void Function(int, bool)? onNextBeforePause,
-    VoidCallback? onFinished,
-    bool isRepeatingAnimation = true,
-    int totalRepeatCount = 3,
-    bool repeatForever = false,
-    bool displayFullTextOnTap = false,
-    bool stopPauseOnTap = false,
+    super.pause = const Duration(milliseconds: 500),
+    super.onTap,
+    super.onNext,
+    super.onNextBeforePause,
+    super.onFinished,
+    super.isRepeatingAnimation,
+    super.totalRepeatCount,
+    super.repeatForever,
+    super.displayFullTextOnTap,
+    super.stopPauseOnTap,
   }) : super(
-          key: key,
           animatedTexts: _animatedTexts(
             text,
             textAlign,
@@ -101,16 +97,6 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
             duration,
             scalingFactor,
           ),
-          pause: pause,
-          displayFullTextOnTap: displayFullTextOnTap,
-          stopPauseOnTap: stopPauseOnTap,
-          onTap: onTap,
-          onNext: onNext,
-          onNextBeforePause: onNextBeforePause,
-          onFinished: onFinished,
-          isRepeatingAnimation: isRepeatingAnimation,
-          totalRepeatCount: totalRepeatCount,
-          repeatForever: repeatForever,
         );
 
   static List<AnimatedText> _animatedTexts(
@@ -121,8 +107,8 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
     double scalingFactor,
   ) =>
       text
-          .map((_) => ScaleAnimatedText(
-                _,
+          .map((text) => ScaleAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 duration: duration,

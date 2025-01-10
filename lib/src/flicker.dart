@@ -12,12 +12,11 @@ class FlickerAnimatedText extends AnimatedText {
   FlickerAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
-    TextStyle? textStyle,
+    super.textStyle,
     this.speed = const Duration(milliseconds: 1600),
     this.entryEnd = 0.5,
   }) : super(
           text: text,
-          textStyle: textStyle,
           duration: speed,
         );
 
@@ -48,35 +47,25 @@ class FlickerAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with FlickerAnimatedText instead.')
 class FlickerAnimatedTextKit extends AnimatedTextKit {
   FlickerAnimatedTextKit({
-    Key? key,
+    super.key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
     TextDirection textDirection = TextDirection.ltr,
     Duration speed = const Duration(milliseconds: 1600),
     double entryEnd = 0.5,
-    VoidCallback? onTap,
-    void Function(int, bool)? onNext,
-    void Function(int, bool)? onNextBeforePause,
-    VoidCallback? onFinished,
-    bool isRepeatingAnimation = true,
-    int totalRepeatCount = 3,
-    bool repeatForever = false,
-    bool displayFullTextOnTap = false,
-    bool stopPauseOnTap = false,
+    super.onTap,
+    super.onNext,
+    super.onNextBeforePause,
+    super.onFinished,
+    super.isRepeatingAnimation,
+    super.totalRepeatCount,
+    super.repeatForever,
+    super.displayFullTextOnTap,
+    super.stopPauseOnTap,
   }) : super(
-          key: key,
           animatedTexts:
               _animatedTexts(text, textAlign, textStyle, speed, entryEnd),
-          onTap: onTap,
-          onNext: onNext,
-          onNextBeforePause: onNextBeforePause,
-          onFinished: onFinished,
-          isRepeatingAnimation: isRepeatingAnimation,
-          totalRepeatCount: totalRepeatCount,
-          repeatForever: repeatForever,
-          displayFullTextOnTap: displayFullTextOnTap,
-          stopPauseOnTap: stopPauseOnTap,
         );
 
   static List<AnimatedText> _animatedTexts(
@@ -87,8 +76,8 @@ class FlickerAnimatedTextKit extends AnimatedTextKit {
     double entryEnd,
   ) =>
       text
-          .map((_) => FlickerAnimatedText(
-                _,
+          .map((text) => FlickerAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
