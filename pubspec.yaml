@@ -12,9 +12,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.11.0
-
-flutter:
+  lints: ^5.1.1
 
 environment:
   sdk: ">=2.12.0-0 <3.0.0"

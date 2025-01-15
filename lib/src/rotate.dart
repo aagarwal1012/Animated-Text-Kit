@@ -173,8 +173,8 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
     TextDirection textDirection,
   ) =>
       text
-          .map((_) => RotateAnimatedText(
-                _,
+          .map((text) => RotateAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 duration: duration,

@@ -101,8 +101,8 @@ class TyperAnimatedTextKit extends AnimatedTextKit {
     Curve curve,
   ) =>
       text
-          .map((_) => TyperAnimatedText(
-                _,
+          .map((text) => TyperAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
