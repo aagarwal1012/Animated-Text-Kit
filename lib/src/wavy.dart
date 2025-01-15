@@ -1,7 +1,5 @@
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-
 import 'animated_text.dart';
 
 /// Animated Text that displays a [Text] element with each character popping
@@ -16,11 +14,13 @@ class WavyAnimatedText extends AnimatedText {
 
   WavyAnimatedText(
     String text, {
-    super.textAlign,
-    super.textStyle,
+    TextAlign textAlign = TextAlign.start,
+    TextStyle? textStyle,
     this.speed = const Duration(milliseconds: 300),
   }) : super(
           text: text,
+          textAlign: textAlign,
+          textStyle: textStyle,
           duration: speed * text.characters.length,
         );
 
@@ -63,23 +63,34 @@ class WavyAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with WavyAnimatedText instead.')
 class WavyAnimatedTextKit extends AnimatedTextKit {
   WavyAnimatedTextKit({
-    super.key,
+    Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
     Duration speed = const Duration(milliseconds: 300),
-    super.pause,
-    super.onTap,
-    super.onNext,
-    super.onNextBeforePause,
-    super.onFinished,
-    super.isRepeatingAnimation,
-    super.totalRepeatCount,
-    super.repeatForever = true,
-    super.displayFullTextOnTap,
-    super.stopPauseOnTap,
+    Duration pause = const Duration(milliseconds: 1000),
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
+    bool isRepeatingAnimation = true,
+    int totalRepeatCount = 3,
+    bool repeatForever = true,
+    bool displayFullTextOnTap = false,
+    bool stopPauseOnTap = false,
   }) : super(
+          key: key,
           animatedTexts: _animatedTexts(text, textAlign, textStyle, speed),
+          pause: pause,
+          displayFullTextOnTap: displayFullTextOnTap,
+          stopPauseOnTap: stopPauseOnTap,
+          onTap: onTap,
+          onNext: onNext,
+          onNextBeforePause: onNextBeforePause,
+          onFinished: onFinished,
+          isRepeatingAnimation: isRepeatingAnimation,
+          totalRepeatCount: totalRepeatCount,
+          repeatForever: repeatForever,
         );
 
   static List<AnimatedText> _animatedTexts(

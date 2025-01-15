@@ -32,15 +32,18 @@ class RotateAnimatedText extends AnimatedText {
 
   RotateAnimatedText(
     String text, {
-    super.textAlign,
-    super.textStyle,
-    super.duration = const Duration(milliseconds: 2000),
+    TextAlign textAlign = TextAlign.start,
+    TextStyle? textStyle,
+    Duration duration = const Duration(milliseconds: 2000),
     this.transitionHeight,
     this.alignment = Alignment.center,
     this.textDirection = TextDirection.ltr,
     this.rotateOut = true,
   }) : super(
           text: text,
+          textAlign: textAlign,
+          textStyle: textStyle,
+          duration: duration,
         );
 
   late Animation<double> _fadeIn, _fadeOut;
@@ -119,7 +122,7 @@ class RotateAnimatedText extends AnimatedText {
 @Deprecated('Use AnimatedTextKit with RotateAnimatedText instead.')
 class RotateAnimatedTextKit extends AnimatedTextKit {
   RotateAnimatedTextKit({
-    super.key,
+    Key? key,
     required List<String> text,
     TextAlign textAlign = TextAlign.start,
     TextStyle? textStyle,
@@ -127,17 +130,18 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
     AlignmentGeometry alignment = Alignment.center,
     TextDirection textDirection = TextDirection.ltr,
     Duration duration = const Duration(milliseconds: 2000),
-    super.pause = const Duration(milliseconds: 500),
-    super.onTap,
-    super.onNext,
-    super.onNextBeforePause,
-    super.onFinished,
-    super.isRepeatingAnimation,
-    super.totalRepeatCount,
-    super.repeatForever,
-    super.displayFullTextOnTap,
-    super.stopPauseOnTap,
+    Duration pause = const Duration(milliseconds: 500),
+    VoidCallback? onTap,
+    void Function(int, bool)? onNext,
+    void Function(int, bool)? onNextBeforePause,
+    VoidCallback? onFinished,
+    bool isRepeatingAnimation = true,
+    int totalRepeatCount = 3,
+    bool repeatForever = false,
+    bool displayFullTextOnTap = false,
+    bool stopPauseOnTap = false,
   }) : super(
+          key: key,
           animatedTexts: _animatedTexts(
             text,
             textAlign,
@@ -147,6 +151,16 @@ class RotateAnimatedTextKit extends AnimatedTextKit {
             alignment,
             textDirection,
           ),
+          pause: pause,
+          displayFullTextOnTap: displayFullTextOnTap,
+          stopPauseOnTap: stopPauseOnTap,
+          onTap: onTap,
+          onNext: onNext,
+          onNextBeforePause: onNextBeforePause,
+          onFinished: onFinished,
+          isRepeatingAnimation: isRepeatingAnimation,
+          totalRepeatCount: totalRepeatCount,
+          repeatForever: repeatForever,
         );
 
   static List<AnimatedText> _animatedTexts(
