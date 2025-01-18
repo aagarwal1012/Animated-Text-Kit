@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   /// This widget is the root of your application.
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,10 +25,10 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   late List<AnimatedTextExample> _examples;
   int _index = 0;
   int _tapCount = 0;

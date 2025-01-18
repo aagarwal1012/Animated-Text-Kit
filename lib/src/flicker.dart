@@ -87,8 +87,8 @@ class FlickerAnimatedTextKit extends AnimatedTextKit {
     double entryEnd,
   ) =>
       text
-          .map((_) => FlickerAnimatedText(
-                _,
+          .map((text) => FlickerAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,

@@ -141,10 +141,10 @@ class AnimatedTextKit extends StatefulWidget {
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
-  _AnimatedTextKitState createState() => _AnimatedTextKitState();
+  AnimatedTextKitState createState() => AnimatedTextKitState();
 }
 
-class _AnimatedTextKitState extends State<AnimatedTextKit>
+class AnimatedTextKitState extends State<AnimatedTextKit>
     with TickerProviderStateMixin {
   late AnimationController _controller;
 

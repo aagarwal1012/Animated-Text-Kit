@@ -100,8 +100,8 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
     Duration speed,
   ) =>
       text
-          .map((_) => WavyAnimatedText(
-                _,
+          .map((text) => WavyAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
