@@ -73,10 +73,10 @@ class TextLiquidFill extends StatefulWidget {
 
   /// Creates the mutable state for this widget. See [StatefulWidget.createState].
   @override
-  _TextLiquidFillState createState() => _TextLiquidFillState();
+  TextLiquidFillState createState() => TextLiquidFillState();
 }
 
-class _TextLiquidFillState extends State<TextLiquidFill>
+class TextLiquidFillState extends State<TextLiquidFill>
     with TickerProviderStateMixin {
   final _textKey = GlobalKey();
 
@@ -189,7 +189,7 @@ class _WavePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final RenderBox? textBox =
-        textKey.currentContext!.findRenderObject() as RenderBox;
+        textKey.currentContext?.findRenderObject() as RenderBox?;
     if (textBox == null) return;
     final textHeight = textBox.size.height;
     final baseHeight =
