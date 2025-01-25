@@ -1,3 +1,8 @@
+## 4.2.3
+
+- **Feature:** Added `AnimatedTextController` to explicitly control animations. This allows developers more flexibility in managing animations. [#349](https://github.com/aagarwal1012/Animated-Text-Kit/pull/349)
+- **Enhancement:** Updated the example application to demonstrate the latest features and improvements. [#354](https://github.com/aagarwal1012/Animated-Text-Kit/pull/354)
+
 ## 4.2.2
 
 - Removed unused import statements.
