@@ -121,8 +121,8 @@ class ScaleAnimatedTextKit extends AnimatedTextKit {
     double scalingFactor,
   ) =>
       text
-          .map((_) => ScaleAnimatedText(
-                _,
+          .map((text) => ScaleAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 duration: duration,

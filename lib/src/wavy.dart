@@ -35,21 +35,21 @@ class WavyAnimatedText extends AnimatedText {
   @override
   Widget animatedBuilder(BuildContext context, Widget? child) {
     final defaultTextStyle = DefaultTextStyle.of(context).style;
-    final scaleFactor = MediaQuery.of(context).textScaleFactor;
+    final textScaler = MediaQuery.textScalerOf(context);
     return RepaintBoundary(
       child: CustomPaint(
         painter: _WTextPainter(
           progress: _waveAnim.value,
           text: text,
           textStyle: defaultTextStyle.merge(textStyle),
-          scaleFactor: scaleFactor,
+          textScaler: textScaler,
         ),
         child: Text(
           text,
           style: defaultTextStyle
               .merge(textStyle)
               .merge(TextStyle(color: Colors.transparent)),
-          textScaleFactor: scaleFactor,
+          textScaler: textScaler,
         ),
       ),
     );
@@ -100,8 +100,8 @@ class WavyAnimatedTextKit extends AnimatedTextKit {
     Duration speed,
   ) =>
       text
-          .map((_) => WavyAnimatedText(
-                _,
+          .map((text) => WavyAnimatedText(
+                text,
                 textAlign: textAlign,
                 textStyle: textStyle,
                 speed: speed,
@@ -114,10 +114,11 @@ class _WTextPainter extends CustomPainter {
     required this.progress,
     required this.text,
     required this.textStyle,
-    required this.scaleFactor,
+    required this.textScaler,
   });
 
-  final double progress, scaleFactor;
+  final double progress;
+  final TextScaler textScaler;
   final String text;
   // Private class to store text information
   final _textLayoutInfo = <_TextLayoutInfo>[];
@@ -204,7 +205,7 @@ class _WTextPainter extends CustomPainter {
         style: textStyle,
       ),
       textDirection: TextDirection.ltr,
-      textScaleFactor: scaleFactor,
+      textScaler: textScaler,
     )..layout();
 
     textPainter.paint(
@@ -227,7 +228,7 @@ class _WTextPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
       maxLines: 1,
-      textScaleFactor: scaleFactor,
+      textScaler: textScaler,
     );
 
     textPainter.layout();
