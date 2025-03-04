@@ -174,6 +174,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
   final wavyTextController = AnimatedTextController();
   final flickerController = AnimatedTextController();
   final combinationController = AnimatedTextController();
+  final scrambleController = AnimatedTextController();
 
   return <AnimatedTextExample>[
     AnimatedTextExample(
@@ -445,6 +446,53 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
             rotateOut: false,
             duration: const Duration(milliseconds: 400),
           )
+        ],
+      ),
+    ),
+    AnimatedTextExample(
+      label: 'Scramble',
+      color: Colors.orange[800],
+      controller: rotateController,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const SizedBox(
+                width: 20.0,
+                height: 100.0,
+              ),
+              const Text(
+                'Im a',
+                style: TextStyle(fontSize: 43.0),
+              ),
+              const SizedBox(
+                width: 16.0,
+                height: 100.0,
+              ),
+              DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: 40.0,
+                ),
+                child: AnimatedTextKit(
+                  animatedTexts: [
+                    ScrambleAnimatedText(
+                      'Mobile Dev.',
+                      speed: const Duration(
+                        milliseconds: 200,
+                      ),
+                    ),
+                    ScrambleAnimatedText('Explorer'),
+                  ],
+                  controller: scrambleController,
+                  onTap: onTap,
+                  isRepeatingAnimation: true,
+                  totalRepeatCount: 10,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     ),
