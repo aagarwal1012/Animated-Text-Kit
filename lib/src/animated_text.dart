@@ -246,7 +246,7 @@ class AnimatedTextKitState extends State<AnimatedTextKit>
     _controller = AnimationController(
       duration: _currentAnimatedText.duration,
       vsync: this,
-    );
+      animationBehavior: AnimationBehavior.preserve);
 
     _currentAnimatedText.initAnimation(_controller);
 
