@@ -169,6 +169,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
   final typerController = AnimatedTextController();
   final typewriterController = AnimatedTextController();
   final scaleController = AnimatedTextController();
+  final bounceController = AnimatedTextController();
   final colorizeController = AnimatedTextController();
   final textLiquidFillController = AnimatedTextController();
   final wavyTextController = AnimatedTextController();
@@ -311,6 +312,26 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
             ScaleAnimatedText('Ship'),
           ],
           controller: scaleController,
+          onTap: onTap,
+        ),
+      ),
+    ),
+    AnimatedTextExample(
+      label: 'Bounce',
+      color: Colors.amber[700],
+      controller: bounceController,
+      child: DefaultTextStyle(
+        style: const TextStyle(
+          fontSize: 60.0,
+          fontWeight: FontWeight.bold,
+        ),
+        child: AnimatedTextKit(
+          animatedTexts: [
+            BounceAnimatedText('Bounce!'),
+            BounceAnimatedText('Spring!'),
+            BounceAnimatedText('Jump!'),
+          ],
+          controller: bounceController,
           onTap: onTap,
         ),
       ),
