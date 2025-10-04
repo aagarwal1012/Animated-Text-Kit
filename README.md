@@ -13,11 +13,6 @@
     <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
       alt="Pub Package" />
   </a>
-  <a href="https://github.com/aagarwal1012/Animated-Text-Kit/actions?query=workflow%3ACI">
-    <img src="https://img.shields.io/github/workflow/status/aagarwal1012/Animated-Text-Kit/CI?logo=github"
-      alt="Build Status" />
-  </a>
-  <br>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/github/license/aagarwal1012/animated-text-kit?color=red"
       alt="License: MIT" />
@@ -25,10 +20,6 @@
   <a href="https://github.com/Solido/awesome-flutter#animation">
     <img src="https://img.shields.io/badge/Awesome-Flutter-FC60A8?logo=awesome-lists"
       alt="Awesome Flutter" />
-  </a>
-  <a href="https://www.paypal.me/aagarwal1012">
-    <img src="https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal"
-      alt="Donate" />
   </a>
 </p><br>
 
@@ -53,9 +44,11 @@
   - [Wavy](#wavy)
   - [Flicker](#flicker)
   - [Scramble](#scramble)
+  - [Bounce](#bounce)
   - [Create your own Animations](#create-your-own-animations)
 - [Bugs or Requests](#bugs-or-requests)
 - [Contributors](#contributors)
+- [Star History](#star-history)
 
 # Flutter Package of the Week
 
@@ -473,6 +466,32 @@ return SizedBox(
           speed: const Duration(milliseconds: 200),
         ),
         ScrambleAnimatedText('Explorer'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
+  ),
+);
+```
+
+## Bounce
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/bounce.gif?raw=true" align = "right" height = "300px">
+
+```dart
+return SizedBox(
+  width: 250.0,
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 60.0,
+      fontWeight: FontWeight.bold,
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        BounceAnimatedText('Bounce!'),
+        BounceAnimatedText('Spring!'),
+        BounceAnimatedText('Jump!'),
       ],
       onTap: () {
         print("Tap Event");
