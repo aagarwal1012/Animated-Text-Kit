@@ -13,3 +13,4 @@ export 'src/text_liquid_fill.dart';
 export 'src/wavy.dart';
 export 'src/flicker.dart';
 export 'src/scramble.dart';
+export 'src/bounce.dart';
