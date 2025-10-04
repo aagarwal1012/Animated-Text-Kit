@@ -1,3 +1,10 @@
+## 4.3.0
+
+**New Animated Text**
+
+- **Scramble Animated Text**: Added scramble animation that displays text with a scrambling effect, where characters randomly change before settling to the final text.
+- **Bounce Animated Text**: Added bounce animation that displays text with a bouncing effect, where text bounces in from below with an elastic curve.
+
 ## 4.2.3
 
 - **Feature:** Added `AnimatedTextController` to explicitly control animations. This allows developers more flexibility in managing animations. [#349](https://github.com/aagarwal1012/Animated-Text-Kit/pull/349)

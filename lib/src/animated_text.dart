@@ -193,18 +193,21 @@ class AnimatedTextKitState extends State<AnimatedTextKit>
   @override
   Widget build(BuildContext context) {
     final completeText = _currentAnimatedText.completeText(context);
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: _onTap,
-      child: _animatedTextController.state ==
-                  AnimatedTextState.pausedBetweenAnimations ||
-              !_controller.isAnimating
-          ? completeText
-          : AnimatedBuilder(
-              animation: _controller,
-              builder: _currentAnimatedText.animatedBuilder,
-              child: completeText,
-            ),
+    return Semantics(
+      label: _currentAnimatedText.text,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: _onTap,
+        child: _animatedTextController.state ==
+                    AnimatedTextState.pausedBetweenAnimations ||
+                !_controller.isAnimating
+            ? completeText
+            : AnimatedBuilder(
+                animation: _controller,
+                builder: _currentAnimatedText.animatedBuilder,
+                child: completeText,
+              ),
+      ),
     );
   }
 
@@ -244,9 +247,9 @@ class AnimatedTextKitState extends State<AnimatedTextKit>
     _currentAnimatedText = widget.animatedTexts[_index];
 
     _controller = AnimationController(
-      duration: _currentAnimatedText.duration,
-      vsync: this,
-    );
+        duration: _currentAnimatedText.duration,
+        vsync: this,
+        animationBehavior: AnimationBehavior.preserve);
 
     _currentAnimatedText.initAnimation(_controller);
 

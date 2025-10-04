@@ -13,15 +13,6 @@
     <img src="https://img.shields.io/pub/v/animated_text_kit.svg"
       alt="Pub Package" />
   </a>
-  <a href="https://github.com/aagarwal1012/Animated-Text-Kit/actions?query=workflow%3ACI">
-    <img src="https://img.shields.io/github/workflow/status/aagarwal1012/Animated-Text-Kit/CI?logo=github"
-      alt="Build Status" />
-  </a>
-  <br>
-  <a href="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit">
-    <img src="https://codecov.io/gh/aagarwal1012/Animated-Text-Kit/branch/master/graph/badge.svg"
-      alt="Codecov Coverage" />
-  </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/github/license/aagarwal1012/animated-text-kit?color=red"
       alt="License: MIT" />
@@ -29,10 +20,6 @@
   <a href="https://github.com/Solido/awesome-flutter#animation">
     <img src="https://img.shields.io/badge/Awesome-Flutter-FC60A8?logo=awesome-lists"
       alt="Awesome Flutter" />
-  </a>
-  <a href="https://www.paypal.me/aagarwal1012">
-    <img src="https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal"
-      alt="Donate" />
   </a>
 </p><br>
 
@@ -56,9 +43,12 @@
   - [TextLiquidFill](#textliquidfill)
   - [Wavy](#wavy)
   - [Flicker](#flicker)
+  - [Scramble](#scramble)
+  - [Bounce](#bounce)
   - [Create your own Animations](#create-your-own-animations)
 - [Bugs or Requests](#bugs-or-requests)
 - [Contributors](#contributors)
+- [Star History](#star-history)
 
 # Flutter Package of the Week
 
@@ -457,6 +447,60 @@ return SizedBox(
 );
 ```
 
+## Scramble
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/scramble.gif?raw=true" align = "right" height = "300px">
+
+```dart
+return SizedBox(
+  width: 250.0,
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 40.0,
+      fontWeight: FontWeight.bold,
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        ScrambleAnimatedText(
+          'Mobile Dev.',
+          speed: const Duration(milliseconds: 200),
+        ),
+        ScrambleAnimatedText('Explorer'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
+  ),
+);
+```
+
+## Bounce
+
+<img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/bounce.gif?raw=true" align = "right" height = "300px">
+
+```dart
+return SizedBox(
+  width: 250.0,
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 60.0,
+      fontWeight: FontWeight.bold,
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        BounceAnimatedText('Bounce!'),
+        BounceAnimatedText('Spring!'),
+        BounceAnimatedText('Jump!'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
+  ),
+);
+```
+
 ## Create your own Animations
 
 You can easily create your own animations by creating new classes that extend
@@ -490,42 +534,14 @@ If you encounter any problems feel free to open an [issue](https://github.com/aa
 
 See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
 
-# Contributors
+## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks to all our amazing contributors for their support and code!
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://salih.dev"><img src="https://avatars2.githubusercontent.com/u/24432752?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Muhammed Salih Guler</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Asalihgueler" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/anderscheow"><img src="https://avatars0.githubusercontent.com/u/11788504?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anders Cheow</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Aanderscheow" title="Bug reports">🐛</a> <a href="#ideas-anderscheow" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://rashiwal.me/"><img src="https://avatars2.githubusercontent.com/u/31043830?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rohit Ashiwal</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Ar1walz" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/AdamSGit"><img src="https://avatars3.githubusercontent.com/u/6126439?v=4?s=100" width="100px;" alt=""/><br /><sub><b>AdamSGit</b></sub></a><br /><a href="#ideas-AdamSGit" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-AdamSGit" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/hemilpanchiwala"><img src="https://avatars0.githubusercontent.com/u/42446679?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hemil Panchiwala</b></sub></a><br /><a href="#maintenance-hemilpanchiwala" title="Maintenance">🚧</a> <a href="#ideas-hemilpanchiwala" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=hemilpanchiwala" title="Documentation">📖</a> <a href="#example-hemilpanchiwala" title="Examples">💡</a></td>
-    <td align="center"><a href="https://yiminghan.com"><img src="https://avatars1.githubusercontent.com/u/10720534?v=4?s=100" width="100px;" alt=""/><br /><sub><b>YiMing Han</b></sub></a><br /><a href="#ideas-yiminghan" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/AadumKhor"><img src="https://avatars2.githubusercontent.com/u/37381075?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aayush Malhotra</b></sub></a><br /><a href="#maintenance-AadumKhor" title="Maintenance">🚧</a> <a href="#ideas-AadumKhor" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3AAadumKhor" title="Bug reports">🐛</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://anthonywhitford.com/"><img src="https://avatars2.githubusercontent.com/u/123887?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anthony Whitford</b></sub></a><br /><a href="#ideas-awhitford" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-awhitford" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://zzaning.com"><img src="https://avatars3.githubusercontent.com/u/12035097?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jordy Wong</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/issues?q=author%3Aaliyoge" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/SirusCodes"><img src="https://avatars0.githubusercontent.com/u/50910066?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Darshan Rander</b></sub></a><br /><a href="#ideas-SirusCodes" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=SirusCodes" title="Code">💻</a> <a href="#design-SirusCodes" title="Design">🎨</a></td>
-    <td align="center"><a href="https://jemmytech.com"><img src="https://avatars3.githubusercontent.com/u/17760450?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nsiah Akuoko Jeremiah</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=nakjemmy" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/aniketambore"><img src="https://avatars2.githubusercontent.com/u/52826253?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aniket Ambore</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=aniketambore" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://medium.com/@abhayvashokan"><img src="https://avatars1.githubusercontent.com/u/35297280?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhay V Ashokan</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=AbhayVAshokan" title="Code">💻</a></td>
-    <td align="center"><a href="https://linktr.ee/ritvij14"><img src="https://avatars.githubusercontent.com/u/51456744?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ritvij Kumar Sharma</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=ritvij14" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/Koniiro"><img src="https://avatars.githubusercontent.com/u/81352867?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Koniiro</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=Koniiro" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/CoderInTheWoods"><img src="https://avatars.githubusercontent.com/u/25412142?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kalgi Sheth</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=CoderInTheWoods" title="Code">💻</a> <a href="#example-CoderInTheWoods" title="Examples">💡</a> <a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=CoderInTheWoods" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/Mohitmadhav"><img src="https://avatars.githubusercontent.com/u/59333817?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohit_007</b></sub></a><br /><a href="https://github.com/aagarwal1012/Animated-Text-Kit/commits?author=Mohitmadhav" title="Documentation">📖</a></td>
-  </tr>
-</table>
+<a href="https://github.com/aagarwal1012/Animated-Text-Kit/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=aagarwal1012/Animated-Text-Kit" />
+</a>
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
+## Star History
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! See [Contributing.md](https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/CONTRIBUTING.md).
+[![Star History Chart](https://api.star-history.com/svg?repos=aagarwal1012/Animated-Text-Kit&type=Date)](https://star-history.com/#aagarwal1012/Animated-Text-Kit&Date)
