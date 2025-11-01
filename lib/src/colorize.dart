@@ -20,6 +20,14 @@ class ColorizeAnimatedText extends AnimatedText {
   /// By default it is set to [TextDirection.ltr]
   final TextDirection textDirection;
 
+  ///Specifies whether to fade in text when starting to render.
+  /// By default it is true.
+  final bool fadeInOnStart;
+
+  /// Specifies the curve for the color transition animation.
+  /// By default it is set to [Curves.easeIn]
+  final Curve animationCurve;
+
   ColorizeAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
@@ -27,6 +35,8 @@ class ColorizeAnimatedText extends AnimatedText {
     this.speed = const Duration(milliseconds: 200),
     required this.colors,
     this.textDirection = TextDirection.ltr,
+    this.fadeInOnStart = true,
+    this.animationCurve = Curves.easeIn,
   })  : assert(null != textStyle.fontSize),
         assert(colors.length > 1),
         super(
@@ -36,7 +46,7 @@ class ColorizeAnimatedText extends AnimatedText {
           duration: speed * text.characters.length,
         );
 
-  late Animation<double> _colorShifter, _fadeIn, _fadeOut;
+  late Animation<double> _colorShifter, _fadeIn;
   // Copy of colors that may be reversed when RTL.
   late List<Color> _colors;
 
@@ -48,17 +58,10 @@ class ColorizeAnimatedText extends AnimatedText {
         0.75 *
         (textCharacters.length / 15.0);
 
-    _fadeIn = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _fadeIn = Tween<double>(begin: fadeInOnStart ? 0.0 : 1.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
         curve: const Interval(0.0, 0.1, curve: Curves.easeOut),
-      ),
-    );
-
-    _fadeOut = Tween<double>(begin: 1.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.9, 1.0, curve: Curves.easeIn),
       ),
     );
 
@@ -75,7 +78,7 @@ class ColorizeAnimatedText extends AnimatedText {
     _colorShifter = colorTween.animate(
       CurvedAnimation(
         parent: controller,
-        curve: const Interval(0.0, 1.0, curve: Curves.easeIn),
+        curve: Interval(0.0, 1.0, curve: animationCurve),
       ),
     );
 
@@ -105,7 +108,7 @@ class ColorizeAnimatedText extends AnimatedText {
   @override
   Widget animatedBuilder(BuildContext context, Widget? child) {
     return Opacity(
-      opacity: _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+      opacity: _fadeIn.value,
       child: completeText(context),
     );
   }
