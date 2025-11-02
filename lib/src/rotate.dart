@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'animated_text.dart';
+
+/// Enum to control the slide direction.
+enum SlideDirection {
+  leftToRight,
+  rightToLeft,
+  topToBottom,
+  bottomToTop,
+}
 
 /// Animated Text that rotates a [Text] in and then out.
 ///
@@ -30,6 +39,11 @@ class RotateAnimatedText extends AnimatedText {
   /// By default, it is set to true.
   final bool rotateOut;
 
+  /// Control slide animation direction.
+  ///
+  /// By default. it is set to [SlideDirection.topToBottom]
+  final SlideDirection slideDirection;
+
   RotateAnimatedText(
     String text, {
     TextAlign textAlign = TextAlign.start,
@@ -39,6 +53,7 @@ class RotateAnimatedText extends AnimatedText {
     this.alignment = Alignment.center,
     this.textDirection = TextDirection.ltr,
     this.rotateOut = true,
+    this.slideDirection = SlideDirection.topToBottom,
   }) : super(
           text: text,
           textAlign: textAlign,
@@ -55,10 +70,35 @@ class RotateAnimatedText extends AnimatedText {
 
     final inIntervalEnd = rotateOut ? 0.4 : 1.0;
 
-    _slideIn = AlignmentTween(
-      begin: Alignment.topCenter.add(alignment).resolve(direction),
-      end: Alignment.center.add(alignment).resolve(direction),
-    ).animate(
+    late final AlignmentTween slideInTween;
+    switch (slideDirection) {
+      case SlideDirection.leftToRight:
+        slideInTween = AlignmentTween(
+          begin: Alignment.centerLeft.add(alignment).resolve(direction),
+          end: Alignment.center.add(alignment).resolve(direction),
+        );
+        break;
+      case SlideDirection.rightToLeft:
+        slideInTween = AlignmentTween(
+          begin: Alignment.centerRight.add(alignment).resolve(direction),
+          end: Alignment.center.add(alignment).resolve(direction),
+        );
+        break;
+      case SlideDirection.topToBottom:
+        slideInTween = AlignmentTween(
+          begin: Alignment.topCenter.add(alignment).resolve(direction),
+          end: Alignment.center.add(alignment).resolve(direction),
+        );
+        break;
+      case SlideDirection.bottomToTop:
+        slideInTween = AlignmentTween(
+          begin: Alignment.bottomCenter.add(alignment).resolve(direction),
+          end: Alignment.center.add(alignment).resolve(direction),
+        );
+        break;
+    }
+
+    _slideIn = slideInTween.animate(
       CurvedAnimation(
         parent: controller,
         curve: Interval(0.0, inIntervalEnd, curve: Curves.linear),
@@ -73,10 +113,35 @@ class RotateAnimatedText extends AnimatedText {
     );
 
     if (rotateOut) {
-      _slideOut = AlignmentTween(
-        begin: Alignment.center.add(alignment).resolve(direction),
-        end: Alignment.bottomCenter.add(alignment).resolve(direction),
-      ).animate(
+      late final AlignmentTween slideOutTween;
+      switch (slideDirection) {
+        case SlideDirection.leftToRight:
+          slideOutTween = AlignmentTween(
+            begin: Alignment.center.add(alignment).resolve(direction),
+            end: Alignment.centerRight.add(alignment).resolve(direction),
+          );
+          break;
+        case SlideDirection.rightToLeft:
+          slideOutTween = AlignmentTween(
+            begin: Alignment.center.add(alignment).resolve(direction),
+            end: Alignment.centerLeft.add(alignment).resolve(direction),
+          );
+          break;
+        case SlideDirection.topToBottom:
+          slideOutTween = AlignmentTween(
+            begin: Alignment.center.add(alignment).resolve(direction),
+            end: Alignment.bottomCenter.add(alignment).resolve(direction),
+          );
+          break;
+        case SlideDirection.bottomToTop:
+          slideOutTween = AlignmentTween(
+            begin: Alignment.center.add(alignment).resolve(direction),
+            end: Alignment.topCenter.add(alignment).resolve(direction),
+          );
+          break;
+      }
+
+      _slideOut = slideOutTween.animate(
         CurvedAnimation(
           parent: controller,
           curve: const Interval(0.7, 1.0, curve: Curves.linear),
