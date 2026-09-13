@@ -12,6 +12,8 @@ analyzer:
     invalid_annotation_target: ignore
     type_annotate_public_apis: false
     use_build_context_synchronously: warning
+  exclude:
+    - build/**
 
 fix:
   data:

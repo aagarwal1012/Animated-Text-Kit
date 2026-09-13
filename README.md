@@ -194,12 +194,7 @@ Row(
       style: TextStyle(fontSize: 43.0),
     ),
     const SizedBox(width: 20.0, height: 100.0),
-    DefaultTextStyle(
-      style: const TextStyle(
-        fontSize: 40.0,
-        fontFamily: 'Horizon',
-      ),
-      child: AnimatedTextKit(
+    AnimatedTextKit(
         animatedTexts: [
           RotateAnimatedText('AWESOME'),
           RotateAnimatedText('OPTIMISTIC'),
@@ -209,7 +204,7 @@ Row(
           print("Tap Event");
         },
       ),
-    ),
+    
   ],
 );
 ```
@@ -223,11 +218,6 @@ Row(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
-    ),
     child: AnimatedTextKit(
       animatedTexts: [
         FadeAnimatedText('do IT!'),
@@ -238,7 +228,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 
@@ -249,11 +239,7 @@ return SizedBox(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 30.0,
-      fontFamily: 'Bobbers',
-    ),
+
     child: AnimatedTextKit(
       animatedTexts: [
         TyperAnimatedText('It is not enough to do your best,'),
@@ -265,7 +251,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 
@@ -276,11 +262,7 @@ return SizedBox(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 30.0,
-      fontFamily: 'Agne',
-    ),
+
     child: AnimatedTextKit(
       animatedTexts: [
         TypewriterAnimatedText('Discipline is the best tool'),
@@ -292,7 +274,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 
@@ -303,11 +285,7 @@ return SizedBox(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 70.0,
-      fontFamily: 'Canterbury',
-    ),
+
     child: AnimatedTextKit(
       animatedTexts: [
         ScaleAnimatedText('Think'),
@@ -318,7 +296,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 
@@ -396,11 +374,7 @@ To get more information about how the animated text made from scratch by @HemilP
 <img src="https://github.com/aagarwal1012/Animated-Text-Kit/blob/master/display/wavy.gif?raw=true" align = "right" height = "300px">
 
 ```dart
-return DefaultTextStyle(
-  style: const TextStyle(
-    fontSize: 20.0,
-  ),
-  child: AnimatedTextKit(
+return  AnimatedTextKit(
     animatedTexts: [
       WavyAnimatedText('Hello World'),
       WavyAnimatedText('Look at the waves'),
@@ -409,7 +383,7 @@ return DefaultTextStyle(
     onTap: () {
       print("Tap Event");
     },
-  ),
+
 );
 ```
 
@@ -420,18 +394,7 @@ return DefaultTextStyle(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 35,
-      color: Colors.white,
-      shadows: [
-        Shadow(
-          blurRadius: 7.0,
-          color: Colors.white,
-          offset: Offset(0, 0),
-        ),
-      ],
-    ),
+
     child: AnimatedTextKit(
       repeatForever: true,
       animatedTexts: [
@@ -443,7 +406,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 
@@ -454,11 +417,7 @@ return SizedBox(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 40.0,
-      fontWeight: FontWeight.bold,
-    ),
+
     child: AnimatedTextKit(
       animatedTexts: [
         ScrambleAnimatedText(
@@ -471,7 +430,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 
@@ -482,11 +441,7 @@ return SizedBox(
 ```dart
 return SizedBox(
   width: 250.0,
-  child: DefaultTextStyle(
-    style: const TextStyle(
-      fontSize: 60.0,
-      fontWeight: FontWeight.bold,
-    ),
+
     child: AnimatedTextKit(
       animatedTexts: [
         BounceAnimatedText('Bounce!'),
@@ -497,7 +452,7 @@ return SizedBox(
         print("Tap Event");
       },
     ),
-  ),
+
 );
 ```
 

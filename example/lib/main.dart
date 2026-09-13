@@ -196,15 +196,9 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
                 'Be',
                 style: TextStyle(fontSize: 43.0),
               ),
-              const SizedBox(
+               SizedBox(
                 width: 20.0,
                 height: 100.0,
-              ),
-              DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 40.0,
-                  fontFamily: 'Horizon',
-                ),
                 child: AnimatedTextKit(
                   animatedTexts: [
                     RotateAnimatedText('AWESOME'),
@@ -221,7 +215,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
                   isRepeatingAnimation: true,
                   totalRepeatCount: 10,
                 ),
-              ),
+              )
             ],
           ),
         ],
@@ -231,20 +225,14 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
       label: 'Fade',
       color: Colors.brown[600],
       controller: fadeController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 32.0,
-          fontWeight: FontWeight.bold,
-        ),
-        child: AnimatedTextKit(
-          animatedTexts: [
-            FadeAnimatedText('do IT!'),
-            FadeAnimatedText('do it RIGHT!!'),
-            FadeAnimatedText('do it RIGHT NOW!!!'),
-          ],
-          controller: fadeController,
-          onTap: onTap,
-        ),
+      child: AnimatedTextKit(
+        animatedTexts: [
+          FadeAnimatedText('do IT!'),
+          FadeAnimatedText('do it RIGHT!!'),
+          FadeAnimatedText('do it RIGHT NOW!!!'),
+        ],
+        controller: fadeController,
+        onTap: onTap,
       ),
     ),
     AnimatedTextExample(
@@ -253,21 +241,15 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
       controller: typerController,
       child: SizedBox(
         width: 250.0,
-        child: DefaultTextStyle(
-          style: const TextStyle(
-            fontSize: 30.0,
-            fontFamily: 'Bobbers',
-          ),
-          child: AnimatedTextKit(
-            animatedTexts: [
-              TyperAnimatedText('It is not enough to do your best,'),
-              TyperAnimatedText('you must know what to do,'),
-              TyperAnimatedText('and then do your best'),
-              TyperAnimatedText('- W.Edwards Deming'),
-            ],
-            controller: typerController,
-            onTap: onTap,
-          ),
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TyperAnimatedText('It is not enough to do your best,'),
+            TyperAnimatedText('you must know what to do,'),
+            TyperAnimatedText('and then do your best'),
+            TyperAnimatedText('- W.Edwards Deming'),
+          ],
+          controller: typerController,
+          onTap: onTap,
         ),
       ),
     ),
@@ -277,23 +259,17 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
       controller: typewriterController,
       child: SizedBox(
         width: 250.0,
-        child: DefaultTextStyle(
-          style: const TextStyle(
-            fontSize: 30.0,
-            fontFamily: 'Agne',
-          ),
-          child: AnimatedTextKit(
-            animatedTexts: [
-              TypewriterAnimatedText('Discipline is the best tool'),
-              TypewriterAnimatedText('Design first, then code', cursor: '|'),
-              TypewriterAnimatedText('Do not patch bugs out, rewrite them',
-                  cursor: '<|>'),
-              TypewriterAnimatedText('Do not test bugs out, design them out',
-                  cursor: '💡'),
-            ],
-            controller: typewriterController,
-            onTap: onTap,
-          ),
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText('Discipline is the best tool'),
+            TypewriterAnimatedText('Design first, then code', cursor: '|'),
+            TypewriterAnimatedText('Do not patch bugs out, rewrite them',
+                cursor: '<|>'),
+            TypewriterAnimatedText('Do not test bugs out, design them out',
+                cursor: '💡'),
+          ],
+          controller: typewriterController,
+          onTap: onTap,
         ),
       ),
     ),
@@ -301,11 +277,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
       label: 'Scale',
       color: Colors.blue[700],
       controller: scaleController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 70.0,
-          fontFamily: 'Canterbury',
-        ),
+      
         child: AnimatedTextKit(
           animatedTexts: [
             ScaleAnimatedText('Think'),
@@ -315,17 +287,13 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
           controller: scaleController,
           onTap: onTap,
         ),
-      ),
+      
     ),
     AnimatedTextExample(
       label: 'Bounce',
       color: Colors.amber[700],
       controller: bounceController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 60.0,
-          fontWeight: FontWeight.bold,
-        ),
+    
         child: AnimatedTextKit(
           animatedTexts: [
             BounceAnimatedText('Bounce!'),
@@ -335,7 +303,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
           controller: bounceController,
           onTap: onTap,
         ),
-      ),
+      
     ),
     AnimatedTextExample(
       label: 'Colorize',
@@ -382,10 +350,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
       label: 'Wavy Text',
       color: Colors.purple,
       controller: wavyTextController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 20.0,
-        ),
+      
         child: AnimatedTextKit(
           animatedTexts: [
             WavyAnimatedText(
@@ -401,24 +366,13 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
           controller: wavyTextController,
           onTap: onTap,
         ),
-      ),
+      
     ),
     AnimatedTextExample(
       label: 'Flicker',
       color: Colors.pink[300],
       controller: flickerController,
-      child: DefaultTextStyle(
-        style: const TextStyle(
-          fontSize: 35,
-          color: Colors.white,
-          shadows: [
-            Shadow(
-              blurRadius: 7.0,
-              color: Colors.white,
-              offset: Offset(0, 0),
-            ),
-          ],
-        ),
+      
         child: AnimatedTextKit(
           repeatForever: true,
           animatedTexts: [
@@ -429,7 +383,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
           onTap: onTap,
           controller: flickerController,
         ),
-      ),
+      
     ),
     AnimatedTextExample(
       label: 'Combination',
@@ -492,11 +446,8 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
                 width: 16.0,
                 height: 100.0,
               ),
-              DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 40.0,
-                ),
-                child: AnimatedTextKit(
+             
+                AnimatedTextKit(
                   animatedTexts: [
                     ScrambleAnimatedText(
                       'Mobile Dev.',
@@ -511,7 +462,7 @@ List<AnimatedTextExample> animatedTextExamples({VoidCallback? onTap}) {
                   isRepeatingAnimation: true,
                   totalRepeatCount: 10,
                 ),
-              ),
+              
             ],
           ),
         ],
