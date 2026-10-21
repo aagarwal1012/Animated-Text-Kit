@@ -175,6 +175,8 @@ class AnimatedTextKitState extends State<AnimatedTextKit>
         AnimatedTextState.pausedByUser) {
       _controller.stop();
     } else if (_animatedTextController.state == AnimatedTextState.reset) {
+      _timer?.cancel();
+      _timer = null;
       _controller.reset();
       _animatedTextController.state = AnimatedTextState.playing;
     }
